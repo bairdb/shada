@@ -1,0 +1,182 @@
+require 'mysql2'
+
+module MYSQL2
+  include Enumerable
+  
+  def self.included(base)
+    base.extend ClassMethods
+  end
+
+  module ClassMethods
+    
+  end
+  
+  def get_primary table
+    get_connection.get_primary ENV['DB'], table
+  end
+  
+  def get_fields table
+    get_connection.get_fields(table)
+  end
+  
+  def get_ids result
+    ids = []
+    result.each do |row|
+      ids.push row[@primary_sym]
+    end
+    
+    ids
+  end
+  
+  def find_parent
+    val = instance_variable_get("@#{belongs_to_hash[:col]}")
+    @parent = get_connection.find belongs_to_hash[:table], '*', {:id => val}, 'id ASC'
+    puts @parent
+  end
+  
+  def find params, table=nil
+    table = table.nil? ? @table : table
+    @records = nil
+    @records = []
+    @update = true
+    
+    if not cache.pull params.to_s
+      result = get_connection.find table, '*', params, "id ASC"
+      kresult = get_connection.find table, 'id', params, "id ASC"
+      cache.store params.to_s, {:result => result, :ids => get_ids(kresult)}
+    else
+      result = cache.pull(params.to_s)[:result]
+      #puts @cache.pull(params)[:ids]
+      puts "cache"
+    end
+    
+    case result.count
+    when 0
+      puts "No results"
+    when 1
+      r = result.first
+      @fields.each do |m|
+        #puts "#{m} = #{r[m.to_sym]}"
+        instance_variable_set("@#{m}", r[m.to_sym])
+      end
+      
+      #find_parent
+      @records.push self
+    else
+      
+      result.each do |r|
+        obj = self.class.new
+        @records.push obj.find(@primary_sym => r[@primary_sym])
+      end
+      
+      return @records
+    end
+    
+    #save_cache table, cache
+    
+    if table.nil?
+      return self
+    else
+      return @records
+    end
+  end
+  
+  def save
+    @saving = true
+    table = self.class.name
+    
+    if not @update
+      insert table
+    else
+      update table
+    end
+  end
+  
+  def insert table
+    keys = []
+    values = []
+    get_fields(table).each do |m|
+      if m.to_s != @primary.to_s
+        keys.push m
+        values.push instance_variable_get("@#{m}")
+      end
+    end
+    ret = get_connection.insert table, keys, values
+    
+    puts ret
+    @saving = false
+    self
+  end
+  
+  def update table
+    fields = {}
+    primary_value = instance_variable_get("@#{@primary}")
+    get_fields(table).each do |m|
+      if m.to_s != @primary.to_s
+        fields[m.to_sym] = instance_variable_get("@#{m}")
+      end
+    end
+    get_connection.update table, fields, primary_value, @primary
+    update_cache primary_value
+    @saving = false
+    self
+  end
+  
+  def destroy
+    table = self.class.name
+    primary_value = instance_variable_get("@#{@primary}")
+    get_connection.destroy table, primary_value, @primary
+    update_cache primary_value
+    self
+  end
+  
+  def add_column name, args, block
+    table = self.class.name
+    
+    val = args[0]
+    
+    type, length = get_column_type val
+    
+    valid_name = name.to_s.gsub(/=/, "").to_s
+    get_connection.add_column table, valid_name, type, length
+    
+    instance_variable_set("@#{valid_name}", val)
+    
+    puts "Creating Column with #{valid_name}, #{val}, #{type}"
+  end
+  
+  def get_column_type val
+    if val.is_a?(String)
+      if val.size < 256
+        type = "VARCHAR"
+        length = 255
+      else
+        type = "TEXT"
+        length = ""
+      end
+    elsif val.is_a?(Bignum) or val.is_a?(Fixnum)
+      type = "INT"
+      length = ""
+    elsif val.is_a?(FLOAT)
+      type = "INT"
+      length = ""
+    elsif val.nil?
+      type = "VARCHAR"
+      length = 255
+    end
+    
+    return type, length
+  end
+  
+  def update_cache primary_val
+    cache.each_page do |page|
+      page.value[:ids].find do |i|
+        #puts "Size: #{@cache.size}"
+        cache.remove_node page if i.to_i == primary_val.to_i
+        #puts "Size: #{@cache.size}"
+      end
+    end
+  end
+  
+end
+
