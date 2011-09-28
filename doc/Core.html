@@ -1,0 +1,1118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: Core</title>
+
+	<link rel="stylesheet" href="./rdoc.css" type="text/css" media="screen" />
+
+	<script src="./js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="./index.html">Home</a>
+          <a href="./index.html#classes">Classes</a>
+          <a href="./index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="./lib/shada_data/core_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/shada_data/core.rb">lib/shada_data/core.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">Object</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-add_method">::add_method</a></li>
+					
+					<li><a href="#method-c-belongs_to">::belongs_to</a></li>
+					
+					<li><a href="#method-c-cache">::cache</a></li>
+					
+					<li><a href="#method-c-connect">::connect</a></li>
+					
+					<li><a href="#method-c-connection">::connection</a></li>
+					
+					<li><a href="#method-c-create">::create</a></li>
+					
+					<li><a href="#method-c-create_row">::create_row</a></li>
+					
+					<li><a href="#method-c-has_many">::has_many</a></li>
+					
+					<li><a href="#method-c-has_one">::has_one</a></li>
+					
+					<li><a href="#method-c-new">::new</a></li>
+					
+					<li><a href="#method-c-persist">::persist</a></li>
+					
+					<li><a href="#method-c-persist_exists">::persist_exists</a></li>
+					
+					<li><a href="#method-c-persist_load">::persist_load</a></li>
+					
+					<li><a href="#method-c-setup">::setup</a></li>
+					
+					<li><a href="#method-i-belongs_to_hash">#belongs_to_hash</a></li>
+					
+					<li><a href="#method-i-cache">#cache</a></li>
+					
+					<li><a href="#method-i-get_connection">#get_connection</a></li>
+					
+					<li><a href="#method-i-method_missing">#method_missing</a></li>
+					
+					<li><a href="#method-i-save_cache">#save_cache</a></li>
+					
+					<li><a href="#method-i-select_adapter">#select_adapter</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+			<div id="includes-section" class="section">
+				<h3 class="section-header">Included Modules</h3>
+				<ul class="link-list">
+				
+				
+					<li><a class="include" href="Shada/Benchmark.html">Shada::Benchmark</a></li>
+				
+				
+				</ul>
+			</div>
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="./LICENSE.html">LICENSE</a></li>
+				
+					<li class="file"><a href="./README.html">README</a></li>
+				
+					<li class="file"><a href="./Rakefile.html">Rakefile</a></li>
+				
+					<li class="file"><a href="./nbproject/private/rake-d_txt.html">rake-d.txt</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="./images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="./Shada.html">Shada</a></li>
+				
+					<li><a href="./Shada/Adapter.html">Shada::Adapter</a></li>
+				
+					<li><a href="./Shada/Adapter/MYSQL2.html">Shada::Adapter::MYSQL2</a></li>
+				
+					<li><a href="./Shada/Adapter/MongoDB.html">Shada::Adapter::MongoDB</a></li>
+				
+					<li><a href="./Shada/Adapter/SQLite.html">Shada::Adapter::SQLite</a></li>
+				
+					<li><a href="./Shada/Adapter/SQLite/ClassMethods.html">Shada::Adapter::SQLite::ClassMethods</a></li>
+				
+					<li><a href="./Shada/App.html">Shada::App</a></li>
+				
+					<li><a href="./Shada/Benchmark.html">Shada::Benchmark</a></li>
+				
+					<li><a href="./Shada/Data.html">Shada::Data</a></li>
+				
+					<li><a href="./Shada/Data/Cache.html">Shada::Data::Cache</a></li>
+				
+					<li><a href="./Shada/Data/MYSQL.html">Shada::Data::MYSQL</a></li>
+				
+					<li><a href="./Shada/Data/MYSQL2.html">Shada::Data::MYSQL2</a></li>
+				
+					<li><a href="./Shada/Data/MYSQL2/ClassMethods.html">Shada::Data::MYSQL2::ClassMethods</a></li>
+				
+					<li><a href="./Shada/Data/MongoDB.html">Shada::Data::MongoDB</a></li>
+				
+					<li><a href="./Shada/Data/MongoDB/ClassMethods.html">Shada::Data::MongoDB::ClassMethods</a></li>
+				
+					<li><a href="./Shada/Data/SQLite.html">Shada::Data::SQLite</a></li>
+				
+					<li><a href="./Shada/Engine.html">Shada::Engine</a></li>
+				
+					<li><a href="./Shada/EngineBuild.html">Shada::EngineBuild</a></li>
+				
+					<li><a href="./Shada/Headers.html">Shada::Headers</a></li>
+				
+					<li><a href="./Shada/Multipart_Parser.html">Shada::Multipart_Parser</a></li>
+				
+					<li><a href="./Shada/NetString.html">Shada::NetString</a></li>
+				
+					<li><a href="./Shada/Persist.html">Shada::Persist</a></li>
+				
+					<li><a href="./Shada/Query.html">Shada::Query</a></li>
+				
+					<li><a href="./Shada/Request.html">Shada::Request</a></li>
+				
+					<li><a href="./Shada/Response.html">Shada::Response</a></li>
+				
+					<li><a href="./Shada/Session.html">Shada::Session</a></li>
+				
+					<li><a href="./Shada/Setup.html">Shada::Setup</a></li>
+				
+					<li><a href="./Shada/Setup/ClassMethods.html">Shada::Setup::ClassMethods</a></li>
+				
+					<li><a href="./Shada/Upload.html">Shada::Upload</a></li>
+				
+					<li><a href="./Category.html">Category</a></li>
+				
+					<li><a href="./Collection.html">Collection</a></li>
+				
+					<li><a href="./Core.html">Core</a></li>
+				
+					<li><a href="./Pages.html">Pages</a></li>
+				
+					<li><a href="./Test.html">Test</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">Core</h1>
+
+		<div id="description">
+			
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+		<div id="attribute-method-details" class="method-section section">
+			<h3 class="section-header">Attributes</h3>
+
+			
+			<div id="fields-attribute-method" class="method-detail">
+				<a name="fields"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">fields</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="records-attribute-method" class="method-detail">
+				<a name="records"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">records</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="parent-attribute-method" class="method-detail">
+				<a name="parent"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">parent</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="children-attribute-method" class="method-detail">
+				<a name="children"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">children</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+		</div>
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="add-method-method" class="method-detail ">
+				<a name="method-c-add_method"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">add_method</span><span
+						class="method-args">(name)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="add-method-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/core.rb, line 114</span>
+114:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_method</span> <span class="ruby-identifier">name</span>
+115:       <span class="ruby-identifier">define_method</span>(<span class="ruby-identifier">name</span>) <span class="ruby-keyword kw">do</span>
+116:        <span class="ruby-identifier">instance_variable_get</span>(<span class="ruby-node">&quot;@#{name}&quot;</span>)
+117:       <span class="ruby-keyword kw">end</span>
+118: 
+119:       <span class="ruby-identifier">define_method</span>(<span class="ruby-node">&quot;#{name}=&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">val</span><span class="ruby-operator">|</span>
+120:        <span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-node">&quot;@#{name}&quot;</span>,<span class="ruby-identifier">val</span>)
+121:       <span class="ruby-keyword kw">end</span>
+122:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="belongs-to-method" class="method-detail ">
+				<a name="method-c-belongs_to"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">belongs_to</span><span
+						class="method-args">(table, col)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+DB methods
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="belongs-to-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/core.rb, line 126</span>
+126:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">belongs_to</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">col</span>
+127:       <span class="ruby-identifier">@@belongs_to_hash</span> = {<span class="ruby-value">:table</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">table</span>, <span class="ruby-value">:col</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">col</span>}      
+128:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="cache-method" class="method-detail ">
+				<a name="method-c-cache"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">cache</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="cache-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/shada_data/core.rb, line 64</span>
+64:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cache</span>
+65:       <span class="ruby-identifier">@@cache</span>
+66:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="connect-method" class="method-detail ">
+				<a name="method-c-connect"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">connect</span><span
+						class="method-args">(hash)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="connect-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/shada_data/core.rb, line 68</span>
+68:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">connect</span> <span class="ruby-identifier">hash</span>
+69:       <span class="ruby-identifier">@@hash</span> = <span class="ruby-identifier">hash</span>
+70:       <span class="ruby-constant">ENV</span>[<span class="ruby-value str">'DB'</span>] = <span class="ruby-identifier">hash</span>[<span class="ruby-value">:database</span>]
+71:       <span class="ruby-identifier">adapter</span> = <span class="ruby-identifier">hash</span>[<span class="ruby-value">:adapter</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'mysql'</span>
+72:       <span class="ruby-identifier">hash</span>[<span class="ruby-value">:host</span>] = <span class="ruby-identifier">hash</span>[<span class="ruby-value">:host</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'localhost'</span>
+73:       <span class="ruby-identifier">hash</span>[<span class="ruby-value">:username</span>] = <span class="ruby-identifier">hash</span>[<span class="ruby-value">:username</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'root'</span>
+74:       <span class="ruby-identifier">hash</span>[<span class="ruby-value">:password</span>] = <span class="ruby-identifier">hash</span>[<span class="ruby-value">:password</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">''</span>
+75:       <span class="ruby-identifier">hash</span>[<span class="ruby-value">:table</span>] = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">name</span>
+76:       
+77:       <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">adapter</span>
+78:         <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">nil</span>
+79:           <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Adapter Not Specified&quot;</span>
+80:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;mysql&quot;</span>
+81:           <span class="ruby-identifier">@@conn</span> = <span class="ruby-constant">Shada</span><span class="ruby-operator">::</span><span class="ruby-constant">Data</span><span class="ruby-operator">::</span><span class="ruby-constant">MYSQL2</span>.<span class="ruby-identifier">new</span>
+82:           <span class="ruby-identifier">@@conn</span>.<span class="ruby-identifier">connect</span> <span class="ruby-identifier">hash</span>
+83:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;mongodb&quot;</span>
+84:           <span class="ruby-identifier">@@conn</span> = <span class="ruby-constant">Shada</span><span class="ruby-operator">::</span><span class="ruby-constant">Data</span><span class="ruby-operator">::</span><span class="ruby-constant">MongoDB</span>.<span class="ruby-identifier">new</span>
+85:           <span class="ruby-identifier">@@conn</span>.<span class="ruby-identifier">connect</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:table</span>]
+86:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;sqlite&quot;</span>
+87:           <span class="ruby-identifier">@@conn</span> = <span class="ruby-constant">Shada</span><span class="ruby-operator">::</span><span class="ruby-constant">Data</span><span class="ruby-operator">::</span><span class="ruby-constant">SQLite</span>.<span class="ruby-identifier">new</span>
+88:           <span class="ruby-identifier">@@conn</span>.<span class="ruby-identifier">connect</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:database</span>]
+89:         <span class="ruby-keyword kw">else</span>
+90:           <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Unknown Error&quot;</span>
+91:       <span class="ruby-keyword kw">end</span>
+92:       
+93:       <span class="ruby-identifier">setup</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">name</span>
+94:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="connection-method" class="method-detail ">
+				<a name="method-c-connection"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">connection</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="connection-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/shada_data/core.rb, line 60</span>
+60:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">connection</span>
+61:       <span class="ruby-identifier">@@conn</span>
+62:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="create-method" class="method-detail ">
+				<a name="method-c-create"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">create</span><span
+						class="method-args">(table, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="create-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/core.rb, line 138</span>
+138:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create</span> <span class="ruby-identifier">table</span>, &amp;<span class="ruby-identifier">block</span>
+139:       <span class="ruby-ivar">@new_table</span> = <span class="ruby-identifier">table</span>
+140:       <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">create_table</span> <span class="ruby-identifier">table</span>, {}
+141:       <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>
+142:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="create-row-method" class="method-detail ">
+				<a name="method-c-create_row"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">create_row</span><span
+						class="method-args">(hash)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="create-row-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/core.rb, line 144</span>
+144:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_row</span> <span class="ruby-identifier">hash</span>
+145:       <span class="ruby-identifier">hash</span>[<span class="ruby-value">:length</span>] = <span class="ruby-identifier">hash</span>[<span class="ruby-value">:length</span>] <span class="ruby-operator">?</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:length</span>] <span class="ruby-operator">:</span> <span class="ruby-value">0</span>
+146:       <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:table</span>].<span class="ruby-identifier">nil?</span>
+147:         <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">add_column</span> <span class="ruby-ivar">@new_table</span>, <span class="ruby-identifier">hash</span>[<span class="ruby-value">:name</span>], <span class="ruby-identifier">hash</span>[<span class="ruby-value">:type</span>], <span class="ruby-identifier">hash</span>[<span class="ruby-value">:length</span>]
+148:       <span class="ruby-keyword kw">else</span>
+149:         <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">add_column</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:table</span>], <span class="ruby-identifier">hash</span>[<span class="ruby-value">:name</span>], <span class="ruby-identifier">hash</span>[<span class="ruby-value">:type</span>], <span class="ruby-identifier">hash</span>[<span class="ruby-value">:length</span>]
+150:       <span class="ruby-keyword kw">end</span>
+151:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="has-many-method" class="method-detail ">
+				<a name="method-c-has_many"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">has_many</span><span
+						class="method-args">(table, col)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="has-many-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/core.rb, line 134</span>
+134:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_many</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">col</span>
+135:       
+136:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="has-one-method" class="method-detail ">
+				<a name="method-c-has_one"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">has_one</span><span
+						class="method-args">(table, col)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="has-one-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/core.rb, line 130</span>
+130:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_one</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">col</span>
+131:       
+132:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="method-c-new"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Instance Methods
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/shada_data/core.rb, line 25</span>
+25:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+26:     <span class="ruby-ivar">@update</span> = <span class="ruby-keyword kw">false</span>
+27:     <span class="ruby-ivar">@saving</span> = <span class="ruby-keyword kw">false</span>
+28:     <span class="ruby-ivar">@records</span> = []
+29:     <span class="ruby-ivar">@cols</span> = []
+30:     <span class="ruby-ivar">@new_table</span> = <span class="ruby-value str">&quot;&quot;</span>
+31:     <span class="ruby-ivar">@parent</span> = []
+32:     <span class="ruby-ivar">@children</span> = []
+33:     <span class="ruby-identifier">select_adapter</span>
+34:     <span class="ruby-ivar">@table</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">downcase</span>
+35:     <span class="ruby-ivar">@primary</span> = <span class="ruby-identifier">get_primary</span> <span class="ruby-ivar">@table</span>
+36:     <span class="ruby-ivar">@primary_sym</span> = <span class="ruby-ivar">@primary</span>.<span class="ruby-identifier">to_sym</span>
+37:     <span class="ruby-ivar">@fields</span> = <span class="ruby-identifier">get_fields</span> <span class="ruby-ivar">@table</span>
+38:     <span class="ruby-keyword kw">self</span>
+39:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="persist-method" class="method-detail ">
+				<a name="method-c-persist"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">persist</span><span
+						class="method-args">(file_name, obj)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="persist-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/core.rb, line 153</span>
+153:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">persist</span> <span class="ruby-identifier">file_name</span>, <span class="ruby-identifier">obj</span>
+154:       <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-node">&quot;#{CACHE_DIR}#{file_name}&quot;</span>,<span class="ruby-value str">&quot;wb&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+155:          <span class="ruby-constant">Marshal</span><span class="ruby-operator">::</span><span class="ruby-identifier">dump</span>(<span class="ruby-identifier">obj</span>,<span class="ruby-identifier">file</span>)
+156:       <span class="ruby-keyword kw">end</span>
+157:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="persist-exists-method" class="method-detail ">
+				<a name="method-c-persist_exists"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">persist_exists</span><span
+						class="method-args">(file_name)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="persist-exists-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/core.rb, line 163</span>
+163:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">persist_exists</span> <span class="ruby-identifier">file_name</span>
+164:       <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-node">&quot;#{CACHE_DIR}#{file_name}&quot;</span>)
+165:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="persist-load-method" class="method-detail ">
+				<a name="method-c-persist_load"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">persist_load</span><span
+						class="method-args">(file_name)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="persist-load-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/core.rb, line 159</span>
+159:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">persist_load</span> <span class="ruby-identifier">file_name</span>
+160:       <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-node">&quot;#{CACHE_DIR}#{file_name}&quot;</span>,<span class="ruby-value str">&quot;rb&quot;</span>) {<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Marshal</span><span class="ruby-operator">::</span><span class="ruby-identifier">load</span>(<span class="ruby-identifier">f</span>)}
+161:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="setup-method" class="method-detail ">
+				<a name="method-c-setup"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">setup</span><span
+						class="method-args">(table)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="setup-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/core.rb, line 96</span>
+ 96:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">setup</span> <span class="ruby-identifier">table</span>
+ 97:       <span class="ruby-identifier">@@cache</span> = <span class="ruby-constant">Shada</span><span class="ruby-operator">::</span><span class="ruby-constant">Data</span><span class="ruby-operator">::</span><span class="ruby-constant">Cache</span>.<span class="ruby-identifier">new</span> <span class="ruby-value">100</span>
+ 98:       <span class="ruby-comment cmt">#if not Core::persist_exists &quot;cache_#{table}.tmp&quot;</span>
+ 99:         
+100:       <span class="ruby-comment cmt">#  Core::persist &quot;cache_#{table}.tmp&quot;, @@cache</span>
+101:       <span class="ruby-comment cmt">#else</span>
+102:       <span class="ruby-comment cmt">#  @@cache = Core::persist_load &quot;cache_#{table}.tmp&quot;</span>
+103:       <span class="ruby-comment cmt">#end</span>
+104:       
+105:       <span class="ruby-comment cmt">#puts @@cache.size</span>
+106:       
+107:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">@@hash</span>[<span class="ruby-value">:adapter</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'mongodb'</span>
+108:         <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">get_fields</span>(<span class="ruby-identifier">table</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>
+109:           <span class="ruby-identifier">add_method</span> <span class="ruby-identifier">m</span>
+110:         <span class="ruby-keyword kw">end</span>
+111:       <span class="ruby-keyword kw">end</span>
+112:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="belongs-to-hash-method" class="method-detail ">
+				<a name="method-i-belongs_to_hash"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">belongs_to_hash</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="belongs-to-hash-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/core.rb, line 179</span>
+179:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">belongs_to_hash</span>
+180:     <span class="ruby-identifier">@@belongs_to_hash</span>
+181:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="cache-method" class="method-detail ">
+				<a name="method-i-cache"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">cache</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Utility Methods
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="cache-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/core.rb, line 171</span>
+171:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cache</span>
+172:     <span class="ruby-identifier">@@cache</span>
+173:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="get-connection-method" class="method-detail ">
+				<a name="method-i-get_connection"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">get_connection</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="get-connection-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/core.rb, line 175</span>
+175:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_connection</span>
+176:     <span class="ruby-identifier">@@conn</span>
+177:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="method-missing-method" class="method-detail ">
+				<a name="method-i-method_missing"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">method_missing</span><span
+						class="method-args">(name, *args, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="method-missing-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/core.rb, line 187</span>
+187:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">method_missing</span> <span class="ruby-identifier">name</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>
+188:     <span class="ruby-keyword kw">return</span> <span class="ruby-value str">&quot;ghost method&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^find_(.*)_by_(.*)/</span>
+189:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">add_column</span> <span class="ruby-identifier">name</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">block</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^(.*)=/</span>
+190:     <span class="ruby-keyword kw">super</span>
+191:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="save-cache-method" class="method-detail ">
+				<a name="method-i-save_cache"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">save_cache</span><span
+						class="method-args">(table, cache)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="save-cache-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/core.rb, line 183</span>
+183:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">save_cache</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">cache</span>
+184:     <span class="ruby-constant">Core</span><span class="ruby-operator">::</span><span class="ruby-identifier">persist</span> <span class="ruby-node">&quot;cache_#{table}.tmp&quot;</span>, <span class="ruby-identifier">cache</span>
+185:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="select-adapter-method" class="method-detail ">
+				<a name="method-i-select_adapter"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">select_adapter</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="select-adapter-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/shada_data/core.rb, line 41</span>
+41:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">select_adapter</span>
+42:     <span class="ruby-identifier">adapter</span> = <span class="ruby-identifier">@@hash</span>[<span class="ruby-value">:adapter</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'mysql'</span>
+43:     
+44:     <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">adapter</span>
+45:     <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">nil</span>
+46:       <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Adapter Not Specified&quot;</span>
+47:     <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;mysql&quot;</span>
+48:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">send</span> <span class="ruby-value">:include</span>, <span class="ruby-constant">Shada</span><span class="ruby-operator">::</span><span class="ruby-constant">Adapter</span><span class="ruby-operator">::</span><span class="ruby-constant">MYSQL2</span>
+49:     <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'mongodb'</span>
+50:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">send</span> <span class="ruby-value">:include</span>, <span class="ruby-constant">Shada</span><span class="ruby-operator">::</span><span class="ruby-constant">Adapter</span><span class="ruby-operator">::</span><span class="ruby-constant">MongoDB</span>
+51:     <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'sqlite'</span>
+52:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">send</span> <span class="ruby-value">:include</span>, <span class="ruby-constant">Shada</span><span class="ruby-operator">::</span><span class="ruby-constant">Adapter</span><span class="ruby-operator">::</span><span class="ruby-constant">SQLite</span>
+53:     <span class="ruby-keyword kw">else</span>
+54:       <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Error&quot;</span>
+55:     <span class="ruby-keyword kw">end</span>
+56:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

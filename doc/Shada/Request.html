@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: Shada::Request</title>
+
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../lib/shada_server/request_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/shada_server/request.rb">lib/shada_server/request.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">Object</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-new">::new</a></li>
+					
+					<li><a href="#method-c-parse">::parse</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../LICENSE.html">LICENSE</a></li>
+				
+					<li class="file"><a href="../README.html">README</a></li>
+				
+					<li class="file"><a href="../Rakefile.html">Rakefile</a></li>
+				
+					<li class="file"><a href="../nbproject/private/rake-d_txt.html">rake-d.txt</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../Shada.html">Shada</a></li>
+				
+					<li><a href="../Shada/Adapter.html">Shada::Adapter</a></li>
+				
+					<li><a href="../Shada/Adapter/MYSQL2.html">Shada::Adapter::MYSQL2</a></li>
+				
+					<li><a href="../Shada/Adapter/MongoDB.html">Shada::Adapter::MongoDB</a></li>
+				
+					<li><a href="../Shada/Adapter/SQLite.html">Shada::Adapter::SQLite</a></li>
+				
+					<li><a href="../Shada/Adapter/SQLite/ClassMethods.html">Shada::Adapter::SQLite::ClassMethods</a></li>
+				
+					<li><a href="../Shada/App.html">Shada::App</a></li>
+				
+					<li><a href="../Shada/Data.html">Shada::Data</a></li>
+				
+					<li><a href="../Shada/Data/Benchmark.html">Shada::Data::Benchmark</a></li>
+				
+					<li><a href="../Shada/Data/Cache.html">Shada::Data::Cache</a></li>
+				
+					<li><a href="../Shada/Data/Core.html">Shada::Data::Core</a></li>
+				
+					<li><a href="../Shada/Data/MYSQL.html">Shada::Data::MYSQL</a></li>
+				
+					<li><a href="../Shada/Data/MYSQL2.html">Shada::Data::MYSQL2</a></li>
+				
+					<li><a href="../Shada/Data/MYSQL2/ClassMethods.html">Shada::Data::MYSQL2::ClassMethods</a></li>
+				
+					<li><a href="../Shada/Data/MongoDB.html">Shada::Data::MongoDB</a></li>
+				
+					<li><a href="../Shada/Data/MongoDB/ClassMethods.html">Shada::Data::MongoDB::ClassMethods</a></li>
+				
+					<li><a href="../Shada/Data/Persist.html">Shada::Data::Persist</a></li>
+				
+					<li><a href="../Shada/Data/Query.html">Shada::Data::Query</a></li>
+				
+					<li><a href="../Shada/Data/SQLite.html">Shada::Data::SQLite</a></li>
+				
+					<li><a href="../Shada/Data/Setup.html">Shada::Data::Setup</a></li>
+				
+					<li><a href="../Shada/Data/Setup/ClassMethods.html">Shada::Data::Setup::ClassMethods</a></li>
+				
+					<li><a href="../Shada/Engine.html">Shada::Engine</a></li>
+				
+					<li><a href="../Shada/EngineBuild.html">Shada::EngineBuild</a></li>
+				
+					<li><a href="../Shada/Headers.html">Shada::Headers</a></li>
+				
+					<li><a href="../Shada/Multipart_Parser.html">Shada::Multipart_Parser</a></li>
+				
+					<li><a href="../Shada/NetString.html">Shada::NetString</a></li>
+				
+					<li><a href="../Shada/Request.html">Shada::Request</a></li>
+				
+					<li><a href="../Shada/Response.html">Shada::Response</a></li>
+				
+					<li><a href="../Shada/Session.html">Shada::Session</a></li>
+				
+					<li><a href="../Shada/Upload.html">Shada::Upload</a></li>
+				
+					<li><a href="../Category.html">Category</a></li>
+				
+					<li><a href="../Pages.html">Pages</a></li>
+				
+					<li><a href="../Test.html">Test</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">Shada::Request</h1>
+
+		<div id="description">
+			
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+		<div id="attribute-method-details" class="method-section section">
+			<h3 class="section-header">Attributes</h3>
+
+			
+			<div id="sender-attribute-method" class="method-detail">
+				<a name="sender"></a>
+				
+				<a name="sender="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">sender</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="path-attribute-method" class="method-detail">
+				<a name="path"></a>
+				
+				<a name="path="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">path</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="conn-id-attribute-method" class="method-detail">
+				<a name="conn_id"></a>
+				
+				<a name="conn_id="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">conn_id</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="headers-attribute-method" class="method-detail">
+				<a name="headers"></a>
+				
+				<a name="headers="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">headers</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="body-attribute-method" class="method-detail">
+				<a name="body"></a>
+				
+				<a name="body="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">body</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="data-attribute-method" class="method-detail">
+				<a name="data"></a>
+				
+				<a name="data="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">data</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+		</div>
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="method-c-new"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">(uuid, id, path, headers, body)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/shada_server/request.rb, line 13</span>
+13:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span> <span class="ruby-identifier">uuid</span>, <span class="ruby-identifier">id</span>, <span class="ruby-identifier">path</span>, <span class="ruby-identifier">headers</span>, <span class="ruby-identifier">body</span>
+14:       <span class="ruby-ivar">@sender</span> = <span class="ruby-identifier">uuid</span>
+15:       <span class="ruby-ivar">@path</span> = <span class="ruby-identifier">path</span>
+16:       <span class="ruby-ivar">@conn_id</span> = <span class="ruby-identifier">id</span>
+17:       <span class="ruby-ivar">@headers</span> = <span class="ruby-identifier">headers</span>
+18:       <span class="ruby-ivar">@body</span> = <span class="ruby-identifier">body</span>
+19:       
+20:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@headers</span>[<span class="ruby-value str">'METHOD'</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'JSON'</span>
+21:         <span class="ruby-ivar">@data</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span> <span class="ruby-ivar">@body</span>
+22:       <span class="ruby-keyword kw">else</span>
+23:         <span class="ruby-ivar">@data</span> = {}
+24:       <span class="ruby-keyword kw">end</span>
+25:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="parse-method" class="method-detail ">
+				<a name="method-c-parse"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">parse</span><span
+						class="method-args">(msg)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="parse-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/shada_server/request.rb, line 27</span>
+27:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">parse</span> <span class="ruby-identifier">msg</span>
+28:       <span class="ruby-identifier">netstring</span> = <span class="ruby-constant">Shada</span><span class="ruby-operator">::</span><span class="ruby-constant">NetString</span>.<span class="ruby-identifier">new</span>
+29:       <span class="ruby-identifier">uuid</span>, <span class="ruby-identifier">id</span>, <span class="ruby-identifier">p</span>, <span class="ruby-identifier">rest</span> = <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot; &quot;</span>,<span class="ruby-value">4</span>)
+30:       <span class="ruby-identifier">lheaders</span>, <span class="ruby-identifier">rest</span> = <span class="ruby-identifier">netstring</span>.<span class="ruby-identifier">parse</span> <span class="ruby-identifier">rest</span>
+31:       <span class="ruby-identifier">b</span>, <span class="ruby-identifier">_</span> = <span class="ruby-identifier">netstring</span>.<span class="ruby-identifier">parse</span> <span class="ruby-identifier">rest</span>
+32: 
+33:       <span class="ruby-identifier">lheaders</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span> <span class="ruby-identifier">lheaders</span>
+34: 
+35:       <span class="ruby-identifier">b</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span> <span class="ruby-identifier">b</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">lheaders</span>[<span class="ruby-value str">&quot;METHOD&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'JSON'</span>
+36: 
+37:       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">uuid</span>, <span class="ruby-identifier">id</span>, <span class="ruby-identifier">p</span>, <span class="ruby-identifier">lheaders</span>, <span class="ruby-identifier">b</span>
+38:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

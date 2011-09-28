@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: LB::Engine</title>
+
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../lib/lb_engine_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/lb_engine.rb">lib/lb_engine.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">Object</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-new">::new</a></li>
+					
+					<li><a href="#method-i-handle">#handle</a></li>
+					
+					<li><a href="#method-i-on_connect">#on_connect</a></li>
+					
+					<li><a href="#method-i-on_disconnect">#on_disconnect</a></li>
+					
+					<li><a href="#method-i-run">#run</a></li>
+					
+					<li><a href="#method-i-run_meth">#run_meth</a></li>
+					
+					<li><a href="#method-i-start">#start</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+			<div id="includes-section" class="section">
+				<h3 class="section-header">Included Modules</h3>
+				<ul class="link-list">
+				
+				
+					<li><a class="include" href="Headers.html">LB::Headers</a></li>
+				
+				
+				</ul>
+			</div>
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../LICENSE.html">LICENSE</a></li>
+				
+					<li class="file"><a href="../README.html">README</a></li>
+				
+					<li class="file"><a href="../Rakefile.html">Rakefile</a></li>
+				
+					<li class="file"><a href="../nbproject/private/rake-d_txt.html">rake-d.txt</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../LB.html">LB</a></li>
+				
+					<li><a href="../LB/App.html">LB::App</a></li>
+				
+					<li><a href="../LB/Benchmark.html">LB::Benchmark</a></li>
+				
+					<li><a href="../LB/Data.html">LB::Data</a></li>
+				
+					<li><a href="../LB/Data/Cache.html">LB::Data::Cache</a></li>
+				
+					<li><a href="../LB/Data/MYSQL.html">LB::Data::MYSQL</a></li>
+				
+					<li><a href="../LB/Data/MYSQL2.html">LB::Data::MYSQL2</a></li>
+				
+					<li><a href="../LB/Data/MongoDB.html">LB::Data::MongoDB</a></li>
+				
+					<li><a href="../LB/Data/SQLite.html">LB::Data::SQLite</a></li>
+				
+					<li><a href="../LB/Engine.html">LB::Engine</a></li>
+				
+					<li><a href="../LB/Headers.html">LB::Headers</a></li>
+				
+					<li><a href="../LB/LRUCache.html">LB::LRUCache</a></li>
+				
+					<li><a href="../LB/Multipart_Parser.html">LB::Multipart_Parser</a></li>
+				
+					<li><a href="../LB/NetString.html">LB::NetString</a></li>
+				
+					<li><a href="../LB/Persist.html">LB::Persist</a></li>
+				
+					<li><a href="../LB/Query.html">LB::Query</a></li>
+				
+					<li><a href="../LB/Request.html">LB::Request</a></li>
+				
+					<li><a href="../LB/Response.html">LB::Response</a></li>
+				
+					<li><a href="../LB/Session.html">LB::Session</a></li>
+				
+					<li><a href="../LB/Setup.html">LB::Setup</a></li>
+				
+					<li><a href="../LB/Setup/ClassMethods.html">LB::Setup::ClassMethods</a></li>
+				
+					<li><a href="../LB/Upload.html">LB::Upload</a></li>
+				
+					<li><a href="../MYSQL2.html">MYSQL2</a></li>
+				
+					<li><a href="../MYSQL2/ClassMethods.html">MYSQL2::ClassMethods</a></li>
+				
+					<li><a href="../MongoDB.html">MongoDB</a></li>
+				
+					<li><a href="../MongoDB/ClassMethods.html">MongoDB::ClassMethods</a></li>
+				
+					<li><a href="../SQLite.html">SQLite</a></li>
+				
+					<li><a href="../SQLite/ClassMethods.html">SQLite::ClassMethods</a></li>
+				
+					<li><a href="../Category.html">Category</a></li>
+				
+					<li><a href="../Collection.html">Collection</a></li>
+				
+					<li><a href="../Core.html">Core</a></li>
+				
+					<li><a href="../EngineBuild.html">EngineBuild</a></li>
+				
+					<li><a href="../Pages.html">Pages</a></li>
+				
+					<li><a href="../Test.html">Test</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">LB::Engine</h1>
+
+		<div id="description">
+			
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="method-c-new"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/lb_engine.rb, line 15</span>
+15:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+16:       <span class="ruby-keyword kw">self</span>
+17:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="handle-method" class="method-detail ">
+				<a name="method-i-handle"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">handle</span><span
+						class="method-args">(data)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="handle-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/lb_engine.rb, line 39</span>
+39:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">handle</span> <span class="ruby-identifier">data</span>
+40:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="on-connect-method" class="method-detail ">
+				<a name="method-i-on_connect"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">on_connect</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="on-connect-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/lb_engine.rb, line 33</span>
+33:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">on_connect</span>
+34:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="on-disconnect-method" class="method-detail ">
+				<a name="method-i-on_disconnect"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">on_disconnect</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="on-disconnect-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/lb_engine.rb, line 36</span>
+36:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">on_disconnect</span>
+37:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="run-method" class="method-detail ">
+				<a name="method-i-run"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">run</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="run-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/lb_engine.rb, line 42</span>
+42:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>
+43:       <span class="ruby-identifier">on_connect</span>
+44:       
+45:       <span class="ruby-ivar">@status_code</span> = <span class="ruby-value str">'200'</span>
+46:       <span class="ruby-ivar">@status</span> = <span class="ruby-value str">'OK'</span>
+47:       
+48:       <span class="ruby-identifier">loop</span> <span class="ruby-keyword kw">do</span>
+49:         <span class="ruby-identifier">response</span> = <span class="ruby-value str">''</span>
+50:         <span class="ruby-ivar">@request</span> = <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">recv</span>
+51:         <span class="ruby-ivar">@uuid</span>, <span class="ruby-ivar">@id</span>, <span class="ruby-ivar">@path</span>, <span class="ruby-ivar">@headers</span>, <span class="ruby-ivar">@body</span> = <span class="ruby-ivar">@request</span>
+52:         
+53:         <span class="ruby-ivar">@path_arr</span> = <span class="ruby-ivar">@path</span>.<span class="ruby-identifier">split</span> <span class="ruby-value str">'/'</span>
+54:         <span class="ruby-identifier">parse_headers</span> <span class="ruby-ivar">@headers</span>, <span class="ruby-ivar">@body</span>
+55:         
+56:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">is_disconnect</span>(<span class="ruby-ivar">@headers</span>)
+57:           <span class="ruby-identifier">on_disconnect</span>
+58:         <span class="ruby-keyword kw">end</span>
+59:         
+60:         <span class="ruby-identifier">response</span> = <span class="ruby-identifier">handle</span> <span class="ruby-ivar">@request</span>
+61:         
+62:         
+63:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">response</span> <span class="ruby-operator">==</span> <span class="ruby-value">:next</span>
+64:           <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">reply_http</span> <span class="ruby-ivar">@request</span>, <span class="ruby-identifier">response</span>, <span class="ruby-ivar">@status_code</span>, <span class="ruby-ivar">@status</span> 
+65:         <span class="ruby-keyword kw">else</span>
+66:           <span class="ruby-keyword kw">next</span>
+67:         <span class="ruby-keyword kw">end</span>
+68:           
+69:       <span class="ruby-keyword kw">end</span>
+70:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="run-meth-method" class="method-detail ">
+				<a name="method-i-run_meth"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">run_meth</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="run-meth-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/lb_engine.rb, line 72</span>
+72:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_meth</span>
+73:       <span class="ruby-keyword kw">begin</span>
+74:         <span class="ruby-keyword kw">yield</span>
+75:       <span class="ruby-keyword kw">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+76:         <span class="ruby-identifier">puts</span> <span class="ruby-identifier">e</span>
+77:       <span class="ruby-keyword kw">end</span>
+78:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="start-method" class="method-detail ">
+				<a name="method-i-start"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">start</span><span
+						class="method-args">(sender_id, pull_addr, sub_addr, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="start-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/lb_engine.rb, line 19</span>
+19:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">start</span> <span class="ruby-identifier">sender_id</span>, <span class="ruby-identifier">pull_addr</span>, <span class="ruby-identifier">sub_addr</span>, &amp;<span class="ruby-identifier">block</span>
+20:       <span class="ruby-ivar">@sender_id</span> = <span class="ruby-identifier">sender_id</span>
+21:       <span class="ruby-ivar">@pull_addr</span> = <span class="ruby-identifier">pull_addr</span>
+22:       <span class="ruby-ivar">@sub_addr</span> = <span class="ruby-identifier">sub_addr</span>
+23:       <span class="ruby-ivar">@connection</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">LB</span><span class="ruby-operator">::</span><span class="ruby-constant">Response</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">sender_id</span>, <span class="ruby-identifier">pull_addr</span>, <span class="ruby-identifier">sub_addr</span> 
+24:       
+25:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+26:         <span class="ruby-identifier">engine</span> = <span class="ruby-constant">EngineBuild</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">self</span>
+27:         <span class="ruby-identifier">engine</span>.<span class="ruby-identifier">instance_eval</span>(&amp;<span class="ruby-identifier">block</span>)
+28:       <span class="ruby-keyword kw">end</span>
+29:       
+30:       <span class="ruby-identifier">run</span>
+31:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+
