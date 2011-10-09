@@ -13,9 +13,8 @@ module Shada
         @klass.class.send :define_method, :on_disconnect, &block
       end
 
-      def on_read &block
-        @klass.class.send :define_method, :on_read, &block
-
+      def handle &block
+        @klass.class.send :define_method, :handle, &block
       end
 
       def on_write &block

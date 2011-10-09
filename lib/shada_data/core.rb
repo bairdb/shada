@@ -13,6 +13,7 @@ CACHE_DIR = "/Users/bairdlackner-buckingham/projects/ruby_framework/shada_data/l
 module Shada
   module Data
     class Core
+      @@db = ""
       @@conn = ""
       @@hash = ""
       @@cache = ""
@@ -37,6 +38,7 @@ module Shada
         @primary = get_primary @table
         @primary_sym = @primary.to_sym
         @fields = get_fields @table
+        self.class.connection = "Test"
         self
       end
 

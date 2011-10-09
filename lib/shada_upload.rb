@@ -36,7 +36,7 @@ Shada::Upload.new.start USENDER_ID, URECV_ADDR, USEND_ADDR do
     puts "Connecting to server: #{@sender_id}"
   end
   
-  on_read do |data|
+  handle do |data|
     if @headers["x-mongrel2-upload-done"]
       expected = @headers["x-mongrel2-upload-start"] || "BAD"
       upload = @headers["x-mongrel2-upload-done"] || ""
@@ -49,7 +49,8 @@ Shada::Upload.new.start USENDER_ID, URECV_ADDR, USEND_ADDR do
       body = File.open("#{UPLOAD_ROOT}#{upload}", "r")
       puts "Done: #{body.size}, #{@headers["content-length"]}"
       if @headers['content-type'] =~ /multipart\/form-data/
-        Shada::Multipart_Parser.new @headers['content-type'], body
+        filename = "#{UPLOAD_ROOT}/#{@headers['x-mongrel2-upload-start'].split('/').pop().to_s}"
+        Shada::Multipart_Parser.new(@headers['content-type']).parse filename
         body.close
         response = "<html><head><title>Return</title><body><pre>\nSENDER: #{data[0]}, \nIDENT: #{data[1]}, \nPATH: #{data[2]}, HEADERS: #{data[3]}, \nBODY: #{data[4]}</pre>\n</body></html>"
       else
@@ -68,6 +69,7 @@ Shada::Upload.new.start USENDER_ID, URECV_ADDR, USEND_ADDR do
       }
     end
     
+    set_response_header 'Content-Type', 'text/html'
     return response
   end
   

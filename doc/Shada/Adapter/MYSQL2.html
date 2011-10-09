@@ -149,9 +149,7 @@
 				
 					<li><a href="../../Shada/Adapter/SQLite.html">Shada::Adapter::SQLite</a></li>
 				
-					<li><a href="../../Shada/Adapter/SQLite/ClassMethods.html">Shada::Adapter::SQLite::ClassMethods</a></li>
-				
-					<li><a href="../../Shada/App.html">Shada::App</a></li>
+					<li><a href="../../Shada/Controller.html">Shada::Controller</a></li>
 				
 					<li><a href="../../Shada/Data.html">Shada::Data</a></li>
 				
@@ -177,6 +175,8 @@
 				
 					<li><a href="../../Shada/Data/SQLite.html">Shada::Data::SQLite</a></li>
 				
+					<li><a href="../../Shada/Data/SQLite/ClassMethods.html">Shada::Data::SQLite::ClassMethods</a></li>
+				
 					<li><a href="../../Shada/Data/Setup.html">Shada::Data::Setup</a></li>
 				
 					<li><a href="../../Shada/Data/Setup/ClassMethods.html">Shada::Data::Setup::ClassMethods</a></li>
@@ -195,13 +195,15 @@
 				
 					<li><a href="../../Shada/Response.html">Shada::Response</a></li>
 				
+					<li><a href="../../Shada/Router.html">Shada::Router</a></li>
+				
 					<li><a href="../../Shada/Session.html">Shada::Session</a></li>
 				
 					<li><a href="../../Shada/Upload.html">Shada::Upload</a></li>
 				
-					<li><a href="../../Category.html">Category</a></li>
+					<li><a href="../../App.html">App</a></li>
 				
-					<li><a href="../../Pages.html">Pages</a></li>
+					<li><a href="../../AppController.html">AppController</a></li>
 				
 					<li><a href="../../Test.html">Test</a></li>
 				
@@ -252,13 +254,13 @@
 					<div class="method-source-code"
 						id="add-column-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 121</span>
-121:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_column</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">column_name</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">len</span>, <span class="ruby-identifier">default</span>=<span class="ruby-value str">''</span>, <span class="ruby-identifier">after</span>=<span class="ruby-value str">''</span>
-122:         <span class="ruby-identifier">after</span> = <span class="ruby-node">&quot;AFTER #{after}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">after</span>.<span class="ruby-identifier">nil?</span>
-123:         <span class="ruby-identifier">sql</span> = <span class="ruby-node">&quot;ALTER TABLE `#{table}` ADD `#{column_name}` #{type}(#{len}) #{default}&quot;</span>
-124:         <span class="ruby-identifier">puts</span> <span class="ruby-identifier">sql</span>
-125:         <span class="ruby-identifier">execute</span> <span class="ruby-identifier">sql</span>
-126:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 120</span>
+120:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_column</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">column_name</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">len</span>, <span class="ruby-identifier">default</span>=<span class="ruby-value str">''</span>, <span class="ruby-identifier">after</span>=<span class="ruby-value str">''</span>
+121:         <span class="ruby-identifier">after</span> = <span class="ruby-node">&quot;AFTER #{after}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">after</span>.<span class="ruby-identifier">nil?</span>
+122:         <span class="ruby-identifier">sql</span> = <span class="ruby-node">&quot;ALTER TABLE `#{table}` ADD `#{column_name}` #{type}(#{len}) #{default}&quot;</span>
+123:         <span class="ruby-identifier">puts</span> <span class="ruby-identifier">sql</span>
+124:         <span class="ruby-identifier">execute</span> <span class="ruby-identifier">sql</span>
+125:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -289,17 +291,17 @@
 					<div class="method-source-code"
 						id="connect-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 7</span>
- 7:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">connect</span> <span class="ruby-identifier">hash</span>
- 8:         <span class="ruby-keyword kw">begin</span>
- 9:           <span class="ruby-ivar">@db</span> = <span class="ruby-constant">Mysql2</span><span class="ruby-operator">::</span><span class="ruby-constant">Client</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">hash</span>
-10:           <span class="ruby-constant">Mysql2</span><span class="ruby-operator">::</span><span class="ruby-constant">Client</span>.<span class="ruby-identifier">default_query_options</span>
-11:         <span class="ruby-keyword kw">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-12:           <span class="ruby-identifier">puts</span> <span class="ruby-identifier">e</span>
-13:           <span class="ruby-ivar">@db</span> = <span class="ruby-keyword kw">nil</span>
-14:         <span class="ruby-keyword kw">end</span>
-15:         <span class="ruby-keyword kw">self</span>
-16:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 6</span>
+ 6:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">connect</span> <span class="ruby-identifier">hash</span>
+ 7:         <span class="ruby-keyword kw">begin</span>
+ 8:           <span class="ruby-ivar">@db</span> = <span class="ruby-constant">Mysql2</span><span class="ruby-operator">::</span><span class="ruby-constant">Client</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">hash</span>
+ 9:           <span class="ruby-constant">Mysql2</span><span class="ruby-operator">::</span><span class="ruby-constant">Client</span>.<span class="ruby-identifier">default_query_options</span>
+10:         <span class="ruby-keyword kw">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+11:           <span class="ruby-identifier">puts</span> <span class="ruby-identifier">e</span>
+12:           <span class="ruby-ivar">@db</span> = <span class="ruby-keyword kw">nil</span>
+13:         <span class="ruby-keyword kw">end</span>
+14:         <span class="ruby-keyword kw">self</span>
+15:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -330,12 +332,12 @@
 					<div class="method-source-code"
 						id="create-table-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 115</span>
-115:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_table</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">columns</span>, <span class="ruby-identifier">engine</span>=<span class="ruby-value str">&quot;innodb&quot;</span>, <span class="ruby-identifier">charset</span>=<span class="ruby-value str">&quot;utf8&quot;</span>, <span class="ruby-identifier">autoinc</span>=<span class="ruby-value">1</span>
-116:         <span class="ruby-identifier">sql</span> = <span class="ruby-node">&quot;CREATE TABLE IF NOT EXISTS #{table} (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY) ENGINE=#{engine}  DEFAULT CHARSET=#{charset} AUTO_INCREMENT=#{autoinc};&quot;</span>
-117:         <span class="ruby-identifier">puts</span> <span class="ruby-identifier">sql</span>
-118:         <span class="ruby-identifier">execute</span> <span class="ruby-identifier">sql</span>
-119:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 114</span>
+114:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_table</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">columns</span>, <span class="ruby-identifier">engine</span>=<span class="ruby-value str">&quot;innodb&quot;</span>, <span class="ruby-identifier">charset</span>=<span class="ruby-value str">&quot;utf8&quot;</span>, <span class="ruby-identifier">autoinc</span>=<span class="ruby-value">1</span>
+115:         <span class="ruby-identifier">sql</span> = <span class="ruby-node">&quot;CREATE TABLE IF NOT EXISTS #{table} (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY) ENGINE=#{engine}  DEFAULT CHARSET=#{charset} AUTO_INCREMENT=#{autoinc};&quot;</span>
+116:         <span class="ruby-identifier">puts</span> <span class="ruby-identifier">sql</span>
+117:         <span class="ruby-identifier">execute</span> <span class="ruby-identifier">sql</span>
+118:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -366,13 +368,13 @@
 					<div class="method-source-code"
 						id="destroy-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 108</span>
-108:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">destroy</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">id</span>, <span class="ruby-identifier">where_column</span>=<span class="ruby-value str">'id'</span>
-109:         <span class="ruby-identifier">where_arr</span> = []
-110:         <span class="ruby-identifier">sql</span> = <span class="ruby-node">&quot;DELETE FROM #{table} WHERE #{where_column}=?&quot;</span>
-111:         <span class="ruby-identifier">where_arr</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">id</span>
-112:         <span class="ruby-identifier">query</span> <span class="ruby-identifier">sql</span>, <span class="ruby-identifier">where_arr</span>
-113:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 107</span>
+107:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">destroy</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">id</span>, <span class="ruby-identifier">where_column</span>=<span class="ruby-value str">'id'</span>
+108:         <span class="ruby-identifier">where_arr</span> = []
+109:         <span class="ruby-identifier">sql</span> = <span class="ruby-node">&quot;DELETE FROM #{table} WHERE #{where_column}=?&quot;</span>
+110:         <span class="ruby-identifier">where_arr</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">id</span>
+111:         <span class="ruby-identifier">query</span> <span class="ruby-identifier">sql</span>, <span class="ruby-identifier">where_arr</span>
+112:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -403,11 +405,11 @@
 					<div class="method-source-code"
 						id="execute-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 30</span>
-30:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">execute</span> <span class="ruby-identifier">sql</span>, <span class="ruby-identifier">symbolize</span>=<span class="ruby-keyword kw">true</span>
-31:         <span class="ruby-identifier">result</span> = <span class="ruby-ivar">@db</span>.<span class="ruby-identifier">query</span> <span class="ruby-identifier">sql</span>, <span class="ruby-value">:symbolize_keys</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">symbolize</span>
-32:         <span class="ruby-identifier">result</span>
-33:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 29</span>
+29:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">execute</span> <span class="ruby-identifier">sql</span>, <span class="ruby-identifier">symbolize</span>=<span class="ruby-keyword kw">true</span>
+30:         <span class="ruby-identifier">result</span> = <span class="ruby-ivar">@db</span>.<span class="ruby-identifier">query</span> <span class="ruby-identifier">sql</span>, <span class="ruby-value">:symbolize_keys</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">symbolize</span>
+31:         <span class="ruby-identifier">result</span>
+32:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -438,26 +440,26 @@
 					<div class="method-source-code"
 						id="find-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 61</span>
-61:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">fields</span>, <span class="ruby-identifier">where</span>={}, <span class="ruby-identifier">sort</span>=<span class="ruby-value str">&quot;&quot;</span>
-62:         <span class="ruby-keyword kw">begin</span>
-63:           <span class="ruby-identifier">where_arr</span> = []
-64:           <span class="ruby-identifier">where_str</span> = <span class="ruby-value str">&quot;&quot;</span>
-65:           <span class="ruby-identifier">where_str</span> = <span class="ruby-identifier">where</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;#{k}=?&quot;</span>}.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot; AND &quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">where</span>.<span class="ruby-identifier">nil?</span>
-66:           <span class="ruby-identifier">where</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">where_arr</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">v</span>}
-67:           
-68:           <span class="ruby-identifier">sort</span> = <span class="ruby-node">&quot;ORDER BY #{sort}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">sort</span>.<span class="ruby-identifier">empty?</span>
-69: 
-70:           <span class="ruby-identifier">where_str</span> = <span class="ruby-node">&quot;WHERE #{where_str}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">where_str</span>.<span class="ruby-identifier">empty?</span>
-71:           <span class="ruby-identifier">sql</span> = <span class="ruby-node">&quot;SELECT #{fields} FROM #{table} #{where_str} #{sort}&quot;</span>
-72:           <span class="ruby-comment cmt">#puts sql</span>
-73:           <span class="ruby-identifier">result</span> = <span class="ruby-identifier">query</span> <span class="ruby-identifier">sql</span>, <span class="ruby-identifier">where_arr</span>
-74:           <span class="ruby-identifier">result</span>
-75:         <span class="ruby-keyword kw">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-76:           <span class="ruby-identifier">puts</span> <span class="ruby-identifier">e</span>
-77:           <span class="ruby-keyword kw">return</span> []
-78:         <span class="ruby-keyword kw">end</span>
-79:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 60</span>
+60:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">fields</span>, <span class="ruby-identifier">where</span>={}, <span class="ruby-identifier">sort</span>=<span class="ruby-value str">&quot;&quot;</span>
+61:         <span class="ruby-keyword kw">begin</span>
+62:           <span class="ruby-identifier">where_arr</span> = []
+63:           <span class="ruby-identifier">where_str</span> = <span class="ruby-value str">&quot;&quot;</span>
+64:           <span class="ruby-identifier">where_str</span> = <span class="ruby-identifier">where</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;#{k}=?&quot;</span>}.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot; AND &quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">where</span>.<span class="ruby-identifier">nil?</span>
+65:           <span class="ruby-identifier">where</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">where_arr</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">v</span>}
+66:           
+67:           <span class="ruby-identifier">sort</span> = <span class="ruby-node">&quot;ORDER BY #{sort}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">sort</span>.<span class="ruby-identifier">empty?</span>
+68: 
+69:           <span class="ruby-identifier">where_str</span> = <span class="ruby-node">&quot;WHERE #{where_str}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">where_str</span>.<span class="ruby-identifier">empty?</span>
+70:           <span class="ruby-identifier">sql</span> = <span class="ruby-node">&quot;SELECT #{fields} FROM #{table} #{where_str} #{sort}&quot;</span>
+71:           <span class="ruby-comment cmt">#puts sql</span>
+72:           <span class="ruby-identifier">result</span> = <span class="ruby-identifier">query</span> <span class="ruby-identifier">sql</span>, <span class="ruby-identifier">where_arr</span>
+73:           <span class="ruby-identifier">result</span>
+74:         <span class="ruby-keyword kw">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+75:           <span class="ruby-identifier">puts</span> <span class="ruby-identifier">e</span>
+76:           <span class="ruby-keyword kw">return</span> []
+77:         <span class="ruby-keyword kw">end</span>
+78:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -488,11 +490,11 @@
 					<div class="method-source-code"
 						id="get-fields-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 46</span>
-46:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_fields</span> <span class="ruby-identifier">table</span>
-47:         <span class="ruby-identifier">result</span> = <span class="ruby-identifier">query</span>(<span class="ruby-node">&quot;SELECT * FROM #{table}&quot;</span>, [])
-48:         <span class="ruby-identifier">result</span>.<span class="ruby-identifier">fields</span>
-49:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 45</span>
+45:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_fields</span> <span class="ruby-identifier">table</span>
+46:         <span class="ruby-identifier">result</span> = <span class="ruby-identifier">query</span>(<span class="ruby-node">&quot;SELECT * FROM #{table}&quot;</span>, [])
+47:         <span class="ruby-identifier">result</span>.<span class="ruby-identifier">fields</span>
+48:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -523,11 +525,11 @@
 					<div class="method-source-code"
 						id="get-primary-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 56</span>
-56:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_primary</span> <span class="ruby-identifier">db</span>, <span class="ruby-identifier">table</span>
-57:         <span class="ruby-identifier">result</span> = <span class="ruby-identifier">query</span>(<span class="ruby-value str">&quot;SELECT * FROM `information_schema`.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA=? AND TABLE_NAME=? AND CONSTRAINT_NAME='PRIMARY'&quot;</span>, [<span class="ruby-identifier">db</span>, <span class="ruby-identifier">table</span>])
-58:         <span class="ruby-identifier">result</span>.<span class="ruby-identifier">first</span>[<span class="ruby-value">:COLUMN_NAME</span>]
-59:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 55</span>
+55:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_primary</span> <span class="ruby-identifier">db</span>, <span class="ruby-identifier">table</span>
+56:         <span class="ruby-identifier">result</span> = <span class="ruby-identifier">query</span>(<span class="ruby-value str">&quot;SELECT * FROM `information_schema`.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA=? AND TABLE_NAME=? AND CONSTRAINT_NAME='PRIMARY'&quot;</span>, [<span class="ruby-identifier">db</span>, <span class="ruby-identifier">table</span>])
+57:         <span class="ruby-identifier">result</span>.<span class="ruby-identifier">first</span>[<span class="ruby-value">:COLUMN_NAME</span>]
+58:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -558,11 +560,11 @@
 					<div class="method-source-code"
 						id="get-tables-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 51</span>
-51:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_tables</span> <span class="ruby-identifier">db</span>
-52:         <span class="ruby-identifier">result</span> = <span class="ruby-identifier">query</span>(<span class="ruby-value str">&quot;SELECT * FROM `information_schema`.TABLES WHERE TABLE_SCHEMA=?&quot;</span>, [<span class="ruby-identifier">db</span>])
-53:         <span class="ruby-identifier">result</span>
-54:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 50</span>
+50:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_tables</span> <span class="ruby-identifier">db</span>
+51:         <span class="ruby-identifier">result</span> = <span class="ruby-identifier">query</span>(<span class="ruby-value str">&quot;SELECT * FROM `information_schema`.TABLES WHERE TABLE_SCHEMA=?&quot;</span>, [<span class="ruby-identifier">db</span>])
+52:         <span class="ruby-identifier">result</span>
+53:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -593,18 +595,18 @@
 					<div class="method-source-code"
 						id="insert-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 81</span>
-81:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">insert</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">fields</span>, <span class="ruby-identifier">data</span>
-82:         <span class="ruby-keyword kw">begin</span>
-83:           <span class="ruby-identifier">val_str</span> = <span class="ruby-identifier">data</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-value str">&quot;?&quot;</span>}.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;, &quot;</span>)
-84:           <span class="ruby-identifier">sql</span> = <span class="ruby-node">&quot;INSERT INTO #{table} (#{fields.join(',')}) VALUES (#{val_str})&quot;</span>
-85:           <span class="ruby-identifier">query</span> <span class="ruby-identifier">sql</span>, <span class="ruby-identifier">data</span>
-86:           <span class="ruby-identifier">result</span> = <span class="ruby-value str">&quot;Success&quot;</span>
-87:         <span class="ruby-keyword kw">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-88:           <span class="ruby-identifier">result</span> = <span class="ruby-node">&quot;Error Inserting: #{e}&quot;</span>
-89:         <span class="ruby-keyword kw">end</span>
-90:         <span class="ruby-identifier">result</span>
-91:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 80</span>
+80:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">insert</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">fields</span>, <span class="ruby-identifier">data</span>
+81:         <span class="ruby-keyword kw">begin</span>
+82:           <span class="ruby-identifier">val_str</span> = <span class="ruby-identifier">data</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-value str">&quot;?&quot;</span>}.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;, &quot;</span>)
+83:           <span class="ruby-identifier">sql</span> = <span class="ruby-node">&quot;INSERT INTO #{table} (#{fields.join(',')}) VALUES (#{val_str})&quot;</span>
+84:           <span class="ruby-identifier">query</span> <span class="ruby-identifier">sql</span>, <span class="ruby-identifier">data</span>
+85:           <span class="ruby-identifier">result</span> = <span class="ruby-value str">&quot;Success&quot;</span>
+86:         <span class="ruby-keyword kw">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+87:           <span class="ruby-identifier">result</span> = <span class="ruby-node">&quot;Error Inserting: #{e}&quot;</span>
+88:         <span class="ruby-keyword kw">end</span>
+89:         <span class="ruby-identifier">result</span>
+90:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -635,12 +637,12 @@
 					<div class="method-source-code"
 						id="prepare-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 35</span>
-35:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prepare</span> <span class="ruby-identifier">sql</span>, <span class="ruby-identifier">binds</span>
-36:         <span class="ruby-identifier">ret</span> = <span class="ruby-identifier">sql</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">&quot;?&quot;</span>){<span class="ruby-identifier">quote</span> <span class="ruby-identifier">binds</span>.<span class="ruby-identifier">shift</span>}
-37:         <span class="ruby-comment cmt">#puts ret</span>
-38:         <span class="ruby-identifier">ret</span>
-39:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 34</span>
+34:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prepare</span> <span class="ruby-identifier">sql</span>, <span class="ruby-identifier">binds</span>
+35:         <span class="ruby-identifier">ret</span> = <span class="ruby-identifier">sql</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">&quot;?&quot;</span>){<span class="ruby-identifier">quote</span> <span class="ruby-identifier">binds</span>.<span class="ruby-identifier">shift</span>}
+36:         <span class="ruby-comment cmt">#puts ret</span>
+37:         <span class="ruby-identifier">ret</span>
+38:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -671,11 +673,11 @@
 					<div class="method-source-code"
 						id="query-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 41</span>
-41:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">query</span> <span class="ruby-identifier">sql</span>, <span class="ruby-identifier">binds</span>
-42:         <span class="ruby-identifier">result</span> = <span class="ruby-identifier">execute</span> <span class="ruby-identifier">prepare</span> <span class="ruby-identifier">sql</span>, <span class="ruby-identifier">binds</span>
-43:         <span class="ruby-identifier">result</span>
-44:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 40</span>
+40:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">query</span> <span class="ruby-identifier">sql</span>, <span class="ruby-identifier">binds</span>
+41:         <span class="ruby-identifier">result</span> = <span class="ruby-identifier">execute</span> <span class="ruby-identifier">prepare</span> <span class="ruby-identifier">sql</span>, <span class="ruby-identifier">binds</span>
+42:         <span class="ruby-identifier">result</span>
+43:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -706,18 +708,18 @@
 					<div class="method-source-code"
 						id="quote-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 18</span>
-18:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">quote</span> <span class="ruby-identifier">str</span>
-19:         <span class="ruby-identifier">val</span> = <span class="ruby-identifier">str</span>
-20:         <span class="ruby-identifier">val</span> = <span class="ruby-ivar">@db</span>.<span class="ruby-identifier">escape</span> <span class="ruby-identifier">str</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">str</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
-21:         
-22:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
-23:           <span class="ruby-identifier">val</span> = <span class="ruby-node">&quot;'#{val}'&quot;</span>
-24:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">nil?</span>
-25:           <span class="ruby-identifier">val</span> = <span class="ruby-value str">&quot;NULL&quot;</span>
-26:         <span class="ruby-keyword kw">end</span>
-27:         <span class="ruby-identifier">val</span>
-28:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 17</span>
+17:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">quote</span> <span class="ruby-identifier">str</span>
+18:         <span class="ruby-identifier">val</span> = <span class="ruby-identifier">str</span>
+19:         <span class="ruby-identifier">val</span> = <span class="ruby-ivar">@db</span>.<span class="ruby-identifier">escape</span> <span class="ruby-identifier">str</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">str</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+20:         
+21:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+22:           <span class="ruby-identifier">val</span> = <span class="ruby-node">&quot;'#{val}'&quot;</span>
+23:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">nil?</span>
+24:           <span class="ruby-identifier">val</span> = <span class="ruby-value str">&quot;NULL&quot;</span>
+25:         <span class="ruby-keyword kw">end</span>
+26:         <span class="ruby-identifier">val</span>
+27:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -748,21 +750,21 @@
 					<div class="method-source-code"
 						id="update-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 93</span>
- 93:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">fields</span>, <span class="ruby-identifier">id</span>, <span class="ruby-identifier">where_column</span>=<span class="ruby-value str">'id'</span>
- 94:         <span class="ruby-keyword kw">begin</span>
- 95:           <span class="ruby-identifier">where_arr</span> = []
- 96:           <span class="ruby-identifier">keys</span> = <span class="ruby-identifier">fields</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;#{k}=?&quot;</span>}.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;, &quot;</span>)
- 97:           <span class="ruby-identifier">fields</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">where_arr</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">v</span>}
- 98:           <span class="ruby-identifier">where_arr</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">id</span>
- 99:           <span class="ruby-identifier">sql</span> = <span class="ruby-node">&quot;UPDATE #{table} SET #{keys} WHERE #{where_column}=?&quot;</span>
-100:           <span class="ruby-identifier">query</span> <span class="ruby-identifier">sql</span>, <span class="ruby-identifier">where_arr</span>
-101:           <span class="ruby-identifier">result</span> = <span class="ruby-value str">&quot;Success&quot;</span>
-102:         <span class="ruby-keyword kw">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-103:           <span class="ruby-identifier">result</span> = <span class="ruby-identifier">e</span>
-104:         <span class="ruby-keyword kw">end</span>
-105:         <span class="ruby-identifier">result</span>
-106:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/mysql2/mysql2.rb, line 92</span>
+ 92:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">fields</span>, <span class="ruby-identifier">id</span>, <span class="ruby-identifier">where_column</span>=<span class="ruby-value str">'id'</span>
+ 93:         <span class="ruby-keyword kw">begin</span>
+ 94:           <span class="ruby-identifier">where_arr</span> = []
+ 95:           <span class="ruby-identifier">keys</span> = <span class="ruby-identifier">fields</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;#{k}=?&quot;</span>}.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;, &quot;</span>)
+ 96:           <span class="ruby-identifier">fields</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">where_arr</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">v</span>}
+ 97:           <span class="ruby-identifier">where_arr</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">id</span>
+ 98:           <span class="ruby-identifier">sql</span> = <span class="ruby-node">&quot;UPDATE #{table} SET #{keys} WHERE #{where_column}=?&quot;</span>
+ 99:           <span class="ruby-identifier">query</span> <span class="ruby-identifier">sql</span>, <span class="ruby-identifier">where_arr</span>
+100:           <span class="ruby-identifier">result</span> = <span class="ruby-value str">&quot;Success&quot;</span>
+101:         <span class="ruby-keyword kw">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+102:           <span class="ruby-identifier">result</span> = <span class="ruby-identifier">e</span>
+103:         <span class="ruby-keyword kw">end</span>
+104:         <span class="ruby-identifier">result</span>
+105:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>

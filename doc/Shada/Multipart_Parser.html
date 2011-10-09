@@ -71,6 +71,8 @@
 					
 					<li><a href="#method-c-new">::new</a></li>
 					
+					<li><a href="#method-i-parse">#parse</a></li>
+					
 				</ul>
 			</div>
 			
@@ -123,9 +125,7 @@
 				
 					<li><a href="../Shada/Adapter/SQLite.html">Shada::Adapter::SQLite</a></li>
 				
-					<li><a href="../Shada/Adapter/SQLite/ClassMethods.html">Shada::Adapter::SQLite::ClassMethods</a></li>
-				
-					<li><a href="../Shada/App.html">Shada::App</a></li>
+					<li><a href="../Shada/Controller.html">Shada::Controller</a></li>
 				
 					<li><a href="../Shada/Data.html">Shada::Data</a></li>
 				
@@ -151,6 +151,8 @@
 				
 					<li><a href="../Shada/Data/SQLite.html">Shada::Data::SQLite</a></li>
 				
+					<li><a href="../Shada/Data/SQLite/ClassMethods.html">Shada::Data::SQLite::ClassMethods</a></li>
+				
 					<li><a href="../Shada/Data/Setup.html">Shada::Data::Setup</a></li>
 				
 					<li><a href="../Shada/Data/Setup/ClassMethods.html">Shada::Data::Setup::ClassMethods</a></li>
@@ -169,13 +171,15 @@
 				
 					<li><a href="../Shada/Response.html">Shada::Response</a></li>
 				
+					<li><a href="../Shada/Router.html">Shada::Router</a></li>
+				
 					<li><a href="../Shada/Session.html">Shada::Session</a></li>
 				
 					<li><a href="../Shada/Upload.html">Shada::Upload</a></li>
 				
-					<li><a href="../Category.html">Category</a></li>
+					<li><a href="../App.html">App</a></li>
 				
-					<li><a href="../Pages.html">Pages</a></li>
+					<li><a href="../AppController.html">AppController</a></li>
 				
 					<li><a href="../Test.html">Test</a></li>
 				
@@ -212,7 +216,7 @@
 				<div class="method-heading">
 				
 					<span class="method-name">new</span><span
-						class="method-args">(content_type, file)</span>
+						class="method-args">(content_type)</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
 				</div>
@@ -227,12 +231,51 @@
 						id="new-source">
 <pre>
    <span class="ruby-comment cmt"># File lib/shada_engine/multipart_parser.rb, line 3</span>
-3:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span> <span class="ruby-identifier">content_type</span>, <span class="ruby-identifier">file</span>
+3:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span> <span class="ruby-identifier">content_type</span>
 4:       <span class="ruby-ivar">@boundry</span> = <span class="ruby-identifier">content_type</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'='</span>)[<span class="ruby-value">1</span>]
-5:       <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{content_type} - #{file} - #{@boundry}&quot;</span>
-6:       <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@body</span>
-7:       <span class="ruby-keyword kw">return</span> <span class="ruby-value str">&quot;&quot;</span>
-8:     <span class="ruby-keyword kw">end</span></pre>
+5:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>
+6:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="parse-method" class="method-detail ">
+				<a name="method-i-parse"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">parse</span><span
+						class="method-args">(file)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="parse-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/shada_engine/multipart_parser.rb, line 8</span>
+ 8:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse</span> <span class="ruby-identifier">file</span>
+ 9:       <span class="ruby-identifier">puts</span> <span class="ruby-identifier">file</span>
+10:       <span class="ruby-keyword kw">return</span> <span class="ruby-value str">&quot;&quot;</span>
+11:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>

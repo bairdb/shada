@@ -71,11 +71,11 @@
 					
 					<li><a href="#method-c-new">::new</a></li>
 					
+					<li><a href="#method-i-handle">#handle</a></li>
+					
 					<li><a href="#method-i-on_connect">#on_connect</a></li>
 					
 					<li><a href="#method-i-on_disconnect">#on_disconnect</a></li>
-					
-					<li><a href="#method-i-on_read">#on_read</a></li>
 					
 					<li><a href="#method-i-on_write">#on_write</a></li>
 					
@@ -131,9 +131,7 @@
 				
 					<li><a href="../Shada/Adapter/SQLite.html">Shada::Adapter::SQLite</a></li>
 				
-					<li><a href="../Shada/Adapter/SQLite/ClassMethods.html">Shada::Adapter::SQLite::ClassMethods</a></li>
-				
-					<li><a href="../Shada/App.html">Shada::App</a></li>
+					<li><a href="../Shada/Controller.html">Shada::Controller</a></li>
 				
 					<li><a href="../Shada/Data.html">Shada::Data</a></li>
 				
@@ -159,6 +157,8 @@
 				
 					<li><a href="../Shada/Data/SQLite.html">Shada::Data::SQLite</a></li>
 				
+					<li><a href="../Shada/Data/SQLite/ClassMethods.html">Shada::Data::SQLite::ClassMethods</a></li>
+				
 					<li><a href="../Shada/Data/Setup.html">Shada::Data::Setup</a></li>
 				
 					<li><a href="../Shada/Data/Setup/ClassMethods.html">Shada::Data::Setup::ClassMethods</a></li>
@@ -177,13 +177,15 @@
 				
 					<li><a href="../Shada/Response.html">Shada::Response</a></li>
 				
+					<li><a href="../Shada/Router.html">Shada::Router</a></li>
+				
 					<li><a href="../Shada/Session.html">Shada::Session</a></li>
 				
 					<li><a href="../Shada/Upload.html">Shada::Upload</a></li>
 				
-					<li><a href="../Category.html">Category</a></li>
+					<li><a href="../App.html">App</a></li>
 				
-					<li><a href="../Pages.html">Pages</a></li>
+					<li><a href="../AppController.html">AppController</a></li>
 				
 					<li><a href="../Test.html">Test</a></li>
 				
@@ -255,6 +257,40 @@
 			<h3 class="section-header">Public Instance Methods</h3>
 
 		
+			<div id="handle-method" class="method-detail ">
+				<a name="method-i-handle"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">handle</span><span
+						class="method-args">(&block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="handle-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/shada_engine/engine_build.rb, line 16</span>
+16:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">handle</span> &amp;<span class="ruby-identifier">block</span>
+17:         <span class="ruby-ivar">@klass</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">send</span> <span class="ruby-value">:define_method</span>, <span class="ruby-value">:handle</span>, &amp;<span class="ruby-identifier">block</span>
+18:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
 			<div id="on-connect-method" class="method-detail ">
 				<a name="method-i-on_connect"></a>
 
@@ -323,41 +359,6 @@
 			</div>
 
 		
-			<div id="on-read-method" class="method-detail ">
-				<a name="method-i-on_read"></a>
-
-				<div class="method-heading">
-				
-					<span class="method-name">on_read</span><span
-						class="method-args">(&block)</span>
-					<span class="method-click-advice">click to toggle source</span>
-				
-				</div>
-
-				<div class="method-description">
-					
-					
-					
-
-					
-					<div class="method-source-code"
-						id="on-read-source">
-<pre>
-    <span class="ruby-comment cmt"># File lib/shada_engine/engine_build.rb, line 16</span>
-16:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">on_read</span> &amp;<span class="ruby-identifier">block</span>
-17:         <span class="ruby-ivar">@klass</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">send</span> <span class="ruby-value">:define_method</span>, <span class="ruby-value">:on_read</span>, &amp;<span class="ruby-identifier">block</span>
-18: 
-19:       <span class="ruby-keyword kw">end</span></pre>
-					</div>
-					
-				</div>
-
-				
-
-				
-			</div>
-
-		
 			<div id="on-write-method" class="method-detail ">
 				<a name="method-i-on_write"></a>
 
@@ -378,10 +379,10 @@
 					<div class="method-source-code"
 						id="on-write-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/shada_engine/engine_build.rb, line 21</span>
-21:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">on_write</span> &amp;<span class="ruby-identifier">block</span>
-22:         <span class="ruby-ivar">@klass</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">send</span> <span class="ruby-value">:define_method</span>, <span class="ruby-value">:on_write</span>, &amp;<span class="ruby-identifier">block</span>      
-23:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/shada_engine/engine_build.rb, line 20</span>
+20:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">on_write</span> &amp;<span class="ruby-identifier">block</span>
+21:         <span class="ruby-ivar">@klass</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">send</span> <span class="ruby-value">:define_method</span>, <span class="ruby-value">:on_write</span>, &amp;<span class="ruby-identifier">block</span>      
+22:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>

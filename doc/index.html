@@ -52,11 +52,9 @@
 		
 		<li class="class"><a href="Shada/Adapter/MongoDB.html">Shada::Adapter::MongoDB</a></li>
 		
-		<li class="module"><a href="Shada/Adapter/SQLite.html">Shada::Adapter::SQLite</a></li>
+		<li class="class"><a href="Shada/Adapter/SQLite.html">Shada::Adapter::SQLite</a></li>
 		
-		<li class="module"><a href="Shada/Adapter/SQLite/ClassMethods.html">Shada::Adapter::SQLite::ClassMethods</a></li>
-		
-		<li class="class"><a href="Shada/App.html">Shada::App</a></li>
+		<li class="class"><a href="Shada/Controller.html">Shada::Controller</a></li>
 		
 		<li class="module"><a href="Shada/Data.html">Shada::Data</a></li>
 		
@@ -80,7 +78,9 @@
 		
 		<li class="module"><a href="Shada/Data/Query.html">Shada::Data::Query</a></li>
 		
-		<li class="class"><a href="Shada/Data/SQLite.html">Shada::Data::SQLite</a></li>
+		<li class="module"><a href="Shada/Data/SQLite.html">Shada::Data::SQLite</a></li>
+		
+		<li class="module"><a href="Shada/Data/SQLite/ClassMethods.html">Shada::Data::SQLite::ClassMethods</a></li>
 		
 		<li class="module"><a href="Shada/Data/Setup.html">Shada::Data::Setup</a></li>
 		
@@ -90,7 +90,7 @@
 		
 		<li class="class"><a href="Shada/EngineBuild.html">Shada::EngineBuild</a></li>
 		
-		<li class="module"><a href="Shada/Headers.html">Shada::Headers</a></li>
+		<li class="class"><a href="Shada/Headers.html">Shada::Headers</a></li>
 		
 		<li class="class"><a href="Shada/Multipart_Parser.html">Shada::Multipart_Parser</a></li>
 		
@@ -100,13 +100,15 @@
 		
 		<li class="class"><a href="Shada/Response.html">Shada::Response</a></li>
 		
+		<li class="module"><a href="Shada/Router.html">Shada::Router</a></li>
+		
 		<li class="class"><a href="Shada/Session.html">Shada::Session</a></li>
 		
 		<li class="class"><a href="Shada/Upload.html">Shada::Upload</a></li>
 		
-		<li class="class"><a href="Category.html">Category</a></li>
+		<li class="class"><a href="App.html">App</a></li>
 		
-		<li class="class"><a href="Pages.html">Pages</a></li>
+		<li class="class"><a href="AppController.html">AppController</a></li>
 		
 		<li class="class"><a href="Test.html">Test</a></li>
 		
@@ -116,6 +118,8 @@
 	<ul>
 		
 			<li><a href="Shada/Data/Core.html#method-c-add_method">::add_method &mdash; Shada::Data::Core</a></li>
+		
+			<li><a href="Shada/Controller.html#method-c-add_method">::add_method &mdash; Shada::Controller</a></li>
 		
 			<li><a href="Shada/Data/Core.html#method-c-belongs_to">::belongs_to &mdash; Shada::Data::Core</a></li>
 		
@@ -133,29 +137,33 @@
 		
 			<li><a href="Shada/Data/Core.html#method-c-has_one">::has_one &mdash; Shada::Data::Core</a></li>
 		
-			<li><a href="Shada/Data/Setup.html#method-c-included">::included &mdash; Shada::Data::Setup</a></li>
-		
-			<li><a href="Shada/Adapter/SQLite.html#method-c-included">::included &mdash; Shada::Adapter::SQLite</a></li>
+			<li><a href="Shada/Data/SQLite.html#method-c-included">::included &mdash; Shada::Data::SQLite</a></li>
 		
 			<li><a href="Shada/Data/MYSQL2.html#method-c-included">::included &mdash; Shada::Data::MYSQL2</a></li>
 		
 			<li><a href="Shada/Data/MongoDB.html#method-c-included">::included &mdash; Shada::Data::MongoDB</a></li>
 		
+			<li><a href="Shada/Data/Setup.html#method-c-included">::included &mdash; Shada::Data::Setup</a></li>
+		
 			<li><a href="Shada/Request.html#method-c-new">::new &mdash; Shada::Request</a></li>
 		
 			<li><a href="Shada/Engine.html#method-c-new">::new &mdash; Shada::Engine</a></li>
 		
-			<li><a href="Shada/Data/Core.html#method-c-new">::new &mdash; Shada::Data::Core</a></li>
-		
 			<li><a href="Shada/Data/Cache.html#method-c-new">::new &mdash; Shada::Data::Cache</a></li>
 		
-			<li><a href="Shada/Response.html#method-c-new">::new &mdash; Shada::Response</a></li>
+			<li><a href="Shada/Data/Core.html#method-c-new">::new &mdash; Shada::Data::Core</a></li>
 		
 			<li><a href="Shada/Multipart_Parser.html#method-c-new">::new &mdash; Shada::Multipart_Parser</a></li>
 		
 			<li><a href="Shada/EngineBuild.html#method-c-new">::new &mdash; Shada::EngineBuild</a></li>
 		
+			<li><a href="Shada/Controller.html#method-c-new">::new &mdash; Shada::Controller</a></li>
+		
+			<li><a href="Shada/Response.html#method-c-new">::new &mdash; Shada::Response</a></li>
+		
 			<li><a href="Shada/Request.html#method-c-parse">::parse &mdash; Shada::Request</a></li>
+		
+			<li><a href="Shada/Controller.html#method-c-path_map">::path_map &mdash; Shada::Controller</a></li>
 		
 			<li><a href="Shada/Data/Core.html#method-c-persist">::persist &mdash; Shada::Data::Core</a></li>
 		
@@ -165,15 +173,21 @@
 		
 			<li><a href="Shada/Data/Core.html#method-c-setup">::setup &mdash; Shada::Data::Core</a></li>
 		
+			<li><a href="Shada/Engine.html#method-c-start">::start &mdash; Shada::Engine</a></li>
+		
+			<li><a href="Shada/Headers.html#method-i-%5B%5D">#[] &mdash; Shada::Headers</a></li>
+		
+			<li><a href="Shada/Headers.html#method-i-%5B%5D%3D">#[]= &mdash; Shada::Headers</a></li>
+		
 			<li><a href="Shada/Data/MongoDB.html#method-i-add_column">#add_column &mdash; Shada::Data::MongoDB</a></li>
+		
+			<li><a href="Shada/Data/MYSQL2.html#method-i-add_column">#add_column &mdash; Shada::Data::MYSQL2</a></li>
+		
+			<li><a href="Shada/Adapter/MYSQL2.html#method-i-add_column">#add_column &mdash; Shada::Adapter::MYSQL2</a></li>
 		
 			<li><a href="Shada/Adapter/SQLite.html#method-i-add_column">#add_column &mdash; Shada::Adapter::SQLite</a></li>
 		
 			<li><a href="Shada/Data/SQLite.html#method-i-add_column">#add_column &mdash; Shada::Data::SQLite</a></li>
-		
-			<li><a href="Shada/Adapter/MYSQL2.html#method-i-add_column">#add_column &mdash; Shada::Adapter::MYSQL2</a></li>
-		
-			<li><a href="Shada/Data/MYSQL2.html#method-i-add_column">#add_column &mdash; Shada::Data::MYSQL2</a></li>
 		
 			<li><a href="Shada/Data/Setup/ClassMethods.html#method-i-add_method">#add_method &mdash; Shada::Data::Setup::ClassMethods</a></li>
 		
@@ -189,33 +203,35 @@
 		
 			<li><a href="Shada/Data/Core.html#method-i-cache">#cache &mdash; Shada::Data::Core</a></li>
 		
-			<li><a href="Shada/Data/MYSQL.html#method-i-close">#close &mdash; Shada::Data::MYSQL</a></li>
+			<li><a href="Shada/Headers.html#method-i-clear_cookie">#clear_cookie &mdash; Shada::Headers</a></li>
 		
 			<li><a href="Shada/Response.html#method-i-close">#close &mdash; Shada::Response</a></li>
 		
-			<li><a href="Shada/Adapter/MYSQL2.html#method-i-connect">#connect &mdash; Shada::Adapter::MYSQL2</a></li>
+			<li><a href="Shada/Data/MYSQL.html#method-i-close">#close &mdash; Shada::Data::MYSQL</a></li>
 		
 			<li><a href="Shada/Adapter/MongoDB.html#method-i-connect">#connect &mdash; Shada::Adapter::MongoDB</a></li>
 		
+			<li><a href="Shada/Adapter/SQLite.html#method-i-connect">#connect &mdash; Shada::Adapter::SQLite</a></li>
+		
 			<li><a href="Shada/Data/MYSQL.html#method-i-connect">#connect &mdash; Shada::Data::MYSQL</a></li>
 		
-			<li><a href="Shada/Data/SQLite.html#method-i-connect">#connect &mdash; Shada::Data::SQLite</a></li>
+			<li><a href="Shada/Adapter/MYSQL2.html#method-i-connect">#connect &mdash; Shada::Adapter::MYSQL2</a></li>
 		
 			<li><a href="Shada/Data/Setup/ClassMethods.html#method-i-connect">#connect &mdash; Shada::Data::Setup::ClassMethods</a></li>
 		
 			<li><a href="Shada/Data/Setup/ClassMethods.html#method-i-connection">#connection &mdash; Shada::Data::Setup::ClassMethods</a></li>
 		
-			<li><a href="Shada/Adapter/MongoDB.html#method-i-count">#count &mdash; Shada::Adapter::MongoDB</a></li>
-		
 			<li><a href="Shada/Data/MongoDB.html#method-i-count">#count &mdash; Shada::Data::MongoDB</a></li>
+		
+			<li><a href="Shada/Adapter/MongoDB.html#method-i-count">#count &mdash; Shada::Adapter::MongoDB</a></li>
 		
 			<li><a href="Shada/Data/Query.html#method-i-create">#create &mdash; Shada::Data::Query</a></li>
 		
-			<li><a href="Shada/Adapter/SQLite/ClassMethods.html#method-i-create">#create &mdash; Shada::Adapter::SQLite::ClassMethods</a></li>
-		
-			<li><a href="Shada/Data/SQLite.html#method-i-create_table">#create_table &mdash; Shada::Data::SQLite</a></li>
+			<li><a href="Shada/Data/SQLite/ClassMethods.html#method-i-create">#create &mdash; Shada::Data::SQLite::ClassMethods</a></li>
 		
 			<li><a href="Shada/Adapter/MYSQL2.html#method-i-create_table">#create_table &mdash; Shada::Adapter::MYSQL2</a></li>
+		
+			<li><a href="Shada/Adapter/SQLite.html#method-i-create_table">#create_table &mdash; Shada::Adapter::SQLite</a></li>
 		
 			<li><a href="Shada/Data/MongoDB.html#method-i-define_meth">#define_meth &mdash; Shada::Data::MongoDB</a></li>
 		
@@ -229,12 +245,6 @@
 		
 			<li><a href="Shada/Response.html#method-i-deliver_http">#deliver_http &mdash; Shada::Response</a></li>
 		
-			<li><a href="Shada/Adapter/MongoDB.html#method-i-destroy">#destroy &mdash; Shada::Adapter::MongoDB</a></li>
-		
-			<li><a href="Shada/Data/MongoDB.html#method-i-destroy">#destroy &mdash; Shada::Data::MongoDB</a></li>
-		
-			<li><a href="Shada/Data/MYSQL2.html#method-i-destroy">#destroy &mdash; Shada::Data::MYSQL2</a></li>
-		
 			<li><a href="Shada/Data/SQLite.html#method-i-destroy">#destroy &mdash; Shada::Data::SQLite</a></li>
 		
 			<li><a href="Shada/Adapter/MYSQL2.html#method-i-destroy">#destroy &mdash; Shada::Adapter::MYSQL2</a></li>
@@ -243,13 +253,19 @@
 		
 			<li><a href="Shada/Data/MYSQL.html#method-i-destroy">#destroy &mdash; Shada::Data::MYSQL</a></li>
 		
+			<li><a href="Shada/Data/MongoDB.html#method-i-destroy">#destroy &mdash; Shada::Data::MongoDB</a></li>
+		
+			<li><a href="Shada/Adapter/MongoDB.html#method-i-destroy">#destroy &mdash; Shada::Adapter::MongoDB</a></li>
+		
+			<li><a href="Shada/Data/MYSQL2.html#method-i-destroy">#destroy &mdash; Shada::Data::MYSQL2</a></li>
+		
 			<li><a href="Shada/Adapter/MongoDB.html#method-i-destroy_db">#destroy_db &mdash; Shada::Adapter::MongoDB</a></li>
 		
 			<li><a href="Shada/Data/Cache.html#method-i-each_page">#each_page &mdash; Shada::Data::Cache</a></li>
 		
 			<li><a href="Shada/Data/Cache.html#method-i-empty%3F">#empty? &mdash; Shada::Data::Cache</a></li>
 		
-			<li><a href="Shada/Data/SQLite.html#method-i-execute">#execute &mdash; Shada::Data::SQLite</a></li>
+			<li><a href="Shada/Adapter/SQLite.html#method-i-execute">#execute &mdash; Shada::Adapter::SQLite</a></li>
 		
 			<li><a href="Shada/Data/MYSQL.html#method-i-execute">#execute &mdash; Shada::Data::MYSQL</a></li>
 		
@@ -257,21 +273,21 @@
 		
 			<li><a href="Shada/Data/MYSQL.html#method-i-fields">#fields &mdash; Shada::Data::MYSQL</a></li>
 		
-			<li><a href="Shada/Adapter/MYSQL2.html#method-i-find">#find &mdash; Shada::Adapter::MYSQL2</a></li>
-		
-			<li><a href="Shada/Data/SQLite.html#method-i-find">#find &mdash; Shada::Data::SQLite</a></li>
+			<li><a href="Shada/Adapter/MongoDB.html#method-i-find">#find &mdash; Shada::Adapter::MongoDB</a></li>
 		
 			<li><a href="Shada/Data/MYSQL2.html#method-i-find">#find &mdash; Shada::Data::MYSQL2</a></li>
 		
-			<li><a href="Shada/Adapter/MongoDB.html#method-i-find">#find &mdash; Shada::Adapter::MongoDB</a></li>
+			<li><a href="Shada/Data/SQLite.html#method-i-find">#find &mdash; Shada::Data::SQLite</a></li>
 		
 			<li><a href="Shada/Adapter/SQLite.html#method-i-find">#find &mdash; Shada::Adapter::SQLite</a></li>
 		
 			<li><a href="Shada/Data/MongoDB.html#method-i-find">#find &mdash; Shada::Data::MongoDB</a></li>
 		
+			<li><a href="Shada/Adapter/MYSQL2.html#method-i-find">#find &mdash; Shada::Adapter::MYSQL2</a></li>
+		
 			<li><a href="Shada/Data/MYSQL2.html#method-i-find_parent">#find_parent &mdash; Shada::Data::MYSQL2</a></li>
 		
-			<li><a href="Shada/Adapter/SQLite.html#method-i-get_column_type">#get_column_type &mdash; Shada::Adapter::SQLite</a></li>
+			<li><a href="Shada/Data/SQLite.html#method-i-get_column_type">#get_column_type &mdash; Shada::Data::SQLite</a></li>
 		
 			<li><a href="Shada/Data/MYSQL2.html#method-i-get_column_type">#get_column_type &mdash; Shada::Data::MYSQL2</a></li>
 		
@@ -279,63 +295,69 @@
 		
 			<li><a href="Shada/Headers.html#method-i-get_cookie">#get_cookie &mdash; Shada::Headers</a></li>
 		
-			<li><a href="Shada/Data/SQLite.html#method-i-get_fields">#get_fields &mdash; Shada::Data::SQLite</a></li>
+			<li><a href="Shada/Data/MongoDB.html#method-i-get_fields">#get_fields &mdash; Shada::Data::MongoDB</a></li>
 		
 			<li><a href="Shada/Adapter/MYSQL2.html#method-i-get_fields">#get_fields &mdash; Shada::Adapter::MYSQL2</a></li>
 		
 			<li><a href="Shada/Data/MYSQL.html#method-i-get_fields">#get_fields &mdash; Shada::Data::MYSQL</a></li>
 		
-			<li><a href="Shada/Data/MYSQL2.html#method-i-get_fields">#get_fields &mdash; Shada::Data::MYSQL2</a></li>
-		
-			<li><a href="Shada/Data/MongoDB.html#method-i-get_fields">#get_fields &mdash; Shada::Data::MongoDB</a></li>
+			<li><a href="Shada/Data/SQLite.html#method-i-get_fields">#get_fields &mdash; Shada::Data::SQLite</a></li>
 		
 			<li><a href="Shada/Adapter/MongoDB.html#method-i-get_fields">#get_fields &mdash; Shada::Adapter::MongoDB</a></li>
 		
 			<li><a href="Shada/Adapter/SQLite.html#method-i-get_fields">#get_fields &mdash; Shada::Adapter::SQLite</a></li>
 		
+			<li><a href="Shada/Data/MYSQL2.html#method-i-get_fields">#get_fields &mdash; Shada::Data::MYSQL2</a></li>
+		
 			<li><a href="Shada/Headers.html#method-i-get_header">#get_header &mdash; Shada::Headers</a></li>
 		
-			<li><a href="Shada/Adapter/SQLite.html#method-i-get_ids">#get_ids &mdash; Shada::Adapter::SQLite</a></li>
+			<li><a href="Shada/Data/SQLite.html#method-i-get_ids">#get_ids &mdash; Shada::Data::SQLite</a></li>
 		
 			<li><a href="Shada/Data/MYSQL2.html#method-i-get_ids">#get_ids &mdash; Shada::Data::MYSQL2</a></li>
 		
 			<li><a href="Shada/Data/MongoDB.html#method-i-get_ids">#get_ids &mdash; Shada::Data::MongoDB</a></li>
 		
+			<li><a href="Shada/Headers.html#method-i-get_path">#get_path &mdash; Shada::Headers</a></li>
+		
+			<li><a href="Shada/Data/MYSQL2.html#method-i-get_primary">#get_primary &mdash; Shada::Data::MYSQL2</a></li>
+		
+			<li><a href="Shada/Adapter/MYSQL2.html#method-i-get_primary">#get_primary &mdash; Shada::Adapter::MYSQL2</a></li>
+		
+			<li><a href="Shada/Adapter/SQLite.html#method-i-get_primary">#get_primary &mdash; Shada::Adapter::SQLite</a></li>
+		
+			<li><a href="Shada/Data/MongoDB.html#method-i-get_primary">#get_primary &mdash; Shada::Data::MongoDB</a></li>
+		
 			<li><a href="Shada/Data/SQLite.html#method-i-get_primary">#get_primary &mdash; Shada::Data::SQLite</a></li>
 		
 			<li><a href="Shada/Adapter/MongoDB.html#method-i-get_primary">#get_primary &mdash; Shada::Adapter::MongoDB</a></li>
 		
-			<li><a href="Shada/Data/MongoDB.html#method-i-get_primary">#get_primary &mdash; Shada::Data::MongoDB</a></li>
-		
-			<li><a href="Shada/Adapter/MYSQL2.html#method-i-get_primary">#get_primary &mdash; Shada::Adapter::MYSQL2</a></li>
-		
-			<li><a href="Shada/Data/MYSQL2.html#method-i-get_primary">#get_primary &mdash; Shada::Data::MYSQL2</a></li>
-		
-			<li><a href="Shada/Adapter/SQLite.html#method-i-get_primary">#get_primary &mdash; Shada::Adapter::SQLite</a></li>
-		
-			<li><a href="Shada/Data/SQLite.html#method-i-get_tables">#get_tables &mdash; Shada::Data::SQLite</a></li>
-		
 			<li><a href="Shada/Adapter/MYSQL2.html#method-i-get_tables">#get_tables &mdash; Shada::Adapter::MYSQL2</a></li>
 		
-			<li><a href="Shada/App.html#method-i-handle">#handle &mdash; Shada::App</a></li>
+			<li><a href="Shada/Adapter/SQLite.html#method-i-get_tables">#get_tables &mdash; Shada::Adapter::SQLite</a></li>
 		
 			<li><a href="Shada/Engine.html#method-i-handle">#handle &mdash; Shada::Engine</a></li>
+		
+			<li><a href="Shada/EngineBuild.html#method-i-handle">#handle &mdash; Shada::EngineBuild</a></li>
+		
+			<li><a href="App.html#method-i-handle">#handle &mdash; App</a></li>
 		
 			<li><a href="Shada/Data/Query.html#method-i-has">#has &mdash; Shada::Data::Query</a></li>
 		
 			<li><a href="Shada/Response.html#method-i-http_response">#http_response &mdash; Shada::Response</a></li>
 		
-			<li><a href="Shada/Data/MYSQL2.html#method-i-insert">#insert &mdash; Shada::Data::MYSQL2</a></li>
+			<li><a href="AppController.html#method-i-index">#index &mdash; AppController</a></li>
 		
 			<li><a href="Shada/Adapter/SQLite.html#method-i-insert">#insert &mdash; Shada::Adapter::SQLite</a></li>
 		
-			<li><a href="Shada/Data/MYSQL.html#method-i-insert">#insert &mdash; Shada::Data::MYSQL</a></li>
+			<li><a href="Shada/Adapter/MYSQL2.html#method-i-insert">#insert &mdash; Shada::Adapter::MYSQL2</a></li>
+		
+			<li><a href="Shada/Data/MYSQL2.html#method-i-insert">#insert &mdash; Shada::Data::MYSQL2</a></li>
+		
+			<li><a href="Shada/Adapter/MongoDB.html#method-i-insert">#insert &mdash; Shada::Adapter::MongoDB</a></li>
 		
 			<li><a href="Shada/Data/SQLite.html#method-i-insert">#insert &mdash; Shada::Data::SQLite</a></li>
 		
-			<li><a href="Shada/Adapter/MYSQL2.html#method-i-insert">#insert &mdash; Shada::Adapter::MYSQL2</a></li>
-		
-			<li><a href="Shada/Adapter/MongoDB.html#method-i-insert">#insert &mdash; Shada::Adapter::MongoDB</a></li>
+			<li><a href="Shada/Data/MYSQL.html#method-i-insert">#insert &mdash; Shada::Data::MYSQL</a></li>
 		
 			<li><a href="Shada/Data/MongoDB.html#method-i-insert">#insert &mdash; Shada::Data::MongoDB</a></li>
 		
@@ -347,37 +369,41 @@
 		
 			<li><a href="Shada/Adapter/MongoDB.html#method-i-load_all">#load_all &mdash; Shada::Adapter::MongoDB</a></li>
 		
-			<li><a href="Shada/Data/MYSQL.html#method-i-method_missing">#method_missing &mdash; Shada::Data::MYSQL</a></li>
-		
 			<li><a href="Shada/Data/Core.html#method-i-method_missing">#method_missing &mdash; Shada::Data::Core</a></li>
+		
+			<li><a href="Shada/Data/MYSQL.html#method-i-method_missing">#method_missing &mdash; Shada::Data::MYSQL</a></li>
 		
 			<li><a href="Shada/Data/Cache.html#method-i-move_first">#move_first &mdash; Shada::Data::Cache</a></li>
 		
-			<li><a href="Shada/Engine.html#method-i-on_connect">#on_connect &mdash; Shada::Engine</a></li>
+			<li><a href="App.html#method-i-on_connect">#on_connect &mdash; App</a></li>
 		
 			<li><a href="Shada/EngineBuild.html#method-i-on_connect">#on_connect &mdash; Shada::EngineBuild</a></li>
 		
-			<li><a href="Shada/EngineBuild.html#method-i-on_disconnect">#on_disconnect &mdash; Shada::EngineBuild</a></li>
+			<li><a href="Shada/Engine.html#method-i-on_connect">#on_connect &mdash; Shada::Engine</a></li>
 		
 			<li><a href="Shada/Engine.html#method-i-on_disconnect">#on_disconnect &mdash; Shada::Engine</a></li>
 		
-			<li><a href="Shada/EngineBuild.html#method-i-on_read">#on_read &mdash; Shada::EngineBuild</a></li>
+			<li><a href="Shada/EngineBuild.html#method-i-on_disconnect">#on_disconnect &mdash; Shada::EngineBuild</a></li>
 		
 			<li><a href="Shada/EngineBuild.html#method-i-on_write">#on_write &mdash; Shada::EngineBuild</a></li>
 		
-			<li><a href="Shada/NetString.html#method-i-parse">#parse &mdash; Shada::NetString</a></li>
-		
 			<li><a href="Shada/Headers.html#method-i-parse">#parse &mdash; Shada::Headers</a></li>
 		
+			<li><a href="Shada/NetString.html#method-i-parse">#parse &mdash; Shada::NetString</a></li>
+		
+			<li><a href="Shada/Multipart_Parser.html#method-i-parse">#parse &mdash; Shada::Multipart_Parser</a></li>
+		
 			<li><a href="Shada/Headers.html#method-i-parse_headers">#parse_headers &mdash; Shada::Headers</a></li>
+		
+			<li><a href="Shada/Controller.html#method-i-path">#path &mdash; Shada::Controller</a></li>
 		
 			<li><a href="Shada/Data/Persist.html#method-i-persist">#persist &mdash; Shada::Data::Persist</a></li>
 		
 			<li><a href="Shada/Data/Persist.html#method-i-persist_load">#persist_load &mdash; Shada::Data::Persist</a></li>
 		
-			<li><a href="Shada/Data/SQLite.html#method-i-prepare">#prepare &mdash; Shada::Data::SQLite</a></li>
-		
 			<li><a href="Shada/Data/MYSQL.html#method-i-prepare">#prepare &mdash; Shada::Data::MYSQL</a></li>
+		
+			<li><a href="Shada/Adapter/SQLite.html#method-i-prepare">#prepare &mdash; Shada::Adapter::SQLite</a></li>
 		
 			<li><a href="Shada/Adapter/MYSQL2.html#method-i-prepare">#prepare &mdash; Shada::Adapter::MYSQL2</a></li>
 		
@@ -387,9 +413,9 @@
 		
 			<li><a href="Shada/Adapter/MYSQL2.html#method-i-query">#query &mdash; Shada::Adapter::MYSQL2</a></li>
 		
-			<li><a href="Shada/Data/MYSQL.html#method-i-query">#query &mdash; Shada::Data::MYSQL</a></li>
+			<li><a href="Shada/Adapter/SQLite.html#method-i-query">#query &mdash; Shada::Adapter::SQLite</a></li>
 		
-			<li><a href="Shada/Data/SQLite.html#method-i-query">#query &mdash; Shada::Data::SQLite</a></li>
+			<li><a href="Shada/Data/MYSQL.html#method-i-query">#query &mdash; Shada::Data::MYSQL</a></li>
 		
 			<li><a href="Shada/Adapter/MYSQL2.html#method-i-quote">#quote &mdash; Shada::Adapter::MYSQL2</a></li>
 		
@@ -401,21 +427,25 @@
 		
 			<li><a href="Shada/Data/Cache.html#method-i-remove_node">#remove_node &mdash; Shada::Data::Cache</a></li>
 		
+			<li><a href="Shada/Controller.html#method-i-render">#render &mdash; Shada::Controller</a></li>
+		
 			<li><a href="Shada/Response.html#method-i-reply">#reply &mdash; Shada::Response</a></li>
 		
 			<li><a href="Shada/Response.html#method-i-reply_http">#reply_http &mdash; Shada::Response</a></li>
 		
 			<li><a href="Shada/Response.html#method-i-reply_json">#reply_json &mdash; Shada::Response</a></li>
 		
+			<li><a href="Shada/Router.html#method-i-route">#route &mdash; Shada::Router</a></li>
+		
 			<li><a href="Shada/Engine.html#method-i-run">#run &mdash; Shada::Engine</a></li>
 		
 			<li><a href="Shada/Engine.html#method-i-run_meth">#run_meth &mdash; Shada::Engine</a></li>
 		
-			<li><a href="Shada/Adapter/SQLite.html#method-i-save">#save &mdash; Shada::Adapter::SQLite</a></li>
-		
 			<li><a href="Shada/Data/MYSQL2.html#method-i-save">#save &mdash; Shada::Data::MYSQL2</a></li>
 		
 			<li><a href="Shada/Data/MongoDB.html#method-i-save">#save &mdash; Shada::Data::MongoDB</a></li>
+		
+			<li><a href="Shada/Data/SQLite.html#method-i-save">#save &mdash; Shada::Data::SQLite</a></li>
 		
 			<li><a href="Shada/Data/Core.html#method-i-save_cache">#save_cache &mdash; Shada::Data::Core</a></li>
 		
@@ -437,39 +467,37 @@
 		
 			<li><a href="Shada/Data/Cache.html#method-i-size">#size &mdash; Shada::Data::Cache</a></li>
 		
-			<li><a href="Shada/Engine.html#method-i-start">#start &mdash; Shada::Engine</a></li>
-		
 			<li><a href="Shada/Data/Cache.html#method-i-store">#store &mdash; Shada::Data::Cache</a></li>
 		
 			<li><a href="Shada/Data/MYSQL.html#method-i-tables">#tables &mdash; Shada::Data::MYSQL</a></li>
 		
 			<li><a href="Shada/Data/Cache.html#method-i-timestamp">#timestamp &mdash; Shada::Data::Cache</a></li>
 		
-			<li><a href="Shada/Data/SQLite.html#method-i-update">#update &mdash; Shada::Data::SQLite</a></li>
-		
-			<li><a href="Shada/Data/MongoDB.html#method-i-update">#update &mdash; Shada::Data::MongoDB</a></li>
-		
-			<li><a href="Shada/Adapter/MongoDB.html#method-i-update">#update &mdash; Shada::Adapter::MongoDB</a></li>
-		
 			<li><a href="Shada/Data/MYSQL.html#method-i-update">#update &mdash; Shada::Data::MYSQL</a></li>
 		
-			<li><a href="Shada/Data/MYSQL2.html#method-i-update">#update &mdash; Shada::Data::MYSQL2</a></li>
+			<li><a href="Shada/Data/MongoDB.html#method-i-update">#update &mdash; Shada::Data::MongoDB</a></li>
 		
 			<li><a href="Shada/Adapter/MYSQL2.html#method-i-update">#update &mdash; Shada::Adapter::MYSQL2</a></li>
 		
 			<li><a href="Shada/Adapter/SQLite.html#method-i-update">#update &mdash; Shada::Adapter::SQLite</a></li>
 		
-			<li><a href="Shada/Adapter/SQLite.html#method-i-update_cache">#update_cache &mdash; Shada::Adapter::SQLite</a></li>
+			<li><a href="Shada/Data/SQLite.html#method-i-update">#update &mdash; Shada::Data::SQLite</a></li>
+		
+			<li><a href="Shada/Adapter/MongoDB.html#method-i-update">#update &mdash; Shada::Adapter::MongoDB</a></li>
+		
+			<li><a href="Shada/Data/MYSQL2.html#method-i-update">#update &mdash; Shada::Data::MYSQL2</a></li>
 		
 			<li><a href="Shada/Data/MongoDB.html#method-i-update_cache">#update_cache &mdash; Shada::Data::MongoDB</a></li>
 		
 			<li><a href="Shada/Data/MYSQL2.html#method-i-update_cache">#update_cache &mdash; Shada::Data::MYSQL2</a></li>
 		
+			<li><a href="Shada/Data/SQLite.html#method-i-update_cache">#update_cache &mdash; Shada::Data::SQLite</a></li>
+		
 			<li><a href="Shada/Data/MongoDB.html#method-i-update_fields">#update_fields &mdash; Shada::Data::MongoDB</a></li>
 		
-			<li><a href="Shada/Adapter/MongoDB.html#method-i-view_all">#view_all &mdash; Shada::Adapter::MongoDB</a></li>
-		
 			<li><a href="Shada/Data/MongoDB.html#method-i-view_all">#view_all &mdash; Shada::Data::MongoDB</a></li>
+		
+			<li><a href="Shada/Adapter/MongoDB.html#method-i-view_all">#view_all &mdash; Shada::Adapter::MongoDB</a></li>
 		
 	</ul>
 

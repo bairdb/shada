@@ -6,28 +6,36 @@ require 'uuid'
 
 require_relative 'shada_engine/engine_build'
 require_relative 'shada_engine/headers'
+require_relative 'shada_engine/router'
 require_relative 'shada_engine/multipart_parser'
 
 module Shada
   class Engine
-    include Shada::Headers
+    include Shada::Router
     
-    def initialize
-      self
-    end
-    
-    def start sender_id, pull_addr, sub_addr, &block
+    def initialize sender_id, pull_addr, sub_addr, connection
       @sender_id = sender_id
       @pull_addr = pull_addr
       @sub_addr = sub_addr
-      @connection ||= Shada::Response.new sender_id, pull_addr, sub_addr 
+      @connection = connection
+      @form = Shada::Headers.new
+      self
+    end
+    
+    def self.start sender_id, pull_addr, sub_addr, &block
+      sender_id = sender_id
+      pull_addr = pull_addr
+      sub_addr = sub_addr
+      connection ||= Shada::Response.new sender_id, pull_addr, sub_addr 
+      
+      klass = self.new sender_id, pull_addr, sub_addr, connection
       
       if block_given?
-        engine = Shada::EngineBuild.new self
+        engine = Shada::EngineBuild.new klass
         engine.instance_eval(&block)
       end
       
-      run
+      klass.run
     end
     
     def on_connect
@@ -51,14 +59,13 @@ module Shada
         @uuid, @id, @path, @headers, @body = @request
         
         @path_arr = @path.split '/'
-        parse_headers @headers, @body
+        @form.parse_headers @headers, @body
         
         if @connection.is_disconnect(@headers)
           on_disconnect
         end
         
         response = handle @request
-        
         
         unless response == :next
           @connection.reply_http @request, response, @status_code, @status 

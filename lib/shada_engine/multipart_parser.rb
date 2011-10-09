@@ -1,9 +1,12 @@
 module Shada
   class Multipart_Parser
-    def initialize content_type, file
+    def initialize content_type
       @boundry = content_type.split('=')[1]
-      puts "#{content_type} - #{file} - #{@boundry}"
-      puts @body
+      return self
+    end
+    
+    def parse file
+      puts file
       return ""
     end
   end

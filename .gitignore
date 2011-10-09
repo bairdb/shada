@@ -22,3 +22,7 @@ lib/.DS_Store
 build_gem.sh
 
 pkg/shada-0.0.1.gem
+
+nbproject/private/private.xml
+
+doc/nbproject/private/rake-d_txt.html
