@@ -71,6 +71,8 @@
 					
 					<li><a href="#method-i-handle">#handle</a></li>
 					
+					<li><a href="#method-i-on_connect">#on_connect</a></li>
+					
 				</ul>
 			</div>
 			
@@ -93,6 +95,8 @@
 					<li class="file"><a href="../Rakefile.html">Rakefile</a></li>
 				
 					<li class="file"><a href="../nbproject/private/rake-d_txt.html">rake-d.txt</a></li>
+				
+					<li class="file"><a href="../test/mongrel2.html">mongrel2</a></li>
 				
 				</ul>
 			</div>
@@ -123,9 +127,9 @@
 				
 					<li><a href="../Shada/Adapter/SQLite.html">Shada::Adapter::SQLite</a></li>
 				
-					<li><a href="../Shada/Adapter/SQLite/ClassMethods.html">Shada::Adapter::SQLite::ClassMethods</a></li>
-				
 					<li><a href="../Shada/App.html">Shada::App</a></li>
+				
+					<li><a href="../Shada/Controller.html">Shada::Controller</a></li>
 				
 					<li><a href="../Shada/Data.html">Shada::Data</a></li>
 				
@@ -151,6 +155,8 @@
 				
 					<li><a href="../Shada/Data/SQLite.html">Shada::Data::SQLite</a></li>
 				
+					<li><a href="../Shada/Data/SQLite/ClassMethods.html">Shada::Data::SQLite::ClassMethods</a></li>
+				
 					<li><a href="../Shada/Data/Setup.html">Shada::Data::Setup</a></li>
 				
 					<li><a href="../Shada/Data/Setup/ClassMethods.html">Shada::Data::Setup::ClassMethods</a></li>
@@ -161,6 +167,20 @@
 				
 					<li><a href="../Shada/Headers.html">Shada::Headers</a></li>
 				
+					<li><a href="../Shada/Mongrel2.html">Shada::Mongrel2</a></li>
+				
+					<li><a href="../Shada/Mongrel2/Directory.html">Shada::Mongrel2::Directory</a></li>
+				
+					<li><a href="../Shada/Mongrel2/Handler.html">Shada::Mongrel2::Handler</a></li>
+				
+					<li><a href="../Shada/Mongrel2/Host.html">Shada::Mongrel2::Host</a></li>
+				
+					<li><a href="../Shada/Mongrel2/Log.html">Shada::Mongrel2::Log</a></li>
+				
+					<li><a href="../Shada/Mongrel2/Route.html">Shada::Mongrel2::Route</a></li>
+				
+					<li><a href="../Shada/Mongrel2/Server.html">Shada::Mongrel2::Server</a></li>
+				
 					<li><a href="../Shada/Multipart_Parser.html">Shada::Multipart_Parser</a></li>
 				
 					<li><a href="../Shada/NetString.html">Shada::NetString</a></li>
@@ -169,15 +189,17 @@
 				
 					<li><a href="../Shada/Response.html">Shada::Response</a></li>
 				
+					<li><a href="../Shada/Router.html">Shada::Router</a></li>
+				
 					<li><a href="../Shada/Session.html">Shada::Session</a></li>
 				
 					<li><a href="../Shada/Upload.html">Shada::Upload</a></li>
 				
-					<li><a href="../Category.html">Category</a></li>
+					<li><a href="../AppController.html">AppController</a></li>
+				
+					<li><a href="../Handler.html">Handler</a></li>
 				
 					<li><a href="../Pages.html">Pages</a></li>
-				
-					<li><a href="../Test.html">Test</a></li>
 				
 				</ul>
 				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -226,13 +248,46 @@
 					<div class="method-source-code"
 						id="handle-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/shada_app.rb, line 11</span>
-11:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">handle</span> <span class="ruby-identifier">data</span>
-12:       <span class="ruby-identifier">puts</span> <span class="ruby-identifier">get_header</span> <span class="ruby-operator">:</span><span class="ruby-identifier">test</span>
-13:       <span class="ruby-identifier">set_response_header</span> <span class="ruby-value str">'Content-Type'</span>, <span class="ruby-value str">'text/html'</span>
-14:       
-15:       <span class="ruby-value str">'Test'</span>
-16:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/shada_app.rb, line 8</span>
+ 8:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">handle</span> <span class="ruby-identifier">data</span>
+ 9:       <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@form</span>[<span class="ruby-value">:test</span>]
+10:       <span class="ruby-ivar">@form</span>[<span class="ruby-value str">'Content-Type'</span>] = <span class="ruby-value str">'text/html'</span>
+11:       <span class="ruby-identifier">route</span> <span class="ruby-ivar">@form</span>.<span class="ruby-identifier">get_path</span>
+12:       <span class="ruby-value str">'Test'</span>
+13:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="on-connect-method" class="method-detail ">
+				<a name="method-i-on_connect"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">on_connect</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="on-connect-source">
+<pre>
+   <span class="ruby-comment cmt"># File lib/shada_app.rb, line 5</span>
+5:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">on_connect</span>
+6:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>

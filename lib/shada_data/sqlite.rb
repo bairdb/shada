@@ -14,11 +14,11 @@ module Shada
       end
 
       def get_primary table
-        get_connection.get_primary ENV['DB'], table
+        get_connection.get_primary db, table
       end
 
       def get_fields table
-        get_connection.get_fields(table)
+        get_connection.get_fields table
       end
 
       def get_ids result
@@ -30,8 +30,8 @@ module Shada
         ids
       end
 
-      def find params, hash
-        table = hash[:table].nil? ? @table : hash[:table]
+      def find params={}, table=nil
+        table = table.nil? ? @table : table
         @records = nil
         @records = []
         @update = true
@@ -46,7 +46,7 @@ module Shada
           #puts @cache.pull(params)[:ids]
           puts "cache"
         end
-
+        
         case result.count
         when 0
           puts "No results"
@@ -60,20 +60,15 @@ module Shada
 
           @records.push self
         else
-
+          result.reset
           result.each do |r|
             obj = self.class.new
-            @records.push obj.find(@primary_sym => r[@primary_sym])
+            @records.push obj.find(@primary_sym => r[@primary])
           end
-
-          return @records
-        end
-
-        if hash[:return].nil?
           return self
-        else
-          return @records
         end
+        
+        return self
       end
 
       def save

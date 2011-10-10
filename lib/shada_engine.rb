@@ -1,3 +1,4 @@
+require 'shada_mongrel2'
 require_relative 'shada_server'
 require 'fiber'
 require 'time'
@@ -22,12 +23,13 @@ module Shada
       self
     end
     
-    def self.start sender_id, pull_addr, sub_addr, &block
-      sender_id = sender_id
-      pull_addr = pull_addr
-      sub_addr = sub_addr
-      connection ||= Shada::Response.new sender_id, pull_addr, sub_addr 
-      
+    def self.start sender_id=nil, pull_addr=nil, sub_addr=nil, &block
+      sender_id = sender_id || self.name.split('::').last
+      handler = Shada::Mongrel2::Handler.new
+      handler.find :send_ident => sender_id
+      pull_addr = pull_addr || handler.send_spec
+      sub_addr = sub_addr || handler.recv_spec
+      connection ||= Shada::Response.new sender_id, pull_addr, sub_addr
       klass = self.new sender_id, pull_addr, sub_addr, connection
       
       if block_given?

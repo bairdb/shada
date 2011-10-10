@@ -3,8 +3,7 @@ require 'mysql2'
 module Shada
   module Data
     module MYSQL2
-      include Enumerable
-
+      
       def self.included(base)
         base.extend ClassMethods
       end
@@ -14,7 +13,7 @@ module Shada
       end
 
       def get_primary table
-        get_connection.get_primary ENV['DB'], table
+        get_connection.get_primary db, table
       end
 
       def get_fields table
@@ -33,10 +32,13 @@ module Shada
       def find_parent
         val = instance_variable_get("@#{belongs_to_hash[:col]}")
         @parent = get_connection.find belongs_to_hash[:table], '*', {:id => val}, 'id ASC'
-        puts @parent
       end
-
-      def find params, table=nil
+      
+      def find_children
+        
+      end
+      
+      def find params={}, table=nil
         table = table.nil? ? @table : table
         @records = nil
         @records = []
@@ -71,7 +73,7 @@ module Shada
             @records.push obj.find(@primary_sym => r[@primary_sym])
           end
 
-          return @records
+          return self
         end
 
         #save_cache table, cache
@@ -79,7 +81,7 @@ module Shada
         if table.nil?
           return self
         else
-          return @records
+          return self
         end
       end
 
@@ -103,6 +105,7 @@ module Shada
             values.push instance_variable_get("@#{m}")
           end
         end
+        puts "#{table} - #{keys} - #{values}"
         ret = get_connection.insert table, keys, values
 
         puts ret

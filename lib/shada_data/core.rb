@@ -8,17 +8,13 @@ require_relative 'mongodb/mongodb'
 require_relative 'sqlite'
 require_relative 'sqlite/sqlite'
 
+MONGREL2DB = "/Users/bairdlackner-buckingham/development/CoffeaCMS/lib/server/config.sqlite"
 CACHE_DIR = "/Users/bairdlackner-buckingham/projects/ruby_framework/shada_data/lib/shada_data/cache/"
 
 module Shada
   module Data
     class Core
-      @@db = ""
-      @@conn = ""
-      @@hash = ""
-      @@cache = ""
-      @@belongs_to_hash = ""
-      @@children_arr = ""
+      @@internals = {}
 
       include Shada::Data::Benchmark
 
@@ -33,17 +29,16 @@ module Shada
         @new_table = ""
         @parent = []
         @children = []
+        @table = self.class.name.downcase.split('::').last
         select_adapter
-        @table = self.class.name.downcase
         @primary = get_primary @table
         @primary_sym = @primary.to_sym
         @fields = get_fields @table
-        self.class.connection = "Test"
         self
       end
 
       def select_adapter
-        adapter = @@hash[:adapter] || 'mysql'
+        adapter = @@internals[@table][:config][:adapter] || 'mysql'
 
         case adapter
         when nil
@@ -62,43 +57,54 @@ module Shada
       #Class Methods
       class << self
         def connection
-          @@conn
+          @@internals[get_table][:connection]
         end
 
         def cache
-          @@cache
+          @@internals[get_table][:cache]
         end
-
+        
+        def get_table
+          self.name.downcase.split('::').last
+        end
+        
+        def get_config
+          @@internals[get_table][:config]
+        end
+        
         def connect hash
-          @@hash = hash
-          ENV['DB'] = hash[:database]
+          @@internals[get_table] = {}
+          @@internals[get_table][:config] = hash
+          @@internals[get_table][:db] = hash[:database]
           adapter = hash[:adapter] || 'mysql'
           hash[:host] = hash[:host] || 'localhost'
           hash[:username] = hash[:username] || 'root'
           hash[:password] = hash[:password] || ''
-          hash[:table] = self.name
+          hash[:table] = get_table
 
           case adapter
             when nil
               raise "Adapter Not Specified"
             when "mysql"
-              @@conn = Shada::Adapter::MYSQL2.new
-              @@conn.connect hash
+              conn = Shada::Adapter::MYSQL2.new
+              conn.connect hash
             when "mongodb"
-              @@conn = Shada::Adapter::MongoDB.new
-              @@conn.connect hash[:table]
+              conn = Shada::Adapter::MongoDB.new
+              conn.connect hash[:table]
             when "sqlite"
-              @@conn = Shada::Adapter::SQLite.new
-              @@conn.connect hash[:database]
+              conn = Shada::Adapter::SQLite.new
+              conn.connect hash[:database]
             else
               raise "Unknown Error"
           end
-
-          setup self.name
+          
+          @@internals[get_table][:connection] = conn
+          
+          setup get_table
         end 
 
         def setup table
-          @@cache = Shada::Data::Cache.new 100
+          @@internals[get_table][:cache] = Shada::Data::Cache.new 100
           #if not Core::persist_exists "cache_#{table}.tmp"
 
           #  Core::persist "cache_#{table}.tmp", @@cache
@@ -108,7 +114,7 @@ module Shada
 
           #puts @@cache.size
 
-          unless @@hash[:adapter] == 'mongodb'
+          unless get_config[:adapter] == 'mongodb'
             connection.get_fields(table).each do |m|
               add_method m
             end
@@ -128,15 +134,15 @@ module Shada
         #DB methods
 
         def belongs_to table, col
-          @@belongs_to_hash = {:table => table, :col => col}      
+          @@internals[get_table][:belongs_to_hash] = {:table => table, :col => col}
         end
 
         def has_one table, col
-
+          @@internals[get_table][:has_one] = {:table => table, :col => col}
         end
 
         def has_many table, col
-
+          @@internals[get_table][:has_many] = {:table => table, :col => col}
         end
 
         def create table, &block
@@ -173,23 +179,33 @@ module Shada
       #Utility Methods
 
       def cache
-        @@cache
+        @@internals[@table][:cache]
       end
 
       def get_connection
-        @@conn
+        @@internals[@table][:connection]
       end
 
       def belongs_to_hash
-        @@belongs_to_hash
+        @@internals[@table][:belongs_to_hash]
+      end
+      
+      def db
+        @@internals[@table][:db]
       end
 
       def save_cache table, cache
         Core::persist "cache_#{table}.tmp", cache
       end
-
+      
+      def ghost_query key, val
+        vals = {}
+        vals[key] = val.to_i
+        find vals
+      end
+      
       def method_missing name, *args, &block
-        return "ghost method" if name.to_s =~ /^find_(.*)_by_(.*)/
+        return ghost_query $1, $2 if name.to_s =~ /^search_(.*)_for_(.*)/
         return add_column name, args, block if name.to_s =~ /^(.*)=/
         super
       end

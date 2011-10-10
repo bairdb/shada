@@ -80,6 +80,13 @@ module Shada
       def insert table, fields, data
         begin
           val_str = data.map{|v| "?"}.join(", ")
+          data = data.map do |v| 
+            if v.is_a?(Array) or v.is_a?(Hash)
+              v.join ','
+            else
+              v
+            end
+          end
           sql = "INSERT INTO #{table} (#{fields.join(',')}) VALUES (#{val_str})"
           query sql, data
           result = "Success"

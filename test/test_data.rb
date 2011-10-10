@@ -1,15 +1,28 @@
 require 'shada'
 
-class Test < Shada::Data::Core
-  connect :database => "localhost", :adapter => 'mongodb'
-  #connect :database => 'test'
+class Handler < Shada::Data::Core
+  connect :database => '/Users/bairdlackner-buckingham/development/CoffeaCMS/lib/server/config.sqlite', :adapter => 'sqlite'
 end
 
-test = Test.new
-test.find(:test_col => 4).each do |row|
-  puts row
+class Pages < Shada::Data::Core
+  connect :database => 'test'
+  
+  def check
+    puts @name
+  end
 end
+
+handler = Handler.new
+handler.find.records.each do |r|
+  puts r.send_ident
+end
+
 
 #page = Pages.new
-#page.find :id => 1
-#page.find :id => 1
+#page.search_id_for_1
+#puts page.name
+#page.find(:parent => 0).records.each do |r|
+#  r.name = "Change The Name Of This Page"
+#  r.save
+#end
+

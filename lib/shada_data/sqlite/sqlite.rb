@@ -29,7 +29,7 @@ module Shada
       end
       
       def get_fields table
-        stmt = @db.prepare "select * from test"
+        stmt = @db.prepare "select * from #{table}"
         stmt.columns
       end
       

@@ -4,6 +4,8 @@ module Shada
   class Controller
     @@paths = {}
     
+    attr_accessor :form
+    
     def initialize
     end
     
@@ -20,6 +22,10 @@ module Shada
         end
         @@paths[self.name.downcase] = path
         puts self.instance_variables
+      end
+      
+      def path
+        @@paths[self.name.downcase]
       end
       
       def add_method name
