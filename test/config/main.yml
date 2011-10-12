@@ -1,0 +1,17 @@
+---
+  DocumentRoot: public/
+  DocumentIndex: index.html
+  DefaultType: text/html
+  ErrorLog: temp/logs/errorlog.log
+  AccessLog: temp/logs/accesslog.log
+  ContentEncoding: UTF-8
+  Host: localhost
+  SessionPath: temp/sessions
+  SessionLife: 300
+  CachePath: temp/cache
+  ControllerPath: /Users/bairdlackner-buckingham/projects/ruby_framework/shada/test/application/controllers/
+  DefaultController: app
+  Mongrel2DB: /Users/bairdlackner-buckingham/projects/ruby_framework/build/server/config.sqlite
+  CacheDir: tmp/
+  CacheSize: 1000
+  

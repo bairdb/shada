@@ -30,3 +30,15 @@ doc/nbproject/private/rake-d_txt.html
 doc/nbproject/private/rake-d_txt.html
 
 doc/nbproject/private/rake-d_txt.html
+
+test/tmp/cache_server.tmp
+
+test/tmp/cache_route.tmp
+
+test/tmp/cache_log.tmp
+
+test/tmp/cache_host.tmp
+
+test/tmp/cache_handler.tmp
+
+test/tmp/cache_directory.tmp

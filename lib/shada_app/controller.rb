@@ -1,12 +1,19 @@
 require 'shada_engine'
+require 'shada_utils'
 
 module Shada
   class Controller
     @@paths = {}
     
+    include Shada::Utils
+    
     attr_accessor :form
     
     def initialize
+    end
+    
+    def index
+      'This needs to be implemented.'
     end
     
     def path
@@ -27,20 +34,22 @@ module Shada
       def path
         @@paths[self.name.downcase]
       end
-      
-      def add_method name
-        define_method(name) do
-         instance_variable_get("@#{name}")
-        end
-
-        define_method("#{name}=") do |val|
-         instance_variable_set("@#{name}",val)
-        end
+    end
+    
+    def page_not_found
+      'Page not found.'
+    end
+    
+    def route var=@page
+      unless var.nil?
+        method = var.to_sym
+        self.respond_to?(method) ? self.send(method) : page_not_found
+      else
+        index
       end
     end
     
-    def render content, content_type='text/html'
-      set_response_header 'Content-Type', content_type
+    def render content
       content
     end
   end

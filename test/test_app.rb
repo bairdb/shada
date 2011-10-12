@@ -1,11 +1,9 @@
 require 'shada'
 
-class AppController < Shada::Controller
-  path_map :controller, :view
-  
-  def index
-    render 'Index'
-  end
-end
+Dir.chdir File.dirname(__FILE__)
 
-Shada::App.start #SENDER_ID, RECV_ADDR, SEND_ADDR
+Shada::Config.load_config 'config/main.yml'
+
+#Dir["#{Shada::Config['ControllerPath']}*.rb"].each { |f| require_relative f }
+
+Shada::App.start

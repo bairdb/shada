@@ -35,7 +35,7 @@ module Shada
         @records = nil
         @records = []
         @update = true
-
+        
         if not cache.pull params
           result = get_connection.find table, '*', params, "id ASC"
           kresult = get_connection.find table, 'id', params, "id ASC"
@@ -46,6 +46,7 @@ module Shada
           #puts @cache.pull(params)[:ids]
           puts "cache"
         end
+        
         
         case result.count
         when 0

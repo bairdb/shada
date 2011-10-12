@@ -151,6 +151,8 @@
 				
 					<li><a href="../../Shada/App.html">Shada::App</a></li>
 				
+					<li><a href="../../Shada/Config.html">Shada::Config</a></li>
+				
 					<li><a href="../../Shada/Controller.html">Shada::Controller</a></li>
 				
 					<li><a href="../../Shada/Data.html">Shada::Data</a></li>
@@ -217,11 +219,19 @@
 				
 					<li><a href="../../Shada/Upload.html">Shada::Upload</a></li>
 				
+					<li><a href="../../Shada/Utils.html">Shada::Utils</a></li>
+				
+					<li><a href="../../Shada/Utils/ClassMethods.html">Shada::Utils::ClassMethods</a></li>
+				
 					<li><a href="../../AppController.html">AppController</a></li>
 				
 					<li><a href="../../Handler.html">Handler</a></li>
 				
 					<li><a href="../../Pages.html">Pages</a></li>
+				
+					<li><a href="../../String.html">String</a></li>
+				
+					<li><a href="../../TestController.html">TestController</a></li>
 				
 				</ul>
 				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -310,21 +320,21 @@
 					<div class="method-source-code"
 						id="add-column-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/shada_data/sqlite.rb, line 124</span>
-124:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_column</span> <span class="ruby-identifier">name</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">block</span>
-125:         <span class="ruby-identifier">table</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>
-126: 
-127:         <span class="ruby-identifier">val</span> = <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>]
-128: 
-129:         <span class="ruby-identifier">type</span>, <span class="ruby-identifier">length</span> = <span class="ruby-identifier">get_column_type</span> <span class="ruby-identifier">val</span>
-130: 
-131:         <span class="ruby-identifier">valid_name</span> = <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/=/</span>, <span class="ruby-value str">&quot;&quot;</span>).<span class="ruby-identifier">to_s</span>
-132:         <span class="ruby-identifier">get_connection</span>.<span class="ruby-identifier">add_column</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">valid_name</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">length</span>
-133: 
-134:         <span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-node">&quot;@#{valid_name}&quot;</span>, <span class="ruby-identifier">val</span>)
-135: 
-136:         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Creating Column with #{valid_name}, #{val}, #{type}&quot;</span>
-137:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/sqlite.rb, line 125</span>
+125:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_column</span> <span class="ruby-identifier">name</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">block</span>
+126:         <span class="ruby-identifier">table</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>
+127: 
+128:         <span class="ruby-identifier">val</span> = <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>]
+129: 
+130:         <span class="ruby-identifier">type</span>, <span class="ruby-identifier">length</span> = <span class="ruby-identifier">get_column_type</span> <span class="ruby-identifier">val</span>
+131: 
+132:         <span class="ruby-identifier">valid_name</span> = <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/=/</span>, <span class="ruby-value str">&quot;&quot;</span>).<span class="ruby-identifier">to_s</span>
+133:         <span class="ruby-identifier">get_connection</span>.<span class="ruby-identifier">add_column</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">valid_name</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">length</span>
+134: 
+135:         <span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-node">&quot;@#{valid_name}&quot;</span>, <span class="ruby-identifier">val</span>)
+136: 
+137:         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Creating Column with #{valid_name}, #{val}, #{type}&quot;</span>
+138:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -355,14 +365,14 @@
 					<div class="method-source-code"
 						id="destroy-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/shada_data/sqlite.rb, line 116</span>
-116:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">destroy</span>
-117:         <span class="ruby-identifier">table</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>
-118:         <span class="ruby-identifier">primary_value</span> = <span class="ruby-identifier">instance_variable_get</span>(<span class="ruby-node">&quot;@#{@primary}&quot;</span>)
-119:         <span class="ruby-identifier">get_connection</span>.<span class="ruby-identifier">destroy</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">primary_value</span>, <span class="ruby-ivar">@primary</span>
-120:         <span class="ruby-identifier">update_cache</span> <span class="ruby-identifier">primary_value</span>
-121:         <span class="ruby-keyword kw">self</span>
-122:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/sqlite.rb, line 117</span>
+117:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">destroy</span>
+118:         <span class="ruby-identifier">table</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>
+119:         <span class="ruby-identifier">primary_value</span> = <span class="ruby-identifier">instance_variable_get</span>(<span class="ruby-node">&quot;@#{@primary}&quot;</span>)
+120:         <span class="ruby-identifier">get_connection</span>.<span class="ruby-identifier">destroy</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">primary_value</span>, <span class="ruby-ivar">@primary</span>
+121:         <span class="ruby-identifier">update_cache</span> <span class="ruby-identifier">primary_value</span>
+122:         <span class="ruby-keyword kw">self</span>
+123:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -399,7 +409,7 @@
 35:         <span class="ruby-ivar">@records</span> = <span class="ruby-keyword kw">nil</span>
 36:         <span class="ruby-ivar">@records</span> = []
 37:         <span class="ruby-ivar">@update</span> = <span class="ruby-keyword kw">true</span>
-38: 
+38:         
 39:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">cache</span>.<span class="ruby-identifier">pull</span> <span class="ruby-identifier">params</span>
 40:           <span class="ruby-identifier">result</span> = <span class="ruby-identifier">get_connection</span>.<span class="ruby-identifier">find</span> <span class="ruby-identifier">table</span>, <span class="ruby-value str">'*'</span>, <span class="ruby-identifier">params</span>, <span class="ruby-value str">&quot;id ASC&quot;</span>
 41:           <span class="ruby-identifier">kresult</span> = <span class="ruby-identifier">get_connection</span>.<span class="ruby-identifier">find</span> <span class="ruby-identifier">table</span>, <span class="ruby-value str">'id'</span>, <span class="ruby-identifier">params</span>, <span class="ruby-value str">&quot;id ASC&quot;</span>
@@ -411,29 +421,30 @@
 47:           <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;cache&quot;</span>
 48:         <span class="ruby-keyword kw">end</span>
 49:         
-50:         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">count</span>
-51:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">0</span>
-52:           <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;No results&quot;</span>
-53:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">1</span>
-54:           <span class="ruby-identifier">result</span>.<span class="ruby-identifier">reset</span>
-55:           <span class="ruby-identifier">r</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">next</span>
-56:           <span class="ruby-ivar">@fields</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>
-57:             <span class="ruby-comment cmt">#puts &quot;#{m} = #{r[m]}&quot;</span>
-58:             <span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-node">&quot;@#{m}&quot;</span>, <span class="ruby-identifier">r</span>[<span class="ruby-identifier">m</span>])
-59:           <span class="ruby-keyword kw">end</span>
-60: 
-61:           <span class="ruby-ivar">@records</span>.<span class="ruby-identifier">push</span> <span class="ruby-keyword kw">self</span>
-62:         <span class="ruby-keyword kw">else</span>
-63:           <span class="ruby-identifier">result</span>.<span class="ruby-identifier">reset</span>
-64:           <span class="ruby-identifier">result</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
-65:             <span class="ruby-identifier">obj</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">new</span>
-66:             <span class="ruby-ivar">@records</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">find</span>(<span class="ruby-ivar">@primary_sym</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">r</span>[<span class="ruby-ivar">@primary</span>])
-67:           <span class="ruby-keyword kw">end</span>
-68:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>
-69:         <span class="ruby-keyword kw">end</span>
-70:         
-71:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>
-72:       <span class="ruby-keyword kw">end</span></pre>
+50:         
+51:         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">count</span>
+52:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">0</span>
+53:           <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;No results&quot;</span>
+54:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">1</span>
+55:           <span class="ruby-identifier">result</span>.<span class="ruby-identifier">reset</span>
+56:           <span class="ruby-identifier">r</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">next</span>
+57:           <span class="ruby-ivar">@fields</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>
+58:             <span class="ruby-comment cmt">#puts &quot;#{m} = #{r[m]}&quot;</span>
+59:             <span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-node">&quot;@#{m}&quot;</span>, <span class="ruby-identifier">r</span>[<span class="ruby-identifier">m</span>])
+60:           <span class="ruby-keyword kw">end</span>
+61: 
+62:           <span class="ruby-ivar">@records</span>.<span class="ruby-identifier">push</span> <span class="ruby-keyword kw">self</span>
+63:         <span class="ruby-keyword kw">else</span>
+64:           <span class="ruby-identifier">result</span>.<span class="ruby-identifier">reset</span>
+65:           <span class="ruby-identifier">result</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
+66:             <span class="ruby-identifier">obj</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">new</span>
+67:             <span class="ruby-ivar">@records</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">find</span>(<span class="ruby-ivar">@primary_sym</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">r</span>[<span class="ruby-ivar">@primary</span>])
+68:           <span class="ruby-keyword kw">end</span>
+69:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>
+70:         <span class="ruby-keyword kw">end</span>
+71:         
+72:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>
+73:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -464,29 +475,29 @@
 					<div class="method-source-code"
 						id="get-column-type-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/shada_data/sqlite.rb, line 139</span>
-139:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_column_type</span> <span class="ruby-identifier">val</span>
-140:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
-141:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">256</span>
-142:             <span class="ruby-identifier">type</span> = <span class="ruby-value str">&quot;TEXT&quot;</span>
-143:             <span class="ruby-identifier">length</span> = <span class="ruby-value">0</span>
-144:           <span class="ruby-keyword kw">else</span>
-145:             <span class="ruby-identifier">type</span> = <span class="ruby-value str">&quot;TEXT&quot;</span>
-146:             <span class="ruby-identifier">length</span> = <span class="ruby-value">0</span>
-147:           <span class="ruby-keyword kw">end</span>
-148:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Bignum</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Fixnum</span>)
-149:           <span class="ruby-identifier">type</span> = <span class="ruby-value str">&quot;INTEGER&quot;</span>
-150:           <span class="ruby-identifier">length</span> = <span class="ruby-value">0</span>
-151:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">FLOAT</span>)
-152:           <span class="ruby-identifier">type</span> = <span class="ruby-value str">&quot;INTEGER&quot;</span>
-153:           <span class="ruby-identifier">length</span> = <span class="ruby-value">0</span>
-154:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">nil?</span>
-155:           <span class="ruby-identifier">type</span> = <span class="ruby-value str">&quot;VARCHAR&quot;</span>
-156:           <span class="ruby-identifier">length</span> = <span class="ruby-value">255</span>
-157:         <span class="ruby-keyword kw">end</span>
-158: 
-159:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">type</span>, <span class="ruby-identifier">length</span>
-160:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/sqlite.rb, line 140</span>
+140:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_column_type</span> <span class="ruby-identifier">val</span>
+141:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+142:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">256</span>
+143:             <span class="ruby-identifier">type</span> = <span class="ruby-value str">&quot;TEXT&quot;</span>
+144:             <span class="ruby-identifier">length</span> = <span class="ruby-value">0</span>
+145:           <span class="ruby-keyword kw">else</span>
+146:             <span class="ruby-identifier">type</span> = <span class="ruby-value str">&quot;TEXT&quot;</span>
+147:             <span class="ruby-identifier">length</span> = <span class="ruby-value">0</span>
+148:           <span class="ruby-keyword kw">end</span>
+149:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Bignum</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Fixnum</span>)
+150:           <span class="ruby-identifier">type</span> = <span class="ruby-value str">&quot;INTEGER&quot;</span>
+151:           <span class="ruby-identifier">length</span> = <span class="ruby-value">0</span>
+152:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">FLOAT</span>)
+153:           <span class="ruby-identifier">type</span> = <span class="ruby-value str">&quot;INTEGER&quot;</span>
+154:           <span class="ruby-identifier">length</span> = <span class="ruby-value">0</span>
+155:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">nil?</span>
+156:           <span class="ruby-identifier">type</span> = <span class="ruby-value str">&quot;VARCHAR&quot;</span>
+157:           <span class="ruby-identifier">length</span> = <span class="ruby-value">255</span>
+158:         <span class="ruby-keyword kw">end</span>
+159: 
+160:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">type</span>, <span class="ruby-identifier">length</span>
+161:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -624,22 +635,22 @@
 					<div class="method-source-code"
 						id="insert-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/shada_data/sqlite.rb, line 85</span>
-85:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">insert</span> <span class="ruby-identifier">table</span>
-86:         <span class="ruby-identifier">keys</span> = []
-87:         <span class="ruby-identifier">values</span> = []
-88:         <span class="ruby-identifier">get_fields</span>(<span class="ruby-identifier">table</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>
-89:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@primary</span>.<span class="ruby-identifier">to_s</span>
-90:             <span class="ruby-identifier">keys</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">m</span>
-91:             <span class="ruby-identifier">values</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">instance_variable_get</span>(<span class="ruby-node">&quot;@#{m}&quot;</span>)
-92:           <span class="ruby-keyword kw">end</span>
-93:         <span class="ruby-keyword kw">end</span>
-94:         <span class="ruby-identifier">ret</span> = <span class="ruby-identifier">get_connection</span>.<span class="ruby-identifier">insert</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">keys</span>, <span class="ruby-identifier">values</span>
-95: 
-96:         <span class="ruby-identifier">puts</span> <span class="ruby-identifier">ret</span>
-97:         <span class="ruby-ivar">@saving</span> = <span class="ruby-keyword kw">false</span>
-98:         <span class="ruby-keyword kw">self</span>
-99:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/sqlite.rb, line 86</span>
+ 86:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">insert</span> <span class="ruby-identifier">table</span>
+ 87:         <span class="ruby-identifier">keys</span> = []
+ 88:         <span class="ruby-identifier">values</span> = []
+ 89:         <span class="ruby-identifier">get_fields</span>(<span class="ruby-identifier">table</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>
+ 90:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@primary</span>.<span class="ruby-identifier">to_s</span>
+ 91:             <span class="ruby-identifier">keys</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">m</span>
+ 92:             <span class="ruby-identifier">values</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">instance_variable_get</span>(<span class="ruby-node">&quot;@#{m}&quot;</span>)
+ 93:           <span class="ruby-keyword kw">end</span>
+ 94:         <span class="ruby-keyword kw">end</span>
+ 95:         <span class="ruby-identifier">ret</span> = <span class="ruby-identifier">get_connection</span>.<span class="ruby-identifier">insert</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">keys</span>, <span class="ruby-identifier">values</span>
+ 96: 
+ 97:         <span class="ruby-identifier">puts</span> <span class="ruby-identifier">ret</span>
+ 98:         <span class="ruby-ivar">@saving</span> = <span class="ruby-keyword kw">false</span>
+ 99:         <span class="ruby-keyword kw">self</span>
+100:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -670,17 +681,17 @@
 					<div class="method-source-code"
 						id="save-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/shada_data/sqlite.rb, line 74</span>
-74:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">save</span>
-75:         <span class="ruby-ivar">@saving</span> = <span class="ruby-keyword kw">true</span>
-76:         <span class="ruby-identifier">table</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>
-77: 
-78:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@update</span>
-79:           <span class="ruby-identifier">insert</span> <span class="ruby-identifier">table</span>
-80:         <span class="ruby-keyword kw">else</span>
-81:           <span class="ruby-identifier">update</span> <span class="ruby-identifier">table</span>
-82:         <span class="ruby-keyword kw">end</span>
-83:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/shada_data/sqlite.rb, line 75</span>
+75:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">save</span>
+76:         <span class="ruby-ivar">@saving</span> = <span class="ruby-keyword kw">true</span>
+77:         <span class="ruby-identifier">table</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>
+78: 
+79:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@update</span>
+80:           <span class="ruby-identifier">insert</span> <span class="ruby-identifier">table</span>
+81:         <span class="ruby-keyword kw">else</span>
+82:           <span class="ruby-identifier">update</span> <span class="ruby-identifier">table</span>
+83:         <span class="ruby-keyword kw">end</span>
+84:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -711,21 +722,21 @@
 					<div class="method-source-code"
 						id="update-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/shada_data/sqlite.rb, line 101</span>
-101:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update</span> <span class="ruby-identifier">table</span>
-102:         <span class="ruby-identifier">fields</span> = {}
-103:         <span class="ruby-identifier">primary_value</span> = <span class="ruby-identifier">instance_variable_get</span>(<span class="ruby-node">&quot;@#{@primary}&quot;</span>)
-104:         <span class="ruby-identifier">get_fields</span>(<span class="ruby-identifier">table</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>
-105:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@primary</span>.<span class="ruby-identifier">to_s</span>
-106:             <span class="ruby-identifier">fields</span>[<span class="ruby-identifier">m</span>.<span class="ruby-identifier">to_sym</span>] = <span class="ruby-identifier">instance_variable_get</span>(<span class="ruby-node">&quot;@#{m}&quot;</span>)
-107:           <span class="ruby-keyword kw">end</span>
-108:         <span class="ruby-keyword kw">end</span>
-109:         <span class="ruby-identifier">ret</span> = <span class="ruby-identifier">get_connection</span>.<span class="ruby-identifier">update</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">fields</span>, <span class="ruby-identifier">primary_value</span>, <span class="ruby-ivar">@primary</span>
-110:         <span class="ruby-identifier">puts</span> <span class="ruby-identifier">ret</span>
-111:         <span class="ruby-identifier">update_cache</span> <span class="ruby-identifier">primary_value</span>
-112:         <span class="ruby-ivar">@saving</span> = <span class="ruby-keyword kw">false</span>
-113:         <span class="ruby-keyword kw">self</span>
-114:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/sqlite.rb, line 102</span>
+102:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update</span> <span class="ruby-identifier">table</span>
+103:         <span class="ruby-identifier">fields</span> = {}
+104:         <span class="ruby-identifier">primary_value</span> = <span class="ruby-identifier">instance_variable_get</span>(<span class="ruby-node">&quot;@#{@primary}&quot;</span>)
+105:         <span class="ruby-identifier">get_fields</span>(<span class="ruby-identifier">table</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>
+106:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@primary</span>.<span class="ruby-identifier">to_s</span>
+107:             <span class="ruby-identifier">fields</span>[<span class="ruby-identifier">m</span>.<span class="ruby-identifier">to_sym</span>] = <span class="ruby-identifier">instance_variable_get</span>(<span class="ruby-node">&quot;@#{m}&quot;</span>)
+108:           <span class="ruby-keyword kw">end</span>
+109:         <span class="ruby-keyword kw">end</span>
+110:         <span class="ruby-identifier">ret</span> = <span class="ruby-identifier">get_connection</span>.<span class="ruby-identifier">update</span> <span class="ruby-identifier">table</span>, <span class="ruby-identifier">fields</span>, <span class="ruby-identifier">primary_value</span>, <span class="ruby-ivar">@primary</span>
+111:         <span class="ruby-identifier">puts</span> <span class="ruby-identifier">ret</span>
+112:         <span class="ruby-identifier">update_cache</span> <span class="ruby-identifier">primary_value</span>
+113:         <span class="ruby-ivar">@saving</span> = <span class="ruby-keyword kw">false</span>
+114:         <span class="ruby-keyword kw">self</span>
+115:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -756,16 +767,16 @@
 					<div class="method-source-code"
 						id="update-cache-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/shada_data/sqlite.rb, line 162</span>
-162:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_cache</span> <span class="ruby-identifier">primary_val</span>
-163:         <span class="ruby-identifier">cache</span>.<span class="ruby-identifier">each_page</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">page</span><span class="ruby-operator">|</span>
-164:           <span class="ruby-identifier">page</span>.<span class="ruby-identifier">value</span>[<span class="ruby-value">:ids</span>].<span class="ruby-identifier">find</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
-165:             <span class="ruby-comment cmt">#puts &quot;Size: #{@cache.size}&quot;</span>
-166:             <span class="ruby-identifier">cache</span>.<span class="ruby-identifier">remove_node</span> <span class="ruby-identifier">page</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">i</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">primary_val</span>.<span class="ruby-identifier">to_i</span>
-167:             <span class="ruby-comment cmt">#puts &quot;Size: #{@cache.size}&quot;</span>
-168:           <span class="ruby-keyword kw">end</span>
-169:         <span class="ruby-keyword kw">end</span>
-170:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/shada_data/sqlite.rb, line 163</span>
+163:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_cache</span> <span class="ruby-identifier">primary_val</span>
+164:         <span class="ruby-identifier">cache</span>.<span class="ruby-identifier">each_page</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">page</span><span class="ruby-operator">|</span>
+165:           <span class="ruby-identifier">page</span>.<span class="ruby-identifier">value</span>[<span class="ruby-value">:ids</span>].<span class="ruby-identifier">find</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+166:             <span class="ruby-comment cmt">#puts &quot;Size: #{@cache.size}&quot;</span>
+167:             <span class="ruby-identifier">cache</span>.<span class="ruby-identifier">remove_node</span> <span class="ruby-identifier">page</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">i</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">primary_val</span>.<span class="ruby-identifier">to_i</span>
+168:             <span class="ruby-comment cmt">#puts &quot;Size: #{@cache.size}&quot;</span>
+169:           <span class="ruby-keyword kw">end</span>
+170:         <span class="ruby-keyword kw">end</span>
+171:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>

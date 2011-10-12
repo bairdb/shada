@@ -38,3 +38,9 @@ Rake::GemPackageTask.new spec do |package|
   package.need_zip = true
   package.need_tar = true
 end
+
+task :build_gem do
+  sh 'rdoc'
+  sh 'rake pkg/shada-0.0.1.gem'
+  sh 'rvm gem install pkg/shada-*.gem'
+end

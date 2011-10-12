@@ -1,3 +1,8 @@
+require 'yaml'
+
+require 'shada_utils'
+require 'shada_config'
+
 require_relative 'core/cache'
 require_relative 'core/benchmark'
 
@@ -8,19 +13,18 @@ require_relative 'mongodb/mongodb'
 require_relative 'sqlite'
 require_relative 'sqlite/sqlite'
 
-MONGREL2DB = "/Users/bairdlackner-buckingham/development/CoffeaCMS/lib/server/config.sqlite"
-CACHE_DIR = "/Users/bairdlackner-buckingham/projects/ruby_framework/shada_data/lib/shada_data/cache/"
+Shada::Config.load_config 'config/main.yml'
 
 module Shada
   module Data
     class Core
       @@internals = {}
 
+      include Shada::Utils 
       include Shada::Data::Benchmark
 
       attr_reader :fields, :records, :parent, :children
-
-      #Instance Methods
+      
       def initialize
         @update = false
         @saving = false
@@ -36,7 +40,8 @@ module Shada
         @fields = get_fields @table
         self
       end
-
+      
+      #Selects database adapter for model
       def select_adapter
         adapter = @@internals[@table][:config][:adapter] || 'mysql'
 
@@ -54,7 +59,6 @@ module Shada
         end
       end
 
-      #Class Methods
       class << self
         def connection
           @@internals[get_table][:connection]
@@ -104,15 +108,18 @@ module Shada
         end 
 
         def setup table
-          @@internals[get_table][:cache] = Shada::Data::Cache.new 100
-          #if not Core::persist_exists "cache_#{table}.tmp"
+          if @@internals[get_table][:config][:adapter] == 'mysql'
+            if not Core::persist_exists "cache_#{table}.tmp"
+              @@internals[get_table][:cache] = Shada::Data::Cache.new 100
+              Core::persist "cache_#{table}.tmp", @@internals[get_table][:cache]
+            else
+              @@internals[get_table][:cache] = Core::persist_load "cache_#{table}.tmp"
+            end
+          else
+            @@internals[get_table][:cache] = Shada::Data::Cache.new 100
+          end
 
-          #  Core::persist "cache_#{table}.tmp", @@cache
-          #else
-          #  @@cache = Core::persist_load "cache_#{table}.tmp"
-          #end
-
-          #puts @@cache.size
+          #puts @@internals[get_table][:cache].size
 
           unless get_config[:adapter] == 'mongodb'
             connection.get_fields(table).each do |m|
@@ -121,17 +128,6 @@ module Shada
           end
         end
 
-        def add_method name
-          define_method(name) do
-           instance_variable_get("@#{name}")
-          end
-
-          define_method("#{name}=") do |val|
-           instance_variable_set("@#{name}",val)
-          end
-        end
-
-        #DB methods
 
         def belongs_to table, col
           @@internals[get_table][:belongs_to_hash] = {:table => table, :col => col}
@@ -161,22 +157,20 @@ module Shada
         end
 
         def persist file_name, obj
-          File.open("#{CACHE_DIR}#{file_name}","wb") do |file|
+          File.open("#{Shada::Config['CacheDir']}#{file_name}","w") do |file|
              Marshal::dump(obj,file)
           end
         end
 
         def persist_load file_name
-          File.open("#{CACHE_DIR}#{file_name}","rb") {|f| return Marshal::load(f)}
+          File.open("#{Shada::Config['CacheDir']}#{file_name}","r") {|f| return Marshal::load(f)}
         end
 
         def persist_exists file_name
-          File.exist?("#{CACHE_DIR}#{file_name}")
+          File.exist?("#{Shada::Config['CacheDir']}#{file_name}")
         end
 
       end
-
-      #Utility Methods
 
       def cache
         @@internals[@table][:cache]
@@ -195,6 +189,7 @@ module Shada
       end
 
       def save_cache table, cache
+        @@internals[@table][:cache] = cache
         Core::persist "cache_#{table}.tmp", cache
       end
       

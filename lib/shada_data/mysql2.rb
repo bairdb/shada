@@ -47,13 +47,17 @@ module Shada
         if not cache.pull params.to_s
           result = get_connection.find table, '*', params, "id ASC"
           kresult = get_connection.find table, 'id', params, "id ASC"
-          cache.store params.to_s, {:result => result, :ids => get_ids(kresult)}
+          cache.store params.to_s, {:result => result.to_a, :ids => get_ids(kresult)}
         else
           result = cache.pull(params.to_s)[:result]
           #puts @cache.pull(params)[:ids]
-          puts "cache"
+          #puts "cache"
         end
-
+        
+        save_cache table, cache
+        
+        result = result.to_a
+        
         case result.count
         when 0
           puts "No results"
@@ -76,13 +80,7 @@ module Shada
           return self
         end
 
-        #save_cache table, cache
-
-        if table.nil?
-          return self
-        else
-          return self
-        end
+        return self
       end
 
       def save

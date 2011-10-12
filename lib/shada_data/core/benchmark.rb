@@ -1,7 +1,7 @@
 module Shada
   module Data
     module Benchmark
-      def benchmark
+      def self.benchmark
         beginning_time = Time.now
         yield
         end_time = Time.now

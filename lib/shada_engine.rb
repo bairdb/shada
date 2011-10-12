@@ -77,14 +77,6 @@ module Shada
           
       end
     end
-    
-    def run_meth
-      begin
-        yield
-      rescue => e
-        puts e
-      end
-    end
   end
 end
 

@@ -120,6 +120,8 @@
 				
 					<li><a href="../Shada/App.html">Shada::App</a></li>
 				
+					<li><a href="../Shada/Config.html">Shada::Config</a></li>
+				
 					<li><a href="../Shada/Controller.html">Shada::Controller</a></li>
 				
 					<li><a href="../Shada/Data.html">Shada::Data</a></li>
@@ -186,11 +188,19 @@
 				
 					<li><a href="../Shada/Upload.html">Shada::Upload</a></li>
 				
+					<li><a href="../Shada/Utils.html">Shada::Utils</a></li>
+				
+					<li><a href="../Shada/Utils/ClassMethods.html">Shada::Utils::ClassMethods</a></li>
+				
 					<li><a href="../AppController.html">AppController</a></li>
 				
 					<li><a href="../Handler.html">Handler</a></li>
 				
 					<li><a href="../Pages.html">Pages</a></li>
+				
+					<li><a href="../String.html">String</a></li>
+				
+					<li><a href="../TestController.html">TestController</a></li>
 				
 				</ul>
 				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -239,12 +249,28 @@
 					<div class="method-source-code"
 						id="route-source">
 <pre>
-   <span class="ruby-comment cmt"># File lib/shada_engine/router.rb, line 5</span>
-5:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">route</span> <span class="ruby-identifier">path</span>
-6:       <span class="ruby-identifier">path_arr</span> = <span class="ruby-identifier">path</span>.<span class="ruby-identifier">split</span> <span class="ruby-value str">'/'</span>
-7:       <span class="ruby-identifier">controller</span> = <span class="ruby-identifier">path_arr</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULTCONTROLLER</span>
-8:       <span class="ruby-identifier">puts</span> <span class="ruby-identifier">controller</span>
-9:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/shada_engine/router.rb, line 3</span>
+ 3:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">route</span> <span class="ruby-identifier">path</span>
+ 4:       <span class="ruby-keyword kw">begin</span>
+ 5:         <span class="ruby-identifier">path_arr</span> = <span class="ruby-identifier">path</span>.<span class="ruby-identifier">split</span> <span class="ruby-value str">'/'</span>
+ 6:         
+ 7:         <span class="ruby-identifier">reload</span> <span class="ruby-constant">Shada</span><span class="ruby-operator">::</span><span class="ruby-constant">Config</span>[<span class="ruby-value str">'ControllerPath'</span>]
+ 8:         
+ 9:         <span class="ruby-identifier">controller</span> = <span class="ruby-node">&quot;#{(path_arr[1] || Shada::Config['DefaultController']).to_s.propercase}Controller&quot;</span>
+10:         <span class="ruby-identifier">controller</span> = <span class="ruby-identifier">is_class?</span>(<span class="ruby-identifier">controller</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">controller</span> <span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{Shada::Config['DefaultController'].to_s.propercase}Controller&quot;</span>
+11:         
+12:         <span class="ruby-ivar">@controller</span> = <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">controller</span>).<span class="ruby-identifier">new</span>
+13: 
+14:         <span class="ruby-ivar">@controller</span>.<span class="ruby-identifier">path</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-value">1</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span>, <span class="ruby-identifier">p</span><span class="ruby-operator">|</span>
+15:           <span class="ruby-ivar">@controller</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-node">&quot;@#{p}&quot;</span>,<span class="ruby-identifier">path_arr</span>[<span class="ruby-identifier">i</span>])
+16:           <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+17:         <span class="ruby-keyword kw">end</span>
+18: 
+19:         <span class="ruby-ivar">@controller</span>.<span class="ruby-identifier">route</span>
+20:       <span class="ruby-keyword kw">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+21:         <span class="ruby-identifier">puts</span> <span class="ruby-identifier">e</span>
+22:       <span class="ruby-keyword kw">end</span>
+23:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
