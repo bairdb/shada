@@ -1,5 +1,6 @@
 require_relative 'shada_utils'
 require_relative 'shada_app/controller'
+require_relative 'shada_app/templator'
 
 module Shada
   class App < Shada::Engine

@@ -201,6 +201,8 @@
 				
 					<li><a href="../Shada/Session.html">Shada::Session</a></li>
 				
+					<li><a href="../Shada/Templator.html">Shada::Templator</a></li>
+				
 					<li><a href="../Shada/Upload.html">Shada::Upload</a></li>
 				
 					<li><a href="../Shada/Utils.html">Shada::Utils</a></li>
@@ -372,9 +374,10 @@
 <pre>
     <span class="ruby-comment cmt"># File lib/shada_config/config.rb, line 32</span>
 32:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_file</span>(<span class="ruby-identifier">file</span>)
-33:         <span class="ruby-identifier">config</span> = <span class="ruby-identifier">file</span> <span class="ruby-operator">?</span> <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load</span>(<span class="ruby-identifier">open</span>(<span class="ruby-identifier">file</span>)) <span class="ruby-operator">:</span> {}
-34:         <span class="ruby-identifier">config</span>
-35:       <span class="ruby-keyword kw">end</span></pre>
+33:         <span class="ruby-identifier">puts</span> <span class="ruby-identifier">file</span>
+34:         <span class="ruby-identifier">config</span> = <span class="ruby-identifier">file</span> <span class="ruby-operator">?</span> <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load</span>(<span class="ruby-identifier">open</span>(<span class="ruby-identifier">file</span>)) <span class="ruby-operator">:</span> {}
+35:         <span class="ruby-identifier">config</span>
+36:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>

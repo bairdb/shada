@@ -1,17 +1,19 @@
-Thu, 13 Oct 2011 01:58:39 -0500
+Fri, 14 Oct 2011 02:57:28 -0500
 ./lib/shada.rb	Wed, 12 Oct 2011 03:18:24 -0500
 ./lib/shada_app/controller.rb	Tue, 11 Oct 2011 18:46:34 -0500
 ./lib/shada_app/model.rb	Tue, 23 Aug 2011 17:48:39 -0500
+./lib/shada_app/scaffolding/test_stub.rb	Thu, 13 Oct 2011 03:07:03 -0500
 ./lib/shada_app/session.rb	Wed, 28 Sep 2011 16:23:18 -0500
-./lib/shada_app.rb	Tue, 11 Oct 2011 18:44:40 -0500
-./lib/shada_config/config.rb	Wed, 12 Oct 2011 03:18:04 -0500
+./lib/shada_app/templator.rb	Fri, 14 Oct 2011 02:57:17 -0500
+./lib/shada_app.rb	Fri, 14 Oct 2011 02:49:14 -0500
+./lib/shada_config/config.rb	Thu, 13 Oct 2011 21:30:49 -0500
 ./lib/shada_config.rb	Tue, 11 Oct 2011 18:00:42 -0500
 ./lib/shada_data/core/benchmark.rb	Tue, 11 Oct 2011 12:54:47 -0500
 ./lib/shada_data/core/cache.rb	Wed, 28 Sep 2011 16:31:05 -0500
 ./lib/shada_data/core/persist.rb	Wed, 28 Sep 2011 16:45:33 -0500
 ./lib/shada_data/core/query.rb	Wed, 28 Sep 2011 16:45:58 -0500
 ./lib/shada_data/core/setup.rb	Wed, 28 Sep 2011 16:46:18 -0500
-./lib/shada_data/core.rb	Wed, 12 Oct 2011 18:20:23 -0500
+./lib/shada_data/core.rb	Thu, 13 Oct 2011 22:24:10 -0500
 ./lib/shada_data/mongodb/mongodb.rb	Wed, 28 Sep 2011 16:30:27 -0500
 ./lib/shada_data/mongodb.rb	Wed, 28 Sep 2011 16:25:26 -0500
 ./lib/shada_data/mysql.rb	Wed, 28 Sep 2011 16:24:50 -0500
@@ -23,7 +25,7 @@ Thu, 13 Oct 2011 01:58:39 -0500
 ./lib/shada_engine/engine_build.rb	Wed, 28 Sep 2011 22:15:25 -0500
 ./lib/shada_engine/headers.rb	Sun, 09 Oct 2011 13:47:45 -0500
 ./lib/shada_engine/multipart_parser.rb	Wed, 28 Sep 2011 22:25:19 -0500
-./lib/shada_engine/router.rb	Thu, 13 Oct 2011 01:41:24 -0500
+./lib/shada_engine/router.rb	Thu, 13 Oct 2011 21:13:37 -0500
 ./lib/shada_engine.rb	Thu, 13 Oct 2011 01:24:31 -0500
 ./lib/shada_lang.rb	Tue, 11 Oct 2011 18:39:00 -0500
 ./lib/shada_mongrel2/mongrel2_directory.rb	Wed, 12 Oct 2011 03:15:00 -0500
@@ -42,10 +44,10 @@ Thu, 13 Oct 2011 01:58:39 -0500
 ./lib/shada_utils/utils.rb	Thu, 13 Oct 2011 01:58:07 -0500
 ./lib/shada_utils.rb	Tue, 11 Oct 2011 13:25:36 -0500
 ./LICENSE	Sat, 13 Aug 2011 14:01:27 -0500
-./nbproject/private/rake-d.txt	Wed, 12 Oct 2011 23:23:14 -0500
+./nbproject/private/rake-d.txt	Fri, 14 Oct 2011 01:54:27 -0500
 ./Rakefile	Wed, 12 Oct 2011 17:59:23 -0500
 ./README	Sat, 13 Aug 2011 14:01:38 -0500
 ./test/application/controllers/appcontroller.rb	Wed, 12 Oct 2011 03:17:14 -0500
 ./test/application/controllers/testcontroller.rb	Wed, 12 Oct 2011 03:22:37 -0500
-./test/test_app.rb	Wed, 12 Oct 2011 03:19:07 -0500
+./test/test_app.rb	Fri, 14 Oct 2011 00:21:49 -0500
 ./test/test_data.rb	Wed, 12 Oct 2011 17:09:06 -0500
