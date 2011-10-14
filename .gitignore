@@ -42,3 +42,5 @@ test/tmp/cache_host.tmp
 test/tmp/cache_handler.tmp
 
 test/tmp/cache_directory.tmp
+
+doc/nbproject/private/rake-d_txt.html

@@ -73,11 +73,19 @@
 					
 					<li><a href="#method-c-included">::included</a></li>
 					
+					<li><a href="#method-i-escape">#escape</a></li>
+					
+					<li><a href="#method-i-escape_html">#escape_html</a></li>
+					
 					<li><a href="#method-i-is_class%3F">#is_class?</a></li>
 					
 					<li><a href="#method-i-reload">#reload</a></li>
 					
 					<li><a href="#method-i-run_meth">#run_meth</a></li>
+					
+					<li><a href="#method-i-unescape">#unescape</a></li>
+					
+					<li><a href="#method-i-unescape_html">#unescape_html</a></li>
 					
 				</ul>
 			</div>
@@ -101,8 +109,6 @@
 					<li class="file"><a href="../Rakefile.html">Rakefile</a></li>
 				
 					<li class="file"><a href="../nbproject/private/rake-d_txt.html">rake-d.txt</a></li>
-				
-					<li class="file"><a href="../test/mongrel2.html">mongrel2</a></li>
 				
 				</ul>
 			</div>
@@ -264,10 +270,10 @@
 					<div class="method-source-code"
 						id="included-source">
 <pre>
-   <span class="ruby-comment cmt"># File lib/shada_utils/utils.rb, line 6</span>
-6:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">base</span>)
-7:       <span class="ruby-identifier">base</span>.<span class="ruby-identifier">extend</span> <span class="ruby-constant">ClassMethods</span>
-8:     <span class="ruby-keyword kw">end</span></pre>
+   <span class="ruby-comment cmt"># File lib/shada_utils/utils.rb, line 7</span>
+7:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">base</span>)
+8:       <span class="ruby-identifier">base</span>.<span class="ruby-identifier">extend</span> <span class="ruby-constant">ClassMethods</span>
+9:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -282,6 +288,74 @@
 	
 		<div id="public-instance-method-details" class="method-section section">
 			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="escape-method" class="method-detail ">
+				<a name="method-i-escape"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">escape</span><span
+						class="method-args">(html)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="escape-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/shada_utils/utils.rb, line 51</span>
+51:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">escape</span> <span class="ruby-identifier">html</span>
+52:       <span class="ruby-constant">CGI</span>.<span class="ruby-identifier">escape</span> <span class="ruby-identifier">html</span>
+53:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="escape-html-method" class="method-detail ">
+				<a name="method-i-escape_html"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">escape_html</span><span
+						class="method-args">(html)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="escape-html-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/shada_utils/utils.rb, line 59</span>
+59:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">escape_html</span> <span class="ruby-identifier">html</span>
+60:       <span class="ruby-constant">CGI</span>.<span class="ruby-identifier">escapeHTML</span> <span class="ruby-identifier">html</span>
+61:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
 
 		
 			<div id="is-class--method" class="method-detail ">
@@ -304,10 +378,10 @@
 					<div class="method-source-code"
 						id="is-class--source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/shada_utils/utils.rb, line 38</span>
-38:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_class?</span> <span class="ruby-identifier">classname</span>
-39:       <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_defined?</span>(<span class="ruby-identifier">classname</span>)
-40:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/shada_utils/utils.rb, line 39</span>
+39:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_class?</span> <span class="ruby-identifier">classname</span>
+40:       <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_defined?</span>(<span class="ruby-identifier">classname</span>)
+41:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -338,22 +412,22 @@
 					<div class="method-source-code"
 						id="reload-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/shada_utils/utils.rb, line 22</span>
-22:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reload</span> <span class="ruby-identifier">path</span>, <span class="ruby-identifier">ext</span>=<span class="ruby-value str">&quot;rb&quot;</span>
-23:       <span class="ruby-constant">Dir</span>[<span class="ruby-node">&quot;#{path}*.#{ext}&quot;</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> 
-24:         <span class="ruby-identifier">filename</span> = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;/&quot;</span>).<span class="ruby-identifier">last</span>
-25:         <span class="ruby-keyword kw">if</span> <span class="ruby-constant">FILECACHE</span>[<span class="ruby-identifier">filename</span>]
-26:           <span class="ruby-keyword kw">if</span> <span class="ruby-constant">FILECACHE</span>[<span class="ruby-identifier">filename</span>][<span class="ruby-value">:modified</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">ctime</span>(<span class="ruby-identifier">f</span>).<span class="ruby-identifier">to_i</span>
-27:             <span class="ruby-constant">FILECACHE</span>[<span class="ruby-identifier">filename</span>] = {<span class="ruby-value">:modified</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">ctime</span>(<span class="ruby-identifier">f</span>)}
-28:             <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;loaded existing - #{filename}&quot;</span>
-29:             <span class="ruby-identifier">load</span> <span class="ruby-node">&quot;#{f}&quot;</span>
-30:           <span class="ruby-keyword kw">end</span>
-31:         <span class="ruby-keyword kw">else</span>
-32:           <span class="ruby-constant">FILECACHE</span>[<span class="ruby-identifier">filename</span>] = {<span class="ruby-value">:modified</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">ctime</span>(<span class="ruby-identifier">f</span>)}
-33:           <span class="ruby-identifier">load</span> <span class="ruby-node">&quot;#{f}&quot;</span>
-34:         <span class="ruby-keyword kw">end</span>
-35:       <span class="ruby-keyword kw">end</span>
-36:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/shada_utils/utils.rb, line 23</span>
+23:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reload</span> <span class="ruby-identifier">path</span>, <span class="ruby-identifier">ext</span>=<span class="ruby-value str">&quot;rb&quot;</span>
+24:       <span class="ruby-constant">Dir</span>[<span class="ruby-node">&quot;#{path}*.#{ext}&quot;</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> 
+25:         <span class="ruby-identifier">filename</span> = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;/&quot;</span>).<span class="ruby-identifier">last</span>
+26:         <span class="ruby-keyword kw">if</span> <span class="ruby-constant">FILECACHE</span>[<span class="ruby-identifier">filename</span>]
+27:           <span class="ruby-keyword kw">if</span> <span class="ruby-constant">FILECACHE</span>[<span class="ruby-identifier">filename</span>][<span class="ruby-value">:modified</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">ctime</span>(<span class="ruby-identifier">f</span>).<span class="ruby-identifier">to_i</span>
+28:             <span class="ruby-constant">FILECACHE</span>[<span class="ruby-identifier">filename</span>] = {<span class="ruby-value">:modified</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">ctime</span>(<span class="ruby-identifier">f</span>)}
+29:             <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;loaded existing - #{filename}&quot;</span>
+30:             <span class="ruby-identifier">load</span> <span class="ruby-node">&quot;#{f}&quot;</span>
+31:           <span class="ruby-keyword kw">end</span>
+32:         <span class="ruby-keyword kw">else</span>
+33:           <span class="ruby-constant">FILECACHE</span>[<span class="ruby-identifier">filename</span>] = {<span class="ruby-value">:modified</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">ctime</span>(<span class="ruby-identifier">f</span>)}
+34:           <span class="ruby-identifier">load</span> <span class="ruby-node">&quot;#{f}&quot;</span>
+35:         <span class="ruby-keyword kw">end</span>
+36:       <span class="ruby-keyword kw">end</span>
+37:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -384,14 +458,82 @@
 					<div class="method-source-code"
 						id="run-meth-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/shada_utils/utils.rb, line 42</span>
-42:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_meth</span>
-43:       <span class="ruby-keyword kw">begin</span>
-44:         <span class="ruby-keyword kw">yield</span>
-45:       <span class="ruby-keyword kw">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-46:         <span class="ruby-identifier">puts</span> <span class="ruby-identifier">e</span>
-47:       <span class="ruby-keyword kw">end</span>
-48:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/shada_utils/utils.rb, line 43</span>
+43:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_meth</span>
+44:       <span class="ruby-keyword kw">begin</span>
+45:         <span class="ruby-keyword kw">yield</span>
+46:       <span class="ruby-keyword kw">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+47:         <span class="ruby-identifier">puts</span> <span class="ruby-identifier">e</span>
+48:       <span class="ruby-keyword kw">end</span>
+49:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="unescape-method" class="method-detail ">
+				<a name="method-i-unescape"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">unescape</span><span
+						class="method-args">(html)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="unescape-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/shada_utils/utils.rb, line 55</span>
+55:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unescape</span> <span class="ruby-identifier">html</span>
+56:       <span class="ruby-constant">CGI</span>.<span class="ruby-identifier">unescape</span> <span class="ruby-identifier">html</span>
+57:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="unescape-html-method" class="method-detail ">
+				<a name="method-i-unescape_html"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">unescape_html</span><span
+						class="method-args">(html)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="unescape-html-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/shada_utils/utils.rb, line 63</span>
+63:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unescape_html</span> <span class="ruby-identifier">html</span>
+64:       <span class="ruby-constant">CGI</span>.<span class="ruby-identifier">unescapeHTML</span> <span class="ruby-identifier">html</span>
+65:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>

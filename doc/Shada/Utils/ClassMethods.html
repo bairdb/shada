@@ -87,8 +87,6 @@
 				
 					<li class="file"><a href="../../nbproject/private/rake-d_txt.html">rake-d.txt</a></li>
 				
-					<li class="file"><a href="../../test/mongrel2.html">mongrel2</a></li>
-				
 				</ul>
 			</div>
 			
@@ -249,16 +247,16 @@
 					<div class="method-source-code"
 						id="add-method-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/shada_utils/utils.rb, line 11</span>
-11:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_method</span> <span class="ruby-identifier">name</span>
-12:         <span class="ruby-identifier">define_method</span>(<span class="ruby-identifier">name</span>) <span class="ruby-keyword kw">do</span>
-13:          <span class="ruby-identifier">instance_variable_get</span>(<span class="ruby-node">&quot;@#{name}&quot;</span>)
-14:         <span class="ruby-keyword kw">end</span>
-15: 
-16:         <span class="ruby-identifier">define_method</span>(<span class="ruby-node">&quot;#{name}=&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">val</span><span class="ruby-operator">|</span>
-17:          <span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-node">&quot;@#{name}&quot;</span>,<span class="ruby-identifier">val</span>)
-18:         <span class="ruby-keyword kw">end</span>
-19:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/shada_utils/utils.rb, line 12</span>
+12:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_method</span> <span class="ruby-identifier">name</span>
+13:         <span class="ruby-identifier">define_method</span>(<span class="ruby-identifier">name</span>) <span class="ruby-keyword kw">do</span>
+14:          <span class="ruby-identifier">instance_variable_get</span>(<span class="ruby-node">&quot;@#{name}&quot;</span>)
+15:         <span class="ruby-keyword kw">end</span>
+16: 
+17:         <span class="ruby-identifier">define_method</span>(<span class="ruby-node">&quot;#{name}=&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">val</span><span class="ruby-operator">|</span>
+18:          <span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-node">&quot;@#{name}&quot;</span>,<span class="ruby-identifier">val</span>)
+19:         <span class="ruby-keyword kw">end</span>
+20:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>

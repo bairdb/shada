@@ -87,8 +87,6 @@
 				
 					<li class="file"><a href="../nbproject/private/rake-d_txt.html">rake-d.txt</a></li>
 				
-					<li class="file"><a href="../test/mongrel2.html">mongrel2</a></li>
-				
 				</ul>
 			</div>
 			
@@ -260,7 +258,7 @@
 10:         <span class="ruby-identifier">controller</span> = <span class="ruby-identifier">is_class?</span>(<span class="ruby-identifier">controller</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">controller</span> <span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{Shada::Config['DefaultController'].to_s.propercase}Controller&quot;</span>
 11:         
 12:         <span class="ruby-ivar">@controller</span> = <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">controller</span>).<span class="ruby-identifier">new</span>
-13: 
+13:         <span class="ruby-ivar">@controller</span>.<span class="ruby-identifier">form</span> = <span class="ruby-ivar">@form</span>
 14:         <span class="ruby-ivar">@controller</span>.<span class="ruby-identifier">path</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-value">1</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span>, <span class="ruby-identifier">p</span><span class="ruby-operator">|</span>
 15:           <span class="ruby-ivar">@controller</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-node">&quot;@#{p}&quot;</span>,<span class="ruby-identifier">path_arr</span>[<span class="ruby-identifier">i</span>])
 16:           <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>

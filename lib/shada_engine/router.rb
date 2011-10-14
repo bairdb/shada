@@ -8,9 +8,9 @@ module Shada
         
         controller = "#{(path_arr[1] || Shada::Config['DefaultController']).to_s.propercase}Controller"
         controller = is_class?(controller) ? controller : "#{Shada::Config['DefaultController'].to_s.propercase}Controller"
-        
+        puts path
         @controller = Object.const_get(controller).new
-
+        @controller.form = @form
         @controller.path.inject(1) do |i, p|
           @controller.instance_variable_set("@#{p}",path_arr[i])
           i + 1

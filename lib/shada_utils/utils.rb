@@ -1,3 +1,4 @@
+require 'cgi'
 FILECACHE = {}
 
 module Shada
@@ -45,6 +46,22 @@ module Shada
       rescue => e
         puts e
       end
+    end
+    
+    def escape html
+      CGI.escape html
+    end
+    
+    def unescape html
+      CGI.unescape html
+    end
+    
+    def escape_html html
+      CGI.escapeHTML html
+    end
+    
+    def unescape_html html
+      CGI.unescapeHTML html
     end
   end
 end
