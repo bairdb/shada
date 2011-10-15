@@ -40,7 +40,7 @@ Rake::GemPackageTask.new spec do |package|
 end
 
 task :build_gem do
-  sh 'rdoc'
+  #sh 'rdoc'
   sh 'rake pkg/shada-0.0.1.gem'
   sh 'rvm gem install pkg/shada-*.gem'
 end
