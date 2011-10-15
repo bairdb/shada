@@ -21,18 +21,22 @@ module Shada
     end
     
     def reload path, ext="rb"
-      Dir["#{path}*.#{ext}"].each do |f| 
-        filename = f.split("/").last
-        if FILECACHE[filename]
-          if FILECACHE[filename][:modified].to_i != File.ctime(f).to_i
+      begin
+        Dir["#{path}*.#{ext}"].each do |f| 
+          filename = f.split("/").last
+          if FILECACHE[filename]
+            if FILECACHE[filename][:modified].to_i != File.ctime(f).to_i
+              FILECACHE[filename] = {:modified => File.ctime(f)}
+              puts "loaded existing - #{filename}"
+              load "#{f}"
+            end
+          else
             FILECACHE[filename] = {:modified => File.ctime(f)}
-            puts "loaded existing - #{filename}"
             load "#{f}"
           end
-        else
-          FILECACHE[filename] = {:modified => File.ctime(f)}
-          load "#{f}"
         end
+      rescue => e
+        puts e
       end
     end
     
