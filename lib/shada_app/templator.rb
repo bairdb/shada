@@ -8,6 +8,7 @@ module Shada
       @registry = {}
     end
     
+    #register
     def register key, val
       @registry[key] = val
     end
