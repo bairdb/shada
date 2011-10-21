@@ -1,5 +1,5 @@
-require 'shada_engine'
-require 'shada_utils'
+require 'shada/shada_engine'
+require 'shada/shada_utils'
 
 module Shada
   class Controller

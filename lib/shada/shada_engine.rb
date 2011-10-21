@@ -1,4 +1,4 @@
-require 'shada_mongrel2'
+require_relative 'shada_mongrel2'
 require_relative 'shada_server'
 require 'fiber'
 require 'time'

@@ -1,7 +1,7 @@
 require 'yaml'
 
-require 'shada_utils'
-require 'shada_config'
+require 'shada/shada_utils'
+require 'shada/shada_config'
 
 require_relative 'core/cache'
 require_relative 'core/benchmark'
