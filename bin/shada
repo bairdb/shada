@@ -1,9 +1,5 @@
 #!/usr/bin/ruby1.9.2
 
-ENV['CONFIG'] = "main"
-ENV['ROOT'] = '/home/admin/base/site/'
-
-require "shada"
 require "shada/cli"
 
 Shada::CLI.cli do
