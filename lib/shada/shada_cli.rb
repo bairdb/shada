@@ -8,6 +8,7 @@ module Shada
     end
     
     def task arg, &block
+      puts arg
       @tasks[arg] = block
     end
   end
