@@ -2,7 +2,9 @@
 
 require "shada/shada_cli"
 
-task :test do
-	puts "something"
+Shada::CLI.cli do
+	task :test do
+		puts "something"
+	end
 end
 
