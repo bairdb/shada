@@ -44,3 +44,9 @@ task :build_gem do
   sh 'rake pkg/shada-0.0.1.gem'
   sh 'rvm gem install pkg/shada-*.gem'
 end
+
+task :update do
+  sh "git pull"
+  sh "rake build_gem"
+  sh "sudo install bin/shada /usr/bin/shada"
+end
