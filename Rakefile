@@ -4,6 +4,7 @@ require 'rake/clean'
 require 'rubygems/package_task'
 require 'rdoc/task'
 require 'rake/testtask'
+require 'rake/gempackagetask'
 
 spec = Gem::Specification.new do |s|
   s.name = 'shada'
@@ -33,7 +34,7 @@ Rake::TestTask.new do |t|
   t.test_files = FileList['test/**/*.rb']
 end
 
-Rake::PackageTask.new spec do |package|
+Rake::GemPackageTask.new spec do |package|
   package.need_zip = true
   package.need_tar = true
 end
