@@ -4,6 +4,7 @@ ENV['CONFIG'] = "main"
 ENV['ROOT'] = '/home/admin/base/site/'
 
 require "shada"
+require "shada/cli"
 
 Shada::CLI.cli do
 	task :test do |args|
