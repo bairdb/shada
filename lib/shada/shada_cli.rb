@@ -5,3 +5,5 @@ module Shada
     end
   end
 end
+
+include Shada::CLI
