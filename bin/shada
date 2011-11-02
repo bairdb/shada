@@ -3,8 +3,8 @@
 require "shada/shada_cli"
 
 Shada::CLI.cli do
-	task :test do
-		puts "something"
+	task :test do |args|
+		puts args
 	end
 end
 
