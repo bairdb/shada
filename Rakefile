@@ -33,7 +33,7 @@ Rake::TestTask.new do |t|
   t.test_files = FileList['test/**/*.rb']
 end
 
-Rake::GemPackageTask.new spec do |package|
+Rake::PackageTask.new spec do |package|
   package.need_zip = true
   package.need_tar = true
 end
