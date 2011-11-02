@@ -1,6 +1,6 @@
 #!/usr/bin/ruby1.9.2
 
-require "shada"
+require "shada/shada_cli"
 
 include Shada::CLI
 
