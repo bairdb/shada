@@ -4,7 +4,6 @@ require 'rake/clean'
 require 'rubygems/package_task'
 require 'rdoc/task'
 require 'rake/testtask'
-require 'rake/gempackagetask'
 
 spec = Gem::Specification.new do |s|
   s.name = 'shada'
