@@ -1,7 +1,13 @@
 module Shada
   module CLI
+    @tasks = {}
     def self.included(base)
-      puts ARGV
+      @task = ARGV[0]
+      puts @tasks
+    end
+    
+    def task arg, &block
+      @tasks[arg] = block
     end
   end
 end
