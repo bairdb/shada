@@ -13,7 +13,7 @@ require_relative 'mongodb/mongodb'
 require_relative 'sqlite'
 require_relative 'sqlite/sqlite'
 
-Shada::Config.load_config "#{ENV['ROOT']}config/main.yml"
+Shada::Config.load_config "#{ENV['ROOT']}config/#{ENV['CONFIG']}.yml"
 
 module Shada
   module Data
