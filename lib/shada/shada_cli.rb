@@ -8,7 +8,7 @@ module Shada
       if block_given?
         klass.instance_eval &block
       end
-      @@tasks[task.to_sym]
+      @@tasks[task.to_sym].call
     end
     
     def task arg, &block
