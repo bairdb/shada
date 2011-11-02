@@ -1,4 +1,5 @@
 require 'net/smtp'
+require 'net/pop'
 
 MESSAGE =  <<MESSAGE_END
 From: %%from_name%% <%%from%%>
@@ -22,7 +23,7 @@ module Shada
     
     class << self
       
-      def setup protocol, attributes, &block
+      def setup protocol="smtp", attributes={}
         @@klass = self.new protocol, attributes
       end
       
@@ -32,6 +33,14 @@ module Shada
           @@klass.instance_eval &block
         end
         @@klass.sending
+      end
+      
+      def get &block
+        if block_given?
+          @@klass.instance_eval &block
+        end
+        
+        @@klass.get_email
       end
     end
     
@@ -82,6 +91,17 @@ module Shada
       end
     end
     
+    def get_email
+      pop = Net::POP3.new 'smtp.emailsrvr.com'
+      pop.start 'mail@reelfinatics.com', 'T1meLo4d!'
+      pop.mails.each do |m|
+        m.pop do |chunk|
+          puts chunk
+        end
+      end
+      
+    end
+    
   end
 end
 
@@ -93,3 +113,6 @@ end
 #  subject "I've been thinking"
 #  message "Well, what have we here"
 #end
+#
+#Shada::Mail.setup
+#Shada::Mail.get
