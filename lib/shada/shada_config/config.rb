@@ -6,15 +6,15 @@ module Shada
     class << self
       def load_config *files
         puts files
-        begin
+        #begin
           files.each do |file|
             self.load_file(file).each do |key, val|
               @@values[key] = val
             end
           end
-        rescue => e
-           puts e
-        end
+        #rescue => e
+        #   puts e
+        #end
       end
       
       def load_vals
