@@ -13,7 +13,8 @@ require_relative 'mongodb/mongodb'
 require_relative 'sqlite'
 require_relative 'sqlite/sqlite'
 
-Shada::Config.load_config "#{ENV['ROOT']}config/#{ENV['CONFIG']}.yml"
+file = ENV['CONFIG'] ? ENV['CONFIG'] : 'main'
+Shada::Config.load_config "#{ENV['ROOT']}config/#{file}.yml"
 
 module Shada
   module Data
@@ -33,7 +34,7 @@ module Shada
         @new_table = ""
         @parent = []
         @children = []
-        @table = self.class.name.downcase.split('::').last
+        @table = self.class.name.downcase.split('::').last.gsub!("Model")
         select_adapter
         @primary = get_primary @table
         @primary_sym = @primary.to_sym
@@ -69,7 +70,7 @@ module Shada
         end
         
         def get_table
-          self.name.downcase.split('::').last
+          self.name.downcase.split('::').last.gsub!("Model")
         end
         
         def get_config
