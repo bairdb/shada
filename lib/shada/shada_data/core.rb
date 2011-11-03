@@ -33,7 +33,7 @@ module Shada
         @new_table = ""
         @parent = []
         @children = []
-        @table = self.class.name.downcase.split('::').last
+        @table = self.class.name.gsub("model").downcase.split('::').last
         select_adapter
         @primary = get_primary @table
         @primary_sym = @primary.to_sym
@@ -69,7 +69,7 @@ module Shada
         end
         
         def get_table
-          self.name.downcase.split('::').last
+          self.name.gsub("model").downcase.split('::').last
         end
         
         def get_config
