@@ -71,7 +71,7 @@ module Shada
         
         def get_table
           table = self.name.downcase.split('::').last
-          puts "Test: #{table.to_s.match("model")}"
+          puts "Test: #{table.match("[.*]model")}"
           table.to_s.gsub!("model") unless table.to_s.match("model").nil?
           table
         end
