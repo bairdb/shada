@@ -5,6 +5,7 @@ module Shada
     @@values = {}
     class << self
       def load_config *files
+        puts files
         begin
           files.each do |file|
             self.load_file(file).each do |key, val|
