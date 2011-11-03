@@ -5,7 +5,6 @@ module Shada
     @@values = {}
     class << self
       def load_config *files
-        puts files
         #begin
           files.each do |file|
             self.load_file(file).each do |key, val|
@@ -36,14 +35,8 @@ module Shada
       
       def load_file(file)
         puts file
-        begin
-          config = file ? YAML.load(open(file)) : {}
-          config
-        rescue => e
-          puts e
-          config = {}
-        end
-        config        
+        config = file ? YAML.load(open(file)) : {}
+        config
       end
     end
     
