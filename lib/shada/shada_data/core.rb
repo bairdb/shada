@@ -81,9 +81,25 @@ module Shada
           @@internals[get_table][:config] = hash
           @@internals[get_table][:db] = hash[:database]
           adapter = hash[:adapter] || 'mysql'
-          hash[:host] = hash[:host] || 'localhost'
-          hash[:username] = hash[:username] || 'root'
-          hash[:password] = hash[:password] || ''
+          
+          if Shada::Config['MySQLDB'] && adapter == 'mysql'
+            hash[:host] = Shada::Config['MySQLDB']
+          else
+            hash[:host] = hash[:host] || 'localhost'
+          end
+          
+          if Shada::Config['MySQLDB_User'] && adapter == 'mysql'
+            hash[:username] = Shada::Config['MySQLDB_User']
+          else
+            hash[:username] = hash[:username] || 'root'
+          end
+          
+          if Shada::Config['MySQLDB_Password'] && adapter == 'mysql'
+            hash[:password] = Shada::Config['MySQLDB_Password']
+          else
+            hash[:password] = hash[:password] || ''
+          end
+          
           hash[:table] = get_table
 
           case adapter
