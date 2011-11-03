@@ -34,8 +34,8 @@ module Shada
         @parent = []
         @children = []
         @table = self.class.name.downcase.split('::').last
-        if @table.match(".*model")
-          @table.gsub!("model")
+        if @table.to_s.match(".*model")
+          @table.to_s.gsub!("model")
         end
         select_adapter
         @primary = get_primary @table
@@ -72,9 +72,9 @@ module Shada
         end
         
         def get_table
-          table = self.name.downcase.split('::').last.gsub("model")
-          if table.match(".*model")
-            table.gsub!("model")
+          table = self.name.downcase.split('::').last
+          if table.to_s.match(".*model")
+            table.to_s.gsub!("model")
           end
           table
         end
