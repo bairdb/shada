@@ -34,6 +34,7 @@ module Shada
       end
       
       def load_file(file)
+        puts file
         begin
           config = file ? YAML.load(open(file)) : {}
           config
