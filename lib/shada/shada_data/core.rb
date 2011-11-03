@@ -34,7 +34,7 @@ module Shada
         @parent = []
         @children = []
         @table = self.class.name.downcase.split('::').last
-        @table.gsub!("model") unless not @table.match("model").nil?
+        @table.gsub!("model") unless @table.match("model").nil?
         select_adapter
         @primary = get_primary @table
         @primary_sym = @primary.to_sym
@@ -71,7 +71,7 @@ module Shada
         
         def get_table
           table = self.name.downcase.split('::').last
-          table.to_s.gsub!("model") unless not table.to_s.match("model").nil?
+          table.to_s.gsub!("model") unless table.to_s.match("model").nil?
           table
         end
         
