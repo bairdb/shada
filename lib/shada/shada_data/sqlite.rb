@@ -74,7 +74,8 @@ module Shada
 
       def save
         @saving = true
-        table = self.class.name
+        table = self.class.name.downcase.split('::').last
+        table.to_s.gsub!("model", "") unless /.*model/i.match(table).nil?
 
         if not @update
           insert table
@@ -115,7 +116,9 @@ module Shada
       end
 
       def destroy
-        table = self.class.name
+        table = self.class.name.downcase.split('::').last
+        table.to_s.gsub!("model", "") unless /.*model/i.match(table).nil?
+        
         primary_value = instance_variable_get("@#{@primary}")
         get_connection.destroy table, primary_value, @primary
         update_cache primary_value
@@ -123,8 +126,9 @@ module Shada
       end
 
       def add_column name, args, block
-        table = self.class.name
-
+        table = self.class.name.downcase.split('::').last
+        table.to_s.gsub!("model", "") unless /.*model/i.match(table).nil?
+        
         val = args[0]
 
         type, length = get_column_type val
