@@ -206,7 +206,7 @@ module Shada
 
       def save_cache table, cache
         @@internals[@table][:cache] = cache
-        Core::persist "cache_#{table}.tmp", cache
+        Core::persist "cache_#{table}.tmp", cache, Shada::Config['CacheDir']
       end
       
       def ghost_query key, val
