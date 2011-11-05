@@ -7,7 +7,7 @@ module Shada
     
     def initialize name, path=""
       puts "Creating #{name.downcase}"
-      @name = name
+      @name = name.propercase
       @name_lower = name.downcase
       @database = 'reelfinatics'
       @path = path
@@ -30,7 +30,7 @@ module Shada
       controller = File.read "#{@dir}/scaffolding/controller.tmp"
       rcontroller = parse tokens, controller
       unless File.exists? "#{@path}controllers/#{@name_lower}controller.rb"
-        puts "Creating Controller #{@name}"
+        puts "Creating Controller #{@name}Controller"
         File.open("#{@path}controllers/#{@name_lower}controller.rb","w") do |file|
            file.write rcontroller
         end
@@ -48,7 +48,7 @@ module Shada
         File.open("#{@path}models/#{@name_lower}model.rb","w") do |file|
            file.write rmodel
         end
-        puts "Creating Model #{@name}Model and Table #{@name} in database #{@database}"
+        puts "Creating Model #{@name}Model"
         Shada::Data::Core.connect :database => @database, :dont_setup => true
         Shada::Data::Core.create @name_lower do |s|
           create_row :name => "title", :type => "text"
