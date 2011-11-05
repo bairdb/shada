@@ -3,9 +3,10 @@ module Shada
     
     include Shada::Utils
     
-    attr_accessor :name, :path, :dir
+    attr_accessor :name, :path, :dir, :both
     
     def initialize name, path=""
+      @both = false
       puts "Creating #{name.downcase}"
       @name = name.propercase
       @name_lower = name.downcase
@@ -16,6 +17,7 @@ module Shada
     
     def generate
       begin
+        @both = true
         generate_controller
         generate_model
       rescue => e
@@ -26,8 +28,9 @@ module Shada
     
     def generate_controller name=""
       @name = name unless name == ""
+      controller_name = @both ? "controller" : "controller_no_model"
       tokens = {"name" => @name, "name_lower" => @name_lower}
-      controller = File.read "#{@dir}/scaffolding/controller.tmp"
+      controller = File.read "#{@dir}/scaffolding/#{controller_name}.tmp"
       rcontroller = parse tokens, controller
       unless File.exists? "#{@path}controllers/#{@name_lower}controller.rb"
         puts "Creating Controller #{@name}Controller"

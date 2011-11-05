@@ -39,6 +39,9 @@ Shada::CLI.cli do
     end
 	end
 	
+	task :delete_module do |args|
+  end
+	
 	task :create_table do |args|
 	  puts args
   end
