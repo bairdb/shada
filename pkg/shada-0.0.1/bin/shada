@@ -3,28 +3,28 @@
 ENV['CONFIG'] = "main"
 ENV['ROOT'] = '/home/admin/base/site/'
 
-Shada::Config.load_config "#{ENV['ROOT']}config/#{ENV['CONFIG']}.yml"
-
 require "shada"
+
+Shada::Config.load_config "#{ENV['ROOT']}config/#{ENV['CONFIG']}.yml"
 
 Shada::CLI.cli do
   
-	task :generate_module do |args|
-    name = args[:dict][:name] || args[:arr][0]
+	task :generate do |args|
+    name = args[:dict][:name] || args[:arr][1]
     puts "#{name} - #{Shada::Config["ApplicationPath"]}"
     #generator = Shada::Generator.new args[:name], Shada::Config["ApplicationPath"]
     #generator.generate
 	end
 	
 	task :generate_model do |args|
-	  name = args[:dict][:name] || args[:arr][0]
+	  name = args[:dict][:name] || args[:arr][1]
 	  puts "#{name} - #{Shada::Config["ApplicationPath"]}"
     #generator = Shada::Generator.new args[:name], Shada::Config["ApplicationPath"]
     #generator.generate_model
 	end
 	
 	task :generate_controller do |args|
-	  name = args[:dict][:name] || args[:arr][0]
+	  name = args[:dict][:name] || args[:arr][1]
 	  puts "#{name} - #{Shada::Config["ApplicationPath"]}"
 		#generator = Shada::Generator.new args[:name], Shada::Config["ApplicationPath"]
     #generator.generate_controller
