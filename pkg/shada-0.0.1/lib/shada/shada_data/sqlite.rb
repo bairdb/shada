@@ -1,15 +1,16 @@
-require 'mysql2'
+require 'sqlite3'
 
 module Shada
   module Data
-    module MYSQL2
-      
+    module SQLite
       def self.included(base)
         base.extend ClassMethods
       end
 
       module ClassMethods
-
+        def create
+           puts "Creating"
+        end
       end
 
       def get_primary table
@@ -17,69 +18,57 @@ module Shada
       end
 
       def get_fields table
-        get_connection.get_fields(table)
+        get_connection.get_fields table
       end
 
       def get_ids result
         ids = []
         result.each do |row|
-          ids.push row[@primary_sym]
+          ids.push row[0]
         end
 
         ids
       end
 
-      def find_parent
-        val = instance_variable_get("@#{belongs_to_hash[:col]}")
-        @parent = get_connection.find belongs_to_hash[:table], '*', {:id => val}, 'id ASC'
-      end
-      
-      def find_children
-        
-      end
-      
       def find params={}, table=nil
         table = table.nil? ? @table : table
         @records = nil
         @records = []
         @update = true
-
-        if not cache.pull params.to_s
+        
+        if not cache.pull params
           result = get_connection.find table, '*', params, "id ASC"
           kresult = get_connection.find table, 'id', params, "id ASC"
-          cache.store params.to_s, {:result => result.to_a, :ids => get_ids(kresult)}
+          cache.store params, {:result => result, :ids => get_ids(kresult)}
         else
-          result = cache.pull(params.to_s)[:result]
+          result = cache.pull(params)[:result]
+          result.reset
           #puts @cache.pull(params)[:ids]
-          #puts "cache"
+          puts "cache"
         end
         
-        save_cache table, cache
-        
-        result = result.to_a
         
         case result.count
         when 0
           puts "No results"
         when 1
-          r = result.first
+          result.reset
+          r = result.next
           @fields.each do |m|
-            #puts "#{m} = #{r[m.to_sym]}"
-            instance_variable_set("@#{m}", r[m.to_sym])
+            #puts "#{m} = #{r[m]}"
+            instance_variable_set("@#{m}", r[m])
           end
 
-          #find_parent
           @records.push self
         else
-
+          result.reset
           result.each do |r|
             obj = self.class.new
-            @records.push obj.find(@primary_sym => r[@primary_sym])
+            @records.push obj.find(@primary_sym => r[@primary])
           end
-
           return self
         end
-
+        
         return self
       end
 
@@ -104,7 +93,6 @@ module Shada
             values.push instance_variable_get("@#{m}")
           end
         end
-        puts "#{table} - #{keys} - #{values}"
         ret = get_connection.insert table, keys, values
 
         puts ret
@@ -120,7 +108,8 @@ module Shada
             fields[m.to_sym] = instance_variable_get("@#{m}")
           end
         end
-        get_connection.update table, fields, primary_value, @primary
+        ret = get_connection.update table, fields, primary_value, @primary
+        puts ret
         update_cache primary_value
         @saving = false
         self
@@ -129,16 +118,17 @@ module Shada
       def destroy
         table = self.class.name.downcase.split('::').last
         table.to_s.gsub!("model", "") unless /.*model/i.match(table).nil?
+        
         primary_value = instance_variable_get("@#{@primary}")
         get_connection.destroy table, primary_value, @primary
         update_cache primary_value
         self
       end
-      
+
       def add_column name, args, block
         table = self.class.name.downcase.split('::').last
         table.to_s.gsub!("model", "") unless /.*model/i.match(table).nil?
-
+        
         val = args[0]
 
         type, length = get_column_type val
@@ -150,22 +140,22 @@ module Shada
 
         puts "Creating Column with #{valid_name}, #{val}, #{type}"
       end
-      
+
       def get_column_type val
         if val.is_a?(String)
           if val.size < 256
-            type = "VARCHAR"
-            length = 255
+            type = "TEXT"
+            length = 0
           else
             type = "TEXT"
-            length = ""
+            length = 0
           end
         elsif val.is_a?(Bignum) or val.is_a?(Fixnum)
-          type = "INT"
-          length = ""
+          type = "INTEGER"
+          length = 0
         elsif val.is_a?(FLOAT)
-          type = "INT"
-          length = ""
+          type = "INTEGER"
+          length = 0
         elsif val.nil?
           type = "VARCHAR"
           length = 255
@@ -183,7 +173,6 @@ module Shada
           end
         end
       end
-
     end
   end
 end

@@ -1,0 +1,14 @@
+require 'shada'
+require_relative '../models/%%name_lower%%model'
+
+class %%name%%Controller < Shada::Controller
+  path_map :controller, :page
+
+  def index
+    @model = %%name%%Model.new
+
+    html="Add Content."
+    render html
+  end
+
+end

@@ -1,0 +1,6 @@
+require 'shada'
+
+class %%name%%Model < Shada::Data::Core
+  connect :database => "%%database%%"
+end
+

@@ -1,12 +1,13 @@
-require 'mysql2'
+require 'sqlite3'
 
 module Shada
   module Adapter
-    class MYSQL2
-      def connect hash
+    class SQLite
+       
+      def connect db
         begin
-          @db = Mysql2::Client.new hash
-          Mysql2::Client.default_query_options
+          @db = SQLite3::Database.new db
+          @db.results_as_hash = true
         rescue => e
           puts e
           @db = nil
@@ -14,47 +15,41 @@ module Shada
         self
       end
       
-      def quote str
-        val = str
-        val = @db.escape str unless not str.is_a?(String)
-        
-        if val.is_a?(String)
-          val = "'#{val}'"
-        elsif val.nil?
-          val = "NULL"
-        end
-        val
+      def prepare sql
+        @db.prepare sql
       end
-      
-      def execute sql, symbolize=true
-        result = @db.query sql, :symbolize_keys => symbolize
-        result
-      end
-      
-      def prepare sql, binds
-        ret = sql.gsub("?"){quote binds.shift}
-        #puts ret
-        ret
+
+      def execute stmt, *args
+        stmt.execute *args
       end
       
       def query sql, binds
-        result = execute prepare sql, binds
-        result
+        stmt = prepare sql
+        execute stmt, *binds
       end
       
       def get_fields table
-        result = query("SELECT * FROM #{table}", [])
-        result.fields
+        stmt = @db.prepare "select * from #{table}"
+        stmt.columns
       end
       
       def get_tables db
-        result = query("SELECT * FROM `information_schema`.TABLES WHERE TABLE_SCHEMA=?", [db])
+        result = query "SELECT * FROM `information_schema`.TABLES WHERE TABLE_SCHEMA=?", [db]
         result
       end
       
       def get_primary db, table
-        result = query("SELECT * FROM `information_schema`.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA=? AND TABLE_NAME=? AND CONSTRAINT_NAME='PRIMARY'", [db, table])
-        result.first[:COLUMN_NAME]
+        stmt = @db.prepare "PRAGMA table_info(#{table.downcase})"
+        r = stmt.execute
+        
+        name_col = r.columns.find_index("name")
+        pk_col = r.columns.find_index("pk")
+        
+        pk = ""
+        
+        r.each do |row|
+          return row[name_col] unless row[pk_col] == 0
+        end
       end
       
       def find table, fields, where={}, sort=""
@@ -80,13 +75,6 @@ module Shada
       def insert table, fields, data
         begin
           val_str = data.map{|v| "?"}.join(", ")
-          data = data.map do |v| 
-            if v.is_a?(Array) or v.is_a?(Hash)
-              v.join ','
-            else
-              v
-            end
-          end
           sql = "INSERT INTO #{table} (#{fields.join(',')}) VALUES (#{val_str})"
           query sql, data
           result = "Success"
@@ -118,10 +106,8 @@ module Shada
         query sql, where_arr
       end
       
-      def create_table table, columns="", engine="innodb", charset="utf8", autoinc=1
-        puts "Creating"
-        sql = "CREATE TABLE IF NOT EXISTS #{table} (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY) ENGINE=#{engine}  DEFAULT CHARSET=#{charset} AUTO_INCREMENT=#{autoinc};"
-        puts sql
+      def create_table table, columns, engine="innodb", charset="utf8", autoinc=1
+        sql = "CREATE TABLE IF NOT EXISTS #{table} (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY) TYPE=#{engine} DEFAULT CHARSET=#{charset} AUTO_INCREMENT=#{autoinc}"
         execute sql
       end
       
@@ -129,9 +115,8 @@ module Shada
         after = "AFTER #{after}" unless after.nil?
         sql = "ALTER TABLE `#{table}` ADD `#{column_name}` #{type}(#{len}) #{default}"
         puts sql
-        execute sql
+        @db.execute sql
       end
-      
     end
   end
 end
