@@ -14,7 +14,7 @@ Shada::CLI.cli do
     name = args[0] || args[:name]
     #puts "#{name} - #{Shada::Config["ApplicationPath"]}"
     unless name.nil?
-      generator = Shada::Generator.new args[:name], Shada::Config["ApplicationPath"]
+      generator = Shada::Generator.new name, Shada::Config["ApplicationPath"]
       generator.generate
     end
 	end
@@ -24,7 +24,7 @@ Shada::CLI.cli do
     name = args[0] || args[:name]
 	  #puts "#{name} - #{Shada::Config["ApplicationPath"]}"
     unless name.nil?
-      generator = Shada::Generator.new args[:name], Shada::Config["ApplicationPath"]
+      generator = Shada::Generator.new name, Shada::Config["ApplicationPath"]
       generator.generate_model
     end
 	end
@@ -34,7 +34,7 @@ Shada::CLI.cli do
     name = args[0] || args[:name]
 	  #puts "#{name} - #{Shada::Config["ApplicationPath"]}"
 		unless name.nil?
-		  generator = Shada::Generator.new args[:name], Shada::Config["ApplicationPath"]
+		  generator = Shada::Generator.new name, Shada::Config["ApplicationPath"]
       generator.generate_controller
     end
 	end
