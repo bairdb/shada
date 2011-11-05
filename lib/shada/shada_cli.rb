@@ -2,7 +2,7 @@ module Shada
   class CLI
     
     def self.cli &block
-      last = ARGV.shift
+      last = ARGV.last
       task = ARGV[0]
       puts "Shada: Running #{task}"
       unless last == "-h"
