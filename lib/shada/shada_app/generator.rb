@@ -62,8 +62,13 @@ module Shada
     def parse tokens, str
       rstr = str
       tokens.each do |key, val|
+        begin
         rstr.scan(/%%#{key}%%/).each do |m|
           rstr.gsub!("%%#{key}%%", val) unless rstr.nil?
+        end
+        rescue => e
+          puts e.message
+          puts e.backtrace
         end
       end
       rstr
