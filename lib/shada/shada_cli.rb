@@ -31,7 +31,7 @@ module Shada
         if i > 0
           arg_p = arg.split(':')
           if arg_p.count > 1
-            args_dict[arg_p[0]] = arg_p[1]
+            args_dict[arg_p[0].to_sym] = arg_p[1]
           else
             args_arr.push(arg)
           end
