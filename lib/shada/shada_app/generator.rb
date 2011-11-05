@@ -1,3 +1,8 @@
+ENV['CONFIG'] = "main"
+ENV['ROOT'] = '/home/admin/base/site/'
+
+Shada::Config.load_config "#{ENV['ROOT']}config/#{ENV['CONFIG']}.yml"
+
 module Shada
   class Generator
     
