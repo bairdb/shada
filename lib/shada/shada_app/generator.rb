@@ -30,6 +30,7 @@ module Shada
       controller = File.read "#{@dir}/scaffolding/controller.tmp"
       rcontroller = parse tokens, controller
       unless File.exists? "#{@path}controllers/#{@name_lower}controller.rb"
+        puts "Creating Controller #{@name}"
         File.open("#{@path}controllers/#{@name_lower}controller.rb","w") do |file|
            file.write rcontroller
         end
@@ -47,7 +48,7 @@ module Shada
         File.open("#{@path}models/#{@name_lower}model.rb","w") do |file|
            file.write rmodel
         end
-        puts "Default: #{Shada::Config['MySQLDB_Default']}"
+        puts "Creating Model #{@name}Model and Table #{@name} in database #{@database}"
         Shada::Data::Core.connect :database => @database, :dont_setup => true
         Shada::Data::Core.create @name_lower do |s|
           create_row :name => "title", :type => "text"

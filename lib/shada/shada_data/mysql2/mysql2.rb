@@ -119,16 +119,14 @@ module Shada
       end
       
       def create_table table, columns="", engine="innodb", charset="utf8", autoinc=1
-        puts "Creating"
+        puts "Creating table #{table}"
         sql = "CREATE TABLE IF NOT EXISTS #{table} (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY) ENGINE=#{engine}  DEFAULT CHARSET=#{charset} AUTO_INCREMENT=#{autoinc};"
-        puts sql
         execute sql
       end
       
       def add_column table, column_name, type, len, default='', after=''
         after = "AFTER #{after}" unless after.nil?
         sql = "ALTER TABLE `#{table}` ADD `#{column_name}` #{type}(#{len}) #{default}"
-        puts sql
         execute sql
       end
       
