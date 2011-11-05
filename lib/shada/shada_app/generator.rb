@@ -1,8 +1,3 @@
-ENV['CONFIG'] = "main"
-ENV['ROOT'] = '/home/admin/base/site/'
-
-Shada::Config.load_config "#{ENV['ROOT']}config/#{ENV['CONFIG']}.yml"
-
 module Shada
   class Generator
     
@@ -45,6 +40,7 @@ module Shada
     
     def generate_model name=""
       @name = name unless name == ""
+      @database = @database || 'reelfinatics'
       tokens = {"name" => @name, "name_lower" => @name_lower, "database" => @database}
       model = File.read "#{@dir}/scaffolding/model.tmp"
       rmodel = parse tokens, model
@@ -52,7 +48,7 @@ module Shada
         File.open("#{@path}models/#{@name_lower}model.rb","w") do |file|
            file.write rmodel
         end
-        
+        puts "Default: #{Shada::Config['MySQLDB_Default']}"
         Shada::Data::Core.connect :database => Shada::Config['MySQLDB_Default'], :dont_setup => true
         Shada::Data::Core.create @name_lower do |s|
           create_row :name => "title", :type => "text"
@@ -73,7 +69,6 @@ module Shada
         end
         rescue => e
           puts e.message
-          puts e.backtrace
         end
       end
       rstr
