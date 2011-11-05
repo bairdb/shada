@@ -13,6 +13,7 @@ module Shada
         end
         @@tasks[task.to_sym].call klass.parse
       else
+        klass = self.new
         if block_given?
           klass.instance_eval &block
         end
