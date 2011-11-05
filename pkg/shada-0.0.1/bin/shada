@@ -11,7 +11,7 @@ Shada::CLI.cli do
   
 	task :generate do |args|
 	  args = args[:dict].count > 0 ? args[:dict] : args[:arr]
-    name = args[:name] || args[0]
+    name = args[0] || args[:name]
     puts "#{name} - #{Shada::Config["ApplicationPath"]}"
     unless name.nil?
       #generator = Shada::Generator.new args[:name], Shada::Config["ApplicationPath"]
@@ -21,7 +21,7 @@ Shada::CLI.cli do
 	
 	task :generate_model do |args|
 	  args = args[:dict].count > 0 ? args[:dict] : args[:arr]
-    name = args[:name] || args[0]
+    name = args[0] || args[:name]
 	  puts "#{name} - #{Shada::Config["ApplicationPath"]}"
     unless name.nil?
       #generator = Shada::Generator.new args[:name], Shada::Config["ApplicationPath"]
@@ -31,7 +31,7 @@ Shada::CLI.cli do
 	
 	task :generate_controller do |args|
 	  args = args[:dict].count > 0 ? args[:dict] : args[:arr]
-    name = args[:name] || args[0]
+    name = args[0] || args[:name]
 	  puts "#{name} - #{Shada::Config["ApplicationPath"]}"
 		unless name.nil?
 		  #generator = Shada::Generator.new args[:name], Shada::Config["ApplicationPath"]
