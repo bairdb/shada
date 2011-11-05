@@ -63,7 +63,7 @@ module Shada
       rstr = str
       tokens.each do |key, val|
         rstr.scan(/%%#{key}%%/).each do |m|
-          rstr.gsub!("%%#{key}%%", val)
+          rstr.gsub!("%%#{key}%%", val) unless rstr.nil?
         end
       end
       rstr
