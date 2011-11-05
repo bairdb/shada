@@ -6,6 +6,7 @@ module Shada
     attr_accessor :name, :path, :dir
     
     def initialize name, path=""
+      puts "Creating #{name.downcase}"
       @name = name
       @name_lower = name.downcase
       @database = Shada::Config["MySQLDB_Default"]
