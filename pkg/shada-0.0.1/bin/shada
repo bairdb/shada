@@ -72,7 +72,7 @@ Shada::CLI.cli do
 	  `cd ~/base/site; ruby run.rb start`
     `cd ~/base/site; ruby run_monitor.rb start`
 	  unless is_running.nil?
-	    `cd ~/base; m2sh load -config server/mongrel2.conf`
+	    `cd ~/base; m2sh load -config ~/base/server/mongrel2.conf`
       `cd ~/base; m2sh start -host 50.57.127.128 -sudo`
     end
   end
