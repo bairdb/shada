@@ -86,7 +86,7 @@ Shada::CLI.cli do
 	  table = args[:table]
 	  name = args[:column_name]
 	  type = args[:type] || 'varchar'
-	  len = args[:len] || ""
+	  len = args[:len] || "MAX"
 	  db = args[:database] || Shada::Config['MySQLDB_Default']
 	  
 	  puts "Creating Column: #{name} - #{type} - #{len}"
@@ -96,18 +96,21 @@ Shada::CLI.cli do
 	end
   
   task :help do |args|
-    puts "Shada CLI"
-    puts "Usage:"
-    puts "- generate"
-    puts "- generate_model"
-    puts "- generate_controller"
-    puts "- remove"
-    puts "- remove_model"
-    puts "- remove_controller"
-    puts "- start"
-    puts "- stop"
-    puts "- create_table"
-    puts "- create_column"
+    puts "Shada CLI v1"
+    puts "Copyright (c) 2011 Lackner//Buckingham LLC. All rights reserved.
+    This software comes with ABSOLUTELY NO WARRANTY. This is free software,
+    and you are welcome to modify and redistribute it under the GPL v2 license"
+    puts "Usage: shada [OPTIONS] [ARGS:ARG] || [ARG]"
+    puts "- generate  Generate Model Controller and Database Table"
+    puts "- generate_model  Generate Model and Database Table"
+    puts "- generate_controller Generate Controller"
+    puts "- remove Remove Model Controller and Table"
+    puts "- remove_model  Remove Model and Table"
+    puts "- remove_controller Remove Controller"
+    puts "- start Start Server"
+    puts "- stop  Stop Server"
+    puts "- create_table  Create Table in Database"
+    puts "- create_column Create Column for Table in Database"
   end
 	
 end
