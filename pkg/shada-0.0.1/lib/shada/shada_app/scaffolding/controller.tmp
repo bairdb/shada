@@ -2,7 +2,7 @@ require 'shada'
 require_relative '../models/%%name_lower%%model'
 
 class %%name%%Controller < Shada::Controller
-  path_map :controller, :page
+  path_map :page
 
   def index
     @model = %%name%%Model.new

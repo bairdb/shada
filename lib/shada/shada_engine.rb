@@ -5,14 +5,20 @@ require 'time'
 require 'cgi'
 require 'uuid'
 
+require_relative 'shada_logger'
+require_relative 'shada_mail'
+require_relative 'shada_lang'
+
 require_relative 'shada_engine/engine_build'
 require_relative 'shada_engine/headers'
 require_relative 'shada_engine/router'
 require_relative 'shada_engine/multipart_parser'
 
+Shada::Lang.load_lang "#{File.dirname(__FILE__)}/shada_lang/default.yml"
+
 module Shada
   class Engine
-    include Shada::Router
+    include Shada::Router, Shada::Logger
     
     def initialize sender_id, pull_addr, sub_addr, connection
       @sender_id = sender_id

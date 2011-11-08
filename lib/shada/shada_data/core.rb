@@ -2,6 +2,7 @@ require 'yaml'
 
 require 'shada/shada_utils'
 require 'shada/shada_config'
+require 'shada/shada_logger'
 
 require_relative 'core/cache'
 require_relative 'core/benchmark'
@@ -22,7 +23,8 @@ module Shada
 
       include Shada::Utils 
       include Shada::Data::Benchmark
-
+      include Shada::Logger
+      
       attr_reader :fields, :records, :parent, :children
       
       def initialize
@@ -177,7 +179,11 @@ module Shada
             connection.add_column hash[:table], hash[:name], hash[:type], hash[:length]
           end
         end
-
+        
+        def destroy_table table
+          connection.destroy_table table
+        end
+        
         def persist file_name, obj, cacheDir=""
           File.open("#{cacheDir}#{file_name}","w") do |file|
              Marshal::dump(obj,file)

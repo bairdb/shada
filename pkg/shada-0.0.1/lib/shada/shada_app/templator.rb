@@ -1,5 +1,9 @@
+require 'shada/shada_logger'
+
 module Shada
   class Templator
+    
+    include Shada::Logger
     
     attr_accessor :registry
     

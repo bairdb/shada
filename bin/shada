@@ -39,7 +39,31 @@ Shada::CLI.cli do
     end
 	end
 	
-	task :delete_module do |args|
+	task :remove do |args|
+	  args = args[:dict].count > 0 ? args[:dict] : args[:arr]
+    name = args[0] || args[:name]
+    unless name.nil?
+      generator = Shada::Generator.new name, Shada::Config["ApplicationPath"]
+      generator.remove
+    end
+  end
+  
+  task :remove_controller do |args|
+	  args = args[:dict].count > 0 ? args[:dict] : args[:arr]
+    name = args[0] || args[:name]
+    unless name.nil?
+      generator = Shada::Generator.new name, Shada::Config["ApplicationPath"]
+      generator.remove_controller
+    end
+  end
+  
+  task :remove_model do |args|
+	  args = args[:dict].count > 0 ? args[:dict] : args[:arr]
+    name = args[0] || args[:name]
+    unless name.nil?
+      generator = Shada::Generator.new name, Shada::Config["ApplicationPath"]
+      generator.remove_model
+    end
   end
 	
 	task :create_table do |args|

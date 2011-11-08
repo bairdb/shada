@@ -5,9 +5,13 @@ module Shada
         path_arr = path.split '/'
         puts path
         reload Shada::Config['ControllerPath']
+        reload Shada::Config['ModelPath']
+        reload Shada::Config['LibPath']
         
-        controller = "#{(path_arr[1] || Shada::Config['DefaultController']).to_s.propercase}Controller"
-        controller = is_class?(controller) ? controller : "#{Shada::Config['DefaultController'].to_s.propercase}Controller"
+        default = Shada::Config['DefaultController']
+        
+        controller = "#{(path_arr[1] || default).to_s.propercase}Controller"
+        controller = is_class?(controller) ? controller : "#{default.to_s.propercase}Controller"
         
         @controller = Object.const_get(controller).new
         @controller.form = @form
@@ -15,12 +19,20 @@ module Shada
           @controller.instance_variable_set("@#{p}",path_arr[i])
           i + 1
         end
-
+        
         @controller.route
       rescue => e
-        puts e.message
-        puts "#{e.backtrace[0]}"
-        ""
+        msg = "#{e.message} - #{e.backtrace[0]}"
+        log_error msg
+        
+        Shada::Mail.send do
+          to "baird@lackner-buckingham.com", "Baird Lackner-0Buckingham"
+          from "mail@reelfinatics.com", "Server Admin"
+          subject "Server Error"
+          message msg
+        end
+        
+        @controller.error_page
       end
     end
   end

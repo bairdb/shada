@@ -105,6 +105,8 @@ module Shada
   end
 end
 
+Shada::Mail.setup "smtp", {:host => Shada::Config['MailHost'], :port => Shada::Config['MailPort'], :username => Shada::Config['MailUsername'], :password => Shada::Config['MailPassword']}
+
 #Shada::Mail.setup "smtp", {:host => 'smtp.emailsrvr.com', :port => 587, :username => 'mail@reelfinatics.com', :password => 'T1meLo4d!'}
 #
 #Shada::Mail.send do

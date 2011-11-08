@@ -1,8 +1,12 @@
+require 'shada/shada_logger'
+
 module Shada
   class CLI
     
+    include Shada::Logger
+    
     def self.cli &block
-      last = ARGV.shift
+      last = ARGV.last
       task = ARGV[0]
       puts "Shada: Running #{task}"
       unless last == "-h"
@@ -13,6 +17,7 @@ module Shada
         end
         @@tasks[task.to_sym].call klass.parse
       else
+        klass = self.new
         if block_given?
           klass.instance_eval &block
         end
@@ -30,7 +35,7 @@ module Shada
         if i > 0
           arg_p = arg.split(':')
           if arg_p.count > 1
-            args_dict[arg_p[0]] = arg_p[1]
+            args_dict[arg_p[0].to_sym] = arg_p[1]
           else
             args_arr.push(arg)
           end

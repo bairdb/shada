@@ -1,5 +1,9 @@
+require 'shada/shada_logger'
+
 module Shada
   class CLI
+    
+    include Shada::Logger
     
     def self.cli &block
       last = ARGV.last

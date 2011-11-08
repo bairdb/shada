@@ -1,11 +1,12 @@
 require 'shada/shada_engine'
 require 'shada/shada_utils'
+require 'shada/shada_logger'
 
 module Shada
   class Controller
     @@paths = {}
     
-    include Shada::Utils
+    include Shada::Utils, Shada::Logger
     
     attr_accessor :form, :model
     
@@ -34,6 +35,10 @@ module Shada
       def path
         @@paths[self.name.downcase]
       end
+    end
+    
+    def error_page
+      'There has been an error with your request'
     end
     
     def page_not_found

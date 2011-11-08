@@ -1,7 +1,9 @@
+require 'shada/shada_logger'
+
 module Shada
   class Generator
     
-    include Shada::Utils
+    include Shada::Utils, Shada::Logger
     
     attr_accessor :name, :path, :dir, :both
     
@@ -58,6 +60,37 @@ module Shada
         end
       else
         puts 'File already exists.'
+      end
+    end
+    
+    def remove
+      begin
+        @both = true
+        remove_controller
+        remove_model
+      rescue => e
+        puts e.message
+        puts e.backtrace
+      end
+    end
+    
+    def remove_controller
+      if File.exists? "#{@path}controllers/#{@name_lower}controller.rb"
+        puts "Remove Controller #{@name}Controller"
+        File.unlink("#{@path}controllers/#{@name_lower}controller.rb")
+      else
+        puts "File doesn't exists."
+      end
+    end
+    
+    def remove_model
+      if File.exists? "#{@path}models/#{@name_lower}model.rb"
+        File.unlink("#{@path}models/#{@name_lower}model.rb")
+        puts "Remove Model #{@name}Model"
+        Shada::Data::Core.connect :database => @database, :dont_setup => true
+        Shada::Data::Core.destroy_table @name_lower
+      else
+        puts "File doesn't exists."
       end
     end
     

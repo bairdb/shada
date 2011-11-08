@@ -1,20 +1,25 @@
+require 'shada/shada_logger'
+
 module Shada
   class Generator
     
-    include Shada::Utils
+    include Shada::Utils, Shada::Logger
     
-    attr_accessor :name, :path, :dir
+    attr_accessor :name, :path, :dir, :both
     
     def initialize name, path=""
-      @name = name
+      @both = false
+      puts "Creating #{name.downcase}"
+      @name = name.propercase
       @name_lower = name.downcase
-      @database = Shada::Config["MySQLDB_Default"]
+      @database = 'reelfinatics'
       @path = path
       @dir = File.dirname(__FILE__)
     end
     
     def generate
       begin
+        @both = true
         generate_controller
         generate_model
       rescue => e
@@ -25,10 +30,12 @@ module Shada
     
     def generate_controller name=""
       @name = name unless name == ""
+      controller_name = @both ? "controller" : "controller_no_model"
       tokens = {"name" => @name, "name_lower" => @name_lower}
-      controller = File.read "#{@dir}/scaffolding/controller.tmp"
+      controller = File.read "#{@dir}/scaffolding/#{controller_name}.tmp"
       rcontroller = parse tokens, controller
       unless File.exists? "#{@path}controllers/#{@name_lower}controller.rb"
+        puts "Creating Controller #{@name}Controller"
         File.open("#{@path}controllers/#{@name_lower}controller.rb","w") do |file|
            file.write rcontroller
         end
@@ -46,8 +53,8 @@ module Shada
         File.open("#{@path}models/#{@name_lower}model.rb","w") do |file|
            file.write rmodel
         end
-        
-        Shada::Data::Core.connect :database => Shada::Config['MySQLDB_Default'], :dont_setup => true
+        puts "Creating Model #{@name}Model"
+        Shada::Data::Core.connect :database => @database, :dont_setup => true
         Shada::Data::Core.create @name_lower do |s|
           create_row :name => "title", :type => "text"
         end
@@ -61,8 +68,12 @@ module Shada
     def parse tokens, str
       rstr = str
       tokens.each do |key, val|
+        begin
         rstr.scan(/%%#{key}%%/).each do |m|
-          rstr.gsub!("%%#{key}%%", val)
+          rstr.gsub!("%%#{key}%%", val) unless rstr.nil?
+        end
+        rescue => e
+          puts e.message
         end
       end
       rstr
