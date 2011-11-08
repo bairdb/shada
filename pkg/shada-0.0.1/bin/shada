@@ -110,6 +110,31 @@ Shada::CLI.cli do
 	  Shada::Data::Core.create_row :table => table, :name => name, :type => type, :length => len
 	end
   
+  task :alter_column do |args|
+    args = args[:dict]
+    table = args[:table]
+    name = args[:column_name]
+    type = args[:type] || 'varchar'
+    len = args[:len] || "MAX"
+    db = args[:database] || Shada::Config['MySQLDB_Default']
+  
+    puts "Altering Column: #{name} - #{type} - #{len}"
+  
+    Shada::Data::Core.connect :database => db, :dont_setup => true
+    Shada::Data::Core.alter_row :table => table, :name => name, :type => type, :length => len
+  end
+  
+  task :drop do |args|
+    args = args[:dict]
+    table = args[:table]
+    name = args[:column_name]
+    
+    puts "Droping Column: #{name}"
+  
+    Shada::Data::Core.connect :database => db, :dont_setup => true
+    Shada::Data::Core.drop_row :table => table, :name => name
+  end
+  
   task :update do |args|
     `git pull`
     `rake build_gem`

@@ -180,6 +180,23 @@ module Shada
           end
         end
         
+        def alter_row hash
+          hash[:length] = hash[:length] ? hash[:length] : 0
+          unless not hash[:table].nil?
+            connection.alter_column @new_table, hash[:name], hash[:type], hash[:length]
+          else
+            connection.alter_column hash[:table], hash[:name], hash[:type], hash[:length]
+          end
+        end
+        
+        def drop_row hash
+          unless not hash[:table].nil?
+            connection.drop_column @new_table, hash[:name]
+          else
+            connection.drop_column hash[:table], hash[:name]
+          end
+        end
+        
         def destroy_table table
           connection.destroy_table table
         end
