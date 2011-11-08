@@ -102,7 +102,7 @@ Shada::CLI.cli do
 	  new_name = args[:new_name]
 	  db = args[:database] || Shada::Config['MySQLDB_Default']
 	  
-	  puts "Creating Column: #{name} - #{type} - #{len}"
+	  puts "Creating Column: #{name} - #{new_name}"
 	  
 	  Shada::Data::Core.connect :database => db, :dont_setup => true
 	  Shada::Data::Core.rename_table name, new_name
