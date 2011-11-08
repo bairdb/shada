@@ -136,7 +136,7 @@ module Shada
       end
       
       def alter_column table, column, type, len
-        sql = "ALTER TABLE `#{table}` ALTER `#{column}` #{type}(#{len})"
+        sql = "ALTER TABLE `#{table}` MODIFY `#{column}` #{type}(#{len})"
         execute sql
       end
       

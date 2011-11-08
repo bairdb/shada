@@ -189,7 +189,7 @@ module Shada
           end
         end
         
-        def rename_row
+        def rename_row hash
           unless not hash[:table].nil?
             connection.change_column @new_table, hash[:name], hash[:new_name]
           else
