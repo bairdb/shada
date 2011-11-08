@@ -135,7 +135,7 @@ module Shada
         execute sql
       end
       
-      def destroy_table name
+      def destroy_table table
         sql = "DROP TABLE `#{table}` IF EXISTS"
         execute sql
       end

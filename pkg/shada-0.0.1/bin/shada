@@ -61,13 +61,15 @@ Shada::CLI.cli do
 	  args = args[:dict].count > 0 ? args[:dict] : args[:arr]
     name = args[0] || args[:name]
     unless name.nil?
-      generator = Shada::Generator.new name, Shada::Config["ApplicationPath"]
+      generator = Shada::Generator.new name, Shada::Config["ApplicationPath"] 
       generator.remove_model
     end
   end
 	
 	task :create_table do |args|
-	  puts args
+	  args = args[:dict].count > 0 ? args[:dict] : args[:arr]
+    name = args[0] || args[:name]
+    Shada::Data::Core.create name.downcase
   end
   
   task :create_row do |args|
