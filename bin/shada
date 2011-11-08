@@ -69,22 +69,22 @@ Shada::CLI.cli do
 	task :start do |args|
 	  puts "Starting Shada"
 	  is_running = `ps aux | grep mongrel2`
+	  `cd ~/base/site; ruby run.rb start`
+    `cd ~/base/site; ruby run_monitor.rb start`
 	  unless is_running.nil?
 	    `cd ~/base; m2sh load -config server/mongrel2.conf`
       `cd ~/base; m2sh start -host 50.57.127.128 -sudo`
     end
-    `cd ~/base/site; ruby run.rb start`
-    `cd ~/base/site; ruby run_monitor.rb start`
   end
   
   task :stop do |args|
     puts "Stopping Shada"
+    `cd ~/base/site; ruby run.rb stop`
+    `cd ~/base/site; ruby run_monitor.rb stop`
     is_running = `ps aux | grep mongrel2`
     unless is_running.nil?
       `cd ~/base; m2sh stop -host 50.57.127.128 -sudo`
     end
-    `cd ~/base/site; ruby run.rb stop`
-    `cd ~/base/site; ruby run_monitor.rb stop`
   end
 	
 	task :create_table do |args|
