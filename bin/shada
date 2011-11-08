@@ -121,18 +121,32 @@ Shada::CLI.cli do
     puts "Altering Column: #{name} - #{type}"
   
     Shada::Data::Core.connect :database => db, :dont_setup => true
-    Shada::Data::Core.alter_row :table => table, :name => name, :type => type
+    Shada::Data::Core.alter_row :table => table, :name => name, :type => type, :length => len
   end
   
-  task :drop do |args|
+  task :drop_column do |args|
     args = args[:dict]
     table = args[:table]
     name = args[:column_name]
+    db = args[:database] || Shada::Config['MySQLDB_Default']
     
     puts "Droping Column: #{name}"
   
     Shada::Data::Core.connect :database => db, :dont_setup => true
     Shada::Data::Core.drop_row :table => table, :name => name
+  end
+  
+  task :change_column do |args|
+    args = args[:dict]
+    table = args[:table]
+    name = args[:column_name]
+    new_name = args[:new_column_name]
+    db = args[:database] || Shada::Config['MySQLDB_Default']
+    
+    puts "Changing Column: #{name} to #{new_name}"
+  
+    Shada::Data::Core.connect :database => db, :dont_setup => true
+    Shada::Data::Core.rename_row :table => table, :name => name, :new_name => new_name
   end
   
   task :update do |args|

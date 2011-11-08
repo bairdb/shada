@@ -136,12 +136,17 @@ module Shada
       end
       
       def alter_column table, column, type, len
-        sql = "ALTER TABLE `#{table}` ALTER COLUMN `#{column}` #{type}"
+        sql = "ALTER TABLE `#{table}` ALTER `#{column}` #{type}(#{len})"
         execute sql
       end
       
       def drop_column table, column
-        sql = "ALTER TABLE `#{table}` DROP COLUMN `#{column}`"
+        sql = "ALTER TABLE `#{table}` DROP `#{column}`"
+        execute sql
+      end
+      
+      def change_column table, column, new_column
+        sql = "ALTER TABLE `#{table}` CHANGE `#{column}` `#{new_column}`"
         execute sql
       end
       

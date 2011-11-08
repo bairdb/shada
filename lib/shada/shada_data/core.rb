@@ -189,6 +189,14 @@ module Shada
           end
         end
         
+        def rename_row
+          unless not hash[:table].nil?
+            connection.change_column @new_table, hash[:name], hash[:new_name]
+          else
+            connection.change_column hash[:table], hash[:name], hash[:new_name]
+          end
+        end
+        
         def drop_row hash
           unless not hash[:table].nil?
             connection.drop_column @new_table, hash[:name]
