@@ -128,14 +128,12 @@ Shada::CLI.cli do
     args = args[:dict]
     table = args[:table]
     name = args[:column_name]
-    type = args[:type] || 'varchar'
-    len = args[:len] || "MAX"
     db = args[:database] || Shada::Config['MySQLDB_Default']
     
     puts "Droping Column: #{name}"
   
     Shada::Data::Core.connect :database => db, :dont_setup => true
-    Shada::Data::Core.drop_row :table => table, :name => name, :type => type, :length => len
+    Shada::Data::Core.drop_row :table => table, :name => name
   end
   
   task :change_column do |args|
@@ -143,12 +141,14 @@ Shada::CLI.cli do
     table = args[:table]
     name = args[:column_name]
     new_name = args[:new_column_name]
+    type = args[:type] || 'varchar'
+    len = args[:len] || "MAX"
     db = args[:database] || Shada::Config['MySQLDB_Default']
     
     puts "Changing Column: #{name} to #{new_name}"
   
     Shada::Data::Core.connect :database => db, :dont_setup => true
-    Shada::Data::Core.rename_row :table => table, :name => name, :new_name => new_name
+    Shada::Data::Core.rename_row :table => table, :name => name, :new_name => new_name, :type => type, :length => len
   end
   
   task :update do |args|
