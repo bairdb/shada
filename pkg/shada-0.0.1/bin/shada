@@ -66,6 +66,12 @@ Shada::CLI.cli do
     end
   end
 	
+	task :start do |args|
+  end
+  
+  task :stop do |args|
+  end
+	
 	task :create_table do |args|
 	  args = args[:dict].count > 0 ? args[:dict] : args[:arr]
     name = args[0] || args[:name]
@@ -73,8 +79,13 @@ Shada::CLI.cli do
     Shada::Data::Core.create name.downcase
   end
   
-  task :create_row do |args|
-	  puts args
+  task :create_column do |args|
+	  table = args[:table]
+	  name = args[:column_name]
+	  type = args[:type]
+	  len = args[:len]
+	  
+	  puts "#{table} - #{name} - #{type} - #{len}"
   end
 	
 end
