@@ -69,6 +69,7 @@ Shada::CLI.cli do
 	task :create_table do |args|
 	  args = args[:dict].count > 0 ? args[:dict] : args[:arr]
     name = args[0] || args[:name]
+    Shada::Data::Core.connect :database => 'reelfinatics', :dont_setup => true
     Shada::Data::Core.create name.downcase
   end
   

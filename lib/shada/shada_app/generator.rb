@@ -9,7 +9,6 @@ module Shada
     
     def initialize name, path=""
       @both = false
-      puts "Creating #{name.downcase}"
       @name = name.propercase
       @name_lower = name.downcase
       @database = 'reelfinatics'
@@ -18,6 +17,7 @@ module Shada
     end
     
     def generate
+      puts "Creating #{name.downcase}"
       begin
         @both = true
         generate_controller
@@ -64,6 +64,7 @@ module Shada
     end
     
     def remove
+      puts "Removing #{name.downcase}"
       begin
         @both = true
         remove_controller
