@@ -147,6 +147,7 @@ module Shada
       
       def change_column table, column, new_column
         sql = "ALTER TABLE `#{table}` CHANGE `#{column}` `#{new_column}`"
+        puts sql
         execute sql
       end
       
