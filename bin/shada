@@ -67,9 +67,18 @@ Shada::CLI.cli do
   end
 	
 	task :start do |args|
+	  puts "Starting Shada"
+	  `m2sh load -config server/mongrel2.conf`
+    `m2sh start -host 50.57.127.128 -sudo`
+    `cd ~/base/site; ruby run.rb start`
+    `cd ~/base/site; ruby run_monitor.rb start`
   end
   
   task :stop do |args|
+    puts "Stopping Shada"
+    `m2sh stop -host 50.57.127.128 -sudo`
+    `cd ~/base/site; ruby run.rb stop`
+    `cd ~/base/site; ruby run_monitor.rb stop`
   end
 	
 	task :create_table do |args|
@@ -94,6 +103,12 @@ Shada::CLI.cli do
 	  Shada::Data::Core.connect :database => db, :dont_setup => true
 	  Shada::Data::Core.create_row :table => table, :name => name, :type => type, :length => len
 	end
+  
+  task :update do |args|
+    `git pull`
+    `rake build_gem`
+    `sudo install bin/shada /usr/bin/shada`
+  end
   
   task :help do |args|
     puts "Shada CLI v1"
