@@ -8,7 +8,7 @@ module Shada
     def self.cli &block
       last = ARGV.last
       task = ARGV[0].gsub("-", "")
-      puts "Shada: Running #{task}"
+      #puts "Shada: Running #{task}"
       unless last == "-h"
         @@tasks = {}
         klass = self.new
