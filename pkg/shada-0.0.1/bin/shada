@@ -80,6 +80,7 @@ Shada::CLI.cli do
   end
   
   task :create_column do |args|
+    args = args[:dict]
 	  table = args[:table]
 	  name = args[:column_name]
 	  type = args[:type]
