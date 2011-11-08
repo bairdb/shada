@@ -205,6 +205,10 @@ module Shada
           end
         end
         
+        def rename_table table, new_name
+          connection.rename_table table, new_name
+        end
+        
         def destroy_table table
           connection.destroy_table table
         end

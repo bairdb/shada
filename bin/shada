@@ -96,10 +96,31 @@ Shada::CLI.cli do
     Shada::Data::Core.create name.downcase
   end
   
+  task :rename_table do |args|
+    args = args[:dict]
+	  name = args[:name]
+	  new_name = args[:new_name]
+	  db = args[:database] || Shada::Config['MySQLDB_Default']
+	  
+	  puts "Creating Column: #{name} - #{type} - #{len}"
+	  
+	  Shada::Data::Core.connect :database => db, :dont_setup => true
+	  Shada::Data::Core.rename_table name, new_name
+  end
+  
+  task :destroy_table do |args|
+    args = args[:dict].count > 0 ? args[:dict] : args[:arr]
+    name = args[0] || args[:name]
+    db = args[1] || Shada::Config['MySQLDB_Default']
+    
+    Shada::Data::Core.connect :database => db, :dont_setup => true
+    Shada::Data::Core.destroy_table name.downcase
+  end
+  
   task :create_column do |args|
     args = args[:dict]
 	  table = args[:table]
-	  name = args[:column_name]
+	  name = args[:column_name] || args[:name]
 	  type = args[:type] || 'varchar'
 	  len = args[:len] || "MAX"
 	  db = args[:database] || Shada::Config['MySQLDB_Default']
@@ -113,7 +134,7 @@ Shada::CLI.cli do
   task :alter_column do |args|
     args = args[:dict]
     table = args[:table]
-    name = args[:column_name]
+    name = args[:column_name] || args[:name]
     type = args[:type] || 'varchar'
     len = args[:len] || "MAX"
     db = args[:database] || Shada::Config['MySQLDB_Default']
@@ -127,7 +148,7 @@ Shada::CLI.cli do
   task :drop_column do |args|
     args = args[:dict]
     table = args[:table]
-    name = args[:column_name]
+    name = args[:column_name] || args[:name]
     db = args[:database] || Shada::Config['MySQLDB_Default']
     
     puts "Droping Column: #{name}"
@@ -139,8 +160,8 @@ Shada::CLI.cli do
   task :change_column do |args|
     args = args[:dict]
     table = args[:table]
-    name = args[:column_name]
-    new_name = args[:new_column_name]
+    name = args[:column_name] || args[:name]
+    new_name = args[:new_column_name] || args[:new_name]
     type = args[:type] || 'varchar'
     len = args[:len] || "MAX"
     db = args[:database] || Shada::Config['MySQLDB_Default']
