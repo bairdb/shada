@@ -75,7 +75,9 @@ Shada::CLI.cli do
 	task :create_table do |args|
 	  args = args[:dict].count > 0 ? args[:dict] : args[:arr]
     name = args[0] || args[:name]
-    Shada::Data::Core.connect :database => 'reelfinatics', :dont_setup => true
+    db = args[1] || Shada::Config['MySQLDB_Default']
+    
+    Shada::Data::Core.connect :database => db, :dont_setup => true
     Shada::Data::Core.create name.downcase
   end
   
@@ -83,10 +85,29 @@ Shada::CLI.cli do
     args = args[:dict]
 	  table = args[:table]
 	  name = args[:column_name]
-	  type = args[:type]
-	  len = args[:len]
+	  type = args[:type] || 'varchar'
+	  len = args[:len] || ""
+	  db = args[:database] || Shada::Config['MySQLDB_Default']
 	  
-	  puts "#{table} - #{name} - #{type} - #{len}"
+	  puts "Creating Column: #{name} - #{type} - #{len}"
+	  
+	  Shada::Data::Core.connect :database => db, :dont_setup => true
+	  Shada::Data::Core.create_row :table => table, :name => name, :type => type, :length => len
+	end
+  
+  task :help do |args|
+    puts "Shada CLI"
+    puts "Usage:"
+    puts "- generate"
+    puts "- generate_model"
+    puts "- generate_controller"
+    puts "- remove"
+    puts "- remove_model"
+    puts "- remove_controller"
+    puts "- start"
+    puts "- stop"
+    puts "- create_table"
+    puts "- create_column"
   end
 	
 end
