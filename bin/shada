@@ -118,10 +118,10 @@ Shada::CLI.cli do
     len = args[:len] || "MAX"
     db = args[:database] || Shada::Config['MySQLDB_Default']
   
-    puts "Altering Column: #{name} - #{type} - #{len}"
+    puts "Altering Column: #{name} - #{type}"
   
     Shada::Data::Core.connect :database => db, :dont_setup => true
-    Shada::Data::Core.alter_row :table => table, :name => name, :type => type, :length => len
+    Shada::Data::Core.alter_row :table => table, :name => name, :type => type
   end
   
   task :drop do |args|
