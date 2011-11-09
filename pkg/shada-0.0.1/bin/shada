@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-if File.exists?('/home/admin/base/site/') and Dir.directory?('/home/admin/base/site/')
+if File.exists?('/home/admin/base/site/')
   ENV['CONFIG'] = "main"
   ENV['ROOT'] = '/home/admin/base/site/'
 else
