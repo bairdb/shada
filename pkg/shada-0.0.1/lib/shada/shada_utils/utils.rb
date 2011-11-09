@@ -41,7 +41,11 @@ module Shada
     end
     
     def is_class? classname
-      Object.const_defined?(classname)
+      begin
+        Object.const_defined?(classname.to_sym)
+      rescue => e
+        false
+      end
     end
     
     def run_meth

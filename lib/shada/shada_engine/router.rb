@@ -13,16 +13,13 @@ module Shada
         controller = "#{(path_arr[1] || default).to_s.propercase}Controller"
         controller = is_class?(controller) ? controller : "#{default.to_s.propercase}Controller"
         
-        if Object.const_defined?(controller.to_sym)
-          @controller = Object.const_get(controller).new
-        else
-          @controller = "#{default}Controller"
-        end
+        @controller = Object.const_get(controller).new
         @controller.form = @form
         @controller.path.inject(1) do |i, p|
           @controller.instance_variable_set("@#{p}",path_arr[i])
           i + 1
         end
+        
         @controller.route
       rescue => e
         msg = "#{e.message} - #{e.backtrace[0]}"
