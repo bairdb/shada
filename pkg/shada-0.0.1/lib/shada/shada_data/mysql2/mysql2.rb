@@ -141,28 +141,28 @@ module Shada
       end
       
       def alter_column table, column, type, len
-        sql = "ALTER TABLE `#{table}` MODIFY `#{column}` #{type}(#{len})"
+        sql = "ALTER TABLE `#{escape(table)}` MODIFY `#{escape(column)}` #{escape(type)}(#{escape(len)})"
         execute sql
       end
       
       def drop_column table, column
-        sql = "ALTER TABLE `#{table}` DROP `#{column}`"
+        sql = "ALTER TABLE `#{escape(table)}` DROP `#{escape(column)}`"
         execute sql
       end
       
       def change_column table, column, new_column, type, len
-        sql = "ALTER TABLE `#{table}` CHANGE `#{column}` `#{new_column}` #{type}(#{len})"
+        sql = "ALTER TABLE `#{escape(table)}` CHANGE `#{escape(column)}` `#{escape(new_column)}` #{escape(type)}(#{escape(len)})"
         puts sql
         execute sql
       end
       
       def rename_table table, new_table
-        sql = "RENAME TABLE `#{table}` TO `#{new_table}`"
+        sql = "RENAME TABLE `#{escape(table)}` TO `#{escape(new_table)}`"
         execute sql
       end
       
       def destroy_table table
-        sql = "DROP TABLE `#{table}`"
+        sql = "DROP TABLE `#{escape(table)}`"
         execute sql
       end
       

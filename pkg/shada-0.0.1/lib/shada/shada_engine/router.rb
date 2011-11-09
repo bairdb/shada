@@ -12,7 +12,7 @@ module Shada
         
         controller = "#{(path_arr[1] || default).to_s.propercase}Controller"
         controller = is_class?(controller) ? controller : "#{default.to_s.propercase}Controller"
-        
+        puts controller
         @controller = Object.const_get(controller).new
         @controller.form = @form
         @controller.path.inject(1) do |i, p|
