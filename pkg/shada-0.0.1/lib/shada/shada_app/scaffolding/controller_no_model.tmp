@@ -1,10 +1,10 @@
 require 'shada'
 
 class %%name%%Controller < Shada::Controller
-  path_map :page
+  path_map :controller, :page
 
   def index
-    html="Add Content."
+    html="Add Content For %%name%%."
     render html
   end
 
