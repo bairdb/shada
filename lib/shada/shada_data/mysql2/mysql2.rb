@@ -31,7 +31,12 @@ module Shada
         val
       end
       
+      def escape str
+        @db.escape str
+      end
+      
       def execute sql, symbolize=true
+        puts sql
         result = @db.query sql, :symbolize_keys => symbolize
         result
       end
@@ -124,40 +129,40 @@ module Shada
       end
       
       def create_table table, columns="", engine="innodb", charset="utf8", autoinc=1
+        table = quote_table table
         puts "Creating table #{table}"
-        sql = "CREATE TABLE IF NOT EXISTS #{table} (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY) ENGINE=#{engine}  DEFAULT CHARSET=#{charset} AUTO_INCREMENT=#{autoinc};"
-        execute sql
+        query("CREATE TABLE IF NOT EXISTS `#{table}` (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY) ENGINE=?  DEFAULT CHARSET=? AUTO_INCREMENT=?;", [engine, charset, autoinc])
       end
       
       def add_column table, column_name, type, len, default='', after=''
         after = "AFTER #{after}" unless after.nil?
-        sql = "ALTER TABLE `#{table}` ADD `#{column_name}` #{type}(#{len}) #{default}"
+        sql = "ALTER TABLE `#{escape(table)}` ADD `#{escape(column_name)}` #{escape(type)}(#{escape(len)}) #{default}"
         execute sql
       end
       
       def alter_column table, column, type, len
-        sql = "ALTER TABLE `#{table}` MODIFY `#{column}` #{type}(#{len})"
+        sql = "ALTER TABLE `#{escape(table)}` MODIFY `#{escape(column)}` #{escape(type)}(#{escape(len)})"
         execute sql
       end
       
       def drop_column table, column
-        sql = "ALTER TABLE `#{table}` DROP `#{column}`"
+        sql = "ALTER TABLE `#{escape(table)}` DROP `#{escape(column)}`"
         execute sql
       end
       
       def change_column table, column, new_column, type, len
-        sql = "ALTER TABLE `#{table}` CHANGE `#{column}` `#{new_column}` #{type}(#{len})"
+        sql = "ALTER TABLE `#{escape(table)}` CHANGE `#{escape(column)}` `#{escape(new_column)}` #{escape(type)}(#{escape(len)})"
         puts sql
         execute sql
       end
       
       def rename_table table, new_table
-        sql = "RENAME TABLE `#{table}` TO `#{new_table}`"
+        sql = "RENAME TABLE `#{escape(table)}` TO `#{escape(new_table)}`"
         execute sql
       end
       
       def destroy_table table
-        sql = "DROP TABLE `#{table}`"
+        sql = "DROP TABLE `#{escape(table)}`"
         execute sql
       end
       

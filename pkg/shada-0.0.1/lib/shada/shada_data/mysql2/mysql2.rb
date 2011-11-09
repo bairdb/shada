@@ -31,7 +31,12 @@ module Shada
         val
       end
       
+      def escape str
+        @db.escape str
+      end
+      
       def execute sql, symbolize=true
+        puts sql
         result = @db.query sql, :symbolize_keys => symbolize
         result
       end
@@ -124,14 +129,14 @@ module Shada
       end
       
       def create_table table, columns="", engine="innodb", charset="utf8", autoinc=1
+        table = quote_table table
         puts "Creating table #{table}"
-        sql = "CREATE TABLE IF NOT EXISTS #{table} (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY) ENGINE=#{engine}  DEFAULT CHARSET=#{charset} AUTO_INCREMENT=#{autoinc};"
-        execute sql
+        query("CREATE TABLE IF NOT EXISTS `#{table}` (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY) ENGINE=?  DEFAULT CHARSET=? AUTO_INCREMENT=?;", [engine, charset, autoinc])
       end
       
       def add_column table, column_name, type, len, default='', after=''
         after = "AFTER #{after}" unless after.nil?
-        sql = "ALTER TABLE `#{table}` ADD `#{column_name}` #{type}(#{len}) #{default}"
+        sql = "ALTER TABLE `#{escape(table)}` ADD `#{escape(column_name)}` #{escape(type)}(#{escape(len)}) #{default}"
         execute sql
       end
       
