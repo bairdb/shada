@@ -135,8 +135,29 @@ module Shada
         execute sql
       end
       
-      def destroy_table name
-        sql = "DROP TABLE `#{table}` IF EXISTS"
+      def alter_column table, column, type, len
+        sql = "ALTER TABLE `#{table}` MODIFY `#{column}` #{type}(#{len})"
+        execute sql
+      end
+      
+      def drop_column table, column
+        sql = "ALTER TABLE `#{table}` DROP `#{column}`"
+        execute sql
+      end
+      
+      def change_column table, column, new_column, type, len
+        sql = "ALTER TABLE `#{table}` CHANGE `#{column}` `#{new_column}` #{type}(#{len})"
+        puts sql
+        execute sql
+      end
+      
+      def rename_table table, new_table
+        sql = "RENAME TABLE `#{table}` TO `#{new_table}`"
+        execute sql
+      end
+      
+      def destroy_table table
+        sql = "DROP TABLE `#{table}`"
         execute sql
       end
       

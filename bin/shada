@@ -1,7 +1,12 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
-ENV['CONFIG'] = "main"
-ENV['ROOT'] = '/home/admin/base/site/'
+if File.exists? '/home/admin/base/site/' && Dir.directory? '/home/admin/base/site/'
+  ENV['CONFIG'] = "main"
+  ENV['ROOT'] = '/home/admin/base/site/'
+else
+  ENV['CONFIG'] = "local"
+  ENV['ROOT'] = '/Users/bairdlackner-buckingham/projects/Reelfinatics/dev/lib/site/'
+end
 
 require "shada"
 
