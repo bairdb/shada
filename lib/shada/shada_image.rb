@@ -11,19 +11,35 @@ module Shada
       @img_ext = image[1]
     end
     
-    def thumbnail width, height, path=""
+    def thumbnail width, height, save=true, path=""
+      path = path.nil? ? Shada::Config['ThumbPath'] : path
       tmp_img = @img.resize_to_fill width, height
-      tmp_img.write "#{Shada::Config['ThumbPath']}#{@img_name}_thumb.#{@img_ext}"
+      if save
+        tmp_img.write "#{path}#{@img_name}_thumb.#{@img_ext}" unless File.exists? "#{Shada::Config['ThumbPath']}#{@img_name}_thumb.#{@img_ext}"
+      else
+        tmp_img.to_blob
+      end
     end
     
-    def resize width, height, path=""
+    def resize width, height, save=true, path=""
+      path = path.nil? ? Shada::Config['ImagePath'] : path
       tmp_img = @img.resize_to_fit width, height
-      tmp_img.write "#{Shada::Config['ImagePath']}#{@img_name}.#{@img_ext}"
+      if save
+        tmp_img.write "#{path}#{@img_name}.#{@img_ext}" unless File.exists? "#{Shada::Config['ImagePath']}#{@img_name}.#{@img_ext}"
+      else
+        tmp_img.to_blob
+      end
     end
     
-    def scale percent, path=""
+    def scale percent, save=true, path=""
+      path = path.nil? ? Shada::Config['ImagePath'] : path
       tmp_img = @img.scale percent
-      tmp_img.write "#{Shada::Config['ImagePath']}#{@img_name}_scale_#{percent}.#{@img_ext}"
+      
+      if save
+        tmp_img.write "#{path}#{@img_name}_scale_#{percent}.#{@img_ext}" unless File.exists? "#{Shada::Config['ImagePath']}#{@img_name}_scale_#{percent}.#{@img_ext}"
+      else
+        tmp_img.to_blob
+      end
     end
     
     def format
