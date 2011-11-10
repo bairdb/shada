@@ -8,7 +8,7 @@ module Shada
     
     include Shada::Utils, Shada::Logger
     
-    attr_accessor :form, :model
+    attr_accessor :form, :model, :rest_of_path
     
     def initialize
     end
@@ -48,7 +48,7 @@ module Shada
     def route var=@page
       unless var.nil?
         method = var.to_sym
-        self.respond_to?(method) ? self.send(method) : page_not_found
+        self.respond_to?(method) ? self.send(method) : index
       else
         index
       end

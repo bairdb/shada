@@ -12,13 +12,17 @@ module Shada
         
         controller = "#{(path_arr[1] || default).to_s.propercase}Controller"
         controller = is_class?(controller) ? controller : "#{default.to_s.propercase}Controller"
-        puts controller
+       
         @controller = Object.const_get(controller).new
         @controller.form = @form
         @controller.path.inject(1) do |i, p|
           @controller.instance_variable_set("@#{p}",path_arr[i])
+          path_arr.delete_at i
           i + 1
         end
+        path_arr.delete_at 0
+        
+        @controller.rest_of_path = path_arr
         
         @controller.route
       rescue => e
@@ -26,7 +30,7 @@ module Shada
         log_error msg
         
         Shada::Mail.send do
-          to "baird@lackner-buckingham.com", "Baird Lackner-0Buckingham"
+          to "baird@lackner-buckingham.com", "Baird Lackner-Buckingham"
           from "mail@reelfinatics.com", "Server Admin"
           subject "Server Error"
           message msg
