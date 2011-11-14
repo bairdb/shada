@@ -185,9 +185,7 @@ Shada::CLI.cli do
   
   task :help do |args|
     puts "Shada CLI v1"
-    puts "Copyright (c) 2011 Lackner//Buckingham LLC. All rights reserved.
-    This software comes with ABSOLUTELY NO WARRANTY. This is free software,
-    and you are welcome to modify and redistribute it under the GPL v2 license"
+    puts "Copyright (c) 2011 Lackner//Buckingham LLC. All rights reserved."
     puts "Usage: shada [OPTIONS] [ARGS:ARG] || [ARG]"
     puts "- generate  Generate Model Controller and Database Table"
     puts "- generate_model  Generate Model and Database Table"

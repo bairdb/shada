@@ -13,6 +13,11 @@ module Shada
       set_response_header key, val
     end
     
+    def redirect url, time=0
+      value = "#{time}; url=#{url}"
+      set_response_header 'Refresh', value
+    end
+    
     def get_header key, type='get'
       case type
       when 'response'

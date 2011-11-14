@@ -25,7 +25,7 @@ module Shada
       include Shada::Data::Benchmark
       include Shada::Logger
       
-      attr_reader :fields, :records, :parent, :children
+      attr_reader :fields, :records, :parent, :children, :db
       
       def initialize
         @update = false
@@ -259,7 +259,6 @@ module Shada
       def method_missing name, *args, &block
         return ghost_query $1, $2 if name.to_s =~ /^search_(.*)_for_(.*)/
         return add_column name, args, block if name.to_s =~ /^(.*)=/
-        super
       end
 
     end

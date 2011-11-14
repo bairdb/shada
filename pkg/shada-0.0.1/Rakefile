@@ -41,9 +41,9 @@ end
 
 task :build_gem do
   #sh 'rdoc'
-  sh 'rvm gem clean pkg/shada-*.gem'
+  sh 'rvm all do gem clean pkg/shada-*.gem'
   sh 'rake pkg/shada-0.0.1.gem'
-  sh 'rvm gem install pkg/shada-*.gem'
+  sh 'rvm all do gem install pkg/shada-*.gem'
 end
 
 task :update do

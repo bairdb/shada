@@ -4,6 +4,8 @@ module Shada
   module Data
     module MYSQL2
       
+      include Shada::Utils
+      
       def self.included(base)
         base.extend ClassMethods
       end
@@ -51,7 +53,6 @@ module Shada
         else
           result = cache.pull(params.to_s)[:result]
           #puts @cache.pull(params)[:ids]
-          #puts "cache"
         end
         
         save_cache table, cache
@@ -65,7 +66,8 @@ module Shada
           r = result.first
           @fields.each do |m|
             #puts "#{m} = #{r[m.to_sym]}"
-            instance_variable_set("@#{m}", r[m.to_sym])
+            val = (r[m.to_sym]).class == String ? unescape(r[m.to_sym]) : r[m.to_sym]
+            instance_variable_set("@#{m}", val)
           end
 
           #find_parent
@@ -76,8 +78,6 @@ module Shada
             obj = self.class.new
             @records.push obj.find(@primary_sym => r[@primary_sym])
           end
-
-          return self
         end
 
         return self
@@ -104,10 +104,9 @@ module Shada
             values.push instance_variable_get("@#{m}")
           end
         end
-        puts "#{table} - #{keys} - #{values}"
+        #puts "#{table} - #{keys} - #{values}"
         ret = get_connection.insert table, keys, values
-
-        puts ret
+        flush_cache
         @saving = false
         self
       end
@@ -177,11 +176,15 @@ module Shada
       def update_cache primary_val
         cache.each_page do |page|
           page.value[:ids].find do |i|
-            #puts "Size: #{@cache.size}"
+            #puts "Size: #{cache.size}"
             cache.remove_node page if i.to_i == primary_val.to_i
-            #puts "Size: #{@cache.size}"
+            #puts "Size: #{cache.size}"
           end
         end
+      end
+      
+      def flush_cache
+        cache.purge
       end
 
     end

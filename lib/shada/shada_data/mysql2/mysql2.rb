@@ -6,6 +6,8 @@ module Shada
   module Adapter
     class MYSQL2
       
+      attr_accessor :db
+      
       include Shada::Logger
       
       def connect hash
@@ -128,7 +130,7 @@ module Shada
       end
       
       def create_table table, columns="", engine="innodb", charset="utf8", autoinc=1
-        table = quote_table table
+        table = escape table
         puts "Creating table #{table}"
         query("CREATE TABLE IF NOT EXISTS `#{table}` (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY) ENGINE=?  DEFAULT CHARSET=? AUTO_INCREMENT=?;", [engine, charset, autoinc])
       end

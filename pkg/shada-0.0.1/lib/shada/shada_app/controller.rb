@@ -8,9 +8,10 @@ module Shada
     
     include Shada::Utils, Shada::Logger
     
-    attr_accessor :form, :model, :rest_of_path
+    attr_accessor :form, :model, :rest_of_path, :base_link
     
     def initialize
+      @base_link = self.class.name.downcase.gsub('controller', '') != Shada::Config['DefaultController'] ? "/#{self.class.name.downcase.gsub('controller', '')}" : ""
     end
     
     def index
@@ -29,7 +30,6 @@ module Shada
           add_method v
         end
         @@paths[self.name.downcase] = path
-        puts self.instance_variables
       end
       
       def path
@@ -37,8 +37,8 @@ module Shada
       end
     end
     
-    def error_page
-      'There has been an error with your request'
+    def error_page msg=''
+      "There has been an error with your request: #{msg}"
     end
     
     def page_not_found
@@ -52,6 +52,61 @@ module Shada
       else
         index
       end
+    end
+    
+    
+    def list
+      str = "<a href=\"#{@base_link}/edit\">Add</a><br>"
+      
+      @model.find.records.each do |r|
+        str.insert(-1, "<a href=\"#{@base_link}/edit/id/#{r.id}\">#{r.id} | #{r.title}</a><br/>")
+      end
+    
+      str
+    end
+  
+    def edit
+      build = Shada::HTML.build @model.fields, self do |html|
+        html.a({:href => "#{@base_link}/list",  :inner_text => 'Back'})
+      
+        action = @rest_of_path.empty? ? "#{@base_link}/save" : "#{@base_link}/save/#{@rest_of_path[0]}/#{@rest_of_path[1]}"
+        html.form({:id => 'form', :method => 'post', :action => action}) {
+          @model.find @rest_of_path[0].to_sym => @rest_of_path[1] unless @rest_of_path.empty?
+
+          @model.fields.each do |v|
+            val = ""
+            html.div({:class => 'form_row'}){
+              html.label({:class => "something", :inner_text => v}) 
+              html.div(){}
+              val = @model.instance_variable_get("@#{v}")
+              html.input({:type => 'text', :name => v, :value => val})
+            }
+          end
+
+          html.input({:type => 'submit', :value => 'submit'})
+        }
+      end
+
+      build.html
+
+    end
+
+    def save
+      unless @rest_of_path.empty?
+        @model.find @rest_of_path[0].to_sym => @rest_of_path[1]
+      end
+      @model.fields.each do |field|
+        @model.instance_variable_set("@#{field}", @form[field.to_sym]) unless @form[field.to_sym] == ''
+      end
+      @model.save
+    
+      build = Shada::HTML.build [], self do |html|
+        html.a({:href => "#{@base_link}/list",  :inner_text => 'Back'})
+      end
+      
+      @form.redirect "http://#{Shada::Config['Host']}#{@base_link}/list"
+      
+      ""
     end
     
     def render content
