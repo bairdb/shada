@@ -50,7 +50,7 @@ module Shada
     
     def init template
       @html = open_template template
-      @html = @html.force_encoding("UTF-8")
+      @html = @html.to_s.encode("UTF-8")
       includes
       preprocess_results
       parse 1
@@ -62,7 +62,7 @@ module Shada
     end
     
     def gettags
-      @html = @html.force_encoding("UTF-8")
+      @html = @html.encode("UTF-8")
       @tags = @html.scan @pattern
     end
     
@@ -95,7 +95,7 @@ module Shada
     end
     
    def includes
-     @html = @html.force_encoding("UTF-8")
+     @html = @html.encode("UTF-8")
      inc = @html.scan @include_pattern
      tag_arr = []
      rep_arr = []
@@ -142,7 +142,7 @@ module Shada
    end
    
    def preprocess_results
-     @html = @html.force_encoding("UTF-8")
+     @html = @html.encode("UTF-8")
      @html.scan(@result_pattern).inject(1) do |i, result|
         @content_arr.push result[1]
         @html = @html.gsub /\{results for \$#{Regexp.quote(result[0])}\}(.*?)\{\/results\}/m, "{results for $#{result[0]}}%%replacement_#{i}%%{/results}"
@@ -154,7 +154,7 @@ module Shada
      tags = []
      rep = []
      
-     @html = @html.force_encoding("UTF-8")
+     @html = @html.encode("UTF-8")
      @html.scan(@result_pattern).inject(1) do |i, result|
        @rep_pattern = @content_arr[i - 1].to_s.strip
        @tmp = ""
