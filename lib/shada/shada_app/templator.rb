@@ -1,3 +1,6 @@
+#!/usr/bin/env ruby -wKU
+
+require "iconv"
 require 'shada/shada_logger'
 require 'shada/shada_utils'
 
@@ -9,6 +12,9 @@ module Shada
     attr_accessor :registry, :html
     
     def initialize
+      @ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
+
+      
       @pattern = /\{\$([^\r\n]*?)\}/s
       @alt_pattern = /\[\$(.*?)\]/s
       @include_pattern = /\{\include file\=\"(.*?)\"\}/
@@ -50,7 +56,7 @@ module Shada
     
     def init template
       @html = open_template template
-      @html = @html.to_s.encode("UTF-8")
+      @html = @ic.iconv(@html)
       includes
       preprocess_results
       parse 1
@@ -62,7 +68,7 @@ module Shada
     end
     
     def gettags
-      @html = @html.encode("UTF-8")
+      @html = @ic.iconv(@html)
       @tags = @html.scan @pattern
     end
     
@@ -95,7 +101,7 @@ module Shada
     end
     
    def includes
-     @html = @html.encode("UTF-8")
+     @html = @ic.iconv(@html)
      inc = @html.scan @include_pattern
      tag_arr = []
      rep_arr = []
@@ -142,7 +148,7 @@ module Shada
    end
    
    def preprocess_results
-     @html = @html.encode("UTF-8")
+     @html = @ic.iconv(@html)
      @html.scan(@result_pattern).inject(1) do |i, result|
         @content_arr.push result[1]
         @html = @html.gsub /\{results for \$#{Regexp.quote(result[0])}\}(.*?)\{\/results\}/m, "{results for $#{result[0]}}%%replacement_#{i}%%{/results}"
@@ -154,7 +160,7 @@ module Shada
      tags = []
      rep = []
      
-     @html = @html.encode("UTF-8")
+     @html = @ic.iconv(@html)
      @html.scan(@result_pattern).inject(1) do |i, result|
        @rep_pattern = @content_arr[i - 1].to_s.strip
        @tmp = ""
