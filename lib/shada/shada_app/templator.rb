@@ -9,6 +9,9 @@ module Shada
     attr_accessor :registry, :html
     
     def initialize
+      @ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
+
+      
       @pattern = /\{\$([^\r\n]*?)\}/s
       @alt_pattern = /\[\$(.*?)\]/s
       @include_pattern = /\{\include file\=\"(.*?)\"\}/
@@ -36,7 +39,7 @@ module Shada
     end
     
     #register
-    def register key, val, type="value"
+    def register key, val, type="value" 
       @registry[key] = {:value => val, :type => type}
     end
     
@@ -50,6 +53,7 @@ module Shada
     
     def init template
       @html = open_template template
+      @html = @html.force_encoding("UTF-8")
       includes
       preprocess_results
       parse 1
@@ -61,6 +65,7 @@ module Shada
     end
     
     def gettags
+      @html = @ic.iconv(@html)
       @tags = @html.scan @pattern
     end
     
@@ -72,7 +77,7 @@ module Shada
         @tags.each do |tag|
           tag_parse = parse_val ? tag[0].split(parse_val) : ''
           tag_clean = parse_val ? tag_parse[0] : tag[0]
-          if tag_clean == key
+          if tag_clean == key.to_s
             arr = pass == 1 ? @flow : @flow2
             if arr.has_key? type.to_sym
               value = val[:value]
@@ -93,6 +98,7 @@ module Shada
     end
     
    def includes
+     @html = @html.force_encoding("UTF-8")
      inc = @html.scan @include_pattern
      tag_arr = []
      rep_arr = []
@@ -139,6 +145,7 @@ module Shada
    end
    
    def preprocess_results
+     @html = @html.force_encoding("UTF-8")
      @html.scan(@result_pattern).inject(1) do |i, result|
         @content_arr.push result[1]
         @html = @html.gsub /\{results for \$#{Regexp.quote(result[0])}\}(.*?)\{\/results\}/m, "{results for $#{result[0]}}%%replacement_#{i}%%{/results}"
@@ -150,6 +157,7 @@ module Shada
      tags = []
      rep = []
      
+     @html = @html.force_encoding("UTF-8")
      @html.scan(@result_pattern).inject(1) do |i, result|
        @rep_pattern = @content_arr[i - 1].to_s.strip
        @tmp = ""
