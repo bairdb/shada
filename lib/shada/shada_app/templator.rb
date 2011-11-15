@@ -62,7 +62,7 @@ module Shada
     end
     
     def gettags
-      @html = @ic.iconv(@html)
+      @html = @html.force_encoding("UTF-8")
       @tags = @html.scan @pattern
     end
     
