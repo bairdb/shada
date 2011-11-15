@@ -9,9 +9,6 @@ module Shada
     attr_accessor :registry, :html
     
     def initialize
-      @ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
-
-      
       @pattern = /\{\$([^\r\n]*?)\}/s
       @alt_pattern = /\[\$(.*?)\]/s
       @include_pattern = /\{\include file\=\"(.*?)\"\}/

@@ -1,6 +1,3 @@
-#!/usr/bin/env ruby -wKU
-
-require "iconv"
 require 'shada/shada_logger'
 require 'shada/shada_utils'
 
