@@ -15,7 +15,7 @@ require_relative 'sqlite'
 require_relative 'sqlite/sqlite'
 
 config = ENV['CONFIG'] ? ENV['CONFIG'] : 'main'
-path = ENV['ROOT'] ? ENV['ROOT'] : '/home/admin/base/site/config/'
+path = ENV['ROOT'] ? ENV['ROOT'] : '/home/admin/base/site/'
 Shada::Config.load_config "#{path}config/#{config}.yml"
 
 module Shada
