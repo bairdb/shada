@@ -15,8 +15,8 @@ module Shada
       @ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
 
       
-      @pattern = /\{\$([^\r\n]*?)\}/s
-      @alt_pattern = /\[\$(.*?)\]/s
+      @pattern = /\{\$([^\r\n]*?)\}/m
+      @alt_pattern = /\[\$(.*?)\]/m
       @include_pattern = /\{\include file\=\"(.*?)\"\}/
       @result_pattern = /\{results for \$(.*?)}(?:(.*?))\{\/results\}/m
       @result_var_pattern = /\[\$(.*)\]/
