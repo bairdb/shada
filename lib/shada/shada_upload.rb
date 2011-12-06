@@ -38,10 +38,11 @@ module Shada
         response = :next
       else
         if @headers['content-type'] =~ /multipart\/form-data/
+          body = File.open("#{UPLOAD_ROOT}#{upload}", "r")
           filename = "#{UPLOAD_ROOT}/uploads/#{@headers['PATH'].split('/').pop().to_s}"
           Shada::Multipart_Parser.new(@headers['content-type']).parse filename
           body.close
-          response = "<html><head><title>Return</title><body><pre>1\nSENDER: #{data[0]}, \nIDENT: #{data[1]}, \nPATH: #{data[2]}, \nHEADERS: #{data[3]}, \nBODY: #{data[4]} \nTest: #{test}</pre>\n</body></html>"
+          response = "<html><head><title>Return</title><body>#{body}</body></html>"
         else
           response = "<html><head><title>Return</title><body><pre>3\nSENDER: #{data[0]}, \nIDENT: #{data[1]}, \nPATH: #{data[2]}, HEADERS: #{data[3]}, \nBODY: #{data[4]}</pre>\n</body></html>"
           f = File.open("#{UPLOAD_ROOT}#{@headers['PATH'].split('/').pop().to_s}", "w"){|f|
