@@ -10,6 +10,8 @@ module Shada
     end
     
     def handle data
+      puts @headers
+      
       if @headers["x-mongrel2-upload-done"]
         expected = @headers["x-mongrel2-upload-start"] || "BAD"
         upload = @headers["x-mongrel2-upload-done"] || ""
@@ -37,6 +39,9 @@ module Shada
         puts "Will read file from: #{@headers['x-mongrel2-upload-start']}"
         response = :next
       else
+        if @headers['content-type'] =~ /multipart\/form-data/
+          puts 'multipart'
+        end
         response = "<html><head><title>Return</title><body><pre>3\nSENDER: #{data[0]}, \nIDENT: #{data[1]}, \nPATH: #{data[2]}, HEADERS: #{data[3]}, \nBODY: #{data[4]}</pre>\n</body></html>"
         f = File.open("#{UPLOAD_ROOT}#{@headers['PATH'].split('/').pop().to_s}", "w"){|f|
           f.write(data.pop())
