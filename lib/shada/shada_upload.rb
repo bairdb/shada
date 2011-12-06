@@ -34,7 +34,7 @@ module Shada
       else
         if @headers['content-type'] =~ /multipart\/form-data/
           puts 'Multi'
-          tmpf = "#{UPLOAD_ROOT}/tmp/body.#{rand(1000..9999)}}"
+          tmpf = "#{UPLOAD_ROOT}/tmp/body.#{rand(1000..9999)}"
           f = File.open(tmpf, "w"){|f|
             f.write(@body.to_s)
           }

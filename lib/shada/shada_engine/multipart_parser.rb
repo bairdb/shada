@@ -16,13 +16,17 @@ module Shada
       puts file
       @file = file
       File.foreach file do |line|
-        case line
-        when @boundry
-          @in = @in ? !@in : @in
-          puts @in
-          next
-        end
+         puts "#{line} = #{@boundry}"
+        
+#        case line
+#        when @boundry
+#          @in = @in ? !@in : @in
+#          puts @in
+#          next
+#        end
       end
+      
+      cleanup
     end
     
     private
