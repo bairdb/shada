@@ -33,6 +33,7 @@ module Shada
           when /#{@boundry}.*?/
             unless @first
               if @type == 'form-data'
+                puts 'Test'
                 @fields[@name] = @tmp
               else
                 @files[@name] = {:filename => @filename, :content => @tmp}
@@ -67,11 +68,6 @@ module Shada
               @isDisp = false
             end
           else
-            unless @isDisp
-              @tmp += line
-            else
-              @isDisp = false
-            end
             @isType = false
           end
           
