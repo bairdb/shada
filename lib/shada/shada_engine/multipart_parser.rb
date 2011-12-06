@@ -19,7 +19,7 @@ module Shada
       puts file
       @file = file
       File.foreach file do |line|
-        
+        puts "start"
         begin
           case @ic.iconv(line.to_s)
           when /^#{@boundry}(\w+)/
