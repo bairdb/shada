@@ -21,7 +21,7 @@ module Shada
         
         if @headers['content-type'] =~ /multipart\/form-data/
           filename = "#{UPLOAD_ROOT}/tmp/#{@headers['x-mongrel2-upload-start'].split('/').pop().to_s}"
-          test = Shada::Multipart_Parser.new(@headers['content-type']).parse filename
+          test = Shada::Multipart_Parser.new.parse filename
           response = "<html><head><title>Return</title><body><pre>1\nSENDER: #{data[0]}, \nIDENT: #{data[1]}, \nPATH: #{data[2]}, \nHEADERS: #{data[3]}, \nBODY: #{data[4]} \nTest: #{test}</pre>\n</body></html>"
         else
           save_file upload, @headers['PATH']
@@ -38,7 +38,7 @@ module Shada
             f.write(@body.to_s)
           }
           
-          Shada::Multipart_Parser.new(@body.to_a[0].join).parse tmpf
+          Shada::Multipart_Parser.new.parse tmpf
           
           response = "<html><head><title>Return</title><body>#{@body}</body></html>"
         else
@@ -49,8 +49,10 @@ module Shada
         end
         
       end
-    
+      
+      @form['Refresh']  = ''
       @form['Content-Type'] = 'text/html'
+      route @form.get_path
       return response
     end
     
