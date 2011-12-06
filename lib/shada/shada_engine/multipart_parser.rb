@@ -10,16 +10,18 @@ module Shada
       @files = {}
       @fields = {}
       @tmp = ""
-      @boundry = content_type.split('=')[1].to_s.chomp
+      #@boundry = content_type.split('=')[1].to_s.chomp
       @in = false
       return self
     end
     
     def parse file
       @file = file
+      @boundry = File.open(file) {|f| f.readline}
+      
       File.foreach file do |line|
         begin
-          case line.to_s.chomp
+          case line
           when @boundry
             @in = @in ? !@in : @in
             puts 'In'
