@@ -13,7 +13,7 @@ module Shada
       @boundry = boundry
       @first = true
       @in = false
-      @type = ""
+      @type = nil
       @cnt = 0
       @name = ''
       return self
@@ -31,7 +31,7 @@ module Shada
           
           case @ic.iconv(line)
           when /#{@boundry}.*?/
-            unless @first
+            unless @type.nil?
               puts @type
               if @type == 'form-data'
                 @fields[@name] = @tmp
@@ -40,8 +40,6 @@ module Shada
               end
               @tmp = ""
               @type = ""
-            else
-              @first = false
             end
             
             next
