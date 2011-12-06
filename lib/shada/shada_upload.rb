@@ -1,7 +1,7 @@
 require 'fileutils'
 require_relative 'shada_engine'
 
-UPLOAD_ROOT = "/home/admin/base/site/public/media/uploads"
+UPLOAD_ROOT = "/home/admin/base/"
 
 module Shada
   class Upload < Shada::Engine
