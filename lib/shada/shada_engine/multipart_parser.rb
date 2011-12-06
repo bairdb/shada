@@ -24,7 +24,7 @@ module Shada
       @boundry = File.open(file) {|f| f.readline} if @boundry.nil?
       @isBoundry = false
       @isDisp = false
-      @isType =false
+      @isType = false
       
       File.foreach file do |line|
         begin
@@ -39,8 +39,11 @@ module Shada
                 @files[@name] = {:filename => @filename, :content => @tmp}
               end
               @tmp = ""
+              @type = ""
+            else
+              @first = false
             end
-            @first = !@first unless !@first
+            
             next
           when /^Content-Disposition\: form-data\; name=\"(.*?)\"\; filename=\"(.*?)\"/
             @name = $1
@@ -52,7 +55,7 @@ module Shada
             @name = $1
             @type = 'form-data'
             @isDisp = true
-            puts "Regular Content Disposition: #{@name}"
+            puts "Regular Content Disposition: #{@name} - #{@type}"
             next
           when /^Content-Type\: (.*)/
             @type = $1
