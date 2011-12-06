@@ -32,7 +32,7 @@ module Shada
           case @ic.iconv(line)
           when /#{@boundry}.*?/
             unless @type.nil?
-              puts @type
+              puts "Type: #{@type}"
               if @type == 'form-data'
                 @fields[@name] = @tmp
               else
