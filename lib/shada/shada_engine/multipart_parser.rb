@@ -13,6 +13,7 @@ module Shada
     end
     
     def parse file
+      puts file
       @file = file
       File.foreach file do |line|
         case line
@@ -22,7 +23,6 @@ module Shada
           next
         end
       end
-      return @tmp
     end
     
     private
