@@ -32,8 +32,8 @@ module Shada
           case @ic.iconv(line)
           when /#{@boundry}.*?/
             unless @first
+              puts @type
               if @type == 'form-data'
-                puts 'Test'
                 @fields[@name] = @tmp
               else
                 @files[@name] = {:filename => @filename, :content => @tmp}
@@ -77,7 +77,7 @@ module Shada
         end
       end
       
-      puts @files
+      #puts @files
       puts @fields
       
       cleanup
