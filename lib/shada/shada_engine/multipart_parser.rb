@@ -31,7 +31,6 @@ module Shada
           
           case @ic.iconv(line)
           when /#{@boundry}.*?/
-            @first = !@first unless !@first
             unless @first
               if @type == 'form-data'
                 @fields[@name] = @tmp
@@ -40,6 +39,7 @@ module Shada
               end
               @tmp = ""
             end
+            @first = !@first unless !@first
             next
           when /^Content-Disposition\: form-data\; name=\"(.*?)\"\; filename=\"(.*?)\"/
             @name = $1
