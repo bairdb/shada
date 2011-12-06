@@ -41,19 +41,19 @@ module Shada
               @tmp = ""
             end
             next
-          when /^Content-Disposition\: form-data\; name=\"(.*?)\"/
+          when /^Content-Disposition\: form-data\; name=\"(.*?)\"\\n/
             @name = $1
             @type = 'form-data'
             @isDisp = true
             puts "Regular Content Disposition: #{@name}"
             next
-          when /^Content-Disposition\: form-data\; name=\"(.*?)\"\; filename=\"(.*?)\"/
+          when /^Content-Disposition\: form-data\; name=\"(.*?)\"\; filename=\"(.*?)\"\\n/
             @name = $1
             @filename = $2
             @isDisp = true
             puts "File Content Disposition: #{@name} - #{@filename}"
             next
-          when /^Content-Type\: (.*?)/
+          when /^Content-Type\: (.*?)\\n/
             @type = $1
             @isType = true
             puts "File Content Type: #{@type}"
@@ -71,7 +71,7 @@ module Shada
           end
           
         rescue => e
-          puts "fail: #{e.message}"
+          #puts "fail: #{e.message}"
           next
         end
       end
