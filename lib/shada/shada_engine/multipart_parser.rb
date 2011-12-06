@@ -22,7 +22,7 @@ module Shada
       File.foreach file do |line|
         begin
           case @ic.iconv(line)
-          when /#{@boundry}/
+          when /#{@boundry}[.*]/
             @in = @in ? !@in : @in
             puts 'In'
             next
