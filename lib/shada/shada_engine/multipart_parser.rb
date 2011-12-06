@@ -42,19 +42,6 @@ module Shada
             end
             
             next
-          when /#{@boundry}--/
-            unless @type.nil?
-              puts "Type: #{@type}"
-              if @type == 'form-data'
-                @fields[@name] = @tmp
-              else
-                @files[@name] = {:filename => @filename, :content => @tmp}
-              end
-              @tmp = ""
-              @type = ""
-            end
-            
-            next
           when /^Content-Disposition\: form-data\; name=\"(.*?)\"\; filename=\"(.*?)\"/
             @name = $1
             @filename = $2
@@ -88,6 +75,17 @@ module Shada
           #puts "fail: #{e.message}"
           next
         end
+      end
+      
+      unless @type.nil?
+        puts "Type: #{@type}"
+        if @type == 'form-data'
+          @fields[@name] = @tmp
+        else
+          @files[@name] = {:filename => @filename, :content => @tmp}
+        end
+        @tmp = ""
+        @type = ""
       end
       
       #puts @files
