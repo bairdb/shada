@@ -5,24 +5,24 @@ module Shada
     
     attr_accessor :files, :fields
     
-    def initialize content_type
+    def initialize boundry=nil
       @ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
       @files = {}
       @fields = {}
       @tmp = ""
-      #@boundry = content_type.split('=')[1].to_s.chomp
+      @boundry = boundry
       @in = false
       return self
     end
     
     def parse file
       @file = file
-      @boundry = File.open(file) {|f| f.readline}
+      @boundry = File.open(file) {|f| f.readline} if @boundry.nil?
       
       File.foreach file do |line|
         begin
           case @ic.iconv(line)
-          when /#{@boundry}[.*]/
+          when /#{@boundry}.*?/
             @in = @in ? !@in : @in
             puts 'In'
             next

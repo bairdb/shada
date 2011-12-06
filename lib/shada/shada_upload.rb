@@ -38,7 +38,7 @@ module Shada
             f.write(@body.to_s)
           }
           
-          Shada::Multipart_Parser.new(@headers['content-type']).parse tmpf
+          Shada::Multipart_Parser.new(@body.to_a[0].join).parse tmpf
           
           response = "<html><head><title>Return</title><body>#{@body}</body></html>"
         else
