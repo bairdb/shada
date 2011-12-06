@@ -16,18 +16,17 @@ module Shada
     end
     
     def parse file
-      puts file
       @file = file
       File.foreach file do |line|
         begin
-          case @ic.iconv(line.chomp)
+          case line.to_s.chomp
           when @boundry
             @in = @in ? !@in : @in
             puts 'In'
             next
           end
         rescue => e
-          puts 'fail'
+          puts "fail: #{e.message}"
           next
         end
       end
