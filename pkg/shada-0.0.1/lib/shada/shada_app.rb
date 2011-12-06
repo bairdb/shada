@@ -3,7 +3,6 @@ require_relative 'shada_app/controller'
 require_relative 'shada_app/templator'
 require_relative 'shada_app/generator'
 require_relative 'shada_app/html'
-require_relative 'shada_upload'
 
 module Shada
   class App < Shada::Engine

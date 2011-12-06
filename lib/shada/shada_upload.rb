@@ -42,7 +42,7 @@ module Shada
         }
       end
     
-      set_response_header 'Content-Type', 'text/html'
+      @form['Content-Type'] = 'text/html'
       return response
     end
     
