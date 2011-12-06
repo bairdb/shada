@@ -21,7 +21,7 @@ module Shada
       File.foreach file do |line|
         puts "start"
         begin
-          case line.to_s.chomp
+          case @ic.iconv(line.to_s.chomp)
           when /^#{@boundry}[.*]/
             @in = @in ? !@in : @in
             puts 'In'
