@@ -29,6 +29,7 @@ module Shada
           end
         rescue => e
           puts 'fail'
+          next
         end
       end
       
