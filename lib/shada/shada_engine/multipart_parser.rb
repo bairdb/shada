@@ -19,6 +19,7 @@ module Shada
       puts file
       @file = file
       File.foreach file do |line|        
+        puts "#{@ic.iconv(line.to_s)} - #{@boundry}"
         case @ic.iconv(line.to_s)
         when /^#{@boundry}(\w+)/
           @in = @in ? !@in : @in
