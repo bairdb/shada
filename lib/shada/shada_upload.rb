@@ -18,9 +18,6 @@ module Shada
           puts "Wrong file: #{expected}, #{upload}"
           response = :next
         end
-
-        #body = File.open("#{UPLOAD_ROOT}#{upload}", "r")
-        #puts "Done: #{body.size}, #{@headers["content-length"]}"
         
         if @headers['content-type'] =~ /multipart\/form-data/
           filename = "#{UPLOAD_ROOT}/tmp/#{@headers['x-mongrel2-upload-start'].split('/').pop().to_s}"
@@ -36,11 +33,9 @@ module Shada
         response = :next
       else
         if @headers['content-type'] =~ /multipart\/form-data/
-          body = File.open("#{UPLOAD_ROOT}#{upload}", "r")
-          filename = "#{UPLOAD_ROOT}/uploads/#{@headers['PATH'].split('/').pop().to_s}"
-          Shada::Multipart_Parser.new(@headers['content-type']).parse filename
-          body.close
-          response = "<html><head><title>Return</title><body>#{body}</body></html>"
+          #filename = "#{UPLOAD_ROOT}/#{@headers['PATH'].split('/').pop().to_s}"
+          #Shada::Multipart_Parser.new(@headers['content-type']).parse filename
+          response = "<html><head><title>Return</title><body>#{@headers['PATH']}</body></html>"
         else
           response = "<html><head><title>Return</title><body><pre>3\nSENDER: #{data[0]}, \nIDENT: #{data[1]}, \nPATH: #{data[2]}, HEADERS: #{data[3]}, \nBODY: #{data[4]}</pre>\n</body></html>"
           f = File.open("#{UPLOAD_ROOT}#{@headers['PATH'].split('/').pop().to_s}", "w"){|f|

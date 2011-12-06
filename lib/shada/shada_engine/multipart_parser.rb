@@ -13,7 +13,7 @@ module Shada
     
     def parse file
       File.foreach file do |line|
-        @tmp += line
+        @tmp += 1 unless line != @boundry
       end
       return @tmp
     end
