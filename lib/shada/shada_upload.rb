@@ -5,6 +5,8 @@ UPLOAD_ROOT = "/home/admin/base"
 
 module Shada
   class Upload < Shada::Engine
+    include Shada::Utils
+    
     def on_connect
       puts "Connecting to server: #{@sender_id}"
     end
