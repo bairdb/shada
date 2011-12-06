@@ -20,6 +20,7 @@ module Shada
       @file = file
       File.foreach file do |line|        
         puts line.to_s.encoding.name
+        puts line.chomp == @boundry
         
 #        case @ic.iconv(line.to_s)
 #        when /^#{@boundry}(\w+)/
