@@ -15,15 +15,13 @@ module Shada
     def parse file
       puts file
       @file = file
-      File.foreach file do |line|
-         puts "#{line} = #{@boundry}"
-        
-#        case line
-#        when @boundry
-#          @in = @in ? !@in : @in
-#          puts @in
-#          next
-#        end
+      File.foreach file do |line|        
+        case line
+        when /^#{@boundry}(\w+)/
+          @in = @in ? !@in : @in
+          puts @in
+          next
+        end
       end
       
       cleanup
