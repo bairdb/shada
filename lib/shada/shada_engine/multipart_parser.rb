@@ -12,8 +12,10 @@ module Shada
     end
     
     def parse file
-      puts file
-      return @boundry
+      File.foreach file do |line|
+        @tmp += line
+      end
+      return @tmp
     end
     
     private
