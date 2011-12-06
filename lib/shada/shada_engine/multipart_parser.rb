@@ -17,11 +17,11 @@ module Shada
     
     def parse file
       @file = file
-      @boundry = File.open(file) {|f| f.readline}
+      @boundry = @ic.iconv(File.open(file) {|f| f.readline})
       
       File.foreach file do |line|
         begin
-          case line
+          case @ic.iconv(line)
           when /^#{@boundry}[.*]/
             @in = @in ? !@in : @in
             puts 'In'
