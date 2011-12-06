@@ -67,6 +67,11 @@ module Shada
               @isDisp = false
             end
           else
+            unless @isDisp
+              @tmp += line
+            else
+              @isDisp = false
+            end
             @isType = false
           end
           
