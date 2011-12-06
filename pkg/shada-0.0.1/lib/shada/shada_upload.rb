@@ -1,11 +1,7 @@
 require 'fileutils'
 require_relative 'shada_engine'
 
-UPLOAD_ROOT = "/Users/bairdlackner-buckingham/projects/ruby_framework/build"
-
-USENDER_ID = "34DE25A5-1CB5-4279-B4FF-AF99F118CD3D"
-USEND_ADDR = "tcp://127.0.0.1:9981"
-URECV_ADDR = "tcp://127.0.0.1:9980"
+UPLOAD_ROOT = "/home/admin/base/site/public/media/uploads"
 
 module Shada
   class Upload < Shada::Engine
@@ -31,7 +27,7 @@ module Shada
   end
 end
 
-Shada::Upload.new.start USENDER_ID, URECV_ADDR, USEND_ADDR do
+Shada::Upload.new.start do
   on_connect do
     puts "Connecting to server: #{@sender_id}"
   end
