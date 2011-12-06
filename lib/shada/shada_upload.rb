@@ -25,7 +25,7 @@ module Shada
           filename = "#{UPLOAD_ROOT}/#{@headers['x-mongrel2-upload-start'].split('/').pop().to_s}"
           test = Shada::Multipart_Parser.new(@headers['content-type']).parse filename
           body.close
-          response = "<html><head><title>Return</title><body><pre>\nSENDER: #{data[0]}, \nIDENT: #{data[1]}, \nPATH: #{data[2]}, \nHEADERS: #{data[3]}, \nBODY: #{data[4]} \n#{test}</pre>\n</body></html>"
+          response = "<html><head><title>Return</title><body><pre>\nSENDER: #{data[0]}, \nIDENT: #{data[1]}, \nPATH: #{data[2]}, \nHEADERS: #{data[3]}, \nBODY: #{data[4]} \nTest: #{test}</pre>\n</body></html>"
         else
           body.close
           save_file upload, @headers['PATH']
