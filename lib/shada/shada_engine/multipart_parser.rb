@@ -10,7 +10,7 @@ module Shada
       @files = {}
       @fields = {}
       @tmp = ""
-      @boundry = @ic.iconv(content_type.split('=')[1].to_s)
+      @boundry = content_type.split('=')[1].chomp
       @in = false
       return self
     end
@@ -18,16 +18,18 @@ module Shada
     def parse file
       puts file
       @file = file
-      File.foreach file do |line|        
-        puts line.to_s.encoding.name
-        puts line.chomp == @boundry
+      File.foreach file do |line|
         
-#        case @ic.iconv(line.to_s)
-#        when /^#{@boundry}(\w+)/
-#          @in = @in ? !@in : @in
-#          puts @in
-#          next
-#        end
+        begin
+          case @ic.iconv(line.to_s)
+          when /^#{@boundry}(\w+)/
+            @in = @in ? !@in : @in
+            puts @in
+            next
+          end
+        rescue => e
+          puts 'fail'
+        end
       end
       
       cleanup
