@@ -10,7 +10,7 @@ module Shada
       @files = {}
       @fields = {}
       @tmp = ""
-      @boundry = content_type.split('=')[1].chomp
+      @boundry = content_type.split('=')[1].to_s.chomp
       @in = false
       return self
     end
@@ -21,10 +21,10 @@ module Shada
       File.foreach file do |line|
         puts "start"
         begin
-          case @ic.iconv(line.to_s)
+          case line.to_s.chomp
           when /^#{@boundry}[.*]/
             @in = @in ? !@in : @in
-            puts @in
+            puts 'In'
             next
           end
         rescue => e
