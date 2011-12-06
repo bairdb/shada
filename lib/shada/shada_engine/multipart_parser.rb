@@ -76,7 +76,8 @@ module Shada
         end
       end
       
-      #puts "#{@files} #{@fields}"
+      puts @files
+      puts @fields
       
       cleanup
     end
