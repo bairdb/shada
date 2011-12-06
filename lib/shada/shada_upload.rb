@@ -1,7 +1,7 @@
 require 'fileutils'
 require_relative 'shada_engine'
 
-UPLOAD_ROOT = "/home/admin/base/"
+UPLOAD_ROOT = "/home/admin/base"
 
 module Shada
   class Upload < Shada::Engine
@@ -10,8 +10,6 @@ module Shada
     end
     
     def handle data
-      puts @headers
-      
       if @headers["x-mongrel2-upload-done"]
         expected = @headers["x-mongrel2-upload-start"] || "BAD"
         upload = @headers["x-mongrel2-upload-done"] || ""
@@ -40,12 +38,17 @@ module Shada
         response = :next
       else
         if @headers['content-type'] =~ /multipart\/form-data/
-          puts 'multipart'
+          filename = "#{UPLOAD_ROOT}/uploads/#{@headers['PATH'].split('/').pop().to_s}"
+          Shada::Multipart_Parser.new(@headers['content-type']).parse filename
+          body.close
+          response = "<html><head><title>Return</title><body><pre>1\nSENDER: #{data[0]}, \nIDENT: #{data[1]}, \nPATH: #{data[2]}, \nHEADERS: #{data[3]}, \nBODY: #{data[4]} \nTest: #{test}</pre>\n</body></html>"
+        else
+          response = "<html><head><title>Return</title><body><pre>3\nSENDER: #{data[0]}, \nIDENT: #{data[1]}, \nPATH: #{data[2]}, HEADERS: #{data[3]}, \nBODY: #{data[4]}</pre>\n</body></html>"
+          f = File.open("#{UPLOAD_ROOT}#{@headers['PATH'].split('/').pop().to_s}", "w"){|f|
+            f.write(data.pop())
+          }
         end
-        response = "<html><head><title>Return</title><body><pre>3\nSENDER: #{data[0]}, \nIDENT: #{data[1]}, \nPATH: #{data[2]}, HEADERS: #{data[3]}, \nBODY: #{data[4]}</pre>\n</body></html>"
-        f = File.open("#{UPLOAD_ROOT}#{@headers['PATH'].split('/').pop().to_s}", "w"){|f|
-          f.write(data.pop())
-        }
+        
       end
     
       @form['Content-Type'] = 'text/html'
