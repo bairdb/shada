@@ -74,6 +74,22 @@ module Shada
       end
     end
     
+    def post
+      $_POST
+    end
+    
+    def get
+      $_GET
+    end
+    
+    def request
+      $_REQUEST
+    end
+    
+    def cookies
+      $_COOKIES
+    end
+    
     def to_s
       return "Request: #{$_REQUEST.to_s}\n Post: #{$_POST.to_s}\n Get: #{$_GET.to_s}\n Cookies: #{$_COOKIES.to_s}"
     end

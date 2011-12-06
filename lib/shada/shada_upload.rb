@@ -35,8 +35,7 @@ module Shada
         if @headers['content-type'] =~ /multipart\/form-data/
           #filename = "#{UPLOAD_ROOT}/#{@headers['PATH'].split('/').pop().to_s}"
           #Shada::Multipart_Parser.new(@headers['content-type']).parse filename
-          puts @form.to_s
-          response = "<html><head><title>Return</title><body></body></html>"
+          response = "<html><head><title>Return</title><body>#{@form.post.to_s}</body></html>"
         else
           response = "<html><head><title>Return</title><body><pre>3\nSENDER: #{data[0]}, \nIDENT: #{data[1]}, \nPATH: #{data[2]}, HEADERS: #{data[3]}, \nBODY: #{data[4]}</pre>\n</body></html>"
           f = File.open("#{UPLOAD_ROOT}#{@headers['PATH'].split('/').pop().to_s}", "w"){|f|
