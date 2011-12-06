@@ -21,22 +21,23 @@ module Shada
 
         body = File.open("#{UPLOAD_ROOT}#{upload}", "r")
         puts "Done: #{body.size}, #{@headers["content-length"]}"
+        
         if @headers['content-type'] =~ /multipart\/form-data/
           filename = "#{UPLOAD_ROOT}/#{@headers['x-mongrel2-upload-start'].split('/').pop().to_s}"
           test = Shada::Multipart_Parser.new(@headers['content-type']).parse filename
           body.close
-          response = "<html><head><title>Return</title><body><pre>\nSENDER: #{data[0]}, \nIDENT: #{data[1]}, \nPATH: #{data[2]}, \nHEADERS: #{data[3]}, \nBODY: #{data[4]} \nTest: #{test}</pre>\n</body></html>"
+          response = "<html><head><title>Return</title><body><pre>1\nSENDER: #{data[0]}, \nIDENT: #{data[1]}, \nPATH: #{data[2]}, \nHEADERS: #{data[3]}, \nBODY: #{data[4]} \nTest: #{test}</pre>\n</body></html>"
         else
           body.close
           save_file upload, @headers['PATH']
-          response = "<html><head><title>Return</title><body><pre>\nSENDER: #{data[0]}, \nIDENT: #{data[1]}, \nPATH: #{data[2]}, HEADERS: #{data[3]}, \nBODY: #{data[4]}</pre>\n</body></html>"
+          response = "<html><head><title>Return</title><body><pre>2\nSENDER: #{data[0]}, \nIDENT: #{data[1]}, \nPATH: #{data[2]}, HEADERS: #{data[3]}, \nBODY: #{data[4]}</pre>\n</body></html>"
         end
       elsif @headers['x-mongrel2-upload-start']
         puts "Upload starting."
         puts "Will read file from: #{@headers['x-mongrel2-upload-start']}"
         response = :next
       else
-        response = "<html><head><title>Return</title><body><pre>\nSENDER: #{data[0]}, \nIDENT: #{data[1]}, \nPATH: #{data[2]}, HEADERS: #{data[3]}, \nBODY: #{data[4]}</pre>\n</body></html>"
+        response = "<html><head><title>Return</title><body><pre>3\nSENDER: #{data[0]}, \nIDENT: #{data[1]}, \nPATH: #{data[2]}, HEADERS: #{data[3]}, \nBODY: #{data[4]}</pre>\n</body></html>"
         f = File.open("#{UPLOAD_ROOT}#{@headers['PATH'].split('/').pop().to_s}", "w"){|f|
           f.write(data.pop())
         }
