@@ -23,9 +23,9 @@ module Shada
         puts "Done: #{body.size}, #{@headers["content-length"]}"
         if @headers['content-type'] =~ /multipart\/form-data/
           filename = "#{UPLOAD_ROOT}/#{@headers['x-mongrel2-upload-start'].split('/').pop().to_s}"
-          Shada::Multipart_Parser.new(@headers['content-type']).parse filename
+          test = Shada::Multipart_Parser.new(@headers['content-type']).parse filename
           body.close
-          response = "<html><head><title>Return</title><body><pre>\nSENDER: #{data[0]}, \nIDENT: #{data[1]}, \nPATH: #{data[2]}, HEADERS: #{data[3]}, \nBODY: #{data[4]}</pre>\n</body></html>"
+          response = "<html><head><title>Return</title><body><pre>\nSENDER: #{data[0]}, \nIDENT: #{data[1]}, \nPATH: #{data[2]}, \nHEADERS: #{data[3]}, \nBODY: #{data[4]} \n#{test}</pre>\n</body></html>"
         else
           body.close
           save_file upload, @headers['PATH']

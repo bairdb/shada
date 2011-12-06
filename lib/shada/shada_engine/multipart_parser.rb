@@ -6,10 +6,9 @@ module Shada
     end
     
     def parse file
-      puts @boundry
       #file.scan(/Content-Type: message\/rfc822(.*?)--.*?\..*?/m).each{ |m|}
       puts file
-      return ""
+      return @boundry
     end
   end
 end
