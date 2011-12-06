@@ -10,7 +10,7 @@ module Shada
       @files = {}
       @fields = {}
       @tmp = ""
-      @boundry = content_type.split('=')[1]
+      @boundry = @ic.iconv(content_type.split('=')[1].to_s)
       @in = false
       return self
     end
