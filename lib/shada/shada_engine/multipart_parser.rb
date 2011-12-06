@@ -22,7 +22,7 @@ module Shada
         puts "start"
         begin
           case @ic.iconv(line.to_s.chomp)
-          when /^#{@boundry}[.*]/
+          when /#{@boundry}[.*?]/
             @in = @in ? !@in : @in
             puts 'In'
             next
