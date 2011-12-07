@@ -32,7 +32,7 @@ module Shada
       @isDisp = false
       @isType = false
       
-      File.open(file, 'rb') do |line|
+      File.open(file, 'rb').each do |line|
         puts line
         begin
           case @ic.iconv(line)
