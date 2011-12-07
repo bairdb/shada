@@ -47,7 +47,7 @@ module Shada
             end
             
             next
-          when /#{@lastline}.*?/
+          when /#{@boundry}[.*?]/
             unless @type.nil?
               puts "Type: #{@type}"
               if @type == 'form-data'
@@ -94,19 +94,6 @@ module Shada
           next
         end
       end
-      
-      unless @type.nil?
-        if @type == 'form-data'
-          @fields[@name] = @tmp
-        else
-          @files[@name] = {:filename => @filename, :content => @tmp}
-        end
-        @tmp = ""
-        @type = ""
-      end
-      
-      #puts @files
-      puts @fields
       
       cleanup
     end
