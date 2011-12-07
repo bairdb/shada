@@ -35,9 +35,10 @@ module Shada
       test = IO.readlines(file)
       puts "IO: #{test}"
       
-      File.open(file, 'rb').each do |line|
+      #File.open(file, 'rb')
+      test.each do |line|
         begin
-          case @ic.iconv(line)
+          case line
           when /#{@boundry}.*?/
             unless @type.nil?
               if @type == 'form-data'
