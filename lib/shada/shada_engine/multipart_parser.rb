@@ -85,7 +85,7 @@ module Shada
           
           unless @isType
             unless @isDisp
-              @tmp += line.chomp
+              @tmp += line
             else
               @isDisp = false
             end
