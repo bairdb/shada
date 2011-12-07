@@ -36,7 +36,7 @@ module Shada
       File.open(file, 'rb').each do |line|
         puts line
         begin
-          case @ic.iconv(line)
+          case line
           when /#{@boundry}.*?/
             unless @type.nil?
               if @type == 'form-data'
