@@ -92,7 +92,7 @@ module Shada
           
           unless @isDisp
             if @filename
-              @tmp << line
+              @tmp << line.force_encoding('UTF-8')
             else
               @tmp << line.chomp
             end
