@@ -40,7 +40,10 @@ module Shada
               if @type == 'form-data'
                 @fields[@name] = @tmp
               else
-                puts @body
+                f = File.open 'test.jpg', 'wb'
+                f.syswrite @tmp
+                f.close
+                
                 @files[@name] = {:filename => @filename, :content => @tmp}
                 @filename =  nil
                 @body = nil
@@ -69,7 +72,6 @@ module Shada
             @filename = $2
             @isDisp = true
             puts "File Content Disposition: #{@name}"
-            @body = File.new("/home/admin/base/tmp/ShadaMultiPart")
             next
           when /^Content-Disposition\: form-data\; name=\"(.*?)\"/
             @name = $1
@@ -86,8 +88,7 @@ module Shada
           
           unless @isDisp
             if @filename
-              @tmp << line
-              @body << line
+              @tmp << line.to_s
             else
               @tmp << line.chomp
             end
