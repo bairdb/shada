@@ -41,7 +41,7 @@ module Shada
               else
                 path = "/home/admin/base/site/public/media/uploads/#{@filename}"
                 
-                File.open(path, "w"){|f|
+                File.open(path, "wb"){|f|
                   f.write(@tmp)
                 }
                 
