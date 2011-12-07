@@ -97,15 +97,15 @@ module Shada
             next
           end
           
-          unless @isDisp
+          #unless @isDisp
             if @filename
-              @tmp << line.force_encoding('ASCII-8BIT')
+              @tmp << line
             else
               @tmp << line.chomp
             end
-          else
-            @isDisp = false
-          end
+          #else
+          #  @isDisp = false
+          #end
           
         rescue => e
           next

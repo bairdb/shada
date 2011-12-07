@@ -1,4 +1,5 @@
 require "iconv"
+require "cgi"
 
 module Shada
   class Multipart_Parser
@@ -13,70 +14,106 @@ module Shada
       @boundry = boundry
       @first = true
       @in = false
-      @type = ""
+      @type = nil
       @cnt = 0
       @name = ''
+      @body = []
       return self
     end
     
     def parse file
       @file = file
-      @boundry = File.open(file) {|f| f.readline} if @boundry.nil?
+      @boundry = File.open(file){|f| f.readline} if @boundry.nil?
+      
+      f = File.new(file)
+      f.seek(-(@boundry.size + 2), IO::SEEK_END)
+      @lastline =  f.readline
+      
       @isBoundry = false
       @isDisp = false
-      @isType =false
+      @isType = false
       
-      File.foreach file do |line|
+      test = IO.readlines(file)
+      #puts "IO: #{test}"
+      
+      #File.open(file, 'rb')
+      test.each do |line|
         begin
-          
           case @ic.iconv(line)
           when /#{@boundry}.*?/
-            @first = !@first unless !@first
-            unless @first
+            unless @type.nil?
               if @type == 'form-data'
                 @fields[@name] = @tmp
               else
+                puts @tmp
+                
+                f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
+                f.syswrite @tmp
+                f.close
+                
                 @files[@name] = {:filename => @filename, :content => @tmp}
+                @filename =  nil
+                @body = []
               end
               @tmp = ""
+              @type = ""
             end
+            
             next
-          when /Content-Disposition: form-data; name="(.*?)"/
-            @name = $1
-            @type = 'form-data'
-            @isDisp = true
-            puts $1
+          when /#{@lastline}.*?/
+            unless @type.nil?
+              if @type == 'form-data'
+                @fields[@name] = @tmp
+              else
+                f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
+                f.syswrite @tmp
+                f.close
+                
+                @files[@name] = {:filename => @filename, :content => @tmp}
+                @filename =  nil
+                @body = []
+              end
+              @tmp = ""
+              @type = ""
+            end
+            
             next
-          when /Content-Disposition: form-data; name="(.*?)"; filename="(.*?)"/
+          when /^Content-Disposition\: form-data\; name=\"(.*?)\"\; filename=\"(.*?)\"/
             @name = $1
             @filename = $2
             @isDisp = true
-            puts $1
+            puts "File Content Disposition: #{@name}"
             next
-          when /Content-Type: (.*?)/
+          when /^Content-Disposition\: form-data\; name=\"(.*?)\"/
+            @name = $1
+            @type = 'form-data'
+            @isDisp = true
+            puts "Regular Content Disposition: #{@name} - #{@type}"
+            next
+          when /^Content-Type\: (.*)/
             @type = $1
             @isType = true
-            puts $1
+            puts "File Content Type: #{@type}"
             next
           end
           
-          unless @isType
-            unless @isDisp
-              @tmp += line
+          unless @isDisp
+            if @filename
+              @tmp << line.force_encoding('ASCII-8BIT')
             else
-              @isDisp = false
+              @tmp << line.chomp
             end
           else
-            @isType = false
+            @isDisp = false
           end
           
         rescue => e
-          puts "fail: #{e.message}"
           next
         end
       end
       
-      puts "#{@files} #{@fields}"
+      #puts @files
+      puts @fields
       
       cleanup
     end

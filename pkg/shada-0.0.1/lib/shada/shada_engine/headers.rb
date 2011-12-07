@@ -98,10 +98,13 @@ module Shada
     
     def parse headers, type, delimiter='&'
       unless headers.nil?
-        headers.split(delimiter).each do |var|
-          key, val = var.split('=')
-          set_header key, val, type
-        end 
+        begin
+          headers.split(delimiter).each do |var|
+            key, val = var.split('=')
+            set_header key, val, type
+          end 
+        rescue => e
+        end
       end
       
     end
