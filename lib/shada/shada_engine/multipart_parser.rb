@@ -34,7 +34,20 @@ module Shada
       File.foreach file do |line|
         begin
           case @ic.iconv(line)
-          when /(#{@boundry})[-]/
+          when /#{@boundry}.*?/
+            unless @type.nil?
+              puts "Type: #{@type}"
+              if @type == 'form-data'
+                @fields[@name] = @tmp
+              else
+                @files[@name] = {:filename => @filename, :content => @tmp}
+              end
+              @tmp = ""
+              @type = ""
+            end
+            
+            next
+          when /#{@lastline}.*?/
             unless @type.nil?
               puts "Type: #{@type}"
               if @type == 'form-data'
@@ -82,6 +95,7 @@ module Shada
         end
       end
       
+      #puts @files
       puts @fields
       
       cleanup
