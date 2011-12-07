@@ -92,9 +92,7 @@ module Shada
           
           unless @isDisp
             if @filename
-              ec = Encoding::Converter.new("UTF-8", "UTF-8", :universal_newline => true)
-              ec.convert(line)
-              @tmp << ec.finish.dump
+              @tmp << line.force_encoding('UTF-8', :universal_newline => true)
             else
               @tmp << line.chomp
             end
