@@ -41,10 +41,10 @@ module Shada
                 @fields[@name] = @tmp
               else
                 f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
-                f.syswrite @body.pack(("x" + ('NX' * 88)) * 88)
+                f.syswrite @tmp
                 f.close
                 
-                @files[@name] = {:filename => @filename, :content => @body.pack(("x" + ('NX' * 88)) * 88)}
+                @files[@name] = {:filename => @filename, :content => @tmp}
                 @filename =  nil
                 @body = []
               end
@@ -59,10 +59,10 @@ module Shada
                 @fields[@name] = @tmp
               else
                 f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
-                f.syswrite @body.pack('U*')
+                f.syswrite @tmp
                 f.close
                 
-                @files[@name] = {:filename => @filename, :content => @body.pack('U*')}
+                @files[@name] = {:filename => @filename, :content => @tmp}
                 @filename =  nil
                 @body = []
               end
@@ -92,7 +92,7 @@ module Shada
           
           unless @isDisp
             if @filename
-              @body << line
+              @tmp << line.chomp
             else
               @tmp << line.chomp
             end
