@@ -42,9 +42,9 @@ module Shada
                 path = "/home/admin/base/site/public/media/uploads/#{@filename}"
                 
                 f = File.open(path, "wb")
-                f.syswrite(@tmp.pack("a3a3a3"))
+                f.syswrite(@tmp.join)
                 
-                @files[@name] = {:filename => @filename, :content => @tmp.pack("a3a3a3")}
+                @files[@name] = {:filename => @filename, :content => @tmp.join}
               end
               @tmp = ""
               @type = ""
@@ -59,9 +59,9 @@ module Shada
                 path = "/home/admin/base/site/public/media/uploads/#{@filename}"
                 
                 f = File.open(path, "wb")
-                f.syswrite(@tmp.pack("a3a3a3"))
+                f.syswrite(@tmp.join)
                 
-                @files[@name] = {:filename => @filename, :content => @tmp.pack("a3a3a3")}
+                @files[@name] = {:filename => @filename, :content => @tmp.join}
               end
               @tmp = ""
               @type = ""
