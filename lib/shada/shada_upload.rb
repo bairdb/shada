@@ -39,7 +39,7 @@ module Shada
           f = File.open(tmpf, "w"){|f|
             f.write(@body.to_s)
           }
-          puts @body
+          #puts @body
           Shada::Multipart_Parser.new.parse tmpf
           
           response = "<html><head><title>Return</title><body>#{@body}</body></html>"

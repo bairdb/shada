@@ -63,7 +63,7 @@ module Shada
           
           unless @isType
             unless @isDisp
-              @tmp += line
+              @tmp += line.chomp
             else
               @isDisp = false
             end
@@ -78,7 +78,7 @@ module Shada
       end
       
       unless @type.nil?
-        puts "Type: #{@type}"
+        @tmp = @tmp.gsub(/#{@boundry}--/, "")
         if @type == 'form-data'
           @fields[@name] = @tmp
         else
