@@ -95,6 +95,8 @@ module Shada
         end
       end
       
+      puts @fields
+      
       cleanup
     end
     
