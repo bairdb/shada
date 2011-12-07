@@ -33,12 +33,13 @@ module Shada
       @isType = false
       
       test = IO.readlines(file)
-      puts "IO: #{test}"
+      #puts "IO: #{test}"
       
       #File.open(file, 'rb')
       test.each do |line|
+        puts line
         begin
-          case line
+          case @ic.iconv(line)
           when /#{@boundry}.*?/
             unless @type.nil?
               if @type == 'form-data'
