@@ -85,8 +85,9 @@ module Shada
           
           unless @isType
             unless @isDisp
-              if filename
+              if @filename
                 @body << line
+                @tmp += line
               else
                 @tmp += line
               end
