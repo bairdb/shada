@@ -33,11 +33,7 @@ module Shada
       @isDisp = false
       @isType = false
       
-      test = IO.read(file)
-      #puts "IO: #{test}"
-      
-      #File.open(file, 'rb')
-      test.each do |line|
+      File.open(file, 'rb').each do |line|
         begin
           case @ic.iconv(line)
           when /#{@boundry}.*?/
@@ -99,7 +95,7 @@ module Shada
           
           unless @isDisp
             if @filename
-              @tmp << line
+              @tmp << line.unpack('m')
             else
               @tmp << line.chomp
             end
