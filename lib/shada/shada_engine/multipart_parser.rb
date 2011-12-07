@@ -24,7 +24,7 @@ module Shada
       @boundry = File.open(file){|f| f.readline} if @boundry.nil?
       
       f = File.new(file)
-      f.seek(-13, IO::SEEK_END)
+      f.seek(-(@boundry.size + 2), IO::SEEK_END)
       puts f.readline
       
       @isBoundry = false
