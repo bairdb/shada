@@ -40,7 +40,7 @@ module Shada
               if @type == 'form-data'
                 @fields[@name] = @tmp
               else
-                f = File.open "/home/admin/base/site/public/media/uploads/test.jpg", 'wb'
+                f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
                 f.syswrite @tmp
                 f.close
                 
@@ -58,6 +58,10 @@ module Shada
               if @type == 'form-data'
                 @fields[@name] = @tmp
               else
+                f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
+                f.syswrite @tmp
+                f.close
+                
                 @files[@name] = {:filename => @filename, :content => @tmp}
                 @filename =  nil
                 @body = nil
@@ -88,7 +92,7 @@ module Shada
           
           unless @isDisp
             if @filename
-              @tmp << line.to_s
+              @tmp << line
             else
               @tmp << line.chomp
             end

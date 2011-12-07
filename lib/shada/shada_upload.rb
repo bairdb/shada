@@ -35,7 +35,7 @@ module Shada
         if @headers['content-type'] =~ /multipart\/form-data/
           tmpf = "#{UPLOAD_ROOT}/tmp/body.#{rand(1000..9999)}"
           f = File.open(tmpf, "w"){|f|
-            f.write(@body.to_s)
+            f.write(@body)
           }
           
           Shada::Multipart_Parser.new.parse tmpf
