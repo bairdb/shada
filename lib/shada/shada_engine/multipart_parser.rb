@@ -32,6 +32,9 @@ module Shada
       @isDisp = false
       @isType = false
       
+      test = IO.readlines(file)
+      puts test
+      
       File.open(file, 'rb').each do |line|
         puts line
         begin
@@ -106,7 +109,7 @@ module Shada
         end
       end
       
-      puts @files
+      #puts @files
       puts @fields
       
       cleanup
