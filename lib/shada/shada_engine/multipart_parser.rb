@@ -4,8 +4,6 @@ require "cgi"
 module Shada
   class Multipart_Parser
     
-    include CGI
-    
     attr_accessor :files, :fields
     
     def initialize boundry=nil
