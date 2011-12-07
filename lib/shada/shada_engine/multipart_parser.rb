@@ -42,11 +42,11 @@ module Shada
               else
                 puts @body
                 @files[@name] = {:filename => @filename, :content => @tmp}
+                @filename =  nil
+                @body = nil
               end
               @tmp = ""
               @type = ""
-              @filename =  nil
-              @body = nil
             end
             
             next
@@ -56,11 +56,11 @@ module Shada
                 @fields[@name] = @tmp
               else
                 @files[@name] = {:filename => @filename, :content => @tmp}
+                @filename =  nil
+                @body = nil
               end
               @tmp = ""
               @type = ""
-              @filename = nil
-              @body = nil
             end
             
             next
@@ -68,10 +68,9 @@ module Shada
             @name = $1
             @filename = $2
             @isDisp = true
-            puts "File Content Disposition: #{@name} - #{@body}"
+            puts "File Content Disposition: #{@name}"
             @body = Tempfile.new('ShadaMultiPart')
             @body.binmode if @body.respond_to? :binmode
-            puts @body
             next
           when /^Content-Disposition\: form-data\; name=\"(.*?)\"/
             @name = $1
@@ -89,10 +88,10 @@ module Shada
           unless @isType
             unless @isDisp
               if @filename
-                @tmp += line
+                @tmp << line
                 @body << line
               else
-                @tmp += line
+                @tmp << line
               end
             else
               @isDisp = false
