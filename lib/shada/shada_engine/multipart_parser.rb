@@ -25,7 +25,7 @@ module Shada
       
       f = File.new(file)
       f.seek(-(@boundry.size + 2), IO::SEEK_END)
-      puts f.readline
+      @lastline =  f.readline
       
       @isBoundry = false
       @isDisp = false
@@ -35,6 +35,19 @@ module Shada
         begin
           case @ic.iconv(line)
           when /#{@boundry}.*?/
+            unless @type.nil?
+              puts "Type: #{@type}"
+              if @type == 'form-data'
+                @fields[@name] = @tmp
+              else
+                @files[@name] = {:filename => @filename, :content => @tmp}
+              end
+              @tmp = ""
+              @type = ""
+            end
+            
+            next
+          when /#{@lastline}.*?/
             unless @type.nil?
               puts "Type: #{@type}"
               if @type == 'form-data'
@@ -83,7 +96,6 @@ module Shada
       end
       
       unless @type.nil?
-        @tmp = @tmp.chomp.gsub(/#{@boundry}--/, "")
         if @type == 'form-data'
           @fields[@name] = @tmp
         else
