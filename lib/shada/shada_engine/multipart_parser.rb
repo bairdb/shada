@@ -21,7 +21,12 @@ module Shada
     
     def parse file
       @file = file
-      @boundry = File.open(file) {|f| f.readline} if @boundry.nil?
+      f = File.open(file)
+      @boundry = f {|f| f.readline} if @boundry.nil?
+      
+      f.seek(-1, IO::SEEK_END)
+      puts f.readline
+      
       @isBoundry = false
       @isDisp = false
       @isType = false
