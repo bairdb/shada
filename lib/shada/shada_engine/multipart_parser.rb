@@ -33,10 +33,9 @@ module Shada
       @isType = false
       
       test = IO.readlines(file)
-      puts test
+      puts "IO: #{test}"
       
       File.open(file, 'rb').each do |line|
-        puts line
         begin
           case @ic.iconv(line)
           when /#{@boundry}.*?/
