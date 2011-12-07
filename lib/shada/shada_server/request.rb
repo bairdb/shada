@@ -5,6 +5,7 @@ $_GET = {}
 $_REQUEST = {}
 $_COOKIES = {}
 $_SESSIONS = {}
+$_FILES = {}
 
 module Shada
   class Request

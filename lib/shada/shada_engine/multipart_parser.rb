@@ -78,7 +78,7 @@ module Shada
       end
       
       unless @type.nil?
-        @tmp = @tmp.gsub(/#{@boundry}--/, "")
+        @tmp = @tmp.chomp.gsub(/#{@boundry}--/, "")
         if @type == 'form-data'
           @fields[@name] = @tmp
         else
