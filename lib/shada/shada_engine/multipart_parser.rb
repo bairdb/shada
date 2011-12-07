@@ -71,6 +71,7 @@ module Shada
             puts "File Content Disposition: #{@name} - #{@body}"
             @body = Tempfile.new('ShadaMultiPart')
             @body.binmode if @body.respond_to? :binmode
+            puts @body
             next
           when /^Content-Disposition\: form-data\; name=\"(.*?)\"/
             @name = $1
