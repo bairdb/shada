@@ -33,6 +33,7 @@ module Shada
       @isType = false
       
       File.open(file, 'rb') do |line|
+        puts line
         begin
           case @ic.iconv(line)
           when /#{@boundry}.*?/
