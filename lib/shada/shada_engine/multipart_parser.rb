@@ -69,8 +69,7 @@ module Shada
             @filename = $2
             @isDisp = true
             puts "File Content Disposition: #{@name}"
-            @body = Tempfile.new('ShadaMultiPart')
-            @body.binmode if @body.respond_to? :binmode
+            @body = File.new("/home/admin/base/tmp/ShadaMultiPart")
             next
           when /^Content-Disposition\: form-data\; name=\"(.*?)\"/
             @name = $1
@@ -85,19 +84,15 @@ module Shada
             next
           end
           
-          unless @isType
-            unless @isDisp
-              if @filename
-                @tmp << line
-                @body << line
-              else
-                @tmp << line
-              end
+          unless @isDisp
+            if @filename
+              @tmp << line
+              @body << line
             else
-              @isDisp = false
+              @tmp << line.chomp
             end
           else
-            @isType = false
+            @isDisp = false
           end
           
         rescue => e
