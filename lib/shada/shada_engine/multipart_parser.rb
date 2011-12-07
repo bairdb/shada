@@ -39,7 +39,7 @@ module Shada
               if @type == 'form-data'
                 @fields[@name] = @tmp
               else
-                path = "#{UPLOAD_ROOT}/site/public/media/uploads/#{filename}"
+                path = "/home/admin/base/site/public/media/uploads/#{@filename}"
                 
                 File.open(path, "w"){|f|
                   f.write(@tmp)
