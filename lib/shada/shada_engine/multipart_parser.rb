@@ -99,7 +99,7 @@ module Shada
           
           unless @isDisp
             if @filename
-              @tmp << line.to_s
+              @tmp << line.force_encoding('ASCII-8BIT')
             else
               @tmp << line.chomp
             end
