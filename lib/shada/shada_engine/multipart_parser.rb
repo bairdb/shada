@@ -40,7 +40,7 @@ module Shada
               if @type == 'form-data'
                 @fields[@name] = @tmp
               else
-                f = File.open 'test.jpg', 'wb'
+                f = File.open "/home/admin/base/site/public/media/uploads/test.jpg", 'wb'
                 f.syswrite @tmp
                 f.close
                 
