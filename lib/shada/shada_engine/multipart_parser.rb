@@ -36,7 +36,6 @@ module Shada
           case @ic.iconv(line)
           when /#{@boundry}.*?/
             unless @type.nil?
-              puts "Type: #{@type}"
               if @type == 'form-data'
                 @fields[@name] = @tmp
               else
@@ -49,7 +48,6 @@ module Shada
             next
           when /#{@lastline}.*?/
             unless @type.nil?
-              puts "Type: #{@type}"
               if @type == 'form-data'
                 @fields[@name] = @tmp
               else
@@ -90,12 +88,11 @@ module Shada
           end
           
         rescue => e
-          #puts "fail: #{e.message}"
           next
         end
       end
       
-      #puts @files
+      puts @files
       puts @fields
       
       cleanup
