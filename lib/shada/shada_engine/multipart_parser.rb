@@ -47,7 +47,7 @@ module Shada
             end
             
             next
-          when /#{@boundry}.*/
+          when /(#{@boundry})[-]/
             unless @type.nil?
               puts "Type: #{@type}"
               if @type == 'form-data'
