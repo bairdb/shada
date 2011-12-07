@@ -9,13 +9,14 @@ module Shada
       @ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
       @files = {}
       @fields = {}
-      @tmp = []
+      @tmp = ""
       @boundry = boundry
       @first = true
       @in = false
       @type = nil
       @cnt = 0
       @name = ''
+      @body = nil
       return self
     end
     
@@ -37,34 +38,27 @@ module Shada
           when /#{@boundry}.*?/
             unless @type.nil?
               if @type == 'form-data'
-                @fields[@name] = @tmp.join
+                @fields[@name] = @tmp
               else
-                path = "/home/admin/base/site/public/media/uploads/#{@filename}"
-                
-                f = File.open(path, "wb")
-                f.syswrite(@tmp.join)
-                
-                @files[@name] = {:filename => @filename, :content => @tmp.join}
+                puts @body
+                @files[@name] = {:filename => @filename, :content => @tmp}
               end
               @tmp = ""
               @type = ""
+              @filename =  nil
             end
             
             next
           when /#{@lastline}.*?/
             unless @type.nil?
               if @type == 'form-data'
-                @fields[@name] = @tmp.join
+                @fields[@name] = @tmp
               else
-                path = "/home/admin/base/site/public/media/uploads/#{@filename}"
-                
-                f = File.open(path, "wb")
-                f.syswrite(@tmp.join)
-                
-                @files[@name] = {:filename => @filename, :content => @tmp.join}
+                @files[@name] = {:filename => @filename, :content => @tmp}
               end
               @tmp = ""
               @type = ""
+              @filename = nil
             end
             
             next
@@ -72,6 +66,8 @@ module Shada
             @name = $1
             @filename = $2
             @isDisp = true
+            @body = Tempfile.new('ShadaMultiPart')
+            @body.binmode if body.respond_to? :binmode
             puts "File Content Disposition: #{@name} - #{@filename}"
             next
           when /^Content-Disposition\: form-data\; name=\"(.*?)\"/
@@ -89,7 +85,11 @@ module Shada
           
           unless @isType
             unless @isDisp
-              @tmp << line
+              if filename
+                @body << line
+              else
+                @tmp += line
+              end
             else
               @isDisp = false
             end
