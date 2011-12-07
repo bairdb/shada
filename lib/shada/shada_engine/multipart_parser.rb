@@ -9,7 +9,7 @@ module Shada
       @ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
       @files = {}
       @fields = {}
-      @tmp = ""
+      @tmp = []
       @boundry = boundry
       @first = true
       @in = false
@@ -37,15 +37,14 @@ module Shada
           when /#{@boundry}.*?/
             unless @type.nil?
               if @type == 'form-data'
-                @fields[@name] = @tmp
+                @fields[@name] = @tmp.join
               else
                 path = "/home/admin/base/site/public/media/uploads/#{@filename}"
                 
-                File.open(path, "wb"){|f|
-                  f.write(@tmp)
-                }
+                f = File.open(path, "wb")
+                f.syswrite(@tmp.pack("a3a3a3"))
                 
-                @files[@name] = {:filename => @filename, :content => @tmp}
+                @files[@name] = {:filename => @filename, :content => @tmp.pack("a3a3a3")}
               end
               @tmp = ""
               @type = ""
@@ -55,9 +54,14 @@ module Shada
           when /#{@lastline}.*?/
             unless @type.nil?
               if @type == 'form-data'
-                @fields[@name] = @tmp
+                @fields[@name] = @tmp.join
               else
-                @files[@name] = {:filename => @filename, :content => @tmp}
+                path = "/home/admin/base/site/public/media/uploads/#{@filename}"
+                
+                f = File.open(path, "wb")
+                f.syswrite(@tmp.pack("a3a3a3"))
+                
+                @files[@name] = {:filename => @filename, :content => @tmp.pack("a3a3a3")}
               end
               @tmp = ""
               @type = ""
@@ -85,7 +89,7 @@ module Shada
           
           unless @isType
             unless @isDisp
-              @tmp += line
+              @tmp << line
             else
               @isDisp = false
             end
