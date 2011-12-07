@@ -92,7 +92,7 @@ module Shada
           
           unless @isDisp
             if @filename
-              @tmp << line.force_encoding('UTF-8')
+              @tmp << line.force_encoding('ASCII-8BIT')
             else
               @tmp << line.chomp
             end
@@ -105,7 +105,7 @@ module Shada
         end
       end
       
-      puts @files
+      #puts @files
       puts @fields
       
       cleanup
