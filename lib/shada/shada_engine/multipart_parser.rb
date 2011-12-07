@@ -34,6 +34,7 @@ module Shada
       @isType = false
       
       File.open(file, 'rb').each do |line|
+        puts line
         begin
           case @ic.iconv(line)
           when /#{@boundry}.*?/
@@ -95,7 +96,7 @@ module Shada
           
           unless @isDisp
             if @filename
-              @tmp << line.unpack('m')
+              @tmp << line
             else
               @tmp << line.chomp
             end
