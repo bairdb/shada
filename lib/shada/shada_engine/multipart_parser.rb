@@ -34,7 +34,7 @@ module Shada
       File.foreach file do |line|
         begin
           case @ic.iconv(line)
-          when /#{@boundry}.*?/
+          when /#{@boundry}/
             unless @type.nil?
               puts "Type: #{@type}"
               if @type == 'form-data'
@@ -47,7 +47,7 @@ module Shada
             end
             
             next
-          when /#{@boundry}[.*?]/
+          when /#{@boundry}[.*]/
             unless @type.nil?
               puts "Type: #{@type}"
               if @type == 'form-data'
