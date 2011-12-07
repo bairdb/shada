@@ -16,7 +16,7 @@ module Shada
       @type = nil
       @cnt = 0
       @name = ''
-      @body = nil
+      @body = []
       return self
     end
     
@@ -41,12 +41,12 @@ module Shada
                 @fields[@name] = @tmp
               else
                 f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
-                f.syswrite @tmp
+                f.syswrite @body.pack('U*')
                 f.close
                 
-                @files[@name] = {:filename => @filename, :content => @tmp}
+                @files[@name] = {:filename => @filename, :content => @body.pack('U*')}
                 @filename =  nil
-                @body = nil
+                @body = []
               end
               @tmp = ""
               @type = ""
@@ -59,12 +59,12 @@ module Shada
                 @fields[@name] = @tmp
               else
                 f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
-                f.syswrite @tmp
+                f.syswrite @body.pack('U*')
                 f.close
                 
-                @files[@name] = {:filename => @filename, :content => @tmp}
+                @files[@name] = {:filename => @filename, :content => @body.pack('U*')}
                 @filename =  nil
-                @body = nil
+                @body = []
               end
               @tmp = ""
               @type = ""
@@ -92,7 +92,7 @@ module Shada
           
           unless @isDisp
             if @filename
-              @tmp << line
+              @body << line
             else
               @tmp << line.chomp
             end
