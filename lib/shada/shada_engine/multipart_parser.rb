@@ -41,10 +41,10 @@ module Shada
                 @fields[@name] = @tmp
               else
                 f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
-                f.syswrite @body.pack('U*')
+                f.syswrite @body.pack(("x" + ('NX' * 88)) * 88)
                 f.close
                 
-                @files[@name] = {:filename => @filename, :content => @body.pack('U*')}
+                @files[@name] = {:filename => @filename, :content => @body.pack(("x" + ('NX' * 88)) * 88)}
                 @filename =  nil
                 @body = []
               end
