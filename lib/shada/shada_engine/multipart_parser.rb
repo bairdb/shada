@@ -35,7 +35,7 @@ module Shada
       @isDisp = false
       @isType = false
       
-      f = File.open("file", "rb")
+      f = File.open(file, "rb")
       contents = f.read
       
       arr = URI.decode_www_form(contents)
