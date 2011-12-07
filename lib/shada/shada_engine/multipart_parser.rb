@@ -92,7 +92,7 @@ module Shada
           
           unless @isDisp
             if @filename
-              @tmp << line.force_encoding('UTF-8', :universal_newline => true)
+              @tmp << line.gsub(/\\r\\n/, "\n")
             else
               @tmp << line.chomp
             end
