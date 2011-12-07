@@ -32,7 +32,7 @@ module Shada
       @isDisp = false
       @isType = false
       
-      File.foreach file do |line|
+      File.open(file, 'rb') do |line|
         begin
           case @ic.iconv(line)
           when /#{@boundry}.*?/
@@ -92,7 +92,7 @@ module Shada
           
           unless @isDisp
             if @filename
-              @tmp << line.gsub(/\\r\\n/, "\n")
+              @tmp << line
             else
               @tmp << line.chomp
             end
