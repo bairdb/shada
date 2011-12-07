@@ -1,10 +1,10 @@
 require "iconv"
-require "uri"
+require "cgi"
 
 module Shada
   class Multipart_Parser
     
-    include URI
+    include CGI
     
     attr_accessor :files, :fields
     
@@ -35,94 +35,90 @@ module Shada
       @isDisp = false
       @isType = false
       
-      f = File.open(file, "rb")
-      contents = f.read
-      
-      arr = URI.decode_www_form(contents)
-      puts arr
-      
-      #test = IO.readlines(file)
+      test = IO.readlines(file)
       #puts "IO: #{test}"
       
+      cgi = CGI.new
+      puts cgi
+      
       #File.open(file, 'rb')
-#      test.each do |line|
-#        puts line
-#        begin
-#          case @ic.iconv(line)
-#          when /#{@boundry}.*?/
-#            unless @type.nil?
-#              if @type == 'form-data'
-#                @fields[@name] = @tmp
-#              else
-#                f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
-#                f.syswrite @tmp
-#                f.close
-#                
-#                @files[@name] = {:filename => @filename, :content => @tmp}
-#                @filename =  nil
-#                @body = []
-#              end
-#              @tmp = ""
-#              @type = ""
-#            end
-#            
-#            next
-#          when /#{@lastline}.*?/
-#            unless @type.nil?
-#              if @type == 'form-data'
-#                @fields[@name] = @tmp
-#              else
-#                f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
-#                f.syswrite @tmp
-#                f.close
-#                
-#                @files[@name] = {:filename => @filename, :content => @tmp}
-#                @filename =  nil
-#                @body = []
-#              end
-#              @tmp = ""
-#              @type = ""
-#            end
-#            
-#            next
-#          when /^Content-Disposition\: form-data\; name=\"(.*?)\"\; filename=\"(.*?)\"/
-#            @name = $1
-#            @filename = $2
-#            @isDisp = true
-#            puts "File Content Disposition: #{@name}"
-#            next
-#          when /^Content-Disposition\: form-data\; name=\"(.*?)\"/
-#            @name = $1
-#            @type = 'form-data'
-#            @isDisp = true
-#            puts "Regular Content Disposition: #{@name} - #{@type}"
-#            next
-#          when /^Content-Type\: (.*)/
-#            @type = $1
-#            @isType = true
-#            puts "File Content Type: #{@type}"
-#            next
-#          end
-#          
-#          unless @isDisp
-#            if @filename
-#              @tmp << line.to_s
-#            else
-#              @tmp << line.chomp
-#            end
-#          else
-#            @isDisp = false
-#          end
-#          
-#        rescue => e
-#          next
-#        end
-#      end
-#      
-#      #puts @files
-#      puts @fields
-#      
-#      cleanup
+      test.each do |line|
+        begin
+          case @ic.iconv(line)
+          when /#{@boundry}.*?/
+            unless @type.nil?
+              if @type == 'form-data'
+                @fields[@name] = @tmp
+              else
+                f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
+                f.syswrite @tmp
+                f.close
+                
+                @files[@name] = {:filename => @filename, :content => @tmp}
+                @filename =  nil
+                @body = []
+              end
+              @tmp = ""
+              @type = ""
+            end
+            
+            next
+          when /#{@lastline}.*?/
+            unless @type.nil?
+              if @type == 'form-data'
+                @fields[@name] = @tmp
+              else
+                f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
+                f.syswrite @tmp
+                f.close
+                
+                @files[@name] = {:filename => @filename, :content => @tmp}
+                @filename =  nil
+                @body = []
+              end
+              @tmp = ""
+              @type = ""
+            end
+            
+            next
+          when /^Content-Disposition\: form-data\; name=\"(.*?)\"\; filename=\"(.*?)\"/
+            @name = $1
+            @filename = $2
+            @isDisp = true
+            puts "File Content Disposition: #{@name}"
+            next
+          when /^Content-Disposition\: form-data\; name=\"(.*?)\"/
+            @name = $1
+            @type = 'form-data'
+            @isDisp = true
+            puts "Regular Content Disposition: #{@name} - #{@type}"
+            next
+          when /^Content-Type\: (.*)/
+            @type = $1
+            @isType = true
+            puts "File Content Type: #{@type}"
+            next
+          end
+          
+          unless @isDisp
+            if @filename
+              @tmp << line.to_s
+            else
+              @tmp << line.chomp
+            end
+          else
+            @isDisp = false
+          end
+          
+        rescue => e
+          next
+        end
+      end
+      
+      #puts @files
+      puts @fields
+      
+      cleanup
     end
     
     private
