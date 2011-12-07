@@ -36,9 +36,6 @@ module Shada
       test = IO.readlines(file)
       #puts "IO: #{test}"
       
-      cgi = CGI.new
-      puts cgi
-      
       #File.open(file, 'rb')
       test.each do |line|
         begin
@@ -48,6 +45,8 @@ module Shada
               if @type == 'form-data'
                 @fields[@name] = @tmp
               else
+                puts @tmp
+                
                 f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
                 f.syswrite @tmp
                 f.close
