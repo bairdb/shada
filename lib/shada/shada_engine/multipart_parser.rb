@@ -92,7 +92,7 @@ module Shada
           
           unless @isDisp
             if @filename
-              @tmp << line.chomp
+              @tmp << line
             else
               @tmp << line.chomp
             end
