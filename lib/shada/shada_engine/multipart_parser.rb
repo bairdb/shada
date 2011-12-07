@@ -105,7 +105,7 @@ module Shada
         end
       end
       
-      #puts @files
+      puts @files
       puts @fields
       
       cleanup
