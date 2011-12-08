@@ -13,7 +13,7 @@ module Shada
       def connect hash
         begin
           @db = Mysql2::Client.new hash
-          Mysql2::Client.default_query_options.merge!(:async => true)
+          Mysql2::Client.default_query_options
         rescue => e
           puts e
           @db = nil
@@ -54,12 +54,8 @@ module Shada
       end
       
       def get_fields table
-        begin
-          result = query("SELECT * FROM #{table}", [])
-          result.fields
-        rescue => e
-          []
-        end
+        result = query("SELECT * FROM #{table}", [])
+        result.fields
       end
       
       def get_tables db
