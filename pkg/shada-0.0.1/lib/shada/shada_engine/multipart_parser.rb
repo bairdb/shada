@@ -54,8 +54,17 @@ module Shada
             unless @type.nil?
               if @type == 'form-data'
                 @fields[@name] = @tmp
-              else        
-                handle_file
+              else
+                puts @type
+                unless FILE_TYPES[@type].nil?
+                  f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
+                  f.syswrite @tmp
+                  f.close
+                end
+
+                @files[@name] = {:filename => @filename, :content => @tmp, :type => @type}
+                @filename =  nil
+                @body = []
               end
               @tmp = ""
               @type = ""
@@ -67,7 +76,15 @@ module Shada
               if @type == 'form-data'
                 @fields[@name] = @tmp
               else
-                handle_file
+                unless FILE_TYPES[@type].nil?
+                  f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
+                  f.syswrite @tmp
+                  f.close
+                end
+
+                @files[@name] = {:filename => @filename, :content => @tmp, :type => @type}
+                @filename =  nil
+                @body = []
               end
               @tmp = ""
               @type = ""
@@ -85,7 +102,8 @@ module Shada
             @isDisp = true
             next
           when /^Content-Type\: (.*)/
-            @type = $1
+            tmp = $1
+            @type = tmp unless tmp == 'application/octet-stream'
             @isType = true
             next
           end

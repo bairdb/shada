@@ -14,6 +14,7 @@ FILE_TYPES = {
   'video/quicktime' => 'video',
   'video/webm' => 'video',
   'video/x-ms-wmv' => 'video',
+  'video/x-m4v' => 'video'
 }
 
 module Shada

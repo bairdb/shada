@@ -47,9 +47,11 @@ module Shada
         
       end
       
-      @form['Refresh']  = ''
-      @form['Content-Type'] = 'text/html'
-      route @form.get_path
+      #@form['Refresh']  = ''
+      #@form['Content-Type'] = 'text/html'
+      #Shada::Config['DefaultController'] = 'upload'
+      #route @form.get_path
+      return ""
     end
     
     def save_file tmp_name, real_name
