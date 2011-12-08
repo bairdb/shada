@@ -102,7 +102,8 @@ module Shada
             @isDisp = true
             next
           when /^Content-Type\: (.*)/
-            @type = $1 unless $1 == 'application/octet-stream'
+            tmp = $1
+            @type = tmp unless tmp == 'application/octet-stream'
             @isType = true
             next
           end
