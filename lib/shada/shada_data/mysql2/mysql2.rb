@@ -13,7 +13,7 @@ module Shada
       def connect hash
         begin
           @db = Mysql2::Client.new hash
-          Mysql2::Client.default_query_options
+          Mysql2::Client.default_query_options.merge!(:async => true)
         rescue => e
           puts e
           @db = nil
@@ -34,12 +34,15 @@ module Shada
       end
       
       def escape str
-        @db.escape str
+        @db.escape str unless not str.is_a?(String)
       end
       
       def execute sql, symbolize=true
-        result = @db.query sql, :symbolize_keys => symbolize
-        result
+        begin
+          result = @db.query sql, :symbolize_keys => symbolize
+          result
+        rescue => e
+        end
       end
       
       def prepare sql, binds

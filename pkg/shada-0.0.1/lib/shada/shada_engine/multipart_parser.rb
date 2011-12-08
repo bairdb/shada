@@ -1,4 +1,3 @@
-require "iconv"
 require "cgi"
 
 module Shada
@@ -7,7 +6,6 @@ module Shada
     attr_accessor :files, :fields
     
     def initialize boundry=nil
-      @ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
       @files = {}
       @fields = {}
       @tmp = ""
@@ -33,20 +31,14 @@ module Shada
       @isDisp = false
       @isType = false
       
-      test = IO.readlines(file)
-      #puts "IO: #{test}"
-      
-      #File.open(file, 'rb')
-      test.each do |line|
+      File.open(file, 'rb').each do |line|
         begin
-          case @ic.iconv(line)
+          case line
           when /#{@boundry}.*?/
             unless @type.nil?
               if @type == 'form-data'
                 @fields[@name] = @tmp
-              else
-                puts @tmp
-                
+              else                
                 f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
                 f.syswrite @tmp
                 f.close
@@ -99,7 +91,7 @@ module Shada
           
           unless @isDisp
             if @filename
-              @tmp << line.force_encoding('ASCII-8BIT')
+              @tmp << line
             else
               @tmp << line.chomp
             end
