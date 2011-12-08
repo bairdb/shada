@@ -110,9 +110,9 @@ module Shada
           end
           
           unless @isDisp
-            unless @filename.nil?
+            if @filename
               @tmp << line
-            else  
+            else
               @tmp << line.chomp
             end
           else
@@ -124,6 +124,8 @@ module Shada
         end
       end      
       cleanup
+      
+      return self
     end
     
     private
