@@ -33,6 +33,7 @@ module Shada
       sender_id = sender_id || self.name.split('::').last
       handler = Shada::Mongrel2::Handler.new
       handler.find :send_ident => sender_id
+      puts handler.send_spec
       pull_addr = pull_addr || handler.send_spec
       sub_addr = sub_addr || handler.recv_spec
       connection ||= Shada::Response.new sender_id, pull_addr, sub_addr
