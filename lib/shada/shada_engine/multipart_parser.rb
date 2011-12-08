@@ -113,7 +113,7 @@ module Shada
             if @filename
               @tmp << line
             else  
-              line.chomp
+              @tmp << line.chomp
             end
           else
             @isDisp = false
