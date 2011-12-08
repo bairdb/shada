@@ -26,11 +26,6 @@ module Shada
           parser = Shada::Multipart_Parser.new
           parser.parse tmpf
           
-          parser.fields.each do |k,v|
-            puts "#{k} - #{v}"
-            @form.set_header k, v, 'post'
-          end
-          
           parser.files.each do |k, v|
             puts "#{k} - #{v}"
             @form.set_header k, v, 'file'
@@ -52,10 +47,6 @@ module Shada
           parser = Shada::Multipart_Parser.new
           
           parser.parse tmpf
-          parser.fields.each do |k,v|
-            puts "#{k} - #{v}"
-            @form.set_header k, v, 'post'
-          end
           
           parser.files.each do |k, v|
             puts "#{k} - #{v}"
