@@ -23,7 +23,17 @@ module Shada
         
         if @headers['content-type'] =~ /multipart\/form-data/
           tmpf = "#{UPLOAD_ROOT}/tmp/#{@headers['x-mongrel2-upload-start'].split('/').pop().to_s}"
-          Shada::Multipart_Parser.new.parse tmpf
+          parser = Shada::Multipart_Parser.new.parse tmpf
+          
+          parser.fields.each do |k,v|
+            puts "#{k} - #{v}"
+            @form.set_header k, v, 'post'
+          end
+          
+          parser.files.each do |k, v|
+            puts "#{k} - #{v}"
+            @form.set_header k, v, 'file'
+          end
         else
           save_file upload, @headers['PATH']
         end
@@ -38,7 +48,17 @@ module Shada
             f.write(@body)
           }
           
-          Shada::Multipart_Parser.new.parse tmpf
+          parser = Shada::Multipart_Parser.new.parse tmpf
+          
+          parser.fields.each do |k,v|
+            puts "#{k} - #{v}"
+            @form.set_header k, v, 'post'
+          end
+          
+          parser.files.each do |k, v|
+            puts "#{k} - #{v}"
+            @form.set_header k, v, 'file'
+          end
         else
           f = File.open("#{UPLOAD_ROOT}#{@headers['PATH'].split('/').pop().to_s}", "w"){|f|
             f.write(data.pop())

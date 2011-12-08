@@ -120,6 +120,8 @@ module Shada
         end
       end      
       cleanup
+      
+      return self
     end
     
     private
