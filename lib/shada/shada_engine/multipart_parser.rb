@@ -57,7 +57,7 @@ module Shada
                 @form_fields[@name] = @tmp
               else
                 puts FILE_TYPES[@type]
-                unless FILE_TYPES[@type].nil?
+                unless FILE_TYPES[@type].nil? or @tmp.nil?
                   f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
                   f.syswrite @tmp
                   f.close
@@ -77,7 +77,7 @@ module Shada
               if @type == 'form-data'
                 @form_fields[@name] = @tmp
               else
-                unless FILE_TYPES[@type].nil?
+                unless FILE_TYPES[@type].nil? or @tmp.nil?
                   f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
                   f.syswrite @tmp
                   f.close
