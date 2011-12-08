@@ -110,7 +110,7 @@ module Shada
           end
           
           unless @isDisp
-            if @filename
+            unless @filename.nil?
               @tmp << line
             else  
               @tmp << line.chomp
