@@ -20,11 +20,11 @@ FILE_TYPES = {
 module Shada
   class Multipart_Parser
     
-    attr_accessor :files, :fields
+    attr_accessor :files, :form_fields
     
     def initialize boundry=nil
       @files = {}
-      @fields = {}
+      @form_fields = {}
       @tmp = ""
       @boundry = boundry
       @first = true
@@ -54,7 +54,7 @@ module Shada
           when /#{@boundry}.*?/
             unless @type.nil?
               if @type == 'form-data'
-                @fields[@name] = @tmp
+                @form_fields[@name] = @tmp
               else
                 puts FILE_TYPES[@type]
                 unless FILE_TYPES[@type].nil?
@@ -75,7 +75,7 @@ module Shada
           when /#{@lastline}.*?/
             unless @type.nil?
               if @type == 'form-data'
-                @fields[@name] = @tmp
+                @form_fields[@name] = @tmp
               else
                 unless FILE_TYPES[@type].nil?
                   f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
