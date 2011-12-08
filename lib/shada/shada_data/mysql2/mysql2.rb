@@ -54,8 +54,12 @@ module Shada
       end
       
       def get_fields table
-        result = query("SELECT * FROM #{table}", [])
-        result.fields
+        begin
+          result = query("SELECT * FROM #{table}", [])
+          result.fields
+        rescue => e
+          []
+        end
       end
       
       def get_tables db
