@@ -38,11 +38,8 @@ module Shada
       end
       
       def execute sql, symbolize=true
-        begin
-          result = @db.query sql, :symbolize_keys => symbolize
-          result
-        rescue => e
-        end
+        result = @db.query sql, :symbolize_keys => symbolize
+        result
       end
       
       def prepare sql, binds

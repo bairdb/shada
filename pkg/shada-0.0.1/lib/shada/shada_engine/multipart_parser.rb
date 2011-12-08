@@ -1,5 +1,21 @@
 require "cgi"
 
+FILE_TYPES = {
+  'image/gif' => 'image',
+  'image/jpeg' => 'image',
+  'image/pjpeg' => 'image',
+  'image/png' => 'image',
+  'image/svg+xml' => 'image',
+  'image/tiff' => 'image',
+  'image/vnd.microsoft.icon' => 'image',
+  'video/mpeg' => 'video',
+  'video/mp4' => 'video',
+  'video/ogg' => 'video',
+  'video/quicktime' => 'video',
+  'video/webm' => 'video',
+  'video/x-ms-wmv' => 'video',
+}
+
 module Shada
   class Multipart_Parser
     
@@ -38,14 +54,8 @@ module Shada
             unless @type.nil?
               if @type == 'form-data'
                 @fields[@name] = @tmp
-              else                
-                f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
-                f.syswrite @tmp
-                f.close
-                
-                @files[@name] = {:filename => @filename, :content => @tmp}
-                @filename =  nil
-                @body = []
+              else        
+                handle_file
               end
               @tmp = ""
               @type = ""
@@ -57,13 +67,7 @@ module Shada
               if @type == 'form-data'
                 @fields[@name] = @tmp
               else
-                f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
-                f.syswrite @tmp
-                f.close
-                
-                @files[@name] = {:filename => @filename, :content => @tmp}
-                @filename =  nil
-                @body = []
+                handle_file
               end
               @tmp = ""
               @type = ""
@@ -74,27 +78,20 @@ module Shada
             @name = $1
             @filename = $2
             @isDisp = true
-            puts "File Content Disposition: #{@name}"
             next
           when /^Content-Disposition\: form-data\; name=\"(.*?)\"/
             @name = $1
             @type = 'form-data'
             @isDisp = true
-            puts "Regular Content Disposition: #{@name} - #{@type}"
             next
           when /^Content-Type\: (.*)/
             @type = $1
             @isType = true
-            puts "File Content Type: #{@type}"
             next
           end
           
           unless @isDisp
-            if @filename
-              @tmp << line
-            else
-              @tmp << line.chomp
-            end
+            @filename ? @tmp << line : line.chomp
           else
             @isDisp = false
           end
@@ -102,18 +99,22 @@ module Shada
         rescue => e
           next
         end
-      end
-      
-      #puts @files
-      puts @fields
-      
+      end      
       cleanup
     end
     
     private
     
-    def file
-      
+    def handle_file
+      unless FILE_TYPES[@type].nil?
+        f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
+        f.syswrite @tmp
+        f.close
+      end
+
+      @files[@name] = {:filename => @filename, :content => @tmp, :type => @type}
+      @filename =  nil
+      @body = []
     end
     
     def fields
