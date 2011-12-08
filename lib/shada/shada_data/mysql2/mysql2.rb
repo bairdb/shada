@@ -83,7 +83,7 @@ module Shada
           result = query sql, where_arr
           result
         rescue => e
-          puts e
+          puts "#{e.message} - #{e.backtrace}"
           return []
         end
       end
