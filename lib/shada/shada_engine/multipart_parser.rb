@@ -104,7 +104,7 @@ module Shada
             next
           when /^Content-Type\: (.*)/
             tmp = $1
-            @type = tmp unless tmp == 'application/octet-stream'
+            @type = tmp.strip.chomp
             @isType = true
             next
           end
