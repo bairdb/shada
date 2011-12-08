@@ -110,7 +110,11 @@ module Shada
           end
           
           unless @isDisp
-            @filename ? @tmp << line : line.chomp
+            if @filename
+              @tmp << line
+            else  
+              line.chomp
+            end
           else
             @isDisp = false
           end
@@ -120,8 +124,6 @@ module Shada
         end
       end      
       cleanup
-      
-      return self
     end
     
     private
