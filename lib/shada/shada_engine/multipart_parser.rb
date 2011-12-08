@@ -56,7 +56,7 @@ module Shada
               if @type == 'form-data'
                 @fields[@name] = @tmp
               else
-                puts @type
+                puts FILE_TYPES[@type]
                 unless FILE_TYPES[@type].nil?
                   f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
                   f.syswrite @tmp
