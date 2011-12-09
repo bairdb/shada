@@ -79,10 +79,14 @@ module Shada
               html.label({:class => "something", :inner_text => v}) 
               html.div(){}
               val = @model.instance_variable_get("@#{v}")
-              if val.length < 100
-                html.input({:type => 'text', :name => v, :value => val})
+              if val.is_a? String
+                if val.length < 100
+                  html.input({:type => 'text', :name => v, :value => val})
+                else
+                  html.input({:type => 'textarea', :name => v, :value => val})
+                end
               else
-                html.input({:type => 'textarea', :name => v, :value => val})
+                html.input({:type => 'text', :name => v, :value => val})
               end
             }
           end
