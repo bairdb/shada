@@ -95,7 +95,7 @@ module Shada
         }
       end
       
-      str = "<html><title></title><style>textarea{height:200px; width:300px;}</style><body>"
+      str = "<html><title></title><style>textarea{height:350px; width:600px;} input{width:350px}</style><body>"
       str += build.html
       str += str = "</body></html>"
 
