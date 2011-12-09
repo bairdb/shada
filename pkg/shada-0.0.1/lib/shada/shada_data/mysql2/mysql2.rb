@@ -18,7 +18,8 @@ module Shada
           Mysql2::Client.default_query_options
         rescue => e
           puts e
-          @db = nil
+          @db = Mysql2::Client.new hash
+          Mysql2::Client.default_query_options
         end
         self
       end
