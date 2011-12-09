@@ -94,8 +94,10 @@ module Shada
           html.input({:type => 'submit', :value => 'submit'})
         }
       end
-
-      build.html
+      
+      str = "<html><title></title><style>textarea{height:200px; width:300px;}</style><body>"
+      str += build.html
+      str += str = "</body></html>"
 
     end
 
