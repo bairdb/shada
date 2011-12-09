@@ -13,6 +13,7 @@ module Shada
       def connect hash
         @config = hash
         begin
+          hash[:reconnect] = 1
           @db = Mysql2::Client.new hash
           Mysql2::Client.default_query_options
         rescue => e
