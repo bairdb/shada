@@ -5,12 +5,12 @@ module Shada
     attr_accessor :get, :post, :files, :cookies, :response_headers, :request_headers
     
     def initialize
-      @get = []
-      @post = []
-      @files = []
-      @cookies = []
-      @response_headers = []
-      @request_headers = []
+      @get = {}
+      @post = {}
+      @files = {}
+      @cookies = {}
+      @response_headers = {}
+      @request_headers = {}
     end
     
     def [](key)
@@ -82,6 +82,7 @@ module Shada
     end
     
     def parse_headers headers, body
+      puts "#{@request_headers} - #{headers}"
       @request_headers['headers'] = headers
       types = [{:headers => headers['QUERY'], :type => 'get', :delimiter => '&'}, {:headers => body, :type => 'post', :delimiter => '&'}, {:headers => headers['cookie'], :type => 'cookie', :delimiter => ';'}]
       
