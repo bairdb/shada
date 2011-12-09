@@ -1,3 +1,5 @@
+require 'cgi'
+
 module Shada
   class Headers
     include Enumerable
@@ -15,9 +17,9 @@ module Shada
     
     def [](key)
       key = key.to_sym
-      return @get[key] unless @get[key] == nil
-      return @post[key] unless @post[key] == nil
-      return @files[key] unless @files[key] == nil
+      return CGI.unescape(@get[key]) unless @get[key] == nil
+      return CGI.unescape(@post[key]) unless @post[key] == nil
+      return CGI.unescape(@files[key]) unless @files[key] == nil
       return ''
     end
     

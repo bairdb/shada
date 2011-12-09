@@ -16,7 +16,7 @@ module Shada
     @@klass = ""
     attr_accessor :attributes, :protocol, :to, :from, :subject, :message, :body, :headers, :message_body, :from_name, :to_name, :content_type, :form
     
-    def initialize protocol, attributes, form=nil
+    def initialize protocol, attributes, form
       @attributes = attributes
       @protocol = protocol
       @form = form
@@ -24,8 +24,8 @@ module Shada
     
     class << self
       
-      def setup protocol="smtp", attributes={}
-        @@klass = self.new protocol, attributes
+      def setup protocol="smtp", attributes={}, form=nil
+        @@klass = self.new protocol, attributes, form
       end
       
       def send &block

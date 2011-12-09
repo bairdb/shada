@@ -5,6 +5,7 @@ require 'shada/shada_logger'
 module Shada
   class Controller
     @@paths = {}
+    @@secure = {}
     
     include Shada::Utils, Shada::Logger
     
@@ -34,6 +35,14 @@ module Shada
       
       def path
         @@paths[self.name.downcase]
+      end
+      
+      def secure *args
+        secure = []
+        args.each do |v|
+          secure.push v
+        end
+        @@paths[self.name.downcase] = secure
       end
     end
     

@@ -5,6 +5,7 @@ require 'shada/shada_logger'
 module Shada
   class Controller
     @@paths = {}
+    @@secure = {}
     
     include Shada::Utils, Shada::Logger
     
@@ -34,6 +35,14 @@ module Shada
       
       def path
         @@paths[self.name.downcase]
+      end
+      
+      def secure *args
+        secure = []
+        args.each do |v|
+          secure.push v
+        end
+        @@paths[self.name.downcase] = secure
       end
     end
     
@@ -79,15 +88,25 @@ module Shada
               html.label({:class => "something", :inner_text => v}) 
               html.div(){}
               val = @model.instance_variable_get("@#{v}")
-              html.input({:type => 'text', :name => v, :value => val})
+              if val.is_a? String
+                if val.length < 100
+                  html.input({:type => 'text', :name => v, :value => val})
+                else
+                  html.textarea(val, {:name => v})
+                end
+              else
+                html.input({:type => 'text', :name => v, :value => val})
+              end
             }
           end
 
           html.input({:type => 'submit', :value => 'submit'})
         }
       end
-
-      build.html
+      
+      str = "<html><title></title><style>textarea{height:350px; width:600px;} input{width:350px}</style><body>"
+      str += build.html
+      str += str = "</body></html>"
 
     end
 
