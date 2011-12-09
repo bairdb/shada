@@ -76,7 +76,7 @@ module Shada
         response = handle @request
         
         unless response == :next
-          @connection.reply_http @request, response, @status_code, @status 
+          @connection.reply_http @request, response, @status_code, @status, @form.response_headers 
         else
           next
         end
