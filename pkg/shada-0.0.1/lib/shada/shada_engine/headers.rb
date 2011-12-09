@@ -6,6 +6,7 @@ module Shada
       key = key.to_sym
       return $_GET[key] unless $_GET[key] == nil
       return $_POST[key] unless $_POST[key] == nil
+      return $_FILES[key] unless $_FILES[key] == nil
       return ''
     end
     
@@ -28,6 +29,8 @@ module Shada
         $_POST[key]
       when 'cookie'
         get_cookie key
+      when 'file'
+        $_FILES[key]
       end
     end
     
@@ -40,6 +43,8 @@ module Shada
         $_POST[key] = val
       when 'cookie'
         $_COOKIES[key] = val
+      when 'file'
+        $_FILES[key] = val
       end
       
     end
@@ -88,6 +93,10 @@ module Shada
     
     def cookies
       $_COOKIES
+    end
+    
+    def files
+      $_FILES
     end
     
     def to_s

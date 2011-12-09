@@ -14,16 +14,17 @@ FILE_TYPES = {
   'video/quicktime' => 'video',
   'video/webm' => 'video',
   'video/x-ms-wmv' => 'video',
+  'video/x-m4v' => 'video'
 }
 
 module Shada
   class Multipart_Parser
     
-    attr_accessor :files, :fields
+    attr_accessor :files, :form_fields
     
     def initialize boundry=nil
       @files = {}
-      @fields = {}
+      @form_fields = {}
       @tmp = ""
       @boundry = boundry
       @first = true
@@ -53,10 +54,10 @@ module Shada
           when /#{@boundry}.*?/
             unless @type.nil?
               if @type == 'form-data'
-                @fields[@name] = @tmp
+                @form_fields[@name] = @tmp
               else
-                puts @type
-                unless FILE_TYPES[@type].nil?
+                puts FILE_TYPES[@type]
+                unless FILE_TYPES[@type].nil? or @tmp.nil?
                   f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
                   f.syswrite @tmp
                   f.close
@@ -74,9 +75,9 @@ module Shada
           when /#{@lastline}.*?/
             unless @type.nil?
               if @type == 'form-data'
-                @fields[@name] = @tmp
+                @form_fields[@name] = @tmp
               else
-                unless FILE_TYPES[@type].nil?
+                unless FILE_TYPES[@type].nil? or @tmp.nil?
                   f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
                   f.syswrite @tmp
                   f.close
@@ -103,13 +104,17 @@ module Shada
             next
           when /^Content-Type\: (.*)/
             tmp = $1
-            @type = tmp unless tmp == 'application/octet-stream'
+            @type = tmp.strip.chomp
             @isType = true
             next
           end
           
           unless @isDisp
-            @filename ? @tmp << line : line.chomp
+            if @filename
+              @tmp << line
+            else
+              @tmp << line.chomp
+            end
           else
             @isDisp = false
           end
@@ -119,6 +124,8 @@ module Shada
         end
       end      
       cleanup
+      
+      return self
     end
     
     private

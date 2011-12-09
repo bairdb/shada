@@ -23,7 +23,15 @@ module Shada
         
         if @headers['content-type'] =~ /multipart\/form-data/
           tmpf = "#{UPLOAD_ROOT}/tmp/#{@headers['x-mongrel2-upload-start'].split('/').pop().to_s}"
-          Shada::Multipart_Parser.new.parse tmpf
+          parser = Shada::Multipart_Parser.new.parse tmpf
+          
+          parser.form_fields.each do |k,v|
+            @form.set_header k, v, 'post'
+          end
+          
+          parser.files.each do |k, v|
+            @form.set_header k, v, 'file'
+          end
         else
           save_file upload, @headers['PATH']
         end
@@ -38,7 +46,15 @@ module Shada
             f.write(@body)
           }
           
-          Shada::Multipart_Parser.new.parse tmpf
+          parser = Shada::Multipart_Parser.new.parse tmpf
+          
+          parser.form_fields.each do |k,v|
+            @form.set_header k, v, 'post'
+          end
+          
+          parser.files.each do |k, v|
+            @form.set_header k, v, 'file'
+          end
         else
           f = File.open("#{UPLOAD_ROOT}#{@headers['PATH'].split('/').pop().to_s}", "w"){|f|
             f.write(data.pop())
@@ -47,11 +63,9 @@ module Shada
         
       end
       
-      #@form['Refresh']  = ''
-      #@form['Content-Type'] = 'text/html'
-      #Shada::Config['DefaultController'] = 'upload'
-      #route @form.get_path
-      return ""
+      @form['Refresh']  = ''
+      @form['Content-Type'] = 'text/html'
+      route @form.get_path
     end
     
     def save_file tmp_name, real_name

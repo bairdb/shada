@@ -6,14 +6,15 @@ module Shada
   module Adapter
     class MYSQL2
       
-      attr_accessor :db
+      attr_accessor :db, :config
       
       include Shada::Logger
       
       def connect hash
+        @config = hash
         begin
           @db = Mysql2::Client.new hash
-          Mysql2::Client.default_query_options.merge!(:async => true)
+          Mysql2::Client.default_query_options
         rescue => e
           puts e
           @db = nil
@@ -38,8 +39,16 @@ module Shada
       end
       
       def execute sql, symbolize=true
-        result = @db.query sql, :symbolize_keys => symbolize
-        result
+        begin
+          result = @db.query sql, :symbolize_keys => symbolize
+          result
+        rescue => e
+          connect @config
+          result = @db.query sql, :symbolize_keys => symbolize
+          result
+        ensure
+          []
+        end
       end
       
       def prepare sql, binds
@@ -49,8 +58,8 @@ module Shada
       end
       
       def query sql, binds
-        result = execute prepare sql, binds
-        result
+          result = execute prepare sql, binds
+          result        
       end
       
       def get_fields table
@@ -83,7 +92,7 @@ module Shada
           result = query sql, where_arr
           result
         rescue => e
-          puts e
+          puts "#{e.message} - #{e.backtrace}"
           return []
         end
       end
