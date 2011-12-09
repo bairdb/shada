@@ -56,7 +56,7 @@ module Shada
     end
     
     def reply_http req, body, code="200", status="OK", headers=nil
-      reply req, http_response(body, code, status, $_RESPONSE_HEADERS)
+      reply req, http_response(body, code, status, headers)
     end
     
     def deliver uuid, idents, data

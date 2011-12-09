@@ -14,11 +14,12 @@ MESSAGE_END
 module Shada
   class Mail
     @@klass = ""
-    attr_accessor :attributes, :protocol, :to, :from, :subject, :message, :body, :headers, :message_body, :from_name, :to_name, :content_type
+    attr_accessor :attributes, :protocol, :to, :from, :subject, :message, :body, :headers, :message_body, :from_name, :to_name, :content_type, :form
     
-    def initialize protocol, attributes
+    def initialize protocol, attributes, form=nil
       @attributes = attributes
       @protocol = protocol
+      @form = form
     end
     
     class << self

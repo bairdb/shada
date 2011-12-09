@@ -25,7 +25,6 @@ module Shada
       @pull_addr = pull_addr
       @sub_addr = sub_addr
       @connection = connection
-      @form = Shada::Headers.new
       self
     end
     
@@ -67,6 +66,7 @@ module Shada
         @uuid, @id, @path, @headers, @body = @request
         
         @path_arr = @path.split '/'
+        @form = Shada::Headers.new
         @form.parse_headers @headers, @body
         
         if @connection.is_disconnect(@headers)
@@ -76,7 +76,7 @@ module Shada
         response = handle @request
         
         unless response == :next
-          @connection.reply_http @request, response, @status_code, @status 
+          @connection.reply_http @request, response, @status_code, @status, @form.response_headers 
         else
           next
         end

@@ -2,11 +2,22 @@ module Shada
   class Headers
     include Enumerable
     
+    attr_accessor :get, :post, :files, :cookies, :response_headers, :request_headers
+    
+    def initialize
+      @get = {}
+      @post = {}
+      @files = {}
+      @cookies = {}
+      @response_headers = {}
+      @request_headers = {}
+    end
+    
     def [](key)
       key = key.to_sym
-      return $_GET[key] unless $_GET[key] == nil
-      return $_POST[key] unless $_POST[key] == nil
-      return $_FILES[key] unless $_FILES[key] == nil
+      return @get[key] unless @get[key] == nil
+      return @post[key] unless @post[key] == nil
+      return @files[key] unless @files[key] == nil
       return ''
     end
     
@@ -22,15 +33,15 @@ module Shada
     def get_header key, type='get'
       case type
       when 'response'
-        $_RESPONSE_HEADERS[key]
+        @response_headers[key]
       when 'get'
-        $_GET[key]
+        @get[key]
       when 'post'
-        $_POST[key]
+        @post[key]
       when 'cookie'
         get_cookie key
       when 'file'
-        $_FILES[key]
+        @files[key]
       end
     end
     
@@ -38,40 +49,40 @@ module Shada
       key = key.to_sym
       case type
       when 'get'
-        $_GET[key] = val
+        @get[key] = val
       when 'post'
-        $_POST[key] = val
+        @post[key] = val
       when 'cookie'
-        $_COOKIES[key] = val
+        @cookies[key] = val
       when 'file'
-        $_FILES[key] = val
+        @files[key] = val
       end
       
     end
     
     def set_response_header key, val
       key = key.to_sym
-      $_RESPONSE_HEADERS[key] = val
+      @response_headers[key] = val
     end
     
     def get_cookie key
-      $_COOKIES[key]
+      @cookies[key]
     end
     
     def set_cookie key, val, expires='', path='', domain='', secure='FALSE'
-      $_RESPONSE_HEADERS['Set-Cookie'] = "#{key}=#{val}; Domain=#{$_REQUEST['host']}; #{secure}"
+      @response_headers['Set-Cookie'] = "#{key}=#{val}; Domain=#{@request_headers['host']}; #{secure}"
     end
     
     def clear_cookie key
-      $_RESPONSE_HEADERS['Set-Cookie'] = "#{key}="
+      @response_headers['Set-Cookie'] = "#{key}="
     end
     
     def get_path
-      $_REQUEST['headers']['PATH']
+      @request_headers['headers']['PATH']
     end
     
     def parse_headers headers, body
-      $_REQUEST['headers'] = headers
+      @request_headers['headers'] = headers
       types = [{:headers => headers['QUERY'], :type => 'get', :delimiter => '&'}, {:headers => body, :type => 'post', :delimiter => '&'}, {:headers => headers['cookie'], :type => 'cookie', :delimiter => ';'}]
       
       types.each do |hash|
@@ -79,28 +90,12 @@ module Shada
       end
     end
     
-    def post
-      $_POST
-    end
-    
-    def get
-      $_GET
-    end
-    
     def request
-      $_REQUEST
-    end
-    
-    def cookies
-      $_COOKIES
-    end
-    
-    def files
-      $_FILES
+      @request_headers
     end
     
     def to_s
-      return "Request: #{$_REQUEST.to_s}\n Post: #{$_POST.to_s}\n Get: #{$_GET.to_s}\n Cookies: #{$_COOKIES.to_s}"
+      return "Request: #{@request_headers.to_s}\n Post: #{@post.to_s}\n Get: #{@get.to_s}\n Cookies: #{@cookies.to_s}"
     end
     
     private
