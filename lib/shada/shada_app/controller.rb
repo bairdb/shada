@@ -83,7 +83,7 @@ module Shada
                 if val.length < 100
                   html.input({:type => 'text', :name => v, :value => val})
                 else
-                  html.input({:type => 'textarea', :name => v, :value => val})
+                  html.textarea(val, {:name => v})
                 end
               else
                 html.input({:type => 'text', :name => v, :value => val})

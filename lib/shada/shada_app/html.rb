@@ -37,6 +37,11 @@ module Shada
       @doc << [:input, :input, attributes]
     end
     
+    def textarea value, attributes={}
+      tag = :textarea
+      @doc << [:open, tag, attributes] << [:value, value] << [:close, tag]
+    end
+    
     def method_missing tag, *args, &block
       value = block ? nil : args.pop
       attributes = value.class == Hash ? value.dup : args.pop
