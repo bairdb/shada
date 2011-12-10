@@ -92,7 +92,7 @@ module Shada
     end
     
     def values hash
-      @tag_arr.push /\{\$#{@ic.iconv(hash[:key])}\}/s
+      @tag_arr.push /\{\$#{@ic.iconv(hash[:key].to_s)}\}/s
       @rep_arr.push @ic.iconv(hash[:value])
       
       @tag_arr.zip(@rep_arr).each do |key, val|
