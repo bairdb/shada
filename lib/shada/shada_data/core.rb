@@ -28,7 +28,7 @@ module Shada
       include Shada::Logger
       
       attr_reader :fields, :records, :parent, :children, :db
-      attr_accessor :paginate, :offset
+      attr_accessor :limit, :offset
       
       def initialize
         @update = false
