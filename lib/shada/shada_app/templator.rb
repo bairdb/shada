@@ -164,9 +164,12 @@ module Shada
      @html.scan(@result_pattern).inject(1) do |i, result|
        @rep_pattern = @content_arr[i - 1].to_s.strip
        @tmp = ""
-       puts @content_arr[i - 1]
-       @html = @html.gsub "%%replacement_#{i}%%", @content_arr[i - 1] unless @html.nil?
-       @content_arr.delete_at(i - 1)
+       begin
+        @html = @html.gsub "%%replacement_#{i}%%", @content_arr[i - 1]
+        @content_arr.delete_at(i - 1)
+       rescue => e
+         puts e.message
+       end
        
        #preprocess_results
        
