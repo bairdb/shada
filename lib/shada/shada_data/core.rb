@@ -230,7 +230,7 @@ module Shada
         end
 
       end
-
+      
       def cache
         @@internals[@table][:cache]
       end
