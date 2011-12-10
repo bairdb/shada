@@ -88,11 +88,10 @@ module Shada
           sort = "ORDER BY #{sort}" unless sort.empty?
           
           offset = offset.nil? ? 0: offset
-          puts offset
           slimit = limit > 0 ? "LIMIT #{offset},#{limit}" : ''
-          puts slimit
+          puts slimit unless slimit.nil?
           where_str = "WHERE #{where_str}" unless where_str.empty?
-          sql = "SELECT #{fields} FROM #{table} #{where_str} #{sort} #{slimit}"
+          sql = "SELECT #{fields} FROM #{table} #{where_str} #{sort}"
           #puts sql
           result = query sql, where_arr
           result
