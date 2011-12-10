@@ -89,9 +89,10 @@ module Shada
           sort = "ORDER BY #{sort}" unless sort.empty?
           
           slimit = limit > 0 ? "LIMIT #{offset},#{limit}" : ""
+          puts slimit
           where_str = "WHERE #{where_str}" unless where_str.empty?
-          sql = "SELECT #{fields} FROM #{table} #{where_str} #{sort} #{slimit}"
-          puts sql
+          sql = "SELECT #{fields} FROM #{table} #{where_str} #{sort}"
+          
           result = query sql, where_arr
           result
         rescue => e
