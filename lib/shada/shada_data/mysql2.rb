@@ -59,6 +59,8 @@ module Shada
         
         result = result.to_a
         
+        puts result
+        
         case result.count
         when 0
           puts "No results"
@@ -73,7 +75,6 @@ module Shada
           #find_parent
           @records.push self
         else
-          puts r.count
           result.each do |r|
             obj = self.class.new
             @records.push obj.find(@primary_sym => r[@primary_sym])
