@@ -2,8 +2,8 @@ module Shada
   module Router
     def route path
       begin
-        path_arr = path.split '/'
-        @rest_of_path = path_arr.dup
+        path_arr = path.split '/' unless path.nil?
+        @rest_of_path = path_arr.dup || []
         @i = 0
         puts path
         reload Shada::Config['ControllerPath']
