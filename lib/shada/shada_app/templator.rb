@@ -166,6 +166,8 @@ module Shada
        @tmp = ""
        
        begin
+        puts "HTML: #{@html.nil?}"
+        puts "Array: #{@content_arr[i - 1].nil?}"
         @html = @html.gsub "%%replacement_#{(i - 1)}%%", @content_arr[i - 1]
         @content_arr.delete_at(i - 1)
        rescue => e
