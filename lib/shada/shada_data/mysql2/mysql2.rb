@@ -42,6 +42,7 @@ module Shada
       
       def execute sql, symbolize=true
         begin
+          puts sql
           result = @db.query sql, :symbolize_keys => symbolize
           result
         rescue => e
