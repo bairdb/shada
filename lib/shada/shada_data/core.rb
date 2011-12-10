@@ -43,7 +43,8 @@ module Shada
         @primary = get_primary @table
         @primary_sym = @primary.to_sym
         @fields = get_fields @table
-        @paginate = -1
+        @paginate = 0
+        @offset = 0
         self
       end
       
@@ -230,6 +231,10 @@ module Shada
           File.exist?("#{Shada::Config['CacheDir']}#{file_name}")
         end
 
+      end
+      
+      def offset val
+        @offset = val
       end
       
       def cache

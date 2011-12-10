@@ -78,7 +78,7 @@ module Shada
         result.first[:COLUMN_NAME]
       end
       
-      def find table, fields, where={}, sort=""
+      def find table, fields, where={}, sort="", limit
         begin
           where_arr = []
           where_str = ""
@@ -86,7 +86,8 @@ module Shada
           where.each{|k,v| where_arr.push v}
           
           sort = "ORDER BY #{sort}" unless sort.empty?
-
+          
+          puts limit
           where_str = "WHERE #{where_str}" unless where_str.empty?
           sql = "SELECT #{fields} FROM #{table} #{where_str} #{sort}"
           #puts sql
