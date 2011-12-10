@@ -89,9 +89,8 @@ module Shada
           
           offset = offset >= 0 ? offset : 0
           slimit = limit > 0 ? "LIMIT #{offset},#{limit}" : ''
-          puts slimit unless slimit.nil?
           where_str = "WHERE #{where_str}" unless where_str.empty?
-          sql = "SELECT #{fields} FROM #{table} #{where_str} #{sort}"
+          sql = "SELECT #{fields} FROM #{table} #{where_str} #{sort} #{slimit}"
           #puts sql
           result = query sql, where_arr
           result
