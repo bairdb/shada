@@ -175,6 +175,7 @@ module Shada
          arr.each do |row|
            lrep = @rep_pattern
            row.records.each do |k,v|
+             puts "#{k} - #{v}"
              lrep = lrep.gsub /\{\$#{k.to_s}\}/, v           
            end
            @tmp.insert -1, lrep
