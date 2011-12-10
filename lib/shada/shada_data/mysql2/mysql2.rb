@@ -88,6 +88,8 @@ module Shada
           
           sort = "ORDER BY #{sort}" unless sort.empty?
           
+          offset = offset || 0
+          
           slimit = limit > 0 ? "LIMIT #{offset},#{limit}" : '' unless limit.nil?
           where_str = "WHERE #{where_str}" unless where_str.empty?
           sql = "SELECT #{fields} FROM #{table} #{where_str} #{sort} #{slimit}"
