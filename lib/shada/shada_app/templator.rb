@@ -161,13 +161,12 @@ module Shada
      rep = []
      
      @html = @html.force_encoding("UTF-8")#@ic.iconv(@html)
+     puts "HTML #{@html.nil?}"
      @html.scan(@result_pattern).inject(1) do |i, result|
        @rep_pattern = @content_arr[i - 1].to_s.strip
        @tmp = ""
        
        begin
-        puts "HTML: #{@html.nil?}"
-        puts "Array: #{@content_arr[i - 1].nil?}"
         @html = @html.gsub "%%replacement_#{(i - 1)}%%", @content_arr[i - 1]
         @content_arr.delete_at(i - 1)
        rescue => e
