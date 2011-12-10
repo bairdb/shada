@@ -47,8 +47,8 @@ module Shada
         @update = true
 
         if not cache.pull params.to_s
-          result = get_connection.find table, '*', params, "id ASC", @paginate, @offset
-          kresult = get_connection.find table, 'id', params, "id ASC", @paginate, @offset
+          result = get_connection.find table, '*', params, "id ASC"
+          kresult = get_connection.find table, 'id', params, "id ASC"
           cache.store params.to_s, {:result => result.to_a, :ids => get_ids(kresult)}
         else
           result = cache.pull(params.to_s)[:result]
@@ -58,8 +58,6 @@ module Shada
         save_cache table, cache
         
         result = result.to_a
-        
-        puts result
         
         case result.count
         when 0
@@ -75,6 +73,7 @@ module Shada
           #find_parent
           @records.push self
         else
+
           result.each do |r|
             obj = self.class.new
             @records.push obj.find(@primary_sym => r[@primary_sym])
