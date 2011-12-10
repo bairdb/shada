@@ -45,9 +45,7 @@ module Shada
           result = @db.query sql, :symbolize_keys => symbolize
           result
         rescue => e
-          connect @config
-          result = @db.query sql, :symbolize_keys => symbolize
-          result
+          puts "#{e.message}"
         ensure
           []
         end
