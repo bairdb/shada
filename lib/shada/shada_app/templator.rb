@@ -149,7 +149,7 @@ module Shada
    
    def preprocess_results
      @html = @ic.iconv(@html)
-     @html.scan(@result_pattern).inject(0) do |i, result|
+     @html.scan(@result_pattern).inject(1) do |i, result|
         @content_arr.push result[1]
         @html = @html.gsub /\{results for \$#{Regexp.quote(result[0])}\}(.*?)\{\/results\}/m, "{results for $#{result[0]}}%%replacement_#{i}%%{/results}"
         i + 1
@@ -164,8 +164,11 @@ module Shada
      @html.scan(@result_pattern).inject(1) do |i, result|
        @rep_pattern = @content_arr[i - 1].to_s.strip
        @tmp = ""
+       begin
        @html = @html.gsub "%%replacement_#{i}%%", @content_arr[i - 1]
        @content_arr.delete_at(i - 1)
+       rescue => e
+       end
        
        #preprocess_results
        
