@@ -203,7 +203,9 @@ module Shada
      end
      
      preprocess_results
-     puts @content_arr.count
+     if @content_arr.count > 1
+       results
+     end
    end
    
    def render
