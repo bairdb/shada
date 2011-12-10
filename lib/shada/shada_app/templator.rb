@@ -92,7 +92,7 @@ module Shada
     end
     
     def values hash
-      @tag_arr.push /\{\$#{hash[:key].to_s.force_encoding('UTF-8')}\}/
+      @tag_arr.push /\{\$#{hash[:key].to_s}\}/
       @rep_arr.push @ic.iconv(hash[:value])
       @html = @html.force_encoding('UTF-8')
       
