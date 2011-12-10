@@ -88,6 +88,7 @@ module Shada
           sort = "ORDER BY #{sort}" unless sort.empty?
           
           offset = offset.nil? ? 0: offset
+          puts offset
           slimit = limit > 0 ? "LIMIT #{offset},#{limit}" : ''
           puts slimit
           where_str = "WHERE #{where_str}" unless where_str.empty?
