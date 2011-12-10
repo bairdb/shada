@@ -171,7 +171,7 @@ module Shada
        
        hash = {:tag => result[0], :parse_val => @parse_arr[:function]}
        arr = functions hash, true
-       puts arr.to_s
+       puts arr.first.to_s
        if arr.class == Array
          arr.each do |row|
            lrep = @rep_pattern
