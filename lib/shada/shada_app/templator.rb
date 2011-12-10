@@ -97,9 +97,9 @@ module Shada
       
       @tag_arr.zip(@rep_arr).each do |key, val|
         begin
-          @html = @ic.iconv(@html)
-          @html.gsub! key, val
+          @html.gsub! key, val.force_encoding('UTF-8')
         rescue => e
+          @html.gsub! key, ''
         end
       end
     end
