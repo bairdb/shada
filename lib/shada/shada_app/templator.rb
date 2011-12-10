@@ -166,7 +166,7 @@ module Shada
        @tmp = ""
        begin
        @html = @html.gsub "%%replacement_#{i}%%", @content_arr[i]
-       @content_arr.delete_at(i)
+       #@content_arr.delete_at(i)
        rescue => e
        end
        
