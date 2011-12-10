@@ -166,7 +166,7 @@ module Shada
        @tmp = ""
        
        begin
-        @html = @html.gsub "%%replacement_#{i}%%", @content_arr[i - 1]
+        @html = @html.gsub "%%replacement_#{(i - 1)}%%", @content_arr[i - 1]
         @content_arr.delete_at(i - 1)
        rescue => e
          puts "#{e.message} - #{e.backtrace}"
