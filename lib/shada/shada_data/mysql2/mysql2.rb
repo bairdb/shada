@@ -79,7 +79,7 @@ module Shada
         result.first[:COLUMN_NAME]
       end
       
-      def find table, fields, where={}, sort=""
+      def find table, fields, where={}, sort="", limit=0, offest=0
         begin
           where_arr = []
           where_str = ""

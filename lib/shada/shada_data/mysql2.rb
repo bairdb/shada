@@ -73,10 +73,10 @@ module Shada
           #find_parent
           @records.push self
         else
-
+          puts r.count
           result.each do |r|
-            #obj = self.class.new
-            @records.push r[@primary_sym] #obj.find(@primary_sym => r[@primary_sym])
+            obj = self.class.new
+            @records.push obj.find(@primary_sym => r[@primary_sym])
           end
         end
 
