@@ -201,6 +201,9 @@ module Shada
        @html.gsub! /\{results for \$#{Regexp.quote(result[0])}\}(.*?)\{\/results\}/m, @tmp
        i + 1
      end
+     
+     preprocess_results
+     puts @content_arr.count
    end
    
    def render
