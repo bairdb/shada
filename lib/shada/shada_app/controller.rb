@@ -13,6 +13,7 @@ module Shada
     
     def initialize
       @pagemodel = PagesModel.new
+      @filemodel = FilesModel.new
       @base_link = self.class.name.downcase.gsub('controller', '') != Shada::Config['DefaultController'] ? "/#{self.class.name.downcase.gsub('controller', '')}" : ""
     end
     
