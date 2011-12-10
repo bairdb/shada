@@ -12,6 +12,7 @@ module Shada
     attr_accessor :form, :model, :rest_of_path, :base_link
     
     def initialize
+      @pagemodel = PagesModel.new
       @base_link = self.class.name.downcase.gsub('controller', '') != Shada::Config['DefaultController'] ? "/#{self.class.name.downcase.gsub('controller', '')}" : ""
     end
     
