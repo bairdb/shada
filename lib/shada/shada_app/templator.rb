@@ -99,7 +99,7 @@ module Shada
         begin
           @html = @ic.iconv(@html)
           @html.gsub! key, val
-        rescue =>
+        rescue => e
         end
       end
     end
