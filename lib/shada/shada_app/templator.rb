@@ -192,9 +192,11 @@ module Shada
          end
        end
        
+       preprocess_results
+       
        @html.gsub! /\{results for \$#{Regexp.quote(result[0])}\}(.*?)\{\/results\}/m, @tmp
        
-       preprocess_results
+       
        i + 1
      end
    end
