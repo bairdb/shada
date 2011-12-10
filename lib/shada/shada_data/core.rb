@@ -27,7 +27,7 @@ module Shada
       include Shada::Data::Benchmark
       include Shada::Logger
       
-      attr_reader :fields, :records, :parent, :children, :db
+      attr_reader :fields, :records, :parent, :children, :db, :paginate, :offset
       
       def initialize
         @update = false
@@ -43,6 +43,7 @@ module Shada
         @primary = get_primary @table
         @primary_sym = @primary.to_sym
         @fields = get_fields @table
+        @paginate = -1
         self
       end
       
