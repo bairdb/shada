@@ -184,7 +184,7 @@ module Shada
            else
              row.fields.each do |f|
                puts "#{f.to_s} = #{row.instance_variable_get("@#{f.to_s}")}"
-               lrep = lrep.gsub /\{\$#{f.to_s}\}/, row.instance_variable_get("@#{f}")
+               lrep = lrep.gsub /\{\$#{f.to_s}\}/, "#{row.instance_variable_get("@#{f.to_s}")}"
              end
              @tmp.insert -1, lrep
              lrep = ""
