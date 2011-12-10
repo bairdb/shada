@@ -170,8 +170,6 @@ module Shada
        rescue => e
        end
        
-       preprocess_results
-       
        hash = {:tag => result[0], :parse_val => @parse_arr[:function]}
        arr = functions hash, true
        if arr.class == Array
@@ -195,6 +193,8 @@ module Shada
        end
        
        @html.gsub! /\{results for \$#{Regexp.quote(result[0])}\}(.*?)\{\/results\}/m, @tmp
+       
+       preprocess_results
        i + 1
      end
    end
