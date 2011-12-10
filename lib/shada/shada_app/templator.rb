@@ -173,7 +173,7 @@ module Shada
        arr = functions hash, true
        if arr.class == Array
          arr.each do |row|
-           puts row.class
+           puts row.records
            lrep = @rep_pattern
            row.each do |k,v|
              lrep = lrep.gsub /\{\$#{k.to_s}\}/, v           
