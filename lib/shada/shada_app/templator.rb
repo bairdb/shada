@@ -149,7 +149,7 @@ module Shada
    
    def preprocess_results
      @html = @ic.iconv(@html)
-     @html.scan(@result_pattern).inject(1) do |i, result|
+     @html.scan(@result_pattern).inject(0) do |i, result|
         @content_arr.push result[1]
         @html = @html.gsub /\{results for \$#{Regexp.quote(result[0])}\}(.*?)\{\/results\}/m, "{results for $#{result[0]}}%%replacement_#{i}%%{/results}"
         i + 1
@@ -160,19 +160,12 @@ module Shada
      tags = []
      rep = []
      
-     @html = @html.force_encoding("UTF-8")#@ic.iconv(@html)
-     @html.scan(@result_pattern).inject(0) do |i, result|
-       @rep_pattern = @content_arr[i].to_s.strip
+     @html = @ic.iconv(@html)
+     @html.scan(@result_pattern).inject(1) do |i, result|
+       @rep_pattern = @content_arr[i - 1].to_s.strip
        @tmp = ""
-       
-       begin
-        puts "HTML: #{@html.nil?}"
-        puts "Array: #{@content_arr[i].nil?}"
-        @html = @html.gsub "%%replacement_#{i}%%", @content_arr[i]
-        @content_arr.delete_at(i)
-       rescue => e
-         puts "#{e.message} - #{e.backtrace}"
-       end
+       @html = @html.gsub "%%replacement_#{i}%%", @content_arr[i - 1]
+       @content_arr.delete_at(i - 1)
        
        #preprocess_results
        
@@ -200,11 +193,6 @@ module Shada
        
        @html.gsub! /\{results for \$#{Regexp.quote(result[0])}\}(.*?)\{\/results\}/m, @tmp
        i + 1
-     end
-     
-     preprocess_results
-     if @content_arr.count > 1
-       results
      end
    end
    
