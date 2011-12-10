@@ -172,9 +172,9 @@ module Shada
        hash = {:tag => result[0], :parse_val => @parse_arr[:function]}
        arr = functions hash, true
        if arr.class == Array
-         arr.each do |row|
+         arr.records.each do |row|
            lrep = @rep_pattern
-           row.records.each do |k,v|
+           row.each do |k,v|
              puts "#{k} - #{v}"
              lrep = lrep.gsub /\{\$#{k.to_s}\}/, v           
            end
