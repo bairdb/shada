@@ -160,7 +160,7 @@ module Shada
      tags = []
      rep = []
      
-     @html = @ic.iconv(@html)
+     @html = @html.force_encoding("UTF-8")#@ic.iconv(@html)
      @html.scan(@result_pattern).inject(1) do |i, result|
        @rep_pattern = @content_arr[i - 1].to_s.strip
        @tmp = ""
