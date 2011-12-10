@@ -96,9 +96,8 @@ module Shada
       @rep_arr.push hash[:value]
       
       @tag_arr.zip(@rep_arr).each do |key, val|
-        k = @ic.iconv(key)
         v = @ic.iconv(val)
-        @html.gsub! k, v
+        @html.gsub! key, v
       end
     end
     
