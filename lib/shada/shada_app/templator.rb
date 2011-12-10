@@ -63,6 +63,8 @@ module Shada
       parse 2
       render
       results
+      parse 1
+      parse 2
       #files
       #block
     end
