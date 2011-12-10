@@ -162,12 +162,11 @@ module Shada
      
      @html = @ic.iconv(@html)
      @html.scan(@result_pattern).inject(1) do |i, result|
-       @rep_pattern = @content_arr[i - 1].to_s.strip
+       @rep_pattern = @content_arr[i].to_s.strip
        @tmp = ""
-       puts @content_arr[2]
        begin
-        @html = @html.gsub "%%replacement_#{i}%%", @content_arr[i - 1]
-        @content_arr.delete_at(i - 1)
+        @html = @html.gsub "%%replacement_#{i}%%", @content_arr[i]
+        @content_arr.delete_at(i)
        rescue => e
          puts e.message
        end
