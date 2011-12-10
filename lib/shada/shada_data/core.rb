@@ -27,7 +27,8 @@ module Shada
       include Shada::Data::Benchmark
       include Shada::Logger
       
-      attr_reader :fields, :records, :parent, :children, :db, :paginate, :offset
+      attr_reader :fields, :records, :parent, :children, :db
+      attr_accessor :paginate, :offset
       
       def initialize
         @update = false
@@ -231,10 +232,6 @@ module Shada
           File.exist?("#{Shada::Config['CacheDir']}#{file_name}")
         end
 
-      end
-      
-      def offset val
-        @offset = val
       end
       
       def cache
