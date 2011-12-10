@@ -49,7 +49,7 @@ module Shada
         #if not cache.pull params.to_s
           result = get_connection.find table, '*', params, "id ASC", @limit, @offset
           kresult = get_connection.find table, 'id', params, "id ASC"
-          cache.store params.to_s, {:result => result.to_a, :ids => get_ids(kresult)}
+          #cache.store params.to_s, {:result => result.to_a, :ids => get_ids(kresult)}
         #else
           #result = cache.pull(params.to_s)[:result]
           #puts @cache.pull(params)[:ids]
