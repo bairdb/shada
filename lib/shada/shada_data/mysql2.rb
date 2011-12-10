@@ -45,7 +45,7 @@ module Shada
         @records = nil
         @records = []
         @update = true
-        puts "#{@offset} - #{@limit}"
+        
         #if not cache.pull params.to_s
           result = get_connection.find table, '*', params, "id ASC", @limit, @offset
           kresult = get_connection.find table, 'id', params, "id ASC"
