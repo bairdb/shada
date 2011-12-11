@@ -25,6 +25,7 @@ module Shada
       def get_row_count
         table = table.nil? ? @table : table
         @row_total = get_connection.get_row_count db, table
+        puts @row_total
       end
 
       def get_ids result
