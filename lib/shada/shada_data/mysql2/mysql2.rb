@@ -74,8 +74,8 @@ module Shada
       end
       
       def get_row_count table
-        result = query("SELECT COUNT(*) FROM #{table}", [])
-        result.first
+        result = query("SELECT COUNT(*) AS cnt FROM #{table}", [])
+        result.first[:cnt]
       end
       
       def get_primary db, table
