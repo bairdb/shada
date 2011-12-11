@@ -51,6 +51,8 @@ module Shada
         @update = true
         
         if not cache.pull params.to_s
+          @total_pages = ceil(@limit/@total_rows)
+          @current_page = ceil(@offset/@total_rows)
           result = get_connection.find table, '*', params, "id ASC", @limit, @offset
           kresult = get_connection.find table, 'id', params, "id ASC"
           cache.store params.to_s, {:result => result.to_a, :ids => get_ids(kresult)}
