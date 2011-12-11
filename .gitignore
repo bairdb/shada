@@ -46,3 +46,5 @@ test/tmp/cache_directory.tmp
 doc/nbproject/private/rake-d_txt.html
 
 Rakefile.save
+
+tmp/cache_charters.tmp
