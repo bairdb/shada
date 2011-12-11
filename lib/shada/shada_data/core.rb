@@ -234,6 +234,12 @@ module Shada
 
       end
       
+      def get_row_count
+        @row_total = get_row_count db, @table
+        puts @row_total
+        @row_total
+      end
+      
       def cache
         @@internals[@table][:cache]
       end
