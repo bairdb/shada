@@ -74,7 +74,7 @@ module Shada
       end
       
       def get_row_count table
-        result = query("SELECT COUNT(*) FROM ?", [table])
+        result = query("SELECT COUNT(*) FROM #{table}", [])
         result
       end
       
