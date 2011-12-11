@@ -236,7 +236,7 @@ module Shada
       
       def get_row_count
         puts "Getting Row Total"
-        @row_total = get_row_count db, @table
+        @row_total = get_connection.get_row_count db, @table
         @row_total
       end
       
