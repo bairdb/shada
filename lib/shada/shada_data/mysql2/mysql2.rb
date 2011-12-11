@@ -73,6 +73,11 @@ module Shada
         result
       end
       
+      def get_row_count table
+        result = query("SELECT * FROM `information_schema`.TABLES WHERE TABLE_NAME=?", [table])
+        result
+      end
+      
       def get_primary db, table
         result = query("SELECT * FROM `information_schema`.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA=? AND TABLE_NAME=? AND CONSTRAINT_NAME='PRIMARY'", [db, table])
         result.first[:COLUMN_NAME]

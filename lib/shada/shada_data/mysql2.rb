@@ -21,6 +21,10 @@ module Shada
       def get_fields table
         get_connection.get_fields(table)
       end
+      
+      def get_row_count table
+        get_connection.get_row_count(table)
+      end
 
       def get_ids result
         ids = []

@@ -27,7 +27,7 @@ module Shada
       include Shada::Data::Benchmark
       include Shada::Logger
       
-      attr_reader :fields, :records, :parent, :children, :db
+      attr_reader :fields, :records, :parent, :children, :db, :row_total
       attr_accessor :limit, :offset
       
       def initialize
@@ -42,6 +42,8 @@ module Shada
         @table.gsub!("model", "") unless /.*model/i.match(@table).nil?
         select_adapter
         @primary = get_primary @table
+        @row_total = get_row_count @table
+        puts "Table: #{@row_total}"
         @primary_sym = @primary.to_sym
         @fields = get_fields @table
         @paginate = 0
