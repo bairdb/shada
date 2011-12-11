@@ -73,9 +73,9 @@ module Shada
         result
       end
       
-      def get_row_count db, table
-        result = query("SELECT * FROM `information_schema`.TABLES WHERE TABLE_SCHEMA=? AND TABLE_NAME=? AND TABLE_TYPE='BASE TABLE'", [db, table])
-        result.first[:TABLE_ROWS]
+      def get_row_count table
+        result = query("SELECT COUNT(*) FROM ?", [table])
+        result
       end
       
       def get_primary db, table

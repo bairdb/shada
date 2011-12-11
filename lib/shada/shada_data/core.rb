@@ -238,11 +238,7 @@ module Shada
       end
       
       def get_row_count
-        @row_total = get_connection.get_row_count db, @table
-        puts "#{@limit} - #{@offset}"
-        @total_pages = @limit/@row_total
-        @current_page = @offset/@row_total
-        @row_total
+        get_connection.get_row_count @table
       end
       
       def cache
