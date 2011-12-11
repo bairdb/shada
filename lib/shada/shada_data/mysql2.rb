@@ -65,7 +65,7 @@ module Shada
         
         save_cache table, cache
         
-        #result = result.to_h
+        result = result.to_a
         
         case result.count
         when 0
