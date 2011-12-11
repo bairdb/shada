@@ -235,8 +235,9 @@ module Shada
       end
       
       def get_row_count
-        puts "Getting Row Total"
         @row_total = get_connection.get_row_count db, @table
+        @total_pages = ceil(@limit/@total_rows)
+        @current_page = ceil(@offset/@total_rows)
         @row_total
       end
       
