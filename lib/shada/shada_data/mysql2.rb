@@ -23,7 +23,7 @@ module Shada
       end
       
       def get_row_count table
-        get_connection.get_row_count(table)
+        get_connection.get_row_count db, table
       end
 
       def get_ids result

@@ -42,11 +42,9 @@ module Shada
         @table.gsub!("model", "") unless /.*model/i.match(@table).nil?
         select_adapter
         @primary = get_primary @table
-        if @row_total.nil?
-          row_total_arr = get_row_count(@table)
-          @row_total = row_total_arr.to_a[0][:TABLE_ROWS]
-        end
-        puts @row_total
+        #row_total_arr = get_row_count(@table)
+        #@row_total = row_total_arr.to_a.first
+        #puts @row_total
         @primary_sym = @primary.to_sym
         @fields = get_fields @table
         @limit = 0
