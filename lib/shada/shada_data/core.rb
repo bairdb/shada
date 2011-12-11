@@ -27,8 +27,8 @@ module Shada
       include Shada::Data::Benchmark
       include Shada::Logger
       
-      attr_reader :fields, :records, :parent, :children, :db, :row_total, :total_pages, :current_page
-      attr_accessor :limit, :offset
+      attr_reader :fields, :records, :parent, :children, :db
+      attr_accessor :limit, :offset, :row_total, :total_pages, :current_page
       
       def initialize
         @update = false
@@ -46,6 +46,9 @@ module Shada
         @fields = get_fields @table
         @limit = 0
         @offset = 0
+        @row_total = 0
+        @total_pages = 0
+        @current_page = 0
         self
       end
       
