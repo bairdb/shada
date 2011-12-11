@@ -43,7 +43,7 @@ module Shada
         select_adapter
         @primary = get_primary @table
         @row_total = get_row_count(@table)
-        p @row_total.to_a.first[:TABLE_ROWS]
+        p @row_total[0]
         @primary_sym = @primary.to_sym
         @fields = get_fields @table
         @limit = 0
