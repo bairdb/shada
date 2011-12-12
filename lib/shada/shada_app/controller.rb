@@ -111,7 +111,13 @@ module Shada
       str += str = "</body></html>"
 
     end
-
+    
+    def selected val
+      unless @form[:page] != val
+        'class="selected"'
+      end
+    end
+    
     def save
       unless @rest_of_path.empty?
         @model.find @rest_of_path[0].to_sym => @rest_of_path[1]

@@ -26,6 +26,7 @@ module Shada
           parser = Shada::Multipart_Parser.new.parse tmpf
           
           parser.form_fields.each do |k,v|
+            puts "#{k} = #{v}"
             @form.set_header k, v, 'post'
           end
           
