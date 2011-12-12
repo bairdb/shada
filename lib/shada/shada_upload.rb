@@ -65,7 +65,7 @@ module Shada
       
       @form['Refresh']  = ''
       @form['Content-Type'] = 'text/html'
-      route @form.get_path
+      #route @form.get_path
     end
     
     def save_file tmp_name, real_name
