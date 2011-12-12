@@ -62,8 +62,9 @@ module Shada
                   f.syswrite @tmp
                   f.close
                 end
-
-                @files[@name] = {:filename => @filename, :content => @tmp, :type => @type}
+                
+                #, :content => @tmp
+                @files[@name] = {:filename => @filename, :type => @type}
                 @filename =  nil
                 @body = []
               end
@@ -82,8 +83,9 @@ module Shada
                   f.syswrite @tmp
                   f.close
                 end
-
-                @files[@name] = {:filename => @filename, :content => @tmp, :type => @type}
+                
+                #, :content => @tmp
+                @files[@name] = {:filename => @filename, :type => @type}
                 @filename =  nil
                 @body = []
               end
