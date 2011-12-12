@@ -32,6 +32,10 @@ module Shada
           parser.files.each do |k, v|
             @form.set_header k, v, 'file'
           end
+          
+          @form['Refresh']  = ''
+          @form['Content-Type'] = 'text/html'
+          route @form.get_path
         else
           save_file upload, @headers['PATH']
         end
@@ -55,6 +59,10 @@ module Shada
           parser.files.each do |k, v|
             @form.set_header k, v, 'file'
           end
+          
+          @form['Refresh']  = ''
+          @form['Content-Type'] = 'text/html'
+          route @form.get_path
         else
           f = File.open("#{UPLOAD_ROOT}#{@headers['PATH'].split('/').pop().to_s}", "w"){|f|
             f.write(data.pop())
@@ -62,10 +70,6 @@ module Shada
         end
         
       end
-      
-      @form['Refresh']  = ''
-      @form['Content-Type'] = 'text/html'
-      #route @form.get_path
     end
     
     def save_file tmp_name, real_name
