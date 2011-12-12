@@ -17,9 +17,24 @@ module Shada
     
     def [](key)
       key = key.to_sym
-      return CGI.unescape(@get[key]) unless @get[key] == nil
-      return CGI.unescape(@post[key]) unless @post[key] == nil
-      return CGI.unescape(@files[key]) unless @files[key] == nil
+      
+      if @get[key].is_a? String
+        return CGI.unescape(@get[key]) unless @get[key] == nil
+      else
+        return @get[key] unless @get[key] == nil
+      end
+      
+      if @post[key].is_a? String
+        return CGI.unescape(@post[key]) unless @post[key] == nil
+      else
+        return @post[key] unless @post[key] == nil
+      end
+      
+      if @files[key].is_a? String
+        return CGI.unescape(@files[key]) unless @files[key] == nil
+      else
+        return @files[key] unless @files[key] == nil
+      end
       return ''
     end
     
