@@ -16,7 +16,7 @@ module Shada
         controller = is_class?(controller) ? controller : "#{default.to_s.propercase}Controller"
         
         @controller = Object.const_get(controller).new
-        puts "Adding: #{@form.post}"
+        #puts "Adding: #{@form.post}"
         @controller.form = @form
         @controller.path.inject(1) do |i, p|
           @controller.instance_variable_set("@#{p}",path_arr[i])
