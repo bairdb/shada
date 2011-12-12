@@ -32,8 +32,6 @@ module Shada
           parser.files.each do |k, v|
             @form.set_header k, v, 'file'
           end
-          
-          puts @form.post
         else
           save_file upload, @headers['PATH']
         end
