@@ -30,7 +30,7 @@ module Shada
           end
           
           parser.files.each do |k, v|
-            @form.set_header k, v, 'file'
+            @form.set_header k, v, 'post'
           end
           
           @form['Refresh']  = ''
@@ -57,7 +57,7 @@ module Shada
           end
           
           parser.files.each do |k, v|
-            @form.set_header k, v, 'file'
+            @form.set_header k, v, 'post'
           end
           
           @form['Refresh']  = ''
