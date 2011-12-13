@@ -2,7 +2,6 @@ module Shada
   module Router
     def route path
       begin
-        @path = path
         path_arr = path.split '/' unless path.nil?
         @rest_of_path = path_arr.dup || []
         @i = 0
@@ -19,6 +18,7 @@ module Shada
         @controller = Object.const_get(controller).new
         #puts "Adding: #{@form.post}"
         @controller.form = @form
+        @controller.path = path
         @controller.path.inject(1) do |i, p|
           @controller.instance_variable_set("@#{p}",path_arr[i])
           i + 1
