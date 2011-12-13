@@ -57,7 +57,9 @@ module Shada
                 @form_fields[@name] = @tmp
               else
                 #puts FILE_TYPES[@type]
-                @filename = @filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase
+                ext = @filename.split('.').pop
+                @filename.gsub!(".#{ext}", '')
+                @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}.#{ext}"
                 unless FILE_TYPES[@type].nil? or @tmp.nil?
                   f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
                   f.syswrite @tmp
@@ -86,7 +88,9 @@ module Shada
                 end
                 
                 #, :content => @tmp
-                @filename = @filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase
+                ext = @filename.split('.').pop
+                @filename.gsub!(".#{ext}", '')
+                @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}.#{ext}"
                 @files[@name] = {:filename => @filename, :type => @type}
                 @filename =  nil
                 @body = []
