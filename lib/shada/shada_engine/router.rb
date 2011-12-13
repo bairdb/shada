@@ -2,6 +2,7 @@ module Shada
   module Router
     def route path
       begin
+        @path = path
         path_arr = path.split '/' unless path.nil?
         @rest_of_path = path_arr.dup || []
         @i = 0

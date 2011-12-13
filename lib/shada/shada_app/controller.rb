@@ -9,7 +9,7 @@ module Shada
     
     include Shada::Utils, Shada::Logger
     
-    attr_accessor :form, :model, :rest_of_path, :base_link
+    attr_accessor :form, :model, :rest_of_path, :base_link, :path
     
     def initialize
       @pagemodel = PagesModel.new
@@ -113,7 +113,7 @@ module Shada
     end
     
     def selected val
-       puts "#{@@paths[self.class.name.downcase]} = #{val}"
+       puts "#{@path} = #{val}"
 #      unless @form[:page] != val
 #        'class="selected"'
 #      end
