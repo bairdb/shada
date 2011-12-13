@@ -123,7 +123,10 @@ module Shada
        end
      end
      
-     includes
+     inc2 = @html.scan @include_pattern
+     unless inc2.empty?
+      includes
+     end
    end
    
    def arrays hash
