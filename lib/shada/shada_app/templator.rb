@@ -122,6 +122,8 @@ module Shada
          @html.gsub! pattern, ''
        end
      end
+     
+     includes
    end
    
    def arrays hash
