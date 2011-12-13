@@ -113,10 +113,11 @@ module Shada
     end
     
     def selected val
-       puts "#{@path} = #{val}"
-#      unless @form[:page] != val
-#        'class="selected"'
-#      end
+      if @path == val
+        'class="selected"'
+      else
+        ''
+      end
     end
     
     def load_common templator
