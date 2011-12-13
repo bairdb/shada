@@ -113,9 +113,13 @@ module Shada
     end
     
     def selected val
-      unless @form[:page] != val
-        'class="selected"'
-      end
+       puts "#{@@paths[self.name.downcase]} = #{val}"
+#      unless @form[:page] != val
+#        'class="selected"'
+#      end
+    end
+    
+    def load_common templator
     end
     
     def save
