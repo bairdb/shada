@@ -113,7 +113,7 @@ module Shada
     end
     
     def selected val
-       puts "#{@@paths[self.downcase]} = #{val}"
+       puts "#{@@paths[self.class.name.downcase]} = #{val}"
 #      unless @form[:page] != val
 #        'class="selected"'
 #      end
