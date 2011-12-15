@@ -46,16 +46,16 @@ module Shada
         @records = []
         @update = true
         
-        #if not cache.pull params.to_s
+        if not cache.pull params.to_s
           result = get_connection.find table, '*', params, "id ASC", @limit, @offset
           kresult = get_connection.find table, 'id', params, "id ASC"
-        #  cache.store params.to_s, {:result => result.to_a, :ids => get_ids(kresult)}
-        #else
-        #  result = cache.pull(params.to_s)[:result]
+          cache.store params.to_s, {:result => result.to_a, :ids => get_ids(kresult)}
+        else
+          result = cache.pull(params.to_s)[:result]
           #puts @cache.pull(params)[:ids]
-        #end
+        end
         
-        #save_cache table, cache
+        save_cache table, cache
         
         #result = result.to_a
         
