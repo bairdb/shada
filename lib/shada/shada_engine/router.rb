@@ -4,7 +4,7 @@ module Shada
       begin
         path_arr = path.split '/' unless path.nil?
         
-        unless path_arr.pop == 'robots.txt'
+        unless path_arr[path_arr.count-1] == 'robots.txt'
           @rest_of_path = path_arr.dup || []
           @i = 0
           puts path
