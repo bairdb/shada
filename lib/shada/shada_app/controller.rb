@@ -57,7 +57,7 @@ module Shada
     end
     
     def robots
-      @form.redirect "http://#{Shada::Config['Host']}public/robots.txt"
+      File.read("#{Shada::Config['DocumentRoot']}robots.txt")
     end
     
     def route var=@page
