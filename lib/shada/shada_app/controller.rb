@@ -56,6 +56,10 @@ module Shada
       'Page not found.'
     end
     
+    def robots
+      @form.redirect "http://#{Shada::Config['Host']}/public/robots.txt"
+    end
+    
     def route var=@page
       unless var.nil?
         method = var.to_sym
