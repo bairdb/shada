@@ -44,6 +44,7 @@ module Shada
         puts "Will read file from: #{@headers['x-mongrel2-upload-start']}"
         response = :next
       else
+        puts @headers['content-type']
         if @headers['content-type'] =~ /multipart\/form-data/
           tmpf = "#{UPLOAD_ROOT}/tmp/body.#{rand(1000..9999)}"
           f = File.open(tmpf, "wb"){|f|
