@@ -13,6 +13,7 @@ module Shada
       @cookies = {}
       @response_headers = {}
       @request_headers = {}
+      @outgoing_cookies = []
     end
     
     def [](key)
@@ -92,7 +93,8 @@ module Shada
       cookie = "#{cookie}; expires=#{rfc2822(expires.clone.gmtime)}" unless expires.nil?
       cookie = "#{cookie}; path=#{path}" unless path.nil?
       cookie = "#{cookie}; #{secure}" unless secure.nil?
-      @response_headers['Set-Cookie'] =  cookie
+      @outgoing_cookies.push cookie
+      @response_headers['Set-Cookie'] =  @outgoing_cookies.join("/n")
       @cookies.values.uniq!
     end
     
