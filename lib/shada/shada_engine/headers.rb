@@ -92,7 +92,7 @@ module Shada
       cookie = "#{cookie}; expires=#{rfc2822(expires.clone.gmtime)}" unless expires.nil?
       cookie = "#{cookie}; path=#{path}" unless path.nil?
       cookie = "#{cookie}; #{secure}" unless secure.nil?
-      @response_headers['Set-Cookie'] = [@request_headers['headers']['cookie'], cookie].join("; ")
+      @response_headers['Set-Cookie'] =  cookie
       @cookies.values.uniq!
     end
     
