@@ -86,15 +86,26 @@ module Shada
       @cookies[key]
     end
     
-    def set_cookie key, val, expires='', path='', domain='', secure='FALSE'
-      @cookies.to_s
-      #cookie = "#{key}=#{val}; #{secure} #Domain=#{Shada::Config['Host']};\n"
-      #@response_headers['Set-Cookie'] = []
-      #@cookies.values.uniq!
+    def set_cookie key, val, expires='', path='', domain='', secure=''
+      rfc
+      cookie = "#{key}=#{val}"
+      cookie = "#{cookie}; domain=#{Shada::Config['Host']}"
+      cookie = "#{cookie}; expires=#{expires.clone.gmtime}" if expires
+      cookie = "#{cookie}; path=#{path}" if path
+      cookie = "#{cookie}; #{secure}" if secure
+      @response_headers['Set-Cookie'] = [@cookies, cookie].join("/n")
+      @cookies.values.uniq!
     end
     
     def clear_cookie key
-      @response_headers['Set-Cookie'] = "#{key}="
+      cookie = get_cookie key
+      set_cookie key, cookie, Time.at(0)
+    end
+    
+    def rfc2822 time
+      wday = Time::RFC2822_DAY_NAME[time.day]
+      mon = Time::RFC2822_MONTH_NAME[time.mon - 1]
+      time.strftime("#{wday}, %d-#{mon}-%Y %H:%M:%S GMT")
     end
     
     def get_path
