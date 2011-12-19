@@ -87,10 +87,9 @@ module Shada
     end
     
     def set_cookie key, val, expires='', path='', domain='', secure=''
-      rfc
       cookie = "#{key}=#{val}"
       cookie = "#{cookie}; domain=#{Shada::Config['Host']}"
-      cookie = "#{cookie}; expires=#{expires.clone.gmtime}" if expires
+      cookie = "#{cookie}; expires=#{rfc2822(expires.clone.gmtime)}" if expires
       cookie = "#{cookie}; path=#{path}" if path
       cookie = "#{cookie}; #{secure}" if secure
       @response_headers['Set-Cookie'] = [@cookies, cookie].join("/n")
