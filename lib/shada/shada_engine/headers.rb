@@ -113,7 +113,7 @@ module Shada
     
     def parse_headers headers, body
       @request_headers['headers'] = headers
-      types = [{:headers => headers['QUERY'], :type => 'get', :delimiter => '&'}, {:headers => body, :type => 'post', :delimiter => '&'}, {:headers => headers['cookie'], :type => 'cookie', :delimiter => ';'}]
+      types = [{:headers => headers['QUERY'], :type => 'get', :delimiter => '&'}, {:headers => body, :type => 'post', :delimiter => '&'}, {:headers => headers['cookie'], :type => 'cookie', :delimiter => "\n"}]
       
       types.each do |hash|
         parse hash[:headers], hash[:type], hash[:delimiter]
