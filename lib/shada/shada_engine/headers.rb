@@ -87,8 +87,10 @@ module Shada
     end
     
     def set_cookie key, val, expires='', path='', domain='', secure='FALSE'
-      @response_headers['Set-Cookie'] = "#{key}=#{val}" #; #{secure}" #Domain=#{Shada::Config['Host']};
-      @cookies.values.uniq!
+      @cookies.to_s
+      #cookie = "#{key}=#{val}; #{secure} #Domain=#{Shada::Config['Host']};\n"
+      #@response_headers['Set-Cookie'] = []
+      #@cookies.values.uniq!
     end
     
     def clear_cookie key
