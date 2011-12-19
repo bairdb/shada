@@ -86,7 +86,7 @@ module Shada
       @cookies[key]
     end
     
-    def set_cookie key, val, expires='', path='', domain='', secure=''
+    def set_cookie key, val, expires=nil, path=nil, domain=nil, secure=nil
       cookie = "#{key}=#{val}"
       cookie = "#{cookie}; domain=#{Shada::Config['Host']}"
       cookie = "#{cookie}; expires=#{rfc2822(expires.clone.gmtime)}" unless expires.nil?
