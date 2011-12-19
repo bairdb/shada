@@ -44,7 +44,7 @@ module Shada
         args.each do |v|
           secure.push v
         end
-        @@paths[self.name.downcase] = secure
+        #@@paths[self.name.downcase] = secure
       end
     end
     
