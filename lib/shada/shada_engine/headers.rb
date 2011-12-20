@@ -136,8 +136,15 @@ module Shada
       unless headers.nil?
         begin
           headers.split(delimiter).each do |var|
-            key, val = var.split('=')
-            set_header key, val, type
+            unless type == 'cookie'
+              key, val = var.split('=')
+              set_header key, val, type
+            else
+              var.split(';').each do |v|
+                key, val = v.split('=')
+                set_header key, val, type
+              end
+            end
           end 
         rescue => e
         end
