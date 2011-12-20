@@ -94,8 +94,8 @@ module Shada
       cookie = "#{cookie}; path=#{path}" unless path.nil?
       cookie = "#{cookie}; #{secure}" unless secure.nil?
       @outgoing_cookies.push cookie
-      @response_headers['Set-Cookie'] =  @outgoing_cookies.join("; ")
-      @outgoing_cookies.to_s
+      @response_headers['Set-Cookie'] = @outgoing_cookies.join("; ")
+      @response_headers.to_s
     end
     
     def clear_cookie key
