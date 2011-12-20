@@ -115,7 +115,7 @@ module Shada
     
     def parse_headers headers, body
       @request_headers['headers'] = headers
-      types = [{:headers => headers['QUERY'], :type => 'get', :delimiter => '&'}, {:headers => body, :type => 'post', :delimiter => '&'}, {:headers => headers['cookie'], :type => 'cookie', :delimiter => ", "}]
+      types = [{:headers => headers['QUERY'], :type => 'get', :delimiter => '&'}, {:headers => body, :type => 'post', :delimiter => '&'}, {:headers => headers['cookie'], :type => 'cookie', :delimiter => ";"}]
       
       types.each do |hash|
         parse hash[:headers], hash[:type], hash[:delimiter]
@@ -136,15 +136,8 @@ module Shada
       unless headers.nil?
         begin
           headers.split(delimiter).each do |var|
-            unless type == 'cookie'
-              key, val = var.split('=')
-              set_header key, val, type
-            else
-              var.split(';').each do |v|
-                key, val = v.split('=')
-                set_header key.gsub(/\"+/).to_sym, val, type
-              end
-            end
+            key, val = var.split('=')
+            set_header key, val, type
           end 
         rescue => e
         end
