@@ -94,7 +94,7 @@ module Shada
       cookie = "#{cookie}; path=#{path}" unless path.nil?
       cookie = "#{cookie}; #{secure}" unless secure.nil?
       @outgoing_cookies.push cookie
-      @response_headers['Set-Cookie'] = @outgoing_cookies.join(', ')
+      @response_headers['Set-Cookie'] = @outgoing_cookies.join(',')
       @request_headers['headers']['cookie'].to_s
     end
     
@@ -137,6 +137,7 @@ module Shada
         begin
           headers.split(delimiter).each do |var|
             key, val = var.split('=')
+            puts "#{key}=#{val}"
             set_header key, val, type
           end 
         rescue => e
