@@ -64,7 +64,7 @@ module Shada
     end
     
     def set_header key, val, type='response'
-      key = key.gsub(/\"/, '').to_sym
+      key = key.to_s.gsub(/\"/, '').to_sym
       case type
       when 'get'
         @get[key] = val
