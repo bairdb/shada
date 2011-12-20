@@ -98,15 +98,7 @@ module Shada
       else  
         headers['Content-Length'] = body.size 
       end
-      @payload_headers = headers.map{ |key,val| 
-        unless key == 'Set-Cookie'
-          "#{key}: #{val}"
-        else
-          val.each do |v|
-            "#{key}: #{v}"
-          end
-        end
-      }.join("\r\n")
+      @payload_headers = headers.map{|key,val| "#{key}: #{val}"}.join("\r\n")
 
       return "HTTP/1.1 #{code} #{StatusMessage[code]}\r\n#{@payload_headers}\r\n\r\n#{body}"
     end
