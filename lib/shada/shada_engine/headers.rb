@@ -64,8 +64,7 @@ module Shada
     end
     
     def set_header key, val, type='response'
-      #.to_s.gsub(/[\s]+/, '').gsub(/[\W]+/, '')
-      key = key.to_sym
+      key = key.to_s.chomp.gsub(/\w/, '').to_sym
       puts key
       case type
       when 'get'
@@ -96,7 +95,7 @@ module Shada
       cookie = "#{cookie}; path=#{path}" unless path.nil?
       cookie = "#{cookie}; #{secure}" unless secure.nil?
       @outgoing_cookies.push cookie
-      @response_headers['Set-Cookie'] = @outgoing_cookies.join(',')
+      @response_headers['Set-Cookie'] = @outgoing_cookies.join(', ')
       @cookies.to_s
     end
     
