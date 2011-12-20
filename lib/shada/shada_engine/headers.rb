@@ -137,7 +137,7 @@ module Shada
         begin
           headers.split(delimiter).each do |var|
             key, val = var.split('=')
-            set_header key, val, type
+            set_header key.chomp.to_sym, val, type
           end 
         rescue => e
           puts e.message
