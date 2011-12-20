@@ -95,7 +95,7 @@ module Shada
       cookie = "#{cookie}; #{secure}" unless secure.nil?
       @outgoing_cookies.push cookie
       @response_headers['Set-Cookie'] = @outgoing_cookies.join(',')
-      @request_headers['headers']['cookie'].to_s
+      @cookies.to_s
     end
     
     def clear_cookie key
@@ -115,7 +115,7 @@ module Shada
     
     def parse_headers headers, body
       @request_headers['headers'] = headers
-      types = [{:headers => headers['QUERY'], :type => 'get', :delimiter => '&'}, {:headers => body, :type => 'post', :delimiter => '&'}, {:headers => headers['cookie'], :type => 'cookie', :delimiter => "; "}]
+      types = [{:headers => headers['QUERY'], :type => 'get', :delimiter => '&'}, {:headers => body, :type => 'post', :delimiter => '&'}, {:headers => headers['cookie'], :type => 'cookie', :delimiter => ";"}]
       
       types.each do |hash|
         parse hash[:headers], hash[:type], hash[:delimiter]
@@ -135,9 +135,7 @@ module Shada
     def parse headers, type, delimiter='&'
       unless headers.nil?
         begin
-         puts delimiter
           headers.split(delimiter).each do |var|
-            puts var
             key, val = var.split('=')
             set_header key, val, type
           end 
