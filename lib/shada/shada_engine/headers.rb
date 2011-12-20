@@ -142,7 +142,7 @@ module Shada
             else
               var.split(';').each do |v|
                 key, val = v.split('=')
-                set_header key.gsub(/"+/, "").to_sym, val, type
+                set_header key.to_sym, val, type
               end
             end
           end 
