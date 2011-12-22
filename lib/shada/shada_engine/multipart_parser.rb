@@ -91,7 +91,7 @@ module Shada
                 ext = @filename.split('.').pop
                 @filename.gsub!(".#{ext}", '')
                 @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}.#{ext}"
-                @files[@name] = {:filename => @filename, :type => @type}
+                @files[@name] = {:filename => @filename, :type => @type, :path => '/home/admin/base/site/public/media/uploads/'}
                 @filename =  nil
                 @body = []
               end
