@@ -76,9 +76,10 @@ Shada::CLI.cli do
 	  is_running = `ps aux | grep mongrel2`
 	  `cd ~/base/site; ruby run.rb start`
     `cd ~/base/site; ruby run_monitor.rb start`
+    `cd ~/base/site; ruby run_upload.rb start`
 	  unless is_running.nil?
 	    `cd ~/base; m2sh load -config ~/base/server/mongrel2.conf`
-      `cd ~/base; m2sh start -host 50.57.127.128 -sudo`
+      `cd ~/base; m2sh start -host reelfinatics.com -sudo`
     end
   end
   
@@ -86,9 +87,10 @@ Shada::CLI.cli do
     puts "Stopping Shada"
     `cd ~/base/site; ruby run.rb stop`
     `cd ~/base/site; ruby run_monitor.rb stop`
+    `cd ~/base/site; ruby run_upload.rb stop`
     is_running = `ps aux | grep mongrel2`
     unless is_running.nil?
-      `cd ~/base; m2sh stop -host 50.57.127.128 -sudo`
+      `cd ~/base; m2sh stop -host reelfinatics.com -sudo`
     end
   end
 	
