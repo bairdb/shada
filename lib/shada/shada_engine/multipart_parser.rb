@@ -65,7 +65,7 @@ module Shada
                   f.syswrite @tmp
                   f.close
                 end
-                
+                puts @filename
                 #, :content => @tmp
                 @files[@name] = {:filename => @filename, :type => @type}
                 @filename =  nil
