@@ -60,6 +60,7 @@ module Shada
                 ext = @filename.split('.').pop
                 @filename.gsub!(".#{ext}", '')
                 @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}.#{ext.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}"
+                
                 unless FILE_TYPES[@type].nil? or @tmp.nil?
                   f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
                   f.syswrite @tmp
@@ -80,16 +81,16 @@ module Shada
               if @type == 'form-data'
                 @form_fields[@name] = @tmp
               else
+                ext = @filename.split('.').pop
+                @filename.gsub!(".#{ext}", '')
+                @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}.#{ext.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}"
+                
                 unless FILE_TYPES[@type].nil? or @tmp.nil?
                   f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
                   f.syswrite @tmp
                   f.close
                 end
                 
-                #, :content => @tmp
-                ext = @filename.split('.').pop
-                @filename.gsub!(".#{ext}", '')
-                @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}.#{ext.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}"
                 @files[@name] = {:filename => @filename, :type => FILE_TYPES[@type], :path => '/home/admin/base/site/public/media/uploads/'}
                 @filename =  nil
                 @body = []
