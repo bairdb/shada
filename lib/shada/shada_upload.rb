@@ -53,7 +53,7 @@ module Shada
           
           parser = Shada::Multipart_Parser.new.parse tmpf
           
-          puts parser
+          puts parser.files
           
           parser.form_fields.each do |k,v|
             @form.set_header k, v, 'post'
