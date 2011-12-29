@@ -106,7 +106,6 @@ module Shada
         end
         #puts "#{table} - #{keys} - #{values}"
         ret = get_connection.insert table, keys, values
-        puts ret
         flush_cache
         @saving = false
         self

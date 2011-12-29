@@ -23,8 +23,6 @@ build_gem.sh
 
 pkg/shada-0.0.1.gem
 
-pkg/*
-
 nbproject/private/private.xml
 
 doc/nbproject/private/rake-d_txt.html
@@ -57,3 +55,5 @@ pkg/shada-0.0.1/lib/shada/shada_data/mysql2/mysql2.rb
 lib/shada/shada_upload.rb
 
 .gitignore
+
+pkg/shada-0.0.1/lib/shada/shada_data/mysql2/mysql2.rb
