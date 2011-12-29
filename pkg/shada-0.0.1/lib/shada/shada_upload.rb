@@ -46,13 +46,14 @@ module Shada
         response = :next
       else
         if @headers['content-type'] =~ /multipart\/form-data/
-          puts "Test 1"
           tmpf = "#{UPLOAD_ROOT}/tmp/body.#{rand(1000..9999)}"
           f = File.open(tmpf, "wb"){|f|
             f.write(@body)
           }
           
           parser = Shada::Multipart_Parser.new.parse tmpf
+          
+          puts parser
           
           parser.form_fields.each do |k,v|
             @form.set_header k, v, 'post'
@@ -66,6 +67,7 @@ module Shada
           @form['Content-Type'] = 'text/html'
           route @form.get_path
         else
+          puts "Test 2"
           unless @headers['PATH'].nil?
             f = File.open("#{UPLOAD_ROOT}#{@headers['PATH'].split('/').pop().to_s}", "w"){|f|
               f.write(data.pop())
