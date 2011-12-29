@@ -113,7 +113,6 @@ module Shada
           when /^Content-Type\: (.*)/
             tmp = $1
             @type = tmp.strip.chomp
-            puts "Type: #{@type}"
             @isType = true
             next
           end
@@ -129,7 +128,7 @@ module Shada
           end
           
         rescue => e
-          puts "Error: #{e.message}"
+          #puts "Error: #{e.message}"
           next
         end
       end      

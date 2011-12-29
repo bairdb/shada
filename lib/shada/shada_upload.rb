@@ -22,7 +22,6 @@ module Shada
         end
         
         if @headers['content-type'] =~ /multipart\/form-data/
-          puts "Test"
           tmpf = "#{UPLOAD_ROOT}/tmp/#{@headers['x-mongrel2-upload-start'].split('/').pop().to_s}"
           parser = Shada::Multipart_Parser.new.parse tmpf
           
@@ -53,8 +52,6 @@ module Shada
           
           parser = Shada::Multipart_Parser.new.parse tmpf
           
-          puts parser.files
-          
           parser.form_fields.each do |k,v|
             @form.set_header k, v, 'post'
           end
@@ -67,7 +64,6 @@ module Shada
           @form['Content-Type'] = 'text/html'
           route @form.get_path
         else
-          puts "Test 2"
           unless @headers['PATH'].nil?
             f = File.open("#{UPLOAD_ROOT}#{@headers['PATH'].split('/').pop().to_s}", "w"){|f|
               f.write(data.pop())
