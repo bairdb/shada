@@ -63,6 +63,8 @@ module Shada
       parse 2
       render
       results
+      parse 1
+      parse 2
       #files
       #block
     end
@@ -92,11 +94,16 @@ module Shada
     end
     
     def values hash
-      @tag_arr.push /\{\$#{hash[:key]}\}/s
-      @rep_arr.push hash[:value]
+      @tag_arr.push /\{\$#{hash[:key].to_s}\}/
+      @rep_arr.push @ic.iconv(hash[:value])
+      @html = @html.force_encoding('UTF-8')
       
       @tag_arr.zip(@rep_arr).each do |key, val|
-        @html.gsub! key, val
+        begin
+          @html.gsub! key, val.force_encoding('UTF-8')
+        rescue => e
+          @html.gsub! key, ''
+        end
       end
     end
     
@@ -114,6 +121,11 @@ module Shada
          #puts e.message
          @html.gsub! pattern, ''
        end
+     end
+     
+     inc2 = @html.scan @include_pattern
+     unless inc2.empty?
+      includes
      end
    end
    
@@ -149,7 +161,7 @@ module Shada
    
    def preprocess_results
      @html = @ic.iconv(@html)
-     @html.scan(@result_pattern).inject(1) do |i, result|
+     @html.scan(@result_pattern).inject(0) do |i, result|
         @content_arr.push result[1]
         @html = @html.gsub /\{results for \$#{Regexp.quote(result[0])}\}(.*?)\{\/results\}/m, "{results for $#{result[0]}}%%replacement_#{i}%%{/results}"
         i + 1
@@ -161,28 +173,42 @@ module Shada
      rep = []
      
      @html = @ic.iconv(@html)
-     @html.scan(@result_pattern).inject(1) do |i, result|
-       @rep_pattern = @content_arr[i - 1].to_s.strip
+     @html.scan(@result_pattern).inject(0) do |i, result|
+       @rep_pattern = @content_arr[i].to_s.strip
        @tmp = ""
-       @html = @html.gsub "%%replacement_#{i}%%", @content_arr[i - 1]
-       @content_arr.delete_at(i - 1)
-       
-       #preprocess_results
+       begin
+       @html = @html.gsub "%%replacement_#{i}%%", @content_arr[i]
+       #@content_arr.delete_at(i)
+       rescue => e
+       end
        
        hash = {:tag => result[0], :parse_val => @parse_arr[:function]}
        arr = functions hash, true
        if arr.class == Array
          arr.each do |row|
            lrep = @rep_pattern
-           row.each do |k,v|
-             lrep = lrep.gsub /\{\$#{k.to_s}\}/, v           
+           if row.class == Hash
+             row.each do |k,v|
+               puts "#{k} - #{v}"
+               lrep = lrep.gsub /\{\$#{k.to_s}\}/, v           
+             end
+             @tmp.insert -1, lrep
+             lrep = ""
+           else
+             row.fields.each do |f|
+               lrep = lrep.gsub /\{\$#{f.to_s}\}/, "#{row.instance_variable_get("@#{f.to_s}")}"
+             end
+             @tmp.insert -1, lrep
+             lrep = ""
            end
-           @tmp.insert -1, lrep
-           lrep = ""
          end
        end
        
+       preprocess_results
+       
        @html.gsub! /\{results for \$#{Regexp.quote(result[0])}\}(.*?)\{\/results\}/m, @tmp
+       
+       
        i + 1
      end
    end

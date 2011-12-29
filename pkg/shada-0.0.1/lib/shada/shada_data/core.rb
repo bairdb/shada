@@ -28,6 +28,7 @@ module Shada
       include Shada::Logger
       
       attr_reader :fields, :records, :parent, :children, :db
+      attr_accessor :limit, :offset, :row_total, :total_pages, :current_page
       
       def initialize
         @update = false
@@ -43,6 +44,11 @@ module Shada
         @primary = get_primary @table
         @primary_sym = @primary.to_sym
         @fields = get_fields @table
+        @limit = 0
+        @offset = 0
+        @row_total = 0
+        @total_pages = 0
+        @current_page = 0
         self
       end
       
@@ -230,7 +236,11 @@ module Shada
         end
 
       end
-
+      
+      def get_row_count
+        get_connection.get_row_count @table
+      end
+      
       def cache
         @@internals[@table][:cache]
       end

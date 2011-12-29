@@ -9,9 +9,11 @@ module Shada
     
     include Shada::Utils, Shada::Logger
     
-    attr_accessor :form, :model, :rest_of_path, :base_link
+    attr_accessor :form, :model, :rest_of_path, :base_link, :path
     
     def initialize
+      @pagemodel = PagesModel.new
+      @filemodel = FilesModel.new
       @base_link = self.class.name.downcase.gsub('controller', '') != Shada::Config['DefaultController'] ? "/#{self.class.name.downcase.gsub('controller', '')}" : ""
     end
     
@@ -42,7 +44,7 @@ module Shada
         args.each do |v|
           secure.push v
         end
-        @@paths[self.name.downcase] = secure
+        #@@paths[self.name.downcase] = secure
       end
     end
     
@@ -52,6 +54,10 @@ module Shada
     
     def page_not_found
       'Page not found.'
+    end
+    
+    def robots
+      File.read("#{Shada::Config['DocumentRoot']}robots.txt")
     end
     
     def route var=@page
@@ -109,7 +115,18 @@ module Shada
       str += str = "</body></html>"
 
     end
-
+    
+    def selected val
+      if @path == val
+        'class="selected"'
+      else
+        ''
+      end
+    end
+    
+    def load_common templator
+    end
+    
     def save
       unless @rest_of_path.empty?
         @model.find @rest_of_path[0].to_sym => @rest_of_path[1]

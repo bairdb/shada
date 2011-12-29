@@ -13,13 +13,29 @@ module Shada
       @cookies = {}
       @response_headers = {}
       @request_headers = {}
+      @outgoing_cookies = []
     end
     
     def [](key)
       key = key.to_sym
-      return CGI.unescape(@get[key]) unless @get[key] == nil
-      return CGI.unescape(@post[key]) unless @post[key] == nil
-      return CGI.unescape(@files[key]) unless @files[key] == nil
+      
+      if @get[key].is_a? String
+        return CGI.unescape(@get[key]) unless @get[key] == nil
+      else
+        return @get[key] unless @get[key] == nil
+      end
+      
+      if @post[key].is_a? String
+        return CGI.unescape(@post[key]) unless @post[key] == nil
+      else
+        return @post[key] unless @post[key] == nil
+      end
+      
+      if @files[key].is_a? String
+        return CGI.unescape(@files[key]) unless @files[key] == nil
+      else
+        return @files[key] unless @files[key] == nil
+      end
       return ''
     end
     
@@ -48,7 +64,8 @@ module Shada
     end
     
     def set_header key, val, type='response'
-      key = key.to_sym
+      key = key.to_s.chomp.gsub(/\W/, '').to_sym
+      puts key
       case type
       when 'get'
         @get[key] = val
@@ -71,12 +88,26 @@ module Shada
       @cookies[key]
     end
     
-    def set_cookie key, val, expires='', path='', domain='', secure='FALSE'
-      @response_headers['Set-Cookie'] = "#{key}=#{val}; Domain=#{@request_headers['host']}; #{secure}"
+    def set_cookie key, val, expires=nil, path=nil, domain=nil, secure=nil
+      cookie = "#{key}=#{val}"
+      cookie = "#{cookie}; domain=#{Shada::Config['Host']}"
+      cookie = "#{cookie}; expires=#{rfc2822(expires.clone.gmtime)}" unless expires.nil?
+      cookie = "#{cookie}; path=#{path}" unless path.nil?
+      cookie = "#{cookie}; #{secure}" unless secure.nil?
+      @outgoing_cookies.push cookie
+      @response_headers['Set-Cookie'] = @outgoing_cookies.join(', ')
+      @cookies.to_s
     end
     
     def clear_cookie key
-      @response_headers['Set-Cookie'] = "#{key}="
+      cookie = get_cookie key
+      set_cookie key, cookie, Time.at(0)
+    end
+    
+    def rfc2822 time
+      wday = Time::RFC2822_DAY_NAME[time.day]
+      mon = Time::RFC2822_MONTH_NAME[time.mon - 1]
+      time.strftime("#{wday}, %d-#{mon}-%Y %H:%M:%S GMT")
     end
     
     def get_path
@@ -85,7 +116,7 @@ module Shada
     
     def parse_headers headers, body
       @request_headers['headers'] = headers
-      types = [{:headers => headers['QUERY'], :type => 'get', :delimiter => '&'}, {:headers => body, :type => 'post', :delimiter => '&'}, {:headers => headers['cookie'], :type => 'cookie', :delimiter => ';'}]
+      types = [{:headers => headers['QUERY'], :type => 'get', :delimiter => '&'}, {:headers => body, :type => 'post', :delimiter => '&'}, {:headers => headers['cookie'], :type => 'cookie', :delimiter => "; "}]
       
       types.each do |hash|
         parse hash[:headers], hash[:type], hash[:delimiter]
@@ -107,9 +138,10 @@ module Shada
         begin
           headers.split(delimiter).each do |var|
             key, val = var.split('=')
-            set_header key, val, type
+            set_header key.chomp.to_sym, val, type
           end 
         rescue => e
+          puts e.message
         end
       end
       

@@ -42,12 +42,11 @@ module Shada
       
       def execute sql, symbolize=true
         begin
+          puts sql
           result = @db.query sql, :symbolize_keys => symbolize
           result
         rescue => e
-          connect @config
-          result = @db.query sql, :symbolize_keys => symbolize
-          result
+          puts "#{e.message}"
         ensure
           []
         end
@@ -74,22 +73,31 @@ module Shada
         result
       end
       
+      def get_row_count table
+        result = query("SELECT COUNT(*) AS cnt FROM #{table}", [])
+        result.first[:cnt]
+      end
+      
       def get_primary db, table
         result = query("SELECT * FROM `information_schema`.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA=? AND TABLE_NAME=? AND CONSTRAINT_NAME='PRIMARY'", [db, table])
         result.first[:COLUMN_NAME]
       end
       
-      def find table, fields, where={}, sort=""
+      def find table, fields, where={}, sort="", limit=0, offset=0
         begin
           where_arr = []
           where_str = ""
+          slimit = ""
           where_str = where.map{|k,v| "#{k}=?"}.join(" AND ") unless where.nil?
           where.each{|k,v| where_arr.push v}
           
           sort = "ORDER BY #{sort}" unless sort.empty?
-
+          
+          offset = offset || 0
+          
+          slimit = limit > 0 ? "LIMIT #{offset},#{limit}" : '' unless limit.nil?
           where_str = "WHERE #{where_str}" unless where_str.empty?
-          sql = "SELECT #{fields} FROM #{table} #{where_str} #{sort}"
+          sql = "SELECT #{fields} FROM #{table} #{where_str} #{sort} #{slimit}"
           #puts sql
           result = query sql, where_arr
           result

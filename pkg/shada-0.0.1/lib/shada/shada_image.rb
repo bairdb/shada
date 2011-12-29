@@ -4,8 +4,9 @@ module Shada
   class Image
     attr_accessor :img
     
-    def initialize img_name
-      @img = Magick::Image.read("#{Shada::Config['ImagePath']}#{img_name}").first
+    def initialize img_name, path=""
+      path = path.nil? ? Shada::Config['ImagePath'] : path
+      @img = Magick::Image.read("#{path}#{img_name}").first
       image = img_name.split('.')
       @img_name = image[0]
       @img_ext = image[1]

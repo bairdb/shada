@@ -30,8 +30,12 @@ module Shada
           end
           
           parser.files.each do |k, v|
-            @form.set_header k, v, 'file'
+            @form.set_header k, v, 'post'
           end
+          
+          @form['Refresh']  = ''
+          @form['Content-Type'] = 'text/html'
+          route @form.get_path
         else
           save_file upload, @headers['PATH']
         end
@@ -40,6 +44,7 @@ module Shada
         puts "Will read file from: #{@headers['x-mongrel2-upload-start']}"
         response = :next
       else
+        puts @headers['content-type']
         if @headers['content-type'] =~ /multipart\/form-data/
           tmpf = "#{UPLOAD_ROOT}/tmp/body.#{rand(1000..9999)}"
           f = File.open(tmpf, "wb"){|f|
@@ -53,19 +58,21 @@ module Shada
           end
           
           parser.files.each do |k, v|
-            @form.set_header k, v, 'file'
+            @form.set_header k, v, 'post'
           end
+          
+          @form['Refresh']  = ''
+          @form['Content-Type'] = 'text/html'
+          route @form.get_path
         else
-          f = File.open("#{UPLOAD_ROOT}#{@headers['PATH'].split('/').pop().to_s}", "w"){|f|
-            f.write(data.pop())
-          }
+          unless @headers['PATH'].nil?
+            f = File.open("#{UPLOAD_ROOT}#{@headers['PATH'].split('/').pop().to_s}", "w"){|f|
+              f.write(data.pop())
+            }
+          end
         end
         
       end
-      
-      @form['Refresh']  = ''
-      @form['Content-Type'] = 'text/html'
-      route @form.get_path
     end
     
     def save_file tmp_name, real_name
