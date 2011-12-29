@@ -22,6 +22,7 @@ module Shada
         end
         
         if @headers['content-type'] =~ /multipart\/form-data/
+          puts "Test"
           tmpf = "#{UPLOAD_ROOT}/tmp/#{@headers['x-mongrel2-upload-start'].split('/').pop().to_s}"
           parser = Shada::Multipart_Parser.new.parse tmpf
           
@@ -45,6 +46,7 @@ module Shada
         response = :next
       else
         if @headers['content-type'] =~ /multipart\/form-data/
+          puts "Test 1"
           tmpf = "#{UPLOAD_ROOT}/tmp/body.#{rand(1000..9999)}"
           f = File.open(tmpf, "wb"){|f|
             f.write(@body)
