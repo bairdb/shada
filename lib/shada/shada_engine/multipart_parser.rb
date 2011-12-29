@@ -66,9 +66,10 @@ module Shada
                   f.close
                 end
                 
-                ext = @filename.split('.').pop.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase
+                #, :content => @tmp
+                ext = @filename.split('.').pop
                 @filename.gsub!(".#{ext}", '')
-                @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}.#{ext}"
+                @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}.#{ext.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}"
                 @files[@name] = {:filename => @filename, :type => FILE_TYPES[@type], :path => '/home/admin/base/site/public/media/uploads/'}
                 @filename =  nil
                 @body = []
@@ -89,9 +90,10 @@ module Shada
                   f.close
                 end
                 
-                ext = @filename.split('.').pop.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase
+                #, :content => @tmp
+                ext = @filename.split('.').pop
                 @filename.gsub!(".#{ext}", '')
-                @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}.#{ext}"
+                @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}.#{ext.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}"
                 @files[@name] = {:filename => @filename, :type => FILE_TYPES[@type], :path => '/home/admin/base/site/public/media/uploads/'}
                 @filename =  nil
                 @body = []
