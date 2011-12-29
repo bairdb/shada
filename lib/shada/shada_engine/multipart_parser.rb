@@ -39,7 +39,7 @@ module Shada
     def parse file
       @file = file
       @boundry = File.open(file){|f| f.readline} if @boundry.nil?
-      puts "#{file} - #{@boundry}"
+      
       f = File.new(file)
       f.seek(-(@boundry.size + 2), IO::SEEK_END)
       @lastline =  f.readline
@@ -128,6 +128,7 @@ module Shada
           end
           
         rescue => e
+          puts "Error: #{e.message}"
           next
         end
       end      
