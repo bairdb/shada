@@ -52,6 +52,7 @@ module Shada
         begin
           case line
           when /#{@boundry}.*?/
+            puts @type
             unless @type.nil?
               if @type == 'form-data'
                 @form_fields[@name] = @tmp
