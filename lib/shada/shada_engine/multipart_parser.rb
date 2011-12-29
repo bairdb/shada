@@ -52,7 +52,6 @@ module Shada
         begin
           case line
           when /#{@boundry}.*?/
-            puts @type
             unless @type.nil?
               if @type == 'form-data'
                 @form_fields[@name] = @tmp
@@ -114,7 +113,7 @@ module Shada
           when /^Content-Type\: (.*)/
             tmp = $1
             @type = tmp.strip.chomp
-            puts @type
+            puts "Type: #{@type}"
             @isType = true
             next
           end
