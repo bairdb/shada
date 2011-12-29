@@ -66,6 +66,7 @@ module Shada
           @form['Content-Type'] = 'text/html'
           route @form.get_path
         else
+          puts "Test 2"
           unless @headers['PATH'].nil?
             f = File.open("#{UPLOAD_ROOT}#{@headers['PATH'].split('/').pop().to_s}", "w"){|f|
               f.write(data.pop())
