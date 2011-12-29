@@ -38,6 +38,7 @@ module Shada
     
     def parse file, path=nil
       path = '/home/admin/base/site/public/media/uploads/' unless not path.nil?
+      puts path
       @file = file
       @boundry = File.open(file){|f| f.readline} if @boundry.nil?
       
