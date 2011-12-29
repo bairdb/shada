@@ -1,5 +1,6 @@
 require 'net/smtp'
 require 'net/pop'
+require 'net/imap'
 
 MESSAGE =  <<MESSAGE_END
 From: %%from_name%% <%%from%%>
@@ -93,13 +94,22 @@ module Shada
     end
     
     def get_email
-      pop = Net::POP3.new 'smtp.emailsrvr.com'
-      pop.start 'mail@reelfinatics.com', 'T1meLo4d!'
-      pop.mails.each do |m|
-        m.pop do |chunk|
-          puts chunk
-        end
+      imap = Net::IMAP.new 'secure.emailsrvr.com', 993, true
+      imap.login 'uploads@reelfinatics.com', 'T1meLo4d!'
+      imap.select 'INBOX'
+      imap.search(["NOT",  "DELETED"]).each do |message_id|
+        puts message_id
       end
+      imap.logout
+      imap.disconnect
+      
+      #pop = Net::POP3.new 'smtp.emailsrvr.com'
+      #pop.start 'mail@reelfinatics.com', 'T1meLo4d!'
+      #pop.mails.each do |m|
+      #  m.pop do |chunk|
+      #    puts chunk
+      #  end
+      #end
       
     end
     

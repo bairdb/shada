@@ -36,7 +36,8 @@ module Shada
       return self
     end
     
-    def parse file
+    def parse file, path=nil
+      path = '/home/admin/base/site/public/media/uploads/' unless not path.nil?
       @file = file
       @boundry = File.open(file){|f| f.readline} if @boundry.nil?
       
@@ -61,7 +62,7 @@ module Shada
                 @filename.gsub!(".#{ext}", '')
                 @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}.#{ext}"
                 unless FILE_TYPES[@type].nil? or @tmp.nil?
-                  f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
+                  f = File.open "#{path}#{@filename}", 'wb'
                   f.syswrite @tmp
                   f.close
                 end
@@ -82,7 +83,7 @@ module Shada
                 @form_fields[@name] = @tmp
               else
                 unless FILE_TYPES[@type].nil? or @tmp.nil?
-                  f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
+                  f = File.open "#{path}#{@filename}", 'wb'
                   f.syswrite @tmp
                   f.close
                 end
@@ -140,7 +141,7 @@ module Shada
     
     def handle_file
       unless FILE_TYPES[@type].nil?
-        f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
+        f = File.open "#{path}#{@filename}", 'wb'
         f.syswrite @tmp
         f.close
       end
