@@ -2,10 +2,6 @@ require 'shada/shada_engine'
 require 'shada/shada_utils'
 require 'shada/shada_logger'
 
-
-require_relative '../models/usersmodel'
-require_relative '../models/affiliatesmodel'
-
 module Shada
   class Controller
     @@paths = {}
@@ -147,34 +143,6 @@ module Shada
       @form.redirect "http://#{Shada::Config['Host']}#{@base_link}/list"
       
       ""
-    end
-    
-    def login_area
-      
-      check_user = UsersModel.new
-      check_user.find :username => @form.get_cookie(:username)
-      
-      unless check_user.records.count > 0    
-              nav = <<NAV
-      <form action="/users/login" method="post" id="login_form" class="login_form">>
-        <ul>
-            <li id="login_links">LOG IN | SEARCH</li>
-            <li><h2><a href="/users/become_a_member">REGISTER</a></h2></li>
-            <li><input type="text" name="username"></li>
-            <li><input type="password" name="password"></li>
-            <li><a href="/" class="forgot_password">Forgot Password?</a><img src="/public/media/images/form_submit.png" class=
-          "signup_btn click" id="submit_form-login"></li>
-        </ul>
-        <div class="highlight" id="response"></div>
-    </form>
-NAV
-        nav
-      else
-        logged_in = <<LOGGEDIN
-      <h2>Welcome #{check_user.name}</h2>
-LOGGEDIN
-        logged_in
-      end
     end
     
     def render content
