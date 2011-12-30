@@ -95,7 +95,11 @@ module Shada
     
     def values hash
       @tag_arr.push /\{\$#{hash[:key].to_s}\}/
-      @rep_arr.push @ic.iconv(hash[:value]) if hash[:value].is_a?(String)
+      if hash[:value].is_a?(String)
+        @rep_arr.push @ic.iconv(hash[:value]) 
+      else
+        @rep_arr.push hash[:value] 
+      end
       @html = @html.force_encoding('UTF-8')
       
       @tag_arr.zip(@rep_arr).each do |key, val|
