@@ -114,7 +114,7 @@ module Shada
     end
     
     def parse_headers headers, body
-      puts @request_headers
+      puts headers
       @request_headers['headers'] = headers
       types = [{:headers => headers['QUERY'], :type => 'get', :delimiter => '&'}, {:headers => body, :type => 'post', :delimiter => '&'}, {:headers => headers['cookie'], :type => 'cookie', :delimiter => "; "}]
       
