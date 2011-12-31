@@ -156,7 +156,7 @@ module Shada
     end
     
     def cleanup
-      #File.unlink @file
+      File.unlink @file
     end
     
   end
