@@ -57,3 +57,11 @@ lib/shada/shada_upload.rb
 .gitignore
 
 pkg/shada-0.0.1/lib/shada/shada_data/mysql2/mysql2.rb
+
+pkg/shada-0.0.1/lib/shada/shada_app/templator.rb
+
+pkg/shada-0.0.1/lib/shada/shada_engine/headers.rb
+
+pkg/shada-0.0.1/lib/shada/shada_app/templator.rb
+
+pkg/shada-0.0.1/lib/shada/shada_upload.rb

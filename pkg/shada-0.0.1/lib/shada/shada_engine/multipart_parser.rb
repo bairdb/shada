@@ -33,11 +33,13 @@ module Shada
       @cnt = 0
       @name = ''
       @body = []
+      @p = ''
       return self
     end
     
-    def parse file
+    def parse file, path=nil
       @file = file
+      @p = path ? path : '/home/admin/base/site/public/media/uploads/'
       @boundry = File.open(file){|f| f.readline} if @boundry.nil?
       
       f = File.new(file)
@@ -59,15 +61,15 @@ module Shada
                 #puts FILE_TYPES[@type]
                 ext = @filename.split('.').pop
                 @filename.gsub!(".#{ext}", '')
-                @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}.#{ext}"
+                @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}.#{ext.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}"
+                
                 unless FILE_TYPES[@type].nil? or @tmp.nil?
-                  f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
+                  f = File.open "#{@p}#{@filename}", 'wb'
                   f.syswrite @tmp
                   f.close
                 end
                 
-                #, :content => @tmp
-                @files[@name] = {:filename => @filename, :type => @type}
+                @files[@name] = {:filename => @filename, :type => FILE_TYPES[@type], :path => '/home/admin/base/site/public/media/uploads/'}
                 @filename =  nil
                 @body = []
               end
@@ -81,16 +83,16 @@ module Shada
               if @type == 'form-data'
                 @form_fields[@name] = @tmp
               else
+                ext = @filename.split('.').pop
+                @filename.gsub!(".#{ext}", '')
+                @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}.#{ext.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}"
+                
                 unless FILE_TYPES[@type].nil? or @tmp.nil?
-                  f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
+                  f = File.open "#{@p}#{@filename}", 'wb'
                   f.syswrite @tmp
                   f.close
                 end
                 
-                #, :content => @tmp
-                ext = @filename.split('.').pop
-                @filename.gsub!(".#{ext}", '')
-                @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}.#{ext}"
                 @files[@name] = {:filename => @filename, :type => FILE_TYPES[@type], :path => '/home/admin/base/site/public/media/uploads/'}
                 @filename =  nil
                 @body = []
@@ -128,6 +130,7 @@ module Shada
           end
           
         rescue => e
+          #puts "Error: #{e.message}"
           next
         end
       end      
@@ -140,7 +143,7 @@ module Shada
     
     def handle_file
       unless FILE_TYPES[@type].nil?
-        f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
+        f = File.open "#{@p}#{@filename}", 'wb'
         f.syswrite @tmp
         f.close
       end

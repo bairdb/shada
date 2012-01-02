@@ -34,6 +34,7 @@ module Shada
       @name = ''
       @body = []
       @p = ''
+      @encoding = ''
       return self
     end
     
@@ -107,16 +108,29 @@ module Shada
             @filename = $2
             @isDisp = true
             next
+          when /^Content-Disposition\: inline\; filename=\"(.*?)\"/
+            @name = $1
+            @filename = $2
+            @isDisp = true
           when /^Content-Disposition\: form-data\; name=\"(.*?)\"/
             @name = $1
             @type = 'form-data'
             @isDisp = true
+            next
+          when /^Content-Type\: (.*);(.*)/
+            tmp = $1
+            @type = tmp.strip.chomp
+            @isType = false
             next
           when /^Content-Type\: (.*)/
             tmp = $1
             @type = tmp.strip.chomp
             @isType = true
             next
+          when /^Content-Transfer-Encoding\: (.*)/
+            encoding = $1
+            @encoding = encoding.strip.chomp
+            @isType = true
           end
           
           unless @isDisp

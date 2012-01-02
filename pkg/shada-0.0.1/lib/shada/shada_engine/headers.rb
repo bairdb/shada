@@ -65,7 +65,6 @@ module Shada
     
     def set_header key, val, type='response'
       key = key.to_s.chomp.gsub(/\W/, '').to_sym
-      puts key
       case type
       when 'get'
         @get[key] = val
@@ -88,11 +87,11 @@ module Shada
       @cookies[key]
     end
     
-    def set_cookie key, val, expires=nil, path=nil, domain=nil, secure=nil
+    def set_cookie key, val, expires=nil, path='/', domain=nil, secure=nil
       cookie = "#{key}=#{val}"
       cookie = "#{cookie}; domain=#{Shada::Config['Host']}"
       cookie = "#{cookie}; expires=#{rfc2822(expires.clone.gmtime)}" unless expires.nil?
-      cookie = "#{cookie}; path=#{path}" unless path.nil?
+      cookie = "#{cookie}; path=#{path}"
       cookie = "#{cookie}; #{secure}" unless secure.nil?
       @outgoing_cookies.push cookie
       @response_headers['Set-Cookie'] = @outgoing_cookies.join(', ')
