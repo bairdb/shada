@@ -33,11 +33,13 @@ module Shada
       @cnt = 0
       @name = ''
       @body = []
+      @p = ''
       return self
     end
     
-    def parse file
+    def parse file, path=nil
       @file = file
+      @p = path ? path : '/home/admin/base/site/public/media/uploads/'
       @boundry = File.open(file){|f| f.readline} if @boundry.nil?
       
       f = File.new(file)
@@ -62,7 +64,7 @@ module Shada
                 @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}.#{ext.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}"
                 
                 unless FILE_TYPES[@type].nil? or @tmp.nil?
-                  f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
+                  f = File.open "#{@p}#{@filename}", 'wb'
                   f.syswrite @tmp
                   f.close
                 end
@@ -86,7 +88,7 @@ module Shada
                 @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}.#{ext.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}"
                 
                 unless FILE_TYPES[@type].nil? or @tmp.nil?
-                  f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
+                  f = File.open "#{@p}#{@filename}", 'wb'
                   f.syswrite @tmp
                   f.close
                 end
@@ -141,7 +143,7 @@ module Shada
     
     def handle_file
       unless FILE_TYPES[@type].nil?
-        f = File.open "/home/admin/base/site/public/media/uploads/#{@filename}", 'wb'
+        f = File.open "#{@p}#{@filename}", 'wb'
         f.syswrite @tmp
         f.close
       end
