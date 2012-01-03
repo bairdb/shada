@@ -40,15 +40,15 @@ module Shada
         
       end
       
-      def find params={}, table=nil
+      def find params={}, sort='id ASC', table=nil
         table = table.nil? ? @table : table
         @records = nil
         @records = []
         @update = true
         
         #if not cache.pull params.to_s
-          result = get_connection.find table, '*', params, "id ASC", @limit, @offset
-          kresult = get_connection.find table, 'id', params, "id ASC"
+          result = get_connection.find table, '*', params, sort, @limit, @offset
+          kresult = get_connection.find table, 'id', params, sort
         #  cache.store params.to_s, {:result => result.to_a, :ids => get_ids(kresult)}
         #else
         #  result = cache.pull(params.to_s)[:result]
