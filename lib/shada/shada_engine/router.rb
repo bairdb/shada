@@ -16,10 +16,14 @@ module Shada
 
           controller = "#{(path_arr[1] || default).to_s.propercase}Controller"
           controller = is_class?(controller) ? controller : "#{default.to_s.propercase}Controller"
-
+          
+          username = @form.get_cookie(:username)
+          user = UsersModel.new
+          
           @controller = Object.const_get(controller).new
           #puts "Adding: #{@form.post}"
           @controller.form = @form
+          @controller.user = user.find :username => username
           @controller.path = path
           @controller.path.inject(1) do |i, p|
             @controller.instance_variable_set("@#{p}",path_arr[i])
