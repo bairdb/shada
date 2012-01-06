@@ -272,7 +272,7 @@ module Shada
         arr = []
         @records.each do |record|
           hash = {}
-          @fields.map{|f| hash[f] = instance_variable_get("@#{f}")}
+          @fields.map{|f| hash[f] = record.instance_variable_get("@#{f}")}
           arr.push hash
         end
         
