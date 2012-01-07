@@ -276,7 +276,7 @@ module Shada
           arr.push hash
         end
         
-        arr
+        arr.to_json()
       end
       
       def method_missing name, *args, &block
