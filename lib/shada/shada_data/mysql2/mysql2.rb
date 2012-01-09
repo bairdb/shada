@@ -89,7 +89,7 @@ module Shada
           where_str = ""
           slimit = ""
           where_str = where.map{|k,v| "#{k}=?"}.join(" AND ") unless where.nil?
-          where.each{|k,v| where_arr.push v}
+          where.each{|k,v| where_arr.push v} unless where.nil?
           
           sort = "ORDER BY #{sort}" unless sort.empty?
           
