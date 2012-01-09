@@ -273,10 +273,8 @@ module Shada
         @records.each do |record|
           hash = {}
           @fields.map do |f| 
-            if f == 'date_submitted'
-              hash[f.to_s] = record.instance_variable_get("@#{f}").to_s.gsub(':', '')
-            else
-              hash[f.to_s] = record.instance_variable_get("@#{f}").to_s
+            unless record.instance_variable_get("@#{f}").to_s.nil?
+                hash[f.to_s] = record.instance_variable_get("@#{f}").to_s
             end
           end
           arr.push hash
