@@ -45,6 +45,7 @@ module Shada
         @records = nil
         @records = []
         @update = true
+        puts "#{table} - #{fields} - #{params}"
         result = get_connection.find table, fields, params, sort, @limit, @offset
         results result
       end
