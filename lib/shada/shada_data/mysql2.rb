@@ -40,11 +40,11 @@ module Shada
         
       end
       
-      def find_for params={}, fields='*', sort='id ASC'
+      def find_for fields=[], params={}, sort='id ASC'
         @records = nil
         @records = []
         @update = true
-        result = get_connection.find table, fields, params, sort, @limit, @offset
+        result = get_connection.find table, fields.join(','), params, sort, @limit, @offset
         results result
       end
       
