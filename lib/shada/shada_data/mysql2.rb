@@ -46,7 +46,29 @@ module Shada
         @records = []
         @update = true
         result = get_connection.find table, fields, params, sort, @limit, @offset
-        results result
+        
+        case result.count
+        when 0
+          puts "No results"
+        when 1
+          r = result.first
+          @fields.each do |m|
+            #puts "#{m} = #{r[m.to_sym]}"
+            val = (r[m.to_sym]).class == String ? unescape(r[m.to_sym]) : r[m.to_sym]
+            instance_variable_set("@#{m}", val)
+          end
+
+          #find_parent
+          @records.push self
+        else
+
+          result.each do |r|
+            obj = self.class.new
+            @records.push obj.find_for(fields, {@primary_sym => r[@primary_sym]})
+          end
+        end
+
+        return self
       end
       
       def find params=nil, sort='id ASC', table=nil
@@ -55,23 +77,7 @@ module Shada
         @records = []
         @update = true
         result = get_connection.find table, '*', params, sort, @limit, @offset
-        results result
         
-        #if not cache.pull params.to_s
-        #  result = get_connection.find table, '*', params, sort, @limit, @offset
-        #  kresult = get_connection.find table, 'id', params, sort
-        #  cache.store params.to_s, {:result => result.to_a, :ids => get_ids(kresult)}
-        #else
-        #  result = cache.pull(params.to_s)[:result]
-          #puts @cache.pull(params)[:ids]
-        #end
-        
-        #save_cache table, cache
-        
-        #result = result.to_a
-      end
-      
-      def results result
         case result.count
         when 0
           puts "No results"
@@ -94,6 +100,19 @@ module Shada
         end
 
         return self
+        
+        #if not cache.pull params.to_s
+        #  result = get_connection.find table, '*', params, sort, @limit, @offset
+        #  kresult = get_connection.find table, 'id', params, sort
+        #  cache.store params.to_s, {:result => result.to_a, :ids => get_ids(kresult)}
+        #else
+        #  result = cache.pull(params.to_s)[:result]
+          #puts @cache.pull(params)[:ids]
+        #end
+        
+        #save_cache table, cache
+        
+        #result = result.to_a
       end
       
       def save
