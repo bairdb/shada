@@ -9,7 +9,7 @@ module Shada
     
     include Shada::Utils, Shada::Logger
     
-    attr_accessor :form, :model, :rest_of_path, :base_link, :path
+    attr_accessor :form, :model, :rest_of_path, :base_link, :path, :user
     
     def initialize
       @pagemodel = PagesModel.new

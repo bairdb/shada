@@ -268,6 +268,21 @@ module Shada
         find vals
       end
       
+      def to_json
+        arr = []
+        @records.each do |record|
+          hash = {}
+          @fields.map do |f| 
+            unless record.instance_variable_get("@#{f}").to_s.nil?
+                hash[f.to_s] = record.instance_variable_get("@#{f}").to_s
+            end
+          end
+          arr.push hash
+        end
+        
+        arr.to_json()
+      end
+      
       def method_missing name, *args, &block
         return ghost_query $1, $2 if name.to_s =~ /^search_(.*)_for_(.*)/
         return add_column name, args, block if name.to_s =~ /^(.*)=/

@@ -87,12 +87,13 @@ module Shada
       @cookies[key]
     end
     
-    def set_cookie key, val, expires=nil, path='/', domain=nil, secure=nil
+    def set_cookie key, val, expires=nil, path='/', domain=nil, secure=nil, http=true
       cookie = "#{key}=#{val}"
       cookie = "#{cookie}; domain=#{Shada::Config['Host']}"
       cookie = "#{cookie}; expires=#{rfc2822(expires.clone.gmtime)}" unless expires.nil?
       cookie = "#{cookie}; path=#{path}"
       cookie = "#{cookie}; #{secure}" unless secure.nil?
+      cookie = "#{cookie}; HTTPOnly" if http
       @outgoing_cookies.push cookie
       @response_headers['Set-Cookie'] = @outgoing_cookies.join(', ')
       @cookies.to_s
