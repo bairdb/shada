@@ -40,17 +40,16 @@ module Shada
         
       end
       
-      def find_for fields='*', params={}, sort='id ASC'
+      def find_for fields='*', params=nil, sort='id ASC'
         table = @table
         @records = nil
         @records = []
         @update = true
-        puts "#{table} - #{fields} - #{params}"
         result = get_connection.find table, fields, params, sort, @limit, @offset
         results result
       end
       
-      def find params={}, sort='id ASC', table=nil
+      def find params=nil, sort='id ASC', table=nil
         table = table.nil? ? @table : table
         @records = nil
         @records = []
