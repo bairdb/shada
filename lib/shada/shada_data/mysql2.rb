@@ -41,6 +41,7 @@ module Shada
       end
       
       def find_for fields=[], params={}, sort='id ASC'
+        table = @table
         @records = nil
         @records = []
         @update = true
