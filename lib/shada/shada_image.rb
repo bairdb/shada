@@ -35,7 +35,7 @@ module Shada
     def resize2 width, height, save=true, path=""
       img_size = {:main =>{:cols => width,:rows => height}}
       
-      main_image = imgs.first.change_geometry!("#{img_size[:main][:cols]}x#{img_size[:main][:rows]}") do |cols, rows, img|
+      main_image = @img.change_geometry!("#{img_size[:main][:cols]}x#{img_size[:main][:rows]}") do |cols, rows, img|
        if cols < img_size[:main][:cols] || rows < img_size[:main][:rows]
         img.resize!(cols, rows)
         bg = Magick::Image.new(img_size[:main][:cols],img_size[:main][:rows]){self.background_color = "white"}
