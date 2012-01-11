@@ -44,11 +44,11 @@ module Shada
           img.resize!(cols, rows)
        end
       end
-      main_image
+      main_image.to_blob
       #if save
       #  main_image.write "#{path}#{@img_name}.#{@img_ext}" unless File.exists? "#{Shada::Config['ImagePath']}#{@img_name}.#{@img_ext}"
       #else
-      #  main_image.to_blob
+        
       #end
     end
     
