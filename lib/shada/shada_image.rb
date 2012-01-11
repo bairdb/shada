@@ -44,7 +44,7 @@ module Shada
           img.resize!(cols, rows)
        end
       end
-      puts main_image
+      main_image
       #if save
       #  main_image.write "#{path}#{@img_name}.#{@img_ext}" unless File.exists? "#{Shada::Config['ImagePath']}#{@img_name}.#{@img_ext}"
       #else
