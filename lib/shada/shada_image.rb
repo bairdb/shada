@@ -32,6 +32,26 @@ module Shada
       end
     end
     
+    def resize2 width, height, save=true, path=""
+      img_size = {:main =>{:cols => width,:rows => height}}
+      
+      main_image = imgs.first.change_geometry!("#{img_size[:main][:cols]}x#{img_size[:main][:rows]}") do |cols, rows, img|
+       if cols < img_size[:main][:cols] || rows < img_size[:main][:rows]
+        img.resize!(cols, rows)
+        bg = Magick::Image.new(img_size[:main][:cols],img_size[:main][:rows]){self.background_color = "white"}
+        bg.composite(img, Magick::CenterGravity, Magick::OverCompositeOp)
+       else
+          img.resize!(cols, rows)
+       end
+      end
+      
+      if save
+        main_image.write "#{path}#{@img_name}.#{@img_ext}" unless File.exists? "#{Shada::Config['ImagePath']}#{@img_name}.#{@img_ext}"
+      else
+        main_image.to_blob
+      end
+    end
+    
     def scale percent, save=true, path=""
       path = path.nil? ? Shada::Config['ImagePath'] : path
       tmp_img = @img.scale percent
