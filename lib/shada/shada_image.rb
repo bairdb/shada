@@ -35,16 +35,17 @@ module Shada
     def resize2 width, height, save=true, path=""
       path = path.nil? ? Shada::Config['ImagePath'] : path
       
-      main_image = @img.change_geometry("#{width}x#{height}") do |cols, rows, img|
+      @img.change_geometry!("#{width}x#{height}") do |cols, rows, img|
        if cols < width || rows < height
         img.resize!(cols, rows)
         bg = Magick::Image.new(width,height){self.background_color = "white"}
         bg.composite(img, Magick::CenterGravity, Magick::OverCompositeOp)
        else
-          img.resize!(cols, rows)
+        img.resize!(cols, rows)
        end
       end
-      main_image.to_blob
+      
+      @img.to_blob
       #if save
       #  main_image.write "#{path}#{@img_name}.#{@img_ext}" unless File.exists? "#{Shada::Config['ImagePath']}#{@img_name}.#{@img_ext}"
       #else
