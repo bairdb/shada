@@ -49,6 +49,7 @@ module Shada
         @row_total = 0
         @total_pages = 0
         @current_page = 0
+        @record_count = 0
         self
       end
       

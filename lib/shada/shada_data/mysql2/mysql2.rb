@@ -103,7 +103,7 @@ module Shada
           
           unless klass.nil?
             cnt = query("SELECT COUNT(*) AS cnt FROM #{table} #{where_str}", where_arr)
-            klass.record_count = cnt.first[:cnt]
+            klass.instance_variable_set("@record_count", cnt.first[:cnt])
           end
           
           result
