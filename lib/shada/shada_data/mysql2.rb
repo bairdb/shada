@@ -33,7 +33,7 @@ module Shada
       
       def count_rows params=nil
         table = @table
-        get_connections.get_row_count_for table, params
+        get_connection.get_row_count_for table, params
       end
       
       def find_parent
