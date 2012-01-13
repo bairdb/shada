@@ -15,7 +15,9 @@ module Shada
       end
 
       def get_primary table
-        get_connection.get_primary db, table
+        if @primary.nil?
+          get_connection.get_primary db, table
+        end
       end
 
       def get_fields table

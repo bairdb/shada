@@ -21,7 +21,6 @@ module Shada
           uname = ""
           
           unless username.nil?
-            puts "Username = #{username}"
             user = UsersModel.new
             uname = user.find :username => username
           end
