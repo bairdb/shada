@@ -19,6 +19,7 @@ module Shada
           
           username = @form.get_cookie(:username)
           uname = ""
+          puts "Username = #{username}"
           unless username.nil?
             user = UsersModel.new
             uname = user.find :username => username
