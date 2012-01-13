@@ -78,6 +78,17 @@ module Shada
         result.first[:cnt]
       end
       
+      def get_row_count_for table, where={}
+        where_arr = []
+        where_str = ""
+        where_str = where.map{|k,v| "#{k}=?"}.join(" AND ") unless where.nil?
+        where.each{|k,v| where_arr.push v} unless where.nil?
+        where_str = "WHERE #{where_str}" unless where_str.empty?
+        cnt = query("SELECT COUNT(*) AS cnt FROM #{table} #{where_str}", where_arr)
+        puts cnt.first[:cnt]
+        cnt.first[:cnt]
+      end
+      
       def get_primary db, table
         result = query("SELECT * FROM `information_schema`.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA=? AND TABLE_NAME=? AND CONSTRAINT_NAME='PRIMARY'", [db, table])
         result.first[:COLUMN_NAME]
@@ -100,12 +111,6 @@ module Shada
           sql = "SELECT #{fields} FROM #{table} #{where_str} #{sort} #{slimit}"
           #puts sql
           result = query sql, where_arr
-          
-          unless klass.nil?
-            cnt = query("SELECT COUNT(*) AS cnt FROM #{table} #{where_str}", where_arr)
-            puts cnt.first[:cnt]
-            klass.instance_variable_set("@record_count", cnt.first[:cnt])
-          end
           
           result
         rescue => e

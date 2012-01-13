@@ -30,7 +30,12 @@ module Shada
 
         ids
       end
-
+      
+      def count params=nil
+        table = @table
+        get_connections.get_row_count_for table, params
+      end
+      
       def find_parent
         val = instance_variable_get("@#{belongs_to_hash[:col]}")
         @parent = get_connection.find belongs_to_hash[:table], '*', {:id => val}, 'id ASC'
