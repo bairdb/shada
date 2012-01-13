@@ -83,7 +83,7 @@ module Shada
         result.first[:COLUMN_NAME]
       end
       
-      def find table, fields, where={}, sort="", limit=0, offset=0
+      def find table, fields, where={}, sort="", limit=0, offset=0, klass=nil
         begin
           where_arr = []
           where_str = ""
@@ -100,6 +100,12 @@ module Shada
           sql = "SELECT #{fields} FROM #{table} #{where_str} #{sort} #{slimit}"
           #puts sql
           result = query sql, where_arr
+          
+          unless klass.nil?
+            cnt = query("SELECT COUNT(*) AS cnt FROM #{table} #{where_str}", where_arr)
+            klass.record_count = cnt.first[:cnt]
+          end
+          
           result
         rescue => e
           puts "#{e.message} - #{e.backtrace}"

@@ -45,7 +45,7 @@ module Shada
         @records = nil
         @records = []
         @update = true
-        result = get_connection.find table, fields, params, sort, @limit, @offset
+        result = get_connection.find table, fields, params, sort, @limit, @offset, self
         
         case result.count
         when 0
@@ -76,7 +76,7 @@ module Shada
         @records = nil
         @records = []
         @update = true
-        result = get_connection.find table, '*', params, sort, @limit, @offset
+        result = get_connection.find table, '*', params, sort, @limit, @offset, self
         
         case result.count
         when 0
