@@ -31,7 +31,7 @@ module Shada
         ids
       end
       
-      def count params=nil
+      def count_rows params=nil
         table = @table
         get_connections.get_row_count_for table, params
       end
