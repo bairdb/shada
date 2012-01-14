@@ -154,7 +154,6 @@ module Shada
         function = value[1]
         function_pieces = function.scan /(.*)\((.*)\)/ || function
         function_name = function.gsub /\((.*)\)/, ''
-        handle_param
         oparam_arr = function_pieces[0][1].split(',').map{|val| val.strip!}
         res = klass.send function_name.to_sym, *oparam_arr
 
