@@ -168,7 +168,7 @@ module Shada
             @registry.each do |key, val|
               puts "#{key} - #{@tmp}"
               if key.to_s == @tmp
-                @tmp = val
+                @tmp = val[:value]
               end
             end
           end
