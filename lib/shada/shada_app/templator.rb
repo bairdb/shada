@@ -169,7 +169,7 @@ module Shada
               if key.to_s == @tmp
                 @tmp = val
               else
-                @tmp = "didn't match"
+                @tmp = "#{@tmp} - #{key} - #{@tmp}"
               end
             end
           end
