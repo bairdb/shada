@@ -60,7 +60,6 @@ module Shada
         when 1
           r = result.first
           @fields.each do |m|
-            #puts "#{m} = #{r[m.to_sym]}"
             val = (r[m.to_sym]).class == String ? unescape(r[m.to_sym]) : r[m.to_sym]
             instance_variable_set("@#{m}", val)
           end
@@ -71,7 +70,10 @@ module Shada
 
           result.each do |r|
             obj = self.class.new
-            @records.push obj.find_for(fields, {@primary_sym => r[@primary_sym]})
+            r.each do |field, val|
+              obj.instance_variable_set("@#{field}", val)
+            end
+            @records.push obj
           end
         end
 
@@ -103,10 +105,9 @@ module Shada
           result.each do |r|
             obj = self.class.new
             r.each do |field, val|
-              puts "#{field} - #{val}"
-              #obj.instance_variable_set("@#{field}", obj)
+              obj.instance_variable_set("@#{field}", val)
             end
-            #@records.push obj.find(@primary_sym => r[@primary_sym])
+            @records.push obj
           end
         end
 

@@ -69,7 +69,7 @@ module Shada
         else
 
           result.each do |r|
-            obj = self.class.new
+            obj = self.class.dup
             r.each do |field, val|
               obj.instance_variable_set("@#{field}", val)
             end
