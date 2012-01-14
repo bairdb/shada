@@ -60,7 +60,6 @@ module Shada
         when 1
           r = result.first
           @fields.each do |m|
-            #puts "#{m} = #{r[m.to_sym]}"
             val = (r[m.to_sym]).class == String ? unescape(r[m.to_sym]) : r[m.to_sym]
             instance_variable_set("@#{m}", val)
           end
