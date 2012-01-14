@@ -18,7 +18,7 @@ module Shada
           controller = is_class?(controller) ? controller : "#{default.to_s.propercase}Controller"
           
           username = @form.get_cookie(:username)
-          uname = ""
+          uname = nil
           
           unless username.nil?
             user = UsersModel.new
