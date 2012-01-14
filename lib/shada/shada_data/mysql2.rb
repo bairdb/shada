@@ -20,7 +20,7 @@ module Shada
         end
       end
       
-      def get_primary table
+      def get_timestamp table
         if @timestamp.nil?
           get_connection.get_timestamp db, table
         end
