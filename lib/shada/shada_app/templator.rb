@@ -161,7 +161,7 @@ module Shada
           
           if m.count > 0
             m.each do |e|
-              @tmp = e[0][0]
+              @tmp = @registry[e[0]] || e[0]
             end
           end
           
