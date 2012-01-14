@@ -95,15 +95,19 @@ module Shada
       
       def get_primary db, table
         result = query("SELECT * FROM `information_schema`.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA=? AND TABLE_NAME=? AND CONSTRAINT_NAME='PRIMARY'", [db, table])
-        result.first[:COLUMN_NAME]
+        begin
+          result.first[:COLUMN_NAME]
+        rescue => e
+          ''
+        end
       end
       
       def get_timestamp db, table
         puts "#{db} - #{table}"
         result = query("SELECT * FROM `information_schema`.COLUMNS WHERE TABLE_SCHEMA=? AND TABLE_NAME=? AND DATA_TYPE='timestamp'", [db, table])
-        unless result.nil?
+        begin
           result.first[:COLUMN_NAME]
-        else
+        rescue => e
           ''
         end
       end
