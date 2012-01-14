@@ -63,6 +63,10 @@ module Shada
           result        
       end
       
+      def last_id
+        @db.last_id
+      end
+      
       def get_fields table
         result = query("SELECT * FROM #{table}", [])
         result.fields
