@@ -169,7 +169,7 @@ module Shada
         fields = {}
         primary_value = instance_variable_get("@#{@primary}")
         get_fields(table).each do |m|
-          if m.to_s != @primary.to_s
+          if m.to_s != @primary.to_s && m.to_s != @timestamp.to_s
             fields[m.to_sym] = instance_variable_get("@#{m}")
           end
         end
