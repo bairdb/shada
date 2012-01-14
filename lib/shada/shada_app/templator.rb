@@ -160,10 +160,10 @@ module Shada
           
           if m.count > 0
             m.each do |e|
-              return "Test"
+              val = "Test"
             end
           else
-            return val
+            val
           end
         end
         res = klass.send function_name.to_sym, *oparam_arr
