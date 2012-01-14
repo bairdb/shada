@@ -19,6 +19,12 @@ module Shada
           get_connection.get_primary db, table
         end
       end
+      
+      def get_primary table
+        if @timestamp.nil?
+          get_connection.get_timestamp db, table
+        end
+      end
 
       def get_fields table
         get_connection.get_fields(table)

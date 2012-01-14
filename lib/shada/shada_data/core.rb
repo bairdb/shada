@@ -49,8 +49,10 @@ module Shada
         @row_total = 0
         @total_pages = 0
         @current_page = 0
-        @timestamp = ltimestamp
         @record_count = 0
+        @timestamp = get_timestamp @table
+        
+        puts @timestamp
         self
       end
       
@@ -160,11 +162,6 @@ module Shada
           end
         end
         
-        def set_timestamp col
-          puts "Column: #{col}"
-          @@internals[get_table][:timestamp] = col
-        end
-        
         def belongs_to table, col
           @@internals[get_table][:belongs_to_hash] = {:table => table, :col => col}
         end
@@ -245,10 +242,6 @@ module Shada
       
       def get_row_count
         get_connection.get_row_count @table
-      end
-      
-      def ltimestamp
-        @@internals[@table][:timestamp]
       end
       
       def cache
