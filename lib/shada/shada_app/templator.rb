@@ -155,9 +155,9 @@ module Shada
         function_pieces = function.scan /(.*)\((.*)\)/ || function
         function_name = function.gsub /\((.*)\)/, ''
         oparam_arr = function_pieces[0][1].split(',').map do |val| 
+          @tmp = val
           m = val.scan(@param_pattern)
           if m.count > 0
-            @tmp = val
             @tmp.strip!
             m.each do |e|
               key = e[0].to_s.chomp.strip
@@ -169,11 +169,10 @@ module Shada
                 @tmp = val[:value]
               end
             end
-            @tmp
           else
-            val.strip!
+            @tmp = val.strip!
           end
-          
+          @tmp
         end
         res = klass.send function_name.to_sym, *oparam_arr
 
