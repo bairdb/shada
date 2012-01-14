@@ -99,8 +99,13 @@ module Shada
       end
       
       def get_timestamp db, table
+        puts "#{db} - #{table}"
         result = query("SELECT * FROM `information_schema`.COLUMNS WHERE TABLE_SCHEMA=? AND TABLE_NAME=? AND DATA_TYPE='timestamp'", [db, table])
-        result.first[:COLUMN_NAME]
+        unless result.nil?
+          result.first[:COLUMN_NAME]
+        else
+          ''
+        end
       end
       
       def find table, fields, where={}, sort="", limit=0, offset=0, klass=nil
