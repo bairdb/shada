@@ -70,6 +70,7 @@ module Shada
         else
 
           result.each do |r|
+            p result
             obj = self.class.new
             @records.push obj.find_for(fields, {@primary_sym => r[@primary_sym]})
           end
