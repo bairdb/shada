@@ -42,7 +42,7 @@ module Shada
       
       def execute sql, symbolize=true
         begin
-          puts sql
+          #puts sql
           result = @db.query sql, :symbolize_keys => symbolize
           result
         rescue => e
@@ -78,18 +78,29 @@ module Shada
         result.first[:cnt]
       end
       
+      def get_row_count_for table, where={}
+        where_arr = []
+        where_str = ""
+        where_str = where.map{|k,v| "#{k}=?"}.join(" AND ") unless where.nil?
+        where.each{|k,v| where_arr.push v} unless where.nil?
+        where_str = "WHERE #{where_str}" unless where_str.empty?
+        cnt = query("SELECT COUNT(*) AS cnt FROM #{table} #{where_str}", where_arr)
+        puts cnt.first[:cnt]
+        cnt.first[:cnt]
+      end
+      
       def get_primary db, table
         result = query("SELECT * FROM `information_schema`.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA=? AND TABLE_NAME=? AND CONSTRAINT_NAME='PRIMARY'", [db, table])
         result.first[:COLUMN_NAME]
       end
       
-      def find table, fields, where={}, sort="", limit=0, offset=0
+      def find table, fields, where={}, sort="", limit=0, offset=0, klass=nil
         begin
           where_arr = []
           where_str = ""
           slimit = ""
           where_str = where.map{|k,v| "#{k}=?"}.join(" AND ") unless where.nil?
-          where.each{|k,v| where_arr.push v}
+          where.each{|k,v| where_arr.push v} unless where.nil?
           
           sort = "ORDER BY #{sort}" unless sort.empty?
           
@@ -100,6 +111,7 @@ module Shada
           sql = "SELECT #{fields} FROM #{table} #{where_str} #{sort} #{slimit}"
           #puts sql
           result = query sql, where_arr
+          
           result
         rescue => e
           puts "#{e.message} - #{e.backtrace}"

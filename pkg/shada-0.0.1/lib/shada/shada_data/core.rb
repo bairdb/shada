@@ -28,7 +28,7 @@ module Shada
       include Shada::Logger
       
       attr_reader :fields, :records, :parent, :children, :db
-      attr_accessor :limit, :offset, :row_total, :total_pages, :current_page
+      attr_accessor :limit, :offset, :row_total, :total_pages, :current_page, :record_count
       
       def initialize
         @update = false
@@ -49,6 +49,7 @@ module Shada
         @row_total = 0
         @total_pages = 0
         @current_page = 0
+        @record_count = 0
         self
       end
       
@@ -274,7 +275,7 @@ module Shada
           hash = {}
           @fields.map do |f| 
             unless record.instance_variable_get("@#{f}").to_s.nil?
-                hash[f.to_s] = record.instance_variable_get("@#{f}").to_s
+                hash[f.to_s] = escape(record.instance_variable_get("@#{f}").to_s)
             end
           end
           arr.push hash
