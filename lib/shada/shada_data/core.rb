@@ -49,7 +49,7 @@ module Shada
         @row_total = 0
         @total_pages = 0
         @current_page = 0
-        @timestamp = @@internals[@table][:timestamp]
+        @timestamp = ltimestamp
         @record_count = 0
         self
       end
@@ -245,6 +245,10 @@ module Shada
       
       def get_row_count
         get_connection.get_row_count @table
+      end
+      
+      def ltimestamp
+        @@internals[@table][:timestamp]
       end
       
       def cache
