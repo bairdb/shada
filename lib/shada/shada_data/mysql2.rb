@@ -24,6 +24,10 @@ module Shada
         get_connection.get_fields(table)
       end
       
+      def last_id
+        get_connection.last_id
+      end
+      
       def get_ids result
         ids = []
         result.each do |row|
