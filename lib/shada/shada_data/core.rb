@@ -51,8 +51,6 @@ module Shada
         @current_page = 0
         @timestamp = @@internals[@table][:timestamp]
         @record_count = 0
-        
-        puts @timestamp
         self
       end
       
@@ -162,7 +160,8 @@ module Shada
           end
         end
         
-        def timestamp col
+        def set_timestamp col
+          puts col
           @@internals[get_table][:timestamp] = col
         end
         
