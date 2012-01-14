@@ -158,7 +158,7 @@ module Shada
        if m.count > 0
          v = m[0][0]
          v2 = @registry.key?(v.to_sym)
-         @registry.keys.to_s
+         v2[:value]
        else
          val.strip
        end
