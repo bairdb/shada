@@ -159,7 +159,10 @@ module Shada
           end
         end
 
-
+        def timestamp col
+          @@internals[get_table][:timestamp] = col
+        end
+        
         def belongs_to table, col
           @@internals[get_table][:belongs_to_hash] = {:table => table, :col => col}
         end
