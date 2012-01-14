@@ -162,7 +162,7 @@ module Shada
           if m.count > 0
             m.each do |e|
               key = e[0].to_s
-              @tmp = @registry[key]
+              @tmp = @registry[key][:value]
             end
           end
           
