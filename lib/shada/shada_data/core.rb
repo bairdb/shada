@@ -161,7 +161,7 @@ module Shada
         end
         
         def set_timestamp col
-          puts col
+          puts "Column: #{col}"
           @@internals[get_table][:timestamp] = col
         end
         
