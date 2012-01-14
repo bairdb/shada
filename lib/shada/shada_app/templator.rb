@@ -24,7 +24,6 @@ module Shada
       @array_pattern = /\{\$(.*?)\>(.*?)\}/
       @file_pattern = /\{file\=\"(.*)\"\}/
       @block_pattern = /\{block\=\"(.*)\"\}/
-      @param = /\[\$([^\r\n]*?)\]/m
       
       @tag_arr = []
       @rep_arr = []
@@ -146,27 +145,21 @@ module Shada
    end
    
    def functions hash, result=false
-     begin
-       value = hash[:tag].split hash[:parse_val]
-       val = @registry[value[0]] 
-       klass = val[:value].class == String ? Object.const_get(val[:value]).new : val[:value]
-       klass_name = val[:value].class == String ? val[:value].to_s : val[:value].class.to_s
-       function = value[1]
-       function_pieces = function.scan /(.*)\((.*)\)/ || function
-       function_name = function.gsub /\((.*)\)/, ''
-       oparam_arr = function_pieces[0][1].split(',').map{|val| val.strip}
-       res = klass.send function_name.to_sym, *oparam_arr
-
-       unless result
-         reg_str = Regexp.quote "{$#{value[0]}->#{function}}"
-         @html.gsub! /#{reg_str}/, res
-       else
-         res
-       end
-     rescue => e
-       value = hash[:tag].split hash[:parse_val]
+     value = hash[:tag].split hash[:parse_val]
+     val = @registry[value[0]] 
+     klass = val[:value].class == String ? Object.const_get(val[:value]).new : val[:value]
+     klass_name = val[:value].class == String ? val[:value].to_s : val[:value].class.to_s
+     function = value[1]
+     function_pieces = function.scan /(.*)\((.*)\)/ || function
+     function_name = function.gsub /\((.*)\)/, ''
+     oparam_arr = function_pieces[0][1].split(',').map{|val| val.strip}
+     res = klass.send function_name.to_sym, *oparam_arr
+     
+     unless result
        reg_str = Regexp.quote "{$#{value[0]}->#{function}}"
-       @html.gsub! /#{reg_str}/, ''
+       @html.gsub! /#{reg_str}/, res
+     else
+       res
      end
    end
    
