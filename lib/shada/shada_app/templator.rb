@@ -172,7 +172,7 @@ module Shada
             end
           end
           
-          @tmp
+          "#{@tmp}"
         end
         res = klass.send function_name.to_sym, *oparam_arr
 
