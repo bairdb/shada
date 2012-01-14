@@ -157,7 +157,7 @@ module Shada
        m = val.strip.scan(@param_pattern)
        if m.count > 0
          v = m[0][0]
-         v2 = @registry.key?(v.to_sym)
+         v2 = @registry[v.to_sym]
          v2[:value]
        else
          val.strip
