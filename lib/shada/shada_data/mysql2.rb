@@ -164,9 +164,8 @@ module Shada
         primary_value = instance_variable_get("@#{@primary}")
         get_fields(table).each do |m|
           if m.to_s != @primary.to_s
-            unless @@internals[@table][:timestamp] == m
-              fields[m.to_sym] = instance_variable_get("@#{m}")
-            end
+            puts @@internals[@table][:timestamp] unless @@internals[@table][:timestamp].nil?
+            fields[m.to_sym] = instance_variable_get("@#{m}")
           end
         end
         get_connection.update table, fields, primary_value, @primary
