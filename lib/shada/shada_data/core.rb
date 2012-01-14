@@ -51,8 +51,6 @@ module Shada
         @current_page = 0
         @record_count = 0
         @timestamp = get_timestamp @table
-        
-        puts @timestamp
         self
       end
       
