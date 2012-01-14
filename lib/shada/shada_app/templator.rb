@@ -161,7 +161,7 @@ module Shada
           
           if m.count > 0
             m.each do |e|
-              key = e[0].to_s
+              key = e[0].chomp.strip
               @tmp = @registry[key][:value]
             end
           end
