@@ -154,9 +154,9 @@ module Shada
      function_pieces = function.scan /(.*)\((.*)\)/ || function
      function_name = function.gsub /\((.*)\)/, ''
      oparam_arr = function_pieces[0][1].split(',').map do |val| 
-       m = val.scan(@param_pattern)
+       m = val.strip.scan(@param_pattern)
        if m.count > 0
-         v = m[0][0].to_s
+         v = m[0][0]
          v2 = @registry[v]
          v2[:value] unless v2.nil?
        else
