@@ -162,7 +162,15 @@ module Shada
           if m.count > 0
             m.each do |e|
               key = e[0].chomp.strip
-              @tmp = @registry[key][:value]
+              @tmp = key
+            end
+            
+            @registry.each do |key, val|
+              if key.to_s == @tmp
+                @tmp = val
+              else
+                @tmp = "didn't match"
+              end
             end
           end
           
