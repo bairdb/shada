@@ -161,7 +161,7 @@ module Shada
           
           if m.count > 0
             m.each do |e|
-              @tmp = "Test"
+              @tmp = e[0][0]
             end
           end
           
