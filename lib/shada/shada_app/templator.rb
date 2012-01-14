@@ -161,15 +161,14 @@ module Shada
           
           if m.count > 0
             m.each do |e|
-              key = e[0].chomp.strip
+              key = e[0].to_s.chomp.strip
               @tmp = key
             end
             
             @registry.each do |key, val|
+              puts "#{key} - #{@tmp}"
               if key.to_s == @tmp
                 @tmp = val
-              else
-                @tmp = "#{@tmp} - #{key} - #{@tmp}"
               end
             end
           end
