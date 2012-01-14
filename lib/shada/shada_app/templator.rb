@@ -170,25 +170,6 @@ module Shada
       end
     end
    
-    def handle_param
-      pass = 1
-      @registry.each do |key, val|
-        type = val[:type]
-        parse_val = @parse_arr[type]
-        @html.scan(@param_pattern).each do |tag|
-          tag_parse = parse_val ? tag[0].split(parse_val) : ''
-          tag_clean = parse_val ? tag_parse[0] : tag[0]
-          if tag_clean == key.to_s
-            arr = pass == 1 ? @flow : @flow2
-            if arr.has_key? type.to_sym
-              value = val[:value]
-              self.send arr[type.to_sym], {:value => value, :key => key, :tag => tag[0], :parse_val => parse_val}
-            end
-          end
-        end
-      end
-    end
-   
     def preprocess_results
       @html = @ic.iconv(@html)
       @html.scan(@result_pattern).inject(0) do |i, result|
