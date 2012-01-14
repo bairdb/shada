@@ -170,7 +170,8 @@ module Shada
                 @tmp = val[:value]
               end
             end
-          end          
+          end
+          
           @tmp
         end
         res = klass.send function_name.to_sym, *oparam_arr
