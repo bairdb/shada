@@ -70,7 +70,6 @@ module Shada
         else
 
           result.each do |r|
-            p result
             obj = self.class.new
             @records.push obj.find_for(fields, {@primary_sym => r[@primary_sym]})
           end
@@ -103,7 +102,11 @@ module Shada
 
           result.each do |r|
             obj = self.class.new
-            @records.push obj.find(@primary_sym => r[@primary_sym])
+            r.each do |field, val|
+              puts "#{field} - #{val}"
+              #obj.instance_variable_set("@#{field}", obj)
+            end
+            #@records.push obj.find(@primary_sym => r[@primary_sym])
           end
         end
 
