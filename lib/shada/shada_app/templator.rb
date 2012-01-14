@@ -160,7 +160,7 @@ module Shada
           
           if m.count > 0
             m.each do |e|
-              e[0][0]
+              "Test"
             end
           else
             val
