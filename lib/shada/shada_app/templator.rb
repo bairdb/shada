@@ -24,7 +24,7 @@ module Shada
       @array_pattern = /\{\$(.*?)\>(.*?)\}/
       @file_pattern = /\{file\=\"(.*)\"\}/
       @block_pattern = /\{block\=\"(.*)\"\}/
-      @param_pattern = /\[\$([^\r\n]*?)\]/m
+      @param = /\[\$([^\r\n]*?)\]/m
       
       @tag_arr = []
       @rep_arr = []
@@ -112,138 +112,119 @@ module Shada
       end
     end
     
-    def includes
-      @html = @ic.iconv(@html)
-      inc = @html.scan @include_pattern
-      tag_arr = []
-      rep_arr = []
-      inc.each do |val|
-        pattern = /{include file="#{Regexp.quote(val[0])}"}/
-        begin
-          html = open_template val[0]
-          @html.gsub! pattern, html
-        rescue => e
-          #puts e.message
-          @html.gsub! pattern, ''
-        end
-      end
+   def includes
+     @html = @ic.iconv(@html)
+     inc = @html.scan @include_pattern
+     tag_arr = []
+     rep_arr = []
+     inc.each do |val|
+       pattern = /{include file="#{Regexp.quote(val[0])}"}/
+       begin
+        html = open_template val[0]
+        @html.gsub! pattern, html
+       rescue => e
+         #puts e.message
+         @html.gsub! pattern, ''
+       end
+     end
      
-      inc2 = @html.scan @include_pattern
-      unless inc2.empty?
-        includes
-      end
-    end
+     inc2 = @html.scan @include_pattern
+     unless inc2.empty?
+      includes
+     end
+   end
    
-    def arrays hash
-      tag = hash[:tag].split hash[:parse_val]
-      hash[:value].each do |key, val|
-        arr_val = key == tag[1].to_sym ? val : ''
-        unless arr_val.nil?
-          @tag_arr.push /\{\$#{Regexp.quote(hash[:tag])}\}/
-          @rep_arr.push arr_val
-        end
-      end
-    end
+   def arrays hash
+     tag = hash[:tag].split hash[:parse_val]
+     hash[:value].each do |key, val|
+       arr_val = key == tag[1].to_sym ? val : ''
+       unless arr_val.nil?
+         @tag_arr.push /\{\$#{Regexp.quote(hash[:tag])}\}/
+         @rep_arr.push arr_val
+       end
+     end
+   end
    
-    def functions hash, result=false
-      begin
-        value = hash[:tag].split hash[:parse_val]
-        val = @registry[value[0]] 
-        klass = val[:value].class == String ? Object.const_get(val[:value]).new : val[:value]
-        klass_name = val[:value].class == String ? val[:value].to_s : val[:value].class.to_s
-        function = value[1]
-        function_pieces = function.scan /(.*)\((.*)\)/ || function
-        function_name = function.gsub /\((.*)\)/, ''
-        oparam_arr = function_pieces[0][1].split(',').map do |val| 
-          @tmp = val
-          @tmp.strip!
-          m = val.scan(@param_pattern)
-          
-          if m.count > 0
-            m.each do |e|
-              key = e[0].to_s.chomp.strip
-              @tmp = key
-            end
-            
-            @registry.each do |key, val|
-              if key.to_s == @tmp
-                @tmp = val[:value]
-              end
-            end
-          end
-          
-          @tmp
-        end
-        res = klass.send function_name.to_sym, *oparam_arr
+   def functions hash, result=false
+     begin
+       value = hash[:tag].split hash[:parse_val]
+       val = @registry[value[0]] 
+       klass = val[:value].class == String ? Object.const_get(val[:value]).new : val[:value]
+       klass_name = val[:value].class == String ? val[:value].to_s : val[:value].class.to_s
+       function = value[1]
+       function_pieces = function.scan /(.*)\((.*)\)/ || function
+       function_name = function.gsub /\((.*)\)/, ''
+       oparam_arr = function_pieces[0][1].split(',').map{|val| val.strip}
+       res = klass.send function_name.to_sym, *oparam_arr
 
-        unless result
-          reg_str = Regexp.quote "{$#{value[0]}->#{function}}"
-          @html.gsub! /#{reg_str}/, res
-        else
-          res
-        end
-      rescue => e
-        value = hash[:tag].split hash[:parse_val]
-        reg_str = Regexp.quote "{$#{value[0]}->#{function}}"
-        @html.gsub! /#{reg_str}/, ''
-      end
-    end
+       unless result
+         reg_str = Regexp.quote "{$#{value[0]}->#{function}}"
+         @html.gsub! /#{reg_str}/, res
+       else
+         res
+       end
+     rescue => e
+       value = hash[:tag].split hash[:parse_val]
+       reg_str = Regexp.quote "{$#{value[0]}->#{function}}"
+       @html.gsub! /#{reg_str}/, ''
+     end
+   end
    
-    def preprocess_results
-      @html = @ic.iconv(@html)
-      @html.scan(@result_pattern).inject(0) do |i, result|
+   def preprocess_results
+     @html = @ic.iconv(@html)
+     @html.scan(@result_pattern).inject(0) do |i, result|
         @content_arr.push result[1]
         @html = @html.gsub /\{results for \$#{Regexp.quote(result[0])}\}(.*?)\{\/results\}/m, "{results for $#{result[0]}}%%replacement_#{i}%%{/results}"
         i + 1
-      end
-    end
+     end
+   end
    
-    def results
-      tags = []
-      rep = []
+   def results
+     tags = []
+     rep = []
      
-      @html = @ic.iconv(@html)
-      @html.scan(@result_pattern).inject(0) do |i, result|
-        @rep_pattern = @content_arr[i].to_s.strip
-        @tmp = ""
-        begin
-          @html = @html.gsub "%%replacement_#{i}%%", @content_arr[i]
-          #@content_arr.delete_at(i)
-        rescue => e
-        end
+     @html = @ic.iconv(@html)
+     @html.scan(@result_pattern).inject(0) do |i, result|
+       @rep_pattern = @content_arr[i].to_s.strip
+       @tmp = ""
+       begin
+       @html = @html.gsub "%%replacement_#{i}%%", @content_arr[i]
+       #@content_arr.delete_at(i)
+       rescue => e
+       end
        
-        hash = {:tag => result[0], :parse_val => @parse_arr[:function]}
-        arr = functions hash, true
-        if arr.class == Array
-          arr.each do |row|
-            lrep = @rep_pattern
-            if row.class == Hash
-              row.each do |k,v|
-                puts "#{k} - #{v}"
-                lrep = lrep.gsub /\{\$#{k.to_s}\}/, v           
-              end
-              @tmp.insert -1, lrep
-              lrep = ""
-            else
-              row.fields.each do |f|
-                lrep = lrep.gsub /\{\$#{f.to_s}\}/, "#{row.instance_variable_get("@#{f.to_s}")}"
-              end
-              @tmp.insert -1, lrep
-              lrep = ""
-            end
-          end
-        end
+       hash = {:tag => result[0], :parse_val => @parse_arr[:function]}
+       arr = functions hash, true
+       if arr.class == Array
+         arr.each do |row|
+           lrep = @rep_pattern
+           if row.class == Hash
+             row.each do |k,v|
+               puts "#{k} - #{v}"
+               lrep = lrep.gsub /\{\$#{k.to_s}\}/, v           
+             end
+             @tmp.insert -1, lrep
+             lrep = ""
+           else
+             row.fields.each do |f|
+               lrep = lrep.gsub /\{\$#{f.to_s}\}/, "#{row.instance_variable_get("@#{f.to_s}")}"
+             end
+             @tmp.insert -1, lrep
+             lrep = ""
+           end
+         end
+       end
        
-        preprocess_results
+       preprocess_results
        
-        @html.gsub! /\{results for \$#{Regexp.quote(result[0])}\}(.*?)\{\/results\}/m, @tmp
+       @html.gsub! /\{results for \$#{Regexp.quote(result[0])}\}(.*?)\{\/results\}/m, @tmp
        
        
-        i + 1
-      end
-    end
+       i + 1
+     end
+   end
    
-    def render
-    end    
+   def render
+   end    
   end
 end
