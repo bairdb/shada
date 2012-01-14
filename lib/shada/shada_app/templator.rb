@@ -154,7 +154,8 @@ module Shada
         function = value[1]
         function_pieces = function.scan /(.*)\((.*)\)/ || function
         function_name = function.gsub /\((.*)\)/, ''
-        oparam_arr = function_pieces[0][1].split(',').map{|val| handle_param val}
+        handle_param
+        oparam_arr = function_pieces[0][1].split(',').map{|val| val.strip!}
         res = klass.send function_name.to_sym, *oparam_arr
 
         unless result
@@ -170,13 +171,12 @@ module Shada
       end
     end
    
-    def handle_param param
-      param.strip!
+    def handle_param
       pass = 1
       @registry.each do |key, val|
         type = val[:type]
         parse_val = @parse_arr[type]
-        param.scan(@param_pattern).each do |tag|
+        @html.scan(@param_pattern).each do |tag|
           tag_parse = parse_val ? tag[0].split(parse_val) : ''
           tag_clean = parse_val ? tag_parse[0] : tag[0]
           if tag_clean == key.to_s
