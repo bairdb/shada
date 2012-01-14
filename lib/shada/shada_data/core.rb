@@ -28,7 +28,7 @@ module Shada
       include Shada::Logger
       
       attr_reader :fields, :records, :parent, :children, :db
-      attr_accessor :limit, :offset, :row_total, :total_pages, :current_page, :record_count, :timestamp
+      attr_accessor :limit, :offset, :row_total, :total_pages, :current_page, :record_count
       
       def initialize
         @update = false
@@ -50,7 +50,6 @@ module Shada
         @total_pages = 0
         @current_page = 0
         @record_count = 0
-        @timestamp = @@internals[@table][:timestamp]
         self
       end
       
@@ -158,10 +157,6 @@ module Shada
               add_method m
             end
           end
-        end
-
-        def timestamp col
-          @@internals[get_table][:timestamp] = col
         end
         
         def belongs_to table, col
