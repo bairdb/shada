@@ -19,9 +19,19 @@ module Shada
           get_connection.get_primary db, table
         end
       end
+      
+      def get_timestamp table
+        if @timestamp.nil?
+          get_connection.get_timestamp db, table
+        end
+      end
 
       def get_fields table
         get_connection.get_fields(table)
+      end
+      
+      def last_id
+        get_connection.last_id
       end
       
       def get_ids result
@@ -86,29 +96,31 @@ module Shada
         @records = []
         @update = true
         result = get_connection.find table, '*', params, sort, @limit, @offset, self
-        
-        case result.count
-        when 0
-          puts "No results"
-        when 1
-          r = result.first
-          @fields.each do |m|
-            #puts "#{m} = #{r[m.to_sym]}"
-            val = (r[m.to_sym]).class == String ? unescape(r[m.to_sym]) : r[m.to_sym]
-            instance_variable_set("@#{m}", val)
-          end
-
-          #find_parent
-          @records.push self
-        else
-
-          result.each do |r|
-            obj = self.class.new
-            r.each do |field, val|
-              obj.instance_variable_set("@#{field}", val)
+        begin
+          case result.count
+          when 0
+            puts "No results"
+          when 1
+            r = result.first
+            @fields.each do |m|
+              #puts "#{m} = #{r[m.to_sym]}"
+              val = (r[m.to_sym]).class == String ? unescape(r[m.to_sym]) : r[m.to_sym]
+              instance_variable_set("@#{m}", val)
             end
-            @records.push obj
+
+            #find_parent
+            @records.push self
+          else
+
+            result.each do |r|
+              obj = self.class.new
+              r.each do |field, val|
+                obj.instance_variable_set("@#{field}", val)
+              end
+              @records.push obj
+            end
           end
+        rescue => e
         end
 
         return self
@@ -159,7 +171,7 @@ module Shada
         fields = {}
         primary_value = instance_variable_get("@#{@primary}")
         get_fields(table).each do |m|
-          if m.to_s != @primary.to_s
+          if m.to_s != @primary.to_s && m.to_s != @timestamp.to_s
             fields[m.to_sym] = instance_variable_get("@#{m}")
           end
         end

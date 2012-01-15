@@ -42,7 +42,7 @@ module Shada
       
       def execute sql, symbolize=true
         begin
-          puts sql
+          #puts sql
           result = @db.query sql, :symbolize_keys => symbolize
           result
         rescue => e
@@ -61,6 +61,10 @@ module Shada
       def query sql, binds
           result = execute prepare sql, binds
           result        
+      end
+      
+      def last_id
+        @db.last_id
       end
       
       def get_fields table
@@ -91,7 +95,20 @@ module Shada
       
       def get_primary db, table
         result = query("SELECT * FROM `information_schema`.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA=? AND TABLE_NAME=? AND CONSTRAINT_NAME='PRIMARY'", [db, table])
-        result.first[:COLUMN_NAME]
+        begin
+          result.first[:COLUMN_NAME]
+        rescue => e
+          ''
+        end
+      end
+      
+      def get_timestamp db, table
+        result = query("SELECT * FROM `information_schema`.COLUMNS WHERE TABLE_SCHEMA=? AND TABLE_NAME=? AND DATA_TYPE='timestamp'", [db, table])
+        begin
+          result.first[:COLUMN_NAME]
+        rescue => e
+          ''
+        end
       end
       
       def find table, fields, where={}, sort="", limit=0, offset=0, klass=nil

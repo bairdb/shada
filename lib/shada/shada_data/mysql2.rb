@@ -57,6 +57,36 @@ module Shada
         
       end
       
+      def filter_geo coords, distance=10, limit=10
+        table = @table
+        result = get_connection.filter_geo table, coords, distance, limit
+        
+        case result.count
+        when 0
+          puts "No results"
+        when 1
+          r = result.first
+          @fields.each do |m|
+            val = (r[m.to_sym]).class == String ? unescape(r[m.to_sym]) : r[m.to_sym]
+            instance_variable_set("@#{m}", val)
+          end
+
+          #find_parent
+          @records.push self
+        else
+
+          result.each do |r|
+            obj = self.dup
+            r.each do |field, val|
+              obj.instance_variable_set("@#{field}", val)
+            end
+            @records.push obj
+          end
+        end
+
+        return self
+      end
+      
       def find_for fields='*', params=nil, sort='id ASC'
         table = @table
         @records = nil

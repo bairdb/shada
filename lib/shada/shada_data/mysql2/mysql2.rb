@@ -136,6 +136,12 @@ module Shada
         end
       end
       
+      def filter_geo table, coords, distance=10, limit=10
+        sql = "SELECT *, 3956 * 2 * ASIN(SQRT(POWER(SIN((? - abs(lat)) * pi()/180 / 2), 2) +  COS(? * pi()/180 ) * COS(abs(lat) * pi()/180) *  POWER(SIN((? – lng) * pi()/180 / 2), 2) )) as distance FROM #{table} WHERE distance < ? ORDER BY distance limit ?"
+        result = query sql, [coords[:lat], coords[:lat], coords[:lng], distance, limit]
+        result
+      end
+      
       def insert table, fields, data
         begin
           val_str = data.map{|v| "?"}.join(", ")
