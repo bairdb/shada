@@ -69,7 +69,7 @@ module Shada
                   f.close
                 end
                 
-                @files[@name] = {:filename => @filename, :type => FILE_TYPES[@type], :path => @p}
+                @files[@name] = {:filename => @filename, :type => FILE_TYPES[@type], :path => @p, :file_type => @type}
                 @filename =  nil
                 @body = []
               end
@@ -93,7 +93,7 @@ module Shada
                   f.close
                 end
                 
-                @files[@name] = {:filename => @filename, :type => FILE_TYPES[@type], :path => @p}
+                @files[@name] = {:filename => @filename, :type => FILE_TYPES[@type], :path => @p, :file_type => @type}
                 @filename =  nil
                 @body = []
               end
