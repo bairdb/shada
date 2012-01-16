@@ -44,9 +44,12 @@ module Shada
     end
     
     def redirect url, time=0
-      #set_response_header 'Location', url
-      value = "#{time}; url=#{url}"
-      set_response_header 'Refresh', value
+      @status = 'See Other'
+      @status_code = 303
+      set_response_header 'Content-Type', ''
+      set_response_header 'Location', url
+      #value = "#{time}; url=#{url}"
+      #set_response_header 'Refresh', value
     end
     
     def get_header key, type='get'
