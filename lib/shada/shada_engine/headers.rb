@@ -45,7 +45,9 @@ module Shada
       set_response_header key, val
     end
     
-    def redirect url, time=0
+    def redirect url, msg='See Other', code=303
+      @status = msg
+      @status_code = code
       set_response_header 'Content-Type', ''
       set_response_header 'Location', url
       #value = "#{time}; url=#{url}"
