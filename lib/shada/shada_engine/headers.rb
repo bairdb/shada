@@ -4,7 +4,7 @@ module Shada
   class Headers
     include Enumerable
     
-    attr_accessor :get, :post, :files, :cookies, :response_headers, :request_headers
+    attr_accessor :get, :post, :files, :cookies, :response_headers, :request_headers, :status, :status_code
     
     def initialize
       @get = {}
@@ -14,6 +14,8 @@ module Shada
       @response_headers = {}
       @request_headers = {}
       @outgoing_cookies = []
+      @status = 'OK'
+      @status_code = 200
     end
     
     def [](key)
@@ -44,8 +46,6 @@ module Shada
     end
     
     def redirect url, time=0
-      @status = 'See Other'
-      @status_code = 303
       set_response_header 'Content-Type', ''
       set_response_header 'Location', url
       #value = "#{time}; url=#{url}"
