@@ -216,10 +216,10 @@ module Shada
          end
        end
        
-       preprocess_results
        parse 1
        parse 2
-      
+       preprocess_results
+       
        @html.gsub! /\{results for \$#{Regexp.quote(result[0])}\}(.*?)\{\/results\}/m, @tmp
        
        
