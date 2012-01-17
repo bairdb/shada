@@ -202,13 +202,15 @@ module Shada
            if row.class == Hash
              row.each do |k,v|
                puts "#{k} - #{v}"
-               lrep = lrep.gsub /\{\$#{k.to_s}\}/, v           
+               lrep = lrep.gsub /\{\$#{k.to_s}\}/, v
+               lrep = lrep.gsub /\[\$#{k.to_s}\]/, v
              end
              @tmp.insert -1, lrep
              lrep = ""
            else
              row.fields.each do |f|
                lrep = lrep.gsub /\{\$#{f.to_s}\}/, "#{row.instance_variable_get("@#{f.to_s}")}"
+               lrep = lrep.gsub /\[\$#{f.to_s}\]/, "#{row.instance_variable_get("@#{f.to_s}")}"
              end
              @tmp.insert -1, lrep
              lrep = ""
@@ -216,10 +218,8 @@ module Shada
          end
        end
        
-       parse 1
-       parse 2
        preprocess_results
-       
+      
        @html.gsub! /\{results for \$#{Regexp.quote(result[0])}\}(.*?)\{\/results\}/m, @tmp
        
        
