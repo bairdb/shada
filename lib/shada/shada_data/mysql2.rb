@@ -248,9 +248,6 @@ module Shada
         elsif val.is_a?(Bignum) or val.is_a?(Fixnum)
           type = "INT"
           length = ""
-        elsif val.is_a?(FLOAT)
-          type = "INT"
-          length = ""
         elsif val.nil?
           type = "VARCHAR"
           length = 255
