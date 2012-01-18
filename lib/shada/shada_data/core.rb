@@ -274,6 +274,7 @@ module Shada
         arr = []
         @records.each do |record|
           hash = {}
+          @fields | @added_fields
           @fields.map do |f| 
             unless record.instance_variable_get("@#{f}").to_s.nil?
                 hash[f.to_s] = escape(record.instance_variable_get("@#{f}").to_s)
