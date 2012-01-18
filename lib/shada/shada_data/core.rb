@@ -44,7 +44,7 @@ module Shada
         @primary = get_primary @table
         @primary_sym = @primary.to_sym
         @fields = get_fields @table
-        @fields = []
+        @added_fields = []
         @limit = 0
         @offset = 0
         @row_total = 0
