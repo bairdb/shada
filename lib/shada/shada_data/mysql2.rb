@@ -248,7 +248,8 @@ module Shada
         
         instance_variable_set("@#{valid_name}", val)
 
-        puts "Creating Column with #{valid_name}, #{val}"
+        puts "Creating Column with #{instance_variable_get("@#{valid_name}")}"
+        
       end
       
       def get_column_type val

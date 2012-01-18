@@ -7,7 +7,7 @@ module Shada
         unless path_arr[path_arr.count-1] == 'robots.txt'
           @rest_of_path = path_arr.dup || []
           @i = 0
-          puts path
+          #puts path
           reload Shada::Config['ControllerPath']
           reload Shada::Config['ModelPath']
           reload Shada::Config['LibPath']
