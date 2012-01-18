@@ -245,6 +245,7 @@ module Shada
         val = args[0]
         valid_name = name.to_s.gsub(/=/, "").to_s
         @added_fields.push valid_name
+        @fields.push valid_name
         
         instance_variable_set("@#{valid_name}", val)
 
