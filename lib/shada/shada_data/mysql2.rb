@@ -182,6 +182,15 @@ module Shada
       end
 
       def insert table
+        begin
+        @added_fields.each do |field|
+          type, length = get_column_type instance_variable_get("@#{field}")
+          length = length.nil? ? 255 : length
+          get_connection.add_column table, field, type, length
+        end
+        rescue => e
+        end
+        
         keys = []
         values = []
         get_fields(table).each do |m|
@@ -198,6 +207,15 @@ module Shada
       end
 
       def update table
+        begin
+        @added_fields.each do |field|
+          type, length = get_column_type instance_variable_get("@#{field}")
+          length = length.nil? ? 255 : length
+          get_connection.add_column table, field, type, length
+        end
+        rescue => e
+        end
+        
         fields = {}
         primary_value = instance_variable_get("@#{@primary}")
         get_fields(table).each do |m|
@@ -225,12 +243,9 @@ module Shada
         table.to_s.gsub!("model", "") unless /.*model/i.match(table).nil?
 
         val = args[0]
-
-        type, length = get_column_type val
-
         valid_name = name.to_s.gsub(/=/, "").to_s
-        get_connection.add_column table, valid_name, type, length
-
+        @added_fields.push valid_name
+        
         instance_variable_set("@#{valid_name}", val)
 
         puts "Creating Column with #{valid_name}, #{val}, #{type}"
