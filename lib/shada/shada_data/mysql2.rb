@@ -247,7 +247,7 @@ module Shada
           end
         elsif val.is_a?(Bignum) or val.is_a?(Fixnum)
           type = "INT"
-          length = ""
+          length = 11
         elsif val.nil?
           type = "VARCHAR"
           length = 255

@@ -189,7 +189,7 @@ module Shada
         query("CREATE TABLE IF NOT EXISTS `#{table}` (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY) ENGINE=?  DEFAULT CHARSET=? AUTO_INCREMENT=?;", [engine, charset, autoinc])
       end
       
-      def add_column table, column_name, type, len, default='', after=''
+      def add_column table, column_name, type, len=255, default='', after=''
         after = "AFTER #{after}" unless after.nil?
         sql = "ALTER TABLE `#{escape(table)}` ADD `#{escape(column_name)}` #{escape(type)}(#{escape(len)}) #{default}"
         execute sql
