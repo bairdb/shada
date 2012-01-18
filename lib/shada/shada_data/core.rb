@@ -275,10 +275,11 @@ module Shada
         @records.each do |record|
           hash = {}
           @fields | @added_fields
+          puts @fields
           @fields.map do |f| 
-            unless record.instance_variable_get("@#{f}").to_s.nil?
-                hash[f.to_s] = escape(record.instance_variable_get("@#{f}").to_s)
-            end
+            #unless record.instance_variable_get("@#{f}").to_s.nil?
+            hash[f.to_s] = escape(record.instance_variable_get("@#{f}").to_s)
+            #end
           end
           arr.push hash
         end
