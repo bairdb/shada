@@ -59,6 +59,7 @@ module Shada
       
       def filter_geo coords, distance=10, limit=10
         table = @table
+        
         result = get_connection.filter_geo table, coords, distance, limit
         
         case result.count
@@ -92,7 +93,23 @@ module Shada
         @records = nil
         @records = []
         @update = true
-        result = get_connection.find table, fields, params, sort, @limit, @offset, self
+        
+        k = "#{params.to_s}-#{sort}-#{@limit}-#{@offset}"
+        
+        if not cache.pull params.to_s
+          result = get_connection.find table, '*', params, sort, @limit, @offset, self
+          kresult = get_connection.find table, 'id', params, sort
+          result = result.to_a
+          cache.store k.to_s, {:result => result.to_a, :ids => get_ids(kresult)}
+        else
+          result = cache.pull(k.to_s)[:result]
+          result = result.to_a
+          #puts @cache.pull(params)[:ids]
+        end
+        
+        save_cache table, cache
+        
+        #result = get_connection.find table, fields, params, sort, @limit, @offset, self
         
         case result.count
         when 0
@@ -126,13 +143,15 @@ module Shada
         @records = []
         @update = true
         
+        k = "#{params.to_s}-#{sort}-#{@limit}-#{@offset}"
+        
         if not cache.pull params.to_s
           result = get_connection.find table, '*', params, sort, @limit, @offset, self
           kresult = get_connection.find table, 'id', params, sort
           result = result.to_a
-          cache.store params.to_s, {:result => result.to_a, :ids => get_ids(kresult)}
+          cache.store k.to_s, {:result => result.to_a, :ids => get_ids(kresult)}
         else
-          result = cache.pull(params.to_s)[:result]
+          result = cache.pull(k.to_s)[:result]
           result = result.to_a
           #puts @cache.pull(params)[:ids]
         end

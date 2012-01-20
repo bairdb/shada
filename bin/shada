@@ -179,6 +179,10 @@ Shada::CLI.cli do
     `sudo install bin/shada /usr/bin/shada`
   end
   
+  task :clear_cache do |args|
+    `sudo rm /home/admin/base/tmp/cache/*`
+  end
+  
   task :help do |args|
     puts "Shada CLI v1"
     puts "Copyright (c) 2011 Lackner//Buckingham LLC. All rights reserved."
