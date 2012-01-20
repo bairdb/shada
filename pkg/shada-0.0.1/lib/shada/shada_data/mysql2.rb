@@ -57,6 +57,36 @@ module Shada
         
       end
       
+      def filter_geo coords, distance=10, limit=10
+        table = @table
+        result = get_connection.filter_geo table, coords, distance, limit
+        
+        case result.count
+        when 0
+          puts "No results"
+        when 1
+          r = result.first
+          @fields.each do |m|
+            val = (r[m.to_sym]).class == String ? unescape(r[m.to_sym]) : r[m.to_sym]
+            instance_variable_set("@#{m}", val)
+          end
+
+          #find_parent
+          @records.push self
+        else
+
+          result.each do |r|
+            obj = self.dup
+            r.each do |field, val|
+              obj.instance_variable_set("@#{field}", val)
+            end
+            @records.push obj
+          end
+        end
+
+        return self
+      end
+      
       def find_for fields='*', params=nil, sort='id ASC'
         table = @table
         @records = nil
@@ -152,6 +182,15 @@ module Shada
       end
 
       def insert table
+        begin
+        @added_fields.each do |field|
+          type, length = get_column_type instance_variable_get("@#{field}")
+          length = length.nil? ? 255 : length
+          get_connection.add_column table, field, type, length
+        end
+        rescue => e
+        end
+        
         keys = []
         values = []
         get_fields(table).each do |m|
@@ -168,6 +207,15 @@ module Shada
       end
 
       def update table
+        begin
+        @added_fields.each do |field|
+          type, length = get_column_type instance_variable_get("@#{field}")
+          length = length.nil? ? 255 : length
+          get_connection.add_column table, field, type, length
+        end
+        rescue => e
+        end
+        
         fields = {}
         primary_value = instance_variable_get("@#{@primary}")
         get_fields(table).each do |m|
@@ -195,15 +243,14 @@ module Shada
         table.to_s.gsub!("model", "") unless /.*model/i.match(table).nil?
 
         val = args[0]
-
-        type, length = get_column_type val
-
         valid_name = name.to_s.gsub(/=/, "").to_s
-        get_connection.add_column table, valid_name, type, length
-
+        @added_fields.push valid_name
+        @fields.push valid_name
+        
         instance_variable_set("@#{valid_name}", val)
 
-        puts "Creating Column with #{valid_name}, #{val}, #{type}"
+        puts "Creating Column with #{instance_variable_get("@#{valid_name}")}"
+        
       end
       
       def get_column_type val
@@ -217,10 +264,7 @@ module Shada
           end
         elsif val.is_a?(Bignum) or val.is_a?(Fixnum)
           type = "INT"
-          length = ""
-        elsif val.is_a?(FLOAT)
-          type = "INT"
-          length = ""
+          length = 11
         elsif val.nil?
           type = "VARCHAR"
           length = 255

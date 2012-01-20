@@ -136,6 +136,12 @@ module Shada
         end
       end
       
+      def filter_geo table, coords, distance=10, limit=10
+        sql = "SELECT *, 3956 * 2 * ASIN(SQRT(POWER(SIN((? - abs(lat)) * pi()/180 / 2), 2) +  COS(? * pi()/180 ) * COS(abs(lat) * pi()/180) *  POWER(SIN((? - lng) * pi()/180 / 2), 2) )) as distance FROM #{table} having distance < ? ORDER BY distance limit ?"
+        result = query sql, [coords[:lat].to_f, coords[:lat].to_f, coords[:lng].to_f, distance, limit]
+        result
+      end
+      
       def insert table, fields, data
         begin
           val_str = data.map{|v| "?"}.join(", ")
@@ -183,7 +189,7 @@ module Shada
         query("CREATE TABLE IF NOT EXISTS `#{table}` (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY) ENGINE=?  DEFAULT CHARSET=? AUTO_INCREMENT=?;", [engine, charset, autoinc])
       end
       
-      def add_column table, column_name, type, len, default='', after=''
+      def add_column table, column_name, type, len=255, default='', after=''
         after = "AFTER #{after}" unless after.nil?
         sql = "ALTER TABLE `#{escape(table)}` ADD `#{escape(column_name)}` #{escape(type)}(#{escape(len)}) #{default}"
         execute sql
