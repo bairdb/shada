@@ -180,7 +180,7 @@ Shada::CLI.cli do
   end
   
   task :clear_cache do |args|
-    `sudo rm /home/admin/base/tmp/cache/*`
+    `sudo rm /home/admin/base/site/tmp/cache/*`
   end
   
   task :help do |args|
