@@ -52,7 +52,7 @@ module Shada
     end
     
     def open_template file
-      unless file.directory?(file)
+      unless File.directory?(file)
         File.read file
       else
         ''
