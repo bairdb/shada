@@ -52,7 +52,6 @@ module Shada
     end
     
     def open_template file
-      puts file
       unless File.directory?(file)
         File.read file
       else
