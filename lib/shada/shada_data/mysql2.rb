@@ -36,8 +36,11 @@ module Shada
       
       def get_ids result
         ids = []
-        result.each do |row|
-          ids.push row[@primary_sym]
+        begin
+          result.each do |row|
+            ids.push row[@primary_sym]
+          end
+        rescue => e
         end
 
         ids
