@@ -77,10 +77,7 @@ Shada::CLI.cli do
 	  `cd ~/base/site; ruby run.rb start`
     `cd ~/base/site; ruby run_monitor.rb start`
     `cd ~/base/site; ruby run_upload.rb start`
-	  unless is_running.nil?
-	    `cd ~/base; m2sh load -config ~/base/server/mongrel2.conf`
-      `cd ~/base; m2sh start -host reelfinatics.com -sudo`
-    end
+    `cd ~/base/site; ruby run_secure.rb start`
   end
   
   task :stop do |args|
@@ -88,10 +85,7 @@ Shada::CLI.cli do
     `cd ~/base/site; ruby run.rb stop`
     `cd ~/base/site; ruby run_monitor.rb stop`
     `cd ~/base/site; ruby run_upload.rb stop`
-    is_running = `ps aux | grep mongrel2`
-    unless is_running.nil?
-      `cd ~/base; m2sh stop -host reelfinatics.com -sudo`
-    end
+    `cd ~/base/site; ruby run_secure.rb stop`
   end
 	
 	task :create_table do |args|
@@ -129,7 +123,7 @@ Shada::CLI.cli do
 	  table = args[:table]
 	  name = args[:column_name] || args[:name]
 	  type = args[:type] || 'varchar'
-	  len = args[:len] || "MAX"
+	  len = args[:len] || "255"
 	  db = args[:database] || Shada::Config['MySQLDB_Default']
 	  
 	  puts "Creating Column: #{name} - #{type} - #{len}"
@@ -143,7 +137,7 @@ Shada::CLI.cli do
     table = args[:table]
     name = args[:column_name] || args[:name]
     type = args[:type] || 'varchar'
-    len = args[:len] || "MAX"
+    len = args[:len] || "255"
     db = args[:database] || Shada::Config['MySQLDB_Default']
   
     puts "Altering Column: #{name} - #{type}"
@@ -170,7 +164,7 @@ Shada::CLI.cli do
     name = args[:column_name] || args[:name]
     new_name = args[:new_column_name] || args[:new_name]
     type = args[:type] || 'varchar'
-    len = args[:len] || "MAX"
+    len = args[:len] || "255"
     db = args[:database] || Shada::Config['MySQLDB_Default']
     
     puts "Changing Column: #{name} to #{new_name}"
@@ -183,6 +177,10 @@ Shada::CLI.cli do
     `git pull`
     `rake build_gem`
     `sudo install bin/shada /usr/bin/shada`
+  end
+  
+  task :clear_cache do |args|
+    `sudo rm /home/admin/base/site/tmp/cache/*`
   end
   
   task :help do |args|

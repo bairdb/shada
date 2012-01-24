@@ -52,7 +52,11 @@ module Shada
     end
     
     def open_template file
-      File.read file
+      unless File.directory?(file)
+        File.read file
+      else
+        ''
+      end
     end
     
     def init template

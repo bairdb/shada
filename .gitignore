@@ -48,6 +48,7 @@ doc/nbproject/private/rake-d_txt.html
 Rakefile.save
 
 tmp/cache_charters.tmp
+
 pkg/shada-0.0.1/lib/shada/shada_data/mysql2.rb
 
 pkg/shada-0.0.1/lib/shada/shada_data/mysql2/mysql2.rb
@@ -65,3 +66,11 @@ pkg/shada-0.0.1/lib/shada/shada_engine/headers.rb
 pkg/shada-0.0.1/lib/shada/shada_app/templator.rb
 
 pkg/shada-0.0.1/lib/shada/shada_upload.rb
+
+site/tmp/cache/*
+
+logs/*
+
+certs/*
+
+

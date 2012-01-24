@@ -40,6 +40,8 @@ module Shada
       @result_arr = []
       
       @registry = {}
+      
+      register 'exclude', ''
     end
     
     #register
