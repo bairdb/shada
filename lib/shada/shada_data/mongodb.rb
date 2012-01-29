@@ -42,7 +42,7 @@ module Shada
         k = "#{params.to_s}-#{sort}-#{@limit}-#{@offset}"
         
         if not cache.pull params.to_s
-          result = get_connection.find table, [], params, sort, @limit, @offset, self
+          result = get_connection.find @table, [], params, sort, @limit, @offset, self
           result = result.to_a
           cache.store k.to_s, {:result => result.to_a}
         else
@@ -61,8 +61,6 @@ module Shada
             end
             @records.push obj
           end
-
-          return @records
         elsif result.count > 0
           result.each do |row|
             row.map do|valid_name, val|
@@ -73,7 +71,7 @@ module Shada
         else
           puts "No results"
         end
-        self
+        return self
       end
 
       def save
