@@ -28,7 +28,7 @@ module Shada
         
       end
       
-      def get_timestamp
+      def get_timestamp db, table
         
       end
       
