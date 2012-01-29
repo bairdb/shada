@@ -150,9 +150,9 @@ module Shada
         
         if not cache.pull params.to_s
           result = get_connection.find table, '*', params, sort, @limit, @offset, self
-          kresult = get_connection.find table, 'id', params, sort
+          #kresult = get_connection.find table, 'id', params, sort
           result = result.to_a
-          cache.store k.to_s, {:result => result.to_a, :ids => get_ids(kresult)}
+          cache.store k.to_s, {:result => result.to_a} #, :ids => get_ids(kresult)
         else
           result = cache.pull(k.to_s)[:result]
           result = result.to_a
@@ -249,7 +249,6 @@ module Shada
           end
         end
         get_connection.update table, fields, primary_value, @primary
-        #update_cache primary_value
         flush_cache
         @saving = false
         self

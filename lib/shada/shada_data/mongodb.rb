@@ -42,7 +42,10 @@ module Shada
         if result.count > 1
           result.each do |r|
             obj = self.class.new
-            @records.push obj.find('_id' => r['_id'])
+            r.each do |field, val|
+              obj.instance_variable_set("@#{field}", val)
+            end
+            @records.push obj
           end
 
           return @records
@@ -125,7 +128,7 @@ module Shada
         end
 
         klass.send :define_method, "#{valid_name}=" do |val|
-           instance_variable_set("@#{valid_name}",val)
+          instance_variable_set("@#{valid_name}",val)
         end
       end
 
