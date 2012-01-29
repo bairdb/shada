@@ -249,7 +249,7 @@ module Shada
           end
         end
         get_connection.update table, fields, primary_value, @primary
-        flush_cache
+        update_cache primary_value
         @saving = false
         self
       end
@@ -300,11 +300,9 @@ module Shada
 
       def update_cache primary_val
         cache.each_page do |page|
-          page.value[:ids].find do |i|
             #puts "Size: #{cache.size}"
-            cache.remove_node page if i.to_i == primary_val.to_i
+            cache.remove_node page if page.key.match(/.*?#{primary_val}.*?/)
             #puts "Size: #{cache.size}"
-          end
         end
       end
       
