@@ -52,11 +52,6 @@ module Shada
         end
         
         save_cache table, cache
-
-        #params.map do |k,v|
-        #  cols.push k.to_s
-        #  vals.push v
-        #end
         
         if result.count > 1
           result.each do |r|

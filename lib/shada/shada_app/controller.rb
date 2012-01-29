@@ -12,8 +12,8 @@ module Shada
     attr_accessor :form, :model, :rest_of_path, :base_link, :path, :user
     
     def initialize
-      @pagemodel = PagesModel.new
-      @filemodel = FilesModel.new
+      #@pagemodel = PagesModel.new
+      #@filemodel = FilesModel.new
       @base_link = self.class.name.downcase.gsub('controller', '') != Shada::Config['DefaultController'] ? "/#{self.class.name.downcase.gsub('controller', '')}" : ""
     end
     
