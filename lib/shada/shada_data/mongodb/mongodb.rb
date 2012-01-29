@@ -40,7 +40,7 @@ module Shada
         @db.collection(collection)
       end
 
-      def find collection, cols, values
+      def find collection, cols, values={}, sort="", limit=0, offset=0, klass=nil
         col = load collection
         i = 0
         query = {}
