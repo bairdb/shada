@@ -53,7 +53,18 @@ module Shada
         
         save_cache table, cache
         
-        if result.count > 1
+        case result.count
+        when 0
+          puts "No results"
+        when 1
+          result.each do |row|
+            row.map do|valid_name, val|
+              define_meth valid_name, val
+              instance_variable_set("@#{valid_name}", val)
+            end
+          end
+          @records.push self
+        else
           result.each do |r|
             obj = self.class.new
             r.each do |field, val|
@@ -61,16 +72,8 @@ module Shada
             end
             @records.push obj
           end
-        elsif result.count > 0
-          result.each do |row|
-            row.map do|valid_name, val|
-              define_meth valid_name, val
-              instance_variable_set("@#{valid_name}", val)
-            end
-          end
-        else
-          puts "No results"
         end
+        
         return self
       end
 
