@@ -17,6 +17,12 @@ module Shada
       def get_fields table
         get_connection.get_fields(table)
       end
+      
+      def get_timestamp table
+        if @timestamp.nil?
+          get_connection.get_timestamp db, table
+        end
+      end
 
       def get_ids result
         ids = []
@@ -27,17 +33,33 @@ module Shada
         ids
       end
 
-      def find params
+      def find params, sort='id ASC', table=nil
+        table = table.nil? ? @table : table
+        @records = nil
+        @records = []
         @update = true
-        cols = []
-        vals = []
+        
+        k = "#{params.to_s}-#{sort}-#{@limit}-#{@offset}"
+        
+        if not cache.pull params.to_s
+          result = get_connection.find table, '*', params, sort, @limit, @offset, self
+          kresult = get_connection.find table, 'id', params, sort
+          result = result.to_a
+          cache.store k.to_s, {:result => result.to_a, :ids => get_ids(kresult)}
+        else
+          result = cache.pull(k.to_s)[:result]
+          result = result.to_a
+          #puts @cache.pull(params)[:ids]
+        end
+        
+        save_cache table, cache
 
         params.map do |k,v|
           cols.push k.to_s
           vals.push v
         end
 
-        result = get_connection.find @table, cols, vals
+        
 
         if result.count > 1
           result.each do |r|
@@ -77,16 +99,19 @@ module Shada
 
       def update table
         data = update_fields
+        flush_cache
         get_connection.update @table, @_id, data
       end
 
       def insert table
         data = update_fields
+        flush_cache
         get_connection.insert @table, data
       end
 
       def destroy
         get_connection.destroy @table, @_id
+        flush_cache
         self
       end
 
@@ -140,6 +165,10 @@ module Shada
             #puts "Size: #{@cache.size}"
           end
         end
+      end
+      
+      def flush_cache
+        cache.purge
       end
     end
   end

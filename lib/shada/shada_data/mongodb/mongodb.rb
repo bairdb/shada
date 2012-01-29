@@ -28,6 +28,10 @@ module Shada
         
       end
       
+      def get_timestamp
+        
+      end
+      
       def load_all
         @db.collection_names
       end
