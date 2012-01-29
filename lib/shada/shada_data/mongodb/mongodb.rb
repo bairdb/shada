@@ -49,11 +49,10 @@ module Shada
             query[c] = values[i]
             i = i + 1
           }
+          col.find(query)
         else
-          query = ""
-        end
-        #puts query
-        col.find(query)
+          col.find()
+        end        
       end
       
       def view_all collection
