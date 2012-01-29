@@ -68,6 +68,7 @@ module Shada
           result.each do |r|
             obj = self.class.new
             r.each do |field, val|
+              obj.define_meth field, val
               obj.instance_variable_set("@#{field}", val)
             end
             @records.push obj
