@@ -120,9 +120,7 @@ module Shada
 
       def view_all
         col = get_connection.view_all @table
-        col.each do |page|
-          puts page
-        end
+        col
       end
 
       private
