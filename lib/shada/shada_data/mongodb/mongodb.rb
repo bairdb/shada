@@ -43,11 +43,15 @@ module Shada
       def find collection, cols, values={}, sort="", limit=0, offset=0, klass=nil
         col = load collection
         i = 0
-        query = {}
-        cols.each{|c|
-          query[c] = values[i]
-          i = i + 1
-        }
+        if cols.count > 0
+          query = {}
+          cols.each{|c|
+            query[c] = values[i]
+            i = i + 1
+          }
+        else
+          query = ""
+        end
         #puts query
         col.find(query)
       end
