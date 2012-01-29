@@ -33,7 +33,7 @@ module Shada
         ids
       end
 
-      def find params, sort='id ASC', table=nil
+      def find params=[], sort='id ASC', table=nil
         table = table.nil? ? @table : table
         @records = nil
         @records = []
