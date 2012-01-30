@@ -256,7 +256,7 @@ module Shada
         end
         #puts "#{table} - #{keys} - #{values}"
         ret = get_connection.insert table, keys, values
-        flush_cache
+        flush_cache table
         @saving = false
         self
       end
@@ -279,7 +279,7 @@ module Shada
           end
         end
         get_connection.update table, fields, primary_value, @primary
-        flush_cache
+        flush_cache table
         @saving = false
         self
       end
@@ -289,7 +289,7 @@ module Shada
         table.to_s.gsub!("model", "") unless /.*model/i.match(table).nil?
         primary_value = instance_variable_get("@#{@primary}")
         get_connection.destroy table, primary_value, @primary
-        flush_cache
+        flush_cache table
         self
       end
       
@@ -303,7 +303,7 @@ module Shada
         @fields.push valid_name
         
         instance_variable_set("@#{valid_name}", val)
-
+        flush_cache table
         puts "Creating Column with #{instance_variable_get("@#{valid_name}")}"
         
       end
@@ -334,10 +334,6 @@ module Shada
           cache.remove_node page if page.key.match(/.*?#{primary_val}.*?/)
           #puts "Size: #{cache.size}"
         end
-      end
-      
-      def flush_cache
-        cache.purge
       end
 
     end

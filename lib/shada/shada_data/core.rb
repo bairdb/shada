@@ -264,6 +264,11 @@ module Shada
         Core::persist "cache_#{table}.tmp", cache, Shada::Config['CacheDir']
       end
       
+      def flush_cache table
+        @@internals[get_table][:cache] = Shada::Data::Cache.new 100
+        Core::flush "cache_#{table}.tmp", Shada::Config['CacheDir']
+      end
+      
       def ghost_query key, val
         vals = {}
         vals[key] = val.to_i

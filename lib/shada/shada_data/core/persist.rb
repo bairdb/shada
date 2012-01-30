@@ -5,10 +5,14 @@ module Shada
     module Persist
       def persist file_name, obj, dir=""
         @dir = dir
-        puts file_name
         File.open("#{@dir}#{file_name}","wb") do |file|
            Marshal::dump(obj,file)
         end
+      end
+      
+      def flush file_name, dir=""
+        @dir = dir
+        File.open("#{@dir}#{file_name}","wb")
       end
 
       def persist_load file_name
