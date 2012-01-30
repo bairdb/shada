@@ -16,18 +16,48 @@ module Shada
 
       def get_primary table
         if @primary.nil?
-          get_connection.get_primary db, table
+          k = "#{db}-#{table}-primary"
+          
+          if not cache.pull k.to_s
+            result = get_connection.get_primary db, table
+            cache.store k.to_s, {:result => result}
+          else
+            result = cache.pull(k.to_s)[:result]
+          end
+          
+          save_cache table, cache
+          result         
         end
       end
       
       def get_timestamp table
         if @timestamp.nil?
-          get_connection.get_timestamp db, table
+          k = "#{db}-#{table}-timestamp"
+          
+          if not cache.pull k.to_s
+            result = get_connection.get_timestamp db, table
+            cache.store k.to_s, {:result => result}
+          else
+            result = cache.pull(k.to_s)[:result]
+          end
+          
+          save_cache table, cache
+          result          
         end
       end
 
       def get_fields table
-        get_connection.get_fields(table)
+        k = "#{table}-fields"
+          
+        if not cache.pull k.to_s
+          result = get_connection.get_fields(table)
+          cache.store k.to_s, {:result => result}
+        else
+          result = cache.pull(k.to_s)[:result]
+        end
+          
+        save_cache table, cache
+        result        
       end
       
       def last_id
@@ -99,11 +129,11 @@ module Shada
         
         k = "#{params.to_s}-#{sort}-#{@limit}-#{@offset}"
         
-        if not cache.pull params.to_s
+        if not cache.pull k.to_s
           result = get_connection.find table, '*', params, sort, @limit, @offset, self
-          kresult = get_connection.find table, 'id', params, sort
+          #kresult = get_connection.find table, 'id', params, sort
           result = result.to_a
-          cache.store k.to_s, {:result => result.to_a, :ids => get_ids(kresult)}
+          cache.store k.to_s, {:result => result.to_a} #, :ids => get_ids(kresult)
         else
           result = cache.pull(k.to_s)[:result]
           result = result.to_a
@@ -148,7 +178,7 @@ module Shada
         
         k = "#{params.to_s}-#{sort}-#{@limit}-#{@offset}"
         
-        if not cache.pull params.to_s
+        if not cache.pull k.to_s
           result = get_connection.find table, '*', params, sort, @limit, @offset, self
           #kresult = get_connection.find table, 'id', params, sort
           result = result.to_a
@@ -208,11 +238,11 @@ module Shada
 
       def insert table
         begin
-        @added_fields.each do |field|
-          type, length = get_column_type instance_variable_get("@#{field}")
-          length = length.nil? ? 255 : length
-          get_connection.add_column table, field, type, length
-        end
+          @added_fields.each do |field|
+            type, length = get_column_type instance_variable_get("@#{field}")
+            length = length.nil? ? 255 : length
+            get_connection.add_column table, field, type, length
+          end
         rescue => e
         end
         
@@ -233,11 +263,11 @@ module Shada
 
       def update table
         begin
-        @added_fields.each do |field|
-          type, length = get_column_type instance_variable_get("@#{field}")
-          length = length.nil? ? 255 : length
-          get_connection.add_column table, field, type, length
-        end
+          @added_fields.each do |field|
+            type, length = get_column_type instance_variable_get("@#{field}")
+            length = length.nil? ? 255 : length
+            get_connection.add_column table, field, type, length
+          end
         rescue => e
         end
         
@@ -300,9 +330,9 @@ module Shada
 
       def update_cache primary_val
         cache.each_page do |page|
-            #puts "Size: #{cache.size}"
-            cache.remove_node page if page.key.match(/.*?#{primary_val}.*?/)
-            #puts "Size: #{cache.size}"
+          #puts "Size: #{cache.size}"
+          cache.remove_node page if page.key.match(/.*?#{primary_val}.*?/)
+          #puts "Size: #{cache.size}"
         end
       end
       
