@@ -228,7 +228,7 @@ module Shada
              Marshal::dump(obj,file)
           end
         end
-
+        
         def persist_load file_name
           File.open("#{Shada::Config['CacheDir']}#{file_name}","r") {|f| return Marshal::load(f)}
         end
@@ -236,7 +236,11 @@ module Shada
         def persist_exists file_name
           File.exist?("#{Shada::Config['CacheDir']}#{file_name}")
         end
-
+        
+        def flush file_name, cacheDir=""
+          File.open("#{cacheDir}#{file_name}","w")
+        end
+        
       end
       
       def get_row_count
