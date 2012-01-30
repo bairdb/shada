@@ -12,8 +12,7 @@ module Shada
     end
 
     def handle data, type='text/html'
-      @form['Refresh']  = ''
-      @form['Content-Type'] = type
+      #@form['Content-Type'] = type
       route @form.get_path
     end
   end
