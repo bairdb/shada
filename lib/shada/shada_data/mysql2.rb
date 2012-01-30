@@ -279,7 +279,7 @@ module Shada
           end
         end
         get_connection.update table, fields, primary_value, @primary
-        update_cache primary_value
+        flush_cache
         @saving = false
         self
       end
@@ -289,7 +289,7 @@ module Shada
         table.to_s.gsub!("model", "") unless /.*model/i.match(table).nil?
         primary_value = instance_variable_get("@#{@primary}")
         get_connection.destroy table, primary_value, @primary
-        update_cache primary_value
+        flush_cache
         self
       end
       
