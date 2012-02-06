@@ -4,7 +4,7 @@ module Shada
   class Headers
     include Enumerable
     
-    attr_accessor :get, :post, :files, :cookies, :response_headers, :request_headers, :status, :status_code
+    attr_accessor :get, :post, :files, :cookies, :response_headers, :request_headers, :status, :status_code, :body
     
     def initialize
       @get = {}
@@ -121,6 +121,7 @@ module Shada
     end
     
     def parse_headers headers, body
+      @body = body
       @request_headers['headers'] = headers
       types = [{:headers => headers['QUERY'], :type => 'get', :delimiter => '&'}, {:headers => body, :type => 'post', :delimiter => '&'}, {:headers => headers['cookie'], :type => 'cookie', :delimiter => "; "}]
       
