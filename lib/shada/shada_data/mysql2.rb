@@ -32,16 +32,7 @@ module Shada
       
       def get_timestamp table
         if @timestamp.nil?
-          k = "#{db}-#{table}-timestamp"
-          
-          if not cache.pull k.to_s
-            result = get_connection.get_timestamp db, table
-            cache.store k.to_s, {:result => result}
-          else
-            result = cache.pull(k.to_s)[:result]
-          end
-          
-          save_cache table, cache
+          result = get_connection.get_timestamp db, table
           result          
         end
       end
