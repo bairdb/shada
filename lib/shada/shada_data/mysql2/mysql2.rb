@@ -118,9 +118,17 @@ module Shada
           offset = offset || 0          
           slimit = limit > 0 ? "LIMIT #{offset},#{limit}" : '' unless limit.nil?
           
-          sql = "SELECT *, MATCH(#{fields}) AGAINST ('#{keyword}' IN BOOLEAN MODE) as score FROM #{table} WHERE MATCH(#{fields}) AGAINST ('#{keyword}' IN BOOLEAN MODE) ORDER BY score DESC #{slimit}"
-          puts sql
+          sql1 = "DROP TABLE IF EXISTS `#{table}_temp`;"
+          sql1 += "CREATE TEMPORARY TABLE `#{table}_temp` SELECT * FROM `#{table}`;"
+          sql1 += "ALTER TABLE `#{table}_temp`  ENGINE = MYISAM;"
+          sql1 += "ALTER TABLE `#{table}_temp` ADD FULLTEXT `FTK_title_description` (#{fields});"
+          execute sql1
+          
+          sql = "SELECT *, MATCH(#{fields}) AGAINST ('#{keyword}' IN BOOLEAN MODE) as score FROM #{table}_temp WHERE MATCH(#{fields}) AGAINST ('#{keyword}' IN BOOLEAN MODE) ORDER BY score DESC #{slimit}"
           result = query sql, []
+          
+          sql2 = "DROP TABLE `#{table}_temp`;"
+          execute sql2
           
           result
         rescue => e
