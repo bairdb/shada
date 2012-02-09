@@ -111,6 +111,24 @@ module Shada
         end
       end
       
+      def search table, fields, keyword, limit=0, offset=0
+        begin
+          slimit = ""
+          
+          offset = offset || 0          
+          slimit = limit > 0 ? "LIMIT #{offset},#{limit}" : '' unless limit.nil?
+          
+          sql = "SELECT *, MATCH(#{fields}) AGAINST (#{keyword} IN BOOLEAN MODE) as score FROM #{table} WHERE MATCH(#{fields}) AGAINST (#{keyword} IN BOOLEAN MODE) ORDER BY score DESC #{slimit}"
+          #puts sql
+          result = query sql, where_arr
+          
+          result
+        rescue => e
+          puts "#{e.message} - #{e.backtrace}"
+          return []
+        end
+      end
+      
       def find table, fields, where={}, sort="", limit=0, offset=0, klass=nil
         begin
           where_arr = []
