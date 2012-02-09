@@ -116,13 +116,13 @@ module Shada
         
       end
       
-      def search fields, keyword
+      def search fields, keyword, filter=''
         table = @table
         @records = nil
         @records = []
         @update = true
         
-        result = get_connection.search table, fields, keyword, @limit, @offset
+        result = get_connection.search table, fields, keyword, filter, @limit, @offset
         
         case result.count
         when 0
