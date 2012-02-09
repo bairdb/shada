@@ -119,7 +119,7 @@ module Shada
           slimit = limit > 0 ? "LIMIT #{offset},#{limit}" : '' unless limit.nil?
           
           unless keyword.to_s.length <= 3
-          
+            filter = "WHERE #{filter}" unless filter == ''
             sql1 = "DROP TABLE IF EXISTS `#{table}_temp`;"
             execute sql1
             sql1 = " CREATE TEMPORARY TABLE `#{table}_temp` SELECT * FROM `#{table}` #{filter};"
@@ -143,7 +143,8 @@ module Shada
             tfields.each{|k| where_arr.push "%#{keyword}%"} unless tfields.nil?
           
             offset = offset || 0
-          
+            
+            filter = "AND #{filter}" unless filter == ''
             slimit = limit > 0 ? "LIMIT #{offset},#{limit}" : '' unless limit.nil?
             where_str = "WHERE #{where_str}" unless where_str.empty?
             sql = "SELECT * FROM #{table} #{where_str} #{slimit}"
