@@ -140,14 +140,13 @@ module Shada
             where_str = ""
             slimit = ""
             where_str = tfields.map{|k| "#{k.strip} LIKE ?"}.join(" OR ") unless tfields.nil?
-            tfields.each{|k| where_arr.push "{keyword}"} unless tfields.nil?
+            tfields.each{|k| where_arr.push "%#{keyword}%"} unless tfields.nil?
           
             offset = offset || 0
           
             slimit = limit > 0 ? "LIMIT #{offset},#{limit}" : '' unless limit.nil?
             where_str = "WHERE #{where_str}" unless where_str.empty?
             sql = "SELECT #{fields} FROM #{table} #{where_str} #{slimit}"
-            puts where_arr
             result = query sql, where_arr
           end
           result
