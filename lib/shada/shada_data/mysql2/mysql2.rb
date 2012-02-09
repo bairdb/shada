@@ -59,8 +59,8 @@ module Shada
       end
       
       def query sql, binds
-          result = execute prepare sql, binds
-          result        
+        result = execute prepare sql, binds
+        result        
       end
       
       def last_id
@@ -118,21 +118,38 @@ module Shada
           offset = offset || 0          
           slimit = limit > 0 ? "LIMIT #{offset},#{limit}" : '' unless limit.nil?
           
-          sql1 = "DROP TABLE IF EXISTS `#{table}_temp`;"
-          execute sql1
-          sql1 = " CREATE TEMPORARY TABLE `#{table}_temp` SELECT * FROM `#{table}` #{filter};"
-          execute sql1
-          sql1 = " ALTER TABLE `#{table}_temp`  ENGINE = MYISAM;"
-          execute sql1
-          sql1 = " ALTER TABLE `#{table}_temp` ADD FULLTEXT (#{fields});"
-          execute sql1
+          unless keyword.to_s.length <= 3
           
-          sql = "SELECT *, MATCH(#{fields}) AGAINST ('#{keyword}' IN NATURAL LANGUAGE MODE) as score FROM #{table}_temp WHERE MATCH(#{fields}) AGAINST ('#{keyword}' IN NATURAL LANGUAGE MODE) ORDER BY score DESC #{slimit}"
-          result = query sql, []
+            sql1 = "DROP TABLE IF EXISTS `#{table}_temp`;"
+            execute sql1
+            sql1 = " CREATE TEMPORARY TABLE `#{table}_temp` SELECT * FROM `#{table}` #{filter};"
+            execute sql1
+            sql1 = " ALTER TABLE `#{table}_temp`  ENGINE = MYISAM;"
+            execute sql1
+            sql1 = " ALTER TABLE `#{table}_temp` ADD FULLTEXT (#{fields});"
+            execute sql1
           
-          sql2 = "DROP TABLE `#{table}_temp`;"
-          execute sql2
+            sql = "SELECT *, MATCH(#{fields}) AGAINST ('#{keyword}' IN NATURAL LANGUAGE MODE) as score FROM #{table}_temp WHERE MATCH(#{fields}) AGAINST ('#{keyword}' IN NATURAL LANGUAGE MODE) ORDER BY score DESC #{slimit}"
+            result = query sql, []
           
+            sql2 = "DROP TABLE `#{table}_temp`;"
+            execute sql2
+          else
+            tfields = fields.split(',')
+            where_arr = []
+            where_str = ""
+            slimit = ""
+            where_str = tfields.map{|k,v| "#{k.strip} LIKE ?"}.join(" OR ") unless tfields.nil?
+            tfields.each{|k,v| where_arr.push "%#{v}%"} unless tfields.nil?
+          
+            offset = offset || 0
+          
+            slimit = limit > 0 ? "LIMIT #{offset},#{limit}" : '' unless limit.nil?
+            where_str = "WHERE #{where_str}" unless where_str.empty?
+            sql = "SELECT #{fields} FROM #{table} #{where_str} #{slimit}"
+            result = query sql, where_arr
+            result
+          end
           result
         rescue => e
           puts "#{e.message} - #{e.backtrace}"
