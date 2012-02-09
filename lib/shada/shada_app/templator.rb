@@ -63,7 +63,7 @@ module Shada
     
     def init template
       @html = open_template template
-      @html = @html.encode('iso-8859-1', 'utf-8')
+      @html = @html.encode('utf-8')
       includes
       preprocess_results
       parse 1
@@ -77,7 +77,7 @@ module Shada
     end
     
     def gettags
-      @html = @html.encode('iso-8859-1', 'utf-8')
+      @html = @html.encode('utf-8')
       @tags = @html.scan @pattern
     end
     
@@ -103,7 +103,7 @@ module Shada
     def values hash
       @tag_arr.push /\{\$#{hash[:key].to_s}\}/
       if hash[:value].is_a?(String)
-        @rep_arr.push hash[:value].encode('iso-8859-1', 'utf-8')
+        @rep_arr.push hash[:value].encode('utf-8')
       else
         @rep_arr.push hash[:value] 
       end
@@ -119,7 +119,7 @@ module Shada
     end
     
    def includes
-     @html = @html.encode('iso-8859-1', 'utf-8')
+     @html = @html.encode('utf-8')
      inc = @html.scan @include_pattern
      tag_arr = []
      rep_arr = []
@@ -178,7 +178,7 @@ module Shada
    end
    
    def preprocess_results
-     @html = @html.encode('iso-8859-1', 'utf-8')
+     @html = @html.encode('utf-8')
      @html.scan(@result_pattern).inject(0) do |i, result|
         @content_arr.push result[1]
         @html = @html.gsub /\{results for \$#{Regexp.quote(result[0])}\}(.*?)\{\/results\}/m, "{results for $#{result[0]}}%%replacement_#{i}%%{/results}"
@@ -190,7 +190,7 @@ module Shada
      tags = []
      rep = []
      
-     @html = @html.encode('iso-8859-1', 'utf-8')
+     @html = @html.encode('utf-8')
      @html.scan(@result_pattern).inject(0) do |i, result|
        @rep_pattern = @content_arr[i].to_s.strip
        @tmp = ""
