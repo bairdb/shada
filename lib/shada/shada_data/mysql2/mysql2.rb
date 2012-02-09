@@ -111,7 +111,7 @@ module Shada
         end
       end
       
-      def search table, fields, keyword, limit=0, offset=0
+      def search table, fields, keyword, filter="", limit=0, offset=0
         begin
           slimit = ""
           
@@ -120,7 +120,7 @@ module Shada
           
           sql1 = "DROP TABLE IF EXISTS `#{table}_temp`;"
           execute sql1
-          sql1 = " CREATE TEMPORARY TABLE `#{table}_temp` SELECT * FROM `#{table}`;"
+          sql1 = " CREATE TEMPORARY TABLE `#{table}_temp` SELECT * FROM `#{table}` #{filter};"
           execute sql1
           sql1 = " ALTER TABLE `#{table}_temp`  ENGINE = MYISAM;"
           execute sql1
