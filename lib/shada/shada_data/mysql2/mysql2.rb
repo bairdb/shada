@@ -147,8 +147,8 @@ module Shada
             slimit = limit > 0 ? "LIMIT #{offset},#{limit}" : '' unless limit.nil?
             where_str = "WHERE #{where_str}" unless where_str.empty?
             sql = "SELECT #{fields} FROM #{table} #{where_str} #{slimit}"
+            puts sql
             result = query sql, where_arr
-            result
           end
           result
         rescue => e
