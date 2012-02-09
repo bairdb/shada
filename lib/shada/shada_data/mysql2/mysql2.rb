@@ -120,7 +120,7 @@ module Shada
           
           sql = "SELECT *, MATCH(#{fields}) AGAINST (#{keyword} IN BOOLEAN MODE) as score FROM #{table} WHERE MATCH(#{fields}) AGAINST (#{keyword} IN BOOLEAN MODE) ORDER BY score DESC #{slimit}"
           #puts sql
-          result = query sql
+          result = execute sql
           
           result
         rescue => e
