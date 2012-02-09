@@ -119,8 +119,8 @@ module Shada
           slimit = limit > 0 ? "LIMIT #{offset},#{limit}" : '' unless limit.nil?
           
           sql = "SELECT *, MATCH(#{fields}) AGAINST (#{keyword} IN BOOLEAN MODE) as score FROM #{table} WHERE MATCH(#{fields}) AGAINST (#{keyword} IN BOOLEAN MODE) ORDER BY score DESC #{slimit}"
-          #puts sql
-          result = execute sql
+          puts sql
+          result = query sql
           
           result
         rescue => e
