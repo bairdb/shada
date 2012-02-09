@@ -147,7 +147,7 @@ module Shada
             filter = "AND #{filter}" unless filter == ''
             slimit = limit > 0 ? "LIMIT #{offset},#{limit}" : '' unless limit.nil?
             where_str = "WHERE #{where_str}" unless where_str.empty?
-            sql = "SELECT * FROM #{table} #{where_str} #{slimit}"
+            sql = "SELECT * FROM #{table} #{where_str} #{filter} #{slimit}"
             puts sql
             result = query sql, where_arr
           end
