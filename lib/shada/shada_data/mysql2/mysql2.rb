@@ -127,7 +127,7 @@ module Shada
           sql1 = " ALTER TABLE `#{table}_temp` ADD FULLTEXT `FTK_#{fields.gsub(', ', '_').gsub(',', '_')}` (#{fields});"
           execute sql1
           
-          sql = "SELECT *, MATCH(#{fields}) AGAINST ('+#{keyword}' IN BOOLEAN MODE) as score FROM #{table}_temp WHERE MATCH(#{fields}) AGAINST ('+#{keyword}' IN BOOLEAN MODE) ORDER BY score DESC #{slimit}"
+          sql = "SELECT *, MATCH(#{fields}) AGAINST ('(#{keyword})' IN BOOLEAN MODE) as score FROM #{table}_temp WHERE MATCH(#{fields}) AGAINST ('(#{keyword})' IN BOOLEAN MODE) ORDER BY score DESC #{slimit}"
           result = query sql, []
           
           sql2 = "DROP TABLE `#{table}_temp`;"
