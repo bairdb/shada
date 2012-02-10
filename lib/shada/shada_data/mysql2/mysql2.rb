@@ -119,6 +119,13 @@ module Shada
           slimit = limit > 0 ? "LIMIT #{offset},#{limit}" : '' unless limit.nil?
           
           unless keyword.to_s.length <= 3
+            tfields = fields.split(',')
+            where_arr = []
+            where_str = ""
+            slimit = ""
+            where_str = tfields.map{|k| "#{k.strip}=?"}.join(" OR ") unless tfields.nil?
+            tfields.each{|k| where_arr.push "#{keyword}"} unless tfields.nil?
+            
             filter = "WHERE #{filter}" unless filter == ''
             sql1 = "DROP TABLE IF EXISTS `#{table}_temp`;"
             execute sql1
@@ -129,8 +136,9 @@ module Shada
             sql1 = " ALTER TABLE `#{table}_temp` ADD FULLTEXT (#{fields});"
             execute sql1
           
-            sql = "SELECT *, MATCH(#{fields}) AGAINST ('#{keyword}' IN NATURAL LANGUAGE MODE) as score FROM #{table}_temp WHERE MATCH(#{fields}) AGAINST ('#{keyword}' IN NATURAL LANGUAGE MODE) ORDER BY score DESC #{slimit}"
-            result = query sql, []
+            where_str = "OR #{where_str}" unless where_str.empty?
+            sql = "SELECT *, MATCH(#{fields}) AGAINST ('#{keyword}' IN NATURAL LANGUAGE MODE) as score FROM #{table}_temp WHERE MATCH(#{fields}) AGAINST ('#{keyword}' IN NATURAL LANGUAGE MODE) #{where_str} ORDER BY score DESC #{slimit}"
+            result = query sql, where_arr
           
             sql2 = "DROP TABLE `#{table}_temp`;"
             execute sql2
