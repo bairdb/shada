@@ -123,8 +123,8 @@ module Shada
             where_arr = []
             where_str = ""
             slimit = ""
-            where_str = tfields.map{|k| "#{k.strip}=?"}.join(" OR ") unless tfields.nil?
-            tfields.each{|k| where_arr.push "#{keyword}"} unless tfields.nil?
+            where_str = tfields.map{|k| "#{k.strip} LIKE ?"}.join(" OR ") unless tfields.nil?
+            tfields.each{|k| where_arr.push "%#{keyword}%"} unless tfields.nil?
             
             filter = "WHERE #{filter}" unless filter == ''
             sql1 = "DROP TABLE IF EXISTS `#{table}_temp`;"
