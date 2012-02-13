@@ -253,6 +253,58 @@ module Shada
         
       end
       
+      def fquery query, params=nil
+        @records = nil
+        @records = []
+        @update = true
+        
+        k = "#{query}-#{params}-#{@limit}-#{@offset}"
+        
+        if not cache.pull k.to_s
+          result = get_connection.fquery query, params, @limit, @offset, self
+          result = result.to_a
+          cache.store k.to_s, {:result => result.to_a} #, :ids => get_ids(kresult)
+        else
+          result = cache.pull(k.to_s)[:result]
+          result = result.to_a
+          #puts @cache.pull(params)[:ids]
+        end
+        
+        save_cache table, cache
+        #result = get_connection.find table, '*', params, sort, @limit, @offset, self
+        
+        
+        begin
+          case result.count
+          when 0
+            puts "No results"
+          when 1
+            r = result.first
+            @fields.each do |m|
+              #puts "#{m} = #{r[m.to_sym]}"
+              val = (r[m.to_sym]).class == String ? unescape(r[m.to_sym]) : r[m.to_sym]
+              instance_variable_set("@#{m}", val)
+            end
+
+            #find_parent
+            @records.push self
+          else
+
+            result.each do |r|
+              obj = self.class.new
+              r.each do |field, val|
+                obj.instance_variable_set("@#{field}", val)
+              end
+              @records.push obj
+            end
+          end
+        rescue => e
+        end
+
+        return self
+        
+      end
+      
       def save
         @saving = true
         table = self.class.name.downcase.split('::').last

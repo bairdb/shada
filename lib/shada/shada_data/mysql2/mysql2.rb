@@ -197,6 +197,21 @@ module Shada
         result
       end
       
+      def fquery query, where_arr=[], limit=0, offset=0, klass=nil
+        begin
+          offset = offset || 0
+          slimit = limit > 0 ? "LIMIT #{offset},#{limit}" : '' unless limit.nil?
+          sql = "#{query} #{slimit}"
+          #puts sql
+          result = query sql, where_arr
+          
+          result
+        rescue => e
+          puts "#{e.message} - #{e.backtrace}"
+          return []
+        end
+      end
+      
       def insert table, fields, data
         begin
           val_str = data.map{|v| "?"}.join(", ")
