@@ -162,7 +162,11 @@ module Shada
      oparam_arr = function_pieces[0][1].split(',').map do |val| 
        m = val.strip.scan(@param_pattern)
        if m.count > 0
-         @registry[(m[0][0]).to_sym][:value]
+         begin
+          @registry[(m[0][0]).to_sym][:value]
+         rescue => e
+           ""
+         end
        else
          val.strip
        end
