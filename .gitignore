@@ -74,3 +74,5 @@ logs/*
 certs/*
 
 
+
+nbproject/private/config.properties
