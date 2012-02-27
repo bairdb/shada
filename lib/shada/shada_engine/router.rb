@@ -23,10 +23,6 @@ module Shada
           unless username.nil?
             user = UsersModel.new
             uname = user.find :username => username
-            if user.records.count == 0
-              user = AffiliatesModel.new
-              uname = user.find :username => username
-            end
           end
           
           @controller = Object.const_get(controller).new
