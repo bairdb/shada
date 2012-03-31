@@ -21,7 +21,7 @@ module Shada
         tmp_img = @img.resize_to_fill width, height
       else
         tmp_img = @img.resize_to_fill width, height
-        tmp_img.write "#{path}#{@img_name}_thumb.#{@img_ext}" unless File.exists? "#{Shada::Config['ThumbPath']}#{@img_name}_thumb.#{@img_ext}"
+        tmp_img.write "#{path}#{@img_name}_thumb.#{@img_ext}"
       end
       
       tmp_img.to_blob
