@@ -41,17 +41,8 @@ module Shada
         
         k = "#{params.to_s}-#{sort}-#{@limit}-#{@offset}"
         
-        if not cache.pull params.to_s
-          result = get_connection.find @table, [], params, sort, @limit, @offset, self
-          result = result.to_a
-          cache.store k.to_s, {:result => result.to_a}
-        else
-          result = cache.pull(k.to_s)[:result]
-          result = result.to_a
-          #puts @cache.pull(params)[:ids]
-        end
-        
-        save_cache table, cache
+        result = get_connection.find @table, [], params, sort, @limit, @offset, self
+        result = result.to_a
         
         case result.count
         when 0
@@ -93,19 +84,16 @@ module Shada
 
       def update table
         data = update_fields
-        flush_cache
         get_connection.update @table, @_id, data
       end
 
       def insert table
         data = update_fields
-        flush_cache
         get_connection.insert @table, data
       end
 
       def destroy
         get_connection.destroy @table, @_id
-        flush_cache
         self
       end
 
