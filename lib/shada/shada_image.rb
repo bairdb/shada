@@ -18,11 +18,13 @@ module Shada
       if File.exists? "#{Shada::Config['ThumbPath']}#{@img_name}.#{@img_ext}"
         @img = Magick::Image.read("#{Shada::Config['ThumbPath']}#{@img_name}.#{@img_ext}").first
         tmp_img = @img.resize_to_fill width, height
-        tmp_img.to_blob
+        #tmp_img.to_blob
+        'Exists'
       else
         tmp_img = @img.resize_to_fill width, height
         tmp_img.write "#{path}#{@img_name}_thumb.#{@img_ext}"
-        tmp_img.to_blob
+        #tmp_img.to_blob
+        'Doesnt Exist'
       end
       
       
