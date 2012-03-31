@@ -76,9 +76,7 @@ module Shada
     end
     
     def is_disconnect headers 
-      if headers['METHOD'] == 'JSON'
-        #return @data['type'] == 'disconnect'
-      end
+      ""
     end
     
     def should_close
