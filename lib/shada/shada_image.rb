@@ -15,16 +15,17 @@ module Shada
     def thumbnail width, height, save=true, path=""
       path = path.nil? ? Shada::Config['ThumbPath'] : path
       
-      tmp_img = ""
       if File.exists? "#{Shada::Config['ThumbPath']}#{@img_name}.#{@img_ext}"
         @img = Magick::Image.read("#{Shada::Config['ThumbPath']}#{@img_name}.#{@img_ext}").first
         tmp_img = @img.resize_to_fill width, height
+        tmp_img.to_blob
       else
         tmp_img = @img.resize_to_fill width, height
         tmp_img.write "#{path}#{@img_name}_thumb.#{@img_ext}"
+        tmp_img.to_blob
       end
       
-      tmp_img.to_blob
+      
       
       #if save
       #  tmp_img.write "#{path}#{@img_name}_thumb.#{@img_ext}" unless File.exists? "#{Shada::Config['ThumbPath']}#{@img_name}_thumb.#{@img_ext}"
