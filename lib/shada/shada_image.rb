@@ -13,27 +13,13 @@ module Shada
     end
     
     def thumbnail width, height, save=true, path=""
-      #path = path.nil? ? Shada::Config['ThumbPath'] : path
-      
-      #if File.exists? "#{Shada::Config['ThumbPath']}#{@img_name}.#{@img_ext}"
-      #  @img = Magick::Image.read("#{Shada::Config['ThumbPath']}#{@img_name}.#{@img_ext}").first
-      #  tmp_img = @img.resize_to_fill width, height
-        #tmp_img.to_blob
-      #  'Exists'
-      #else
-      #  tmp_img = @img.resize_to_fill width, height
-      #  tmp_img.write "#{path}#{@img_name}_thumb.#{@img_ext}"
-        #tmp_img.to_blob
-        'Doesnt Exist'
-      #end
-      
-      
-      
-      #if save
-      #  tmp_img.write "#{path}#{@img_name}_thumb.#{@img_ext}" unless File.exists? "#{Shada::Config['ThumbPath']}#{@img_name}_thumb.#{@img_ext}"
-      #  tmp_img.to_blob
-      #else
-      #end
+      path = path.nil? ? Shada::Config['ThumbPath'] : path
+      tmp_img = @img.resize_to_fill width, height
+      if save
+        tmp_img.write "#{path}#{@img_name}_thumb.#{@img_ext}" unless File.exists? "#{Shada::Config['ThumbPath']}#{@img_name}_thumb.#{@img_ext}"
+      else
+        tmp_img.to_blob
+      end
     end
     
     def resize width, height, save=true, path=""
@@ -41,7 +27,6 @@ module Shada
       tmp_img = @img.resize_to_fit width, height
       if save
         tmp_img.write "#{path}#{@img_name}.#{@img_ext}" unless File.exists? "#{Shada::Config['ImagePath']}#{@img_name}.#{@img_ext}"
-        tmp_img.to_blob
       else
         tmp_img.to_blob
       end
@@ -74,7 +59,6 @@ module Shada
       
       if save
         tmp_img.write "#{path}#{@img_name}_scale_#{percent}.#{@img_ext}" unless File.exists? "#{Shada::Config['ImagePath']}#{@img_name}_scale_#{percent}.#{@img_ext}"
-        tmp_img.to_blob
       else
         tmp_img.to_blob
       end
