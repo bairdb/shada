@@ -62,7 +62,7 @@ module Shada
                 #puts FILE_TYPES[@type]
                 ext = @filename.split('.').pop
                 @filename.gsub!(".#{ext}", '')
-                @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}-#{Time.now.to_i}.#{ext.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}"
+                @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}.#{ext.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}"
                 
                 unless FILE_TYPES[@type].nil? or @tmp.nil?
                   f = File.open "#{@p}#{@filename}", 'wb'
@@ -84,19 +84,19 @@ module Shada
               if @type == 'form-data'
                 @form_fields[@name] = @tmp
               else
-                #ext = @filename.split('.').pop
-                #@filename.gsub!(".#{ext}", '')
-                #@filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}-#{Time.now.to_i}.#{ext.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}"
+                ext = @filename.split('.').pop
+                @filename.gsub!(".#{ext}", '')
+                @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}.#{ext.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}"
                 
-                #unless FILE_TYPES[@type].nil? or @tmp.nil?
-                #  f = File.open "#{@p}#{@filename}", 'wb'
-                #  f.syswrite @tmp
-                #  f.close
-                #end
+                unless FILE_TYPES[@type].nil? or @tmp.nil?
+                  f = File.open "#{@p}#{@filename}", 'wb'
+                  f.syswrite @tmp
+                  f.close
+                end
                 
-                #@files[@name] = {:filename => @filename, :type => FILE_TYPES[@type], :path => @p, :file_type => @type}
-                #@filename =  nil
-                #@body = []
+                @files[@name] = {:filename => @filename, :type => FILE_TYPES[@type], :path => @p, :file_type => @type}
+                @filename =  nil
+                @body = []
               end
               @tmp = ""
               @type = ""
