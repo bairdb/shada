@@ -78,6 +78,7 @@ Shada::CLI.cli do
     `cd ~/base/site; ruby run_monitor.rb start`
     `cd ~/base/site; ruby run_upload.rb start`
     `cd ~/base/site; ruby run_secure.rb start`
+    `cd ~/base/site; ruby run_gallery.rb start`
   end
   
   task :stop do |args|
@@ -86,6 +87,7 @@ Shada::CLI.cli do
     `cd ~/base/site; ruby run_monitor.rb stop`
     `cd ~/base/site; ruby run_upload.rb stop`
     `cd ~/base/site; ruby run_secure.rb stop`
+    `cd ~/base/site; ruby run_gallery.rb stop`
   end
   
   task :restart do |args|
@@ -94,6 +96,7 @@ Shada::CLI.cli do
     `cd ~/base/site; ruby run_monitor.rb stop`
     `cd ~/base/site; ruby run_upload.rb stop`
     `cd ~/base/site; ruby run_secure.rb stop`
+    `cd ~/base/site; ruby run_gallery.rb stop`
     
     puts "Starting Shada"
 	  is_running = `ps aux | grep mongrel2`
@@ -101,6 +104,7 @@ Shada::CLI.cli do
     `cd ~/base/site; ruby run_monitor.rb start`
     `cd ~/base/site; ruby run_upload.rb start`
     `cd ~/base/site; ruby run_secure.rb start`
+    `cd ~/base/site; ruby run_gallery.rb start`
   end
 	
 	task :create_table do |args|
@@ -200,7 +204,7 @@ Shada::CLI.cli do
   
   task :help do |args|
     puts "Shada CLI v1"
-    puts "Copyright (c) 2011 Lackner//Buckingham LLC. All rights reserved."
+    puts "Copyright (c) 2012 Lackner//Buckingham LLC. All rights reserved."
     puts "Usage: shada [OPTIONS] [ARGS:ARG] || [ARG]"
     puts "- generate  Generate Model Controller and Database Table"
     puts "- generate_model  Generate Model and Database Table"
