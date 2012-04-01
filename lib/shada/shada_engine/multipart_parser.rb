@@ -62,7 +62,7 @@ module Shada
                 #puts FILE_TYPES[@type]
                 ext = @filename.split('.').pop
                 @filename.gsub!(".#{ext}", '')
-                @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}.#{ext.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}"
+                @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}-#{Time.now.to_i}.#{ext.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}"
                 
                 unless FILE_TYPES[@type].nil? or @tmp.nil?
                   f = File.open "#{@p}#{@filename}", 'wb'
@@ -86,7 +86,7 @@ module Shada
               else
                 ext = @filename.split('.').pop
                 @filename.gsub!(".#{ext}", '')
-                @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}.#{ext.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}"
+                @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}-#{Time.now.to_i}.#{ext.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}"
                 
                 unless FILE_TYPES[@type].nil? or @tmp.nil?
                   f = File.open "#{@p}#{@filename}", 'wb'

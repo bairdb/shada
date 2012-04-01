@@ -5,7 +5,7 @@ UPLOAD_ROOT = "/home/admin/base"
 
 module Shada
   class Upload < Shada::Engine
-    include Shada::Utils
+    include Shada::Utils, Shada::Logger
     
     def on_connect
       puts "Connecting to server: #{@sender_id}"
@@ -22,6 +22,7 @@ module Shada
         end
         
         if @headers['content-type'] =~ /multipart\/form-data/
+          error_log 'Upload Run Twice'
           tmpf = "#{UPLOAD_ROOT}/tmp/#{@headers['x-mongrel2-upload-start'].split('/').pop().to_s}"
           parser = Shada::Multipart_Parser.new.parse tmpf
           
@@ -44,6 +45,7 @@ module Shada
         puts "Will read file from: #{@headers['x-mongrel2-upload-start']}"
         response = :next
       else
+        error_log 'Upload Run Once'
         if @headers['content-type'] =~ /multipart\/form-data/
           tmpf = "#{UPLOAD_ROOT}/tmp/body.#{rand(1000..9999)}"
           f = File.open(tmpf, "wb"){|f|
