@@ -22,15 +22,19 @@ module Shada
     
     def self.parse msg
       netstring = Shada::NetString.new
-      uuid, id, p, rest = msg.split(" ",4)
-      lheaders, rest = netstring.parse rest
-      b, _ = netstring.parse rest
+      unless msg.is_a?(Hash)
+        uuid, id, p, rest = msg.split(" ",4)
+        lheaders, rest = netstring.parse rest
+        b, _ = netstring.parse rest
 
-      lheaders = JSON.parse lheaders
+        lheaders = JSON.parse lheaders
 
-      b = JSON.parse b if lheaders["METHOD"] == 'JSON'
+        b = JSON.parse b if lheaders["METHOD"] == 'JSON'
 
-      return uuid, id, p, lheaders, b
+        return uuid, id, p, lheaders, b
+      else
+        ""
+      end
     end
     
   end
