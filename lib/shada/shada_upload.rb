@@ -8,6 +8,7 @@ module Shada
     include Shada::Utils, Shada::Logger
     
     def on_connect
+      @finished = false
       puts "Connecting to server: #{@sender_id}"
     end
     
@@ -22,21 +23,24 @@ module Shada
         end
         
         if @headers['content-type'] =~ /multipart\/form-data/
-          log_error 'Upload Run Twice'
-          tmpf = "#{UPLOAD_ROOT}/tmp/#{@headers['x-mongrel2-upload-start'].split('/').pop().to_s}"
-          parser = Shada::Multipart_Parser.new.parse tmpf
-          
-          parser.form_fields.each do |k,v|
-            @form.set_header k, v, 'post'
+          unless @finished
+            log_error 'Upload Run Twice'
+            tmpf = "#{UPLOAD_ROOT}/tmp/#{@headers['x-mongrel2-upload-start'].split('/').pop().to_s}"
+            parser = Shada::Multipart_Parser.new.parse tmpf
+
+            parser.form_fields.each do |k,v|
+              @form.set_header k, v, 'post'
+            end
+
+            parser.files.each do |k, v|
+              @form.set_header k, v, 'post'
+            end
+
+            @form['Refresh']  = ''
+            @form['Content-Type'] = 'text/html'
+            @finished = true
+            route @form.get_path
           end
-          
-          parser.files.each do |k, v|
-            @form.set_header k, v, 'post'
-          end
-          
-          @form['Refresh']  = ''
-          @form['Content-Type'] = 'text/html'
-          route @form.get_path
         else
           save_file upload, @headers['PATH']
         end
