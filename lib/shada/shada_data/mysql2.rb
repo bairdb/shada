@@ -156,7 +156,7 @@ module Shada
         @records = []
         @update = true
         
-        k = "#{fields}-#{params.to_s}-#{sort}-#{@limit}-#{@offset}"
+        k = "#{table}-#{fields}-#{params.to_s}-#{sort}-#{@limit}-#{@offset}"
         
         if not cache.pull k.to_s
           result = get_connection.find table, fields, params, sort, @limit, @offset, self
@@ -205,7 +205,7 @@ module Shada
         @records = []
         @update = true
         
-        k = "#{params.to_s}-#{sort}-#{@limit}-#{@offset}"
+        k = "#{table}-*-#{params.to_s}-#{sort}-#{@limit}-#{@offset}"
         
         if not cache.pull k.to_s
           result = get_connection.find table, '*', params, sort, @limit, @offset, self
