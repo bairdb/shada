@@ -23,8 +23,6 @@ module Shada
         end
         
         if @headers['content-type'] =~ /multipart\/form-data/
-          unless @finished == true
-            log_error 'Upload Run Twice'
             tmpf = "#{UPLOAD_ROOT}/tmp/#{@headers['x-mongrel2-upload-start'].split('/').pop().to_s}"
             parser = Shada::Multipart_Parser.new.parse tmpf
 
@@ -38,9 +36,7 @@ module Shada
 
             @form['Refresh']  = ''
             @form['Content-Type'] = 'text/html'
-            @finished = true
             route @form.get_path
-          end
         else
           save_file upload, @headers['PATH']
         end
