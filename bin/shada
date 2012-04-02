@@ -196,10 +196,12 @@ Shada::CLI.cli do
     `git pull`
     `rake build_gem`
     `sudo install bin/shada /usr/bin/shada`
+    `shada restart`
   end
   
   task :clear_cache do |args|
     `sudo rm /home/admin/base/site/tmp/cache/*`
+    `shada restart`
   end
   
   task :help do |args|
