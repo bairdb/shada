@@ -143,13 +143,13 @@ module Shada
         def setup table
           if @@internals[get_table][:config][:adapter] == 'mysql'
             if not Core::persist_exists "cache_#{table}.tmp"
-              @@internals[get_table][:cache] = Shada::Data::Cache.new 100
+              @@internals[get_table][:cache] = Shada::Data::Cache.new 10000
               Core::persist "cache_#{table}.tmp", @@internals[get_table][:cache]
             else
               @@internals[get_table][:cache] = Core::persist_load "cache_#{table}.tmp"
             end
           else
-            @@internals[get_table][:cache] = Shada::Data::Cache.new 100
+            @@internals[get_table][:cache] = Shada::Data::Cache.new 10000
           end
 
           #puts @@internals[get_table][:cache].size
@@ -269,7 +269,7 @@ module Shada
       end
       
       def flush_cache table
-        @@internals[@table][:cache] = Shada::Data::Cache.new 100
+        @@internals[@table][:cache] = Shada::Data::Cache.new 10000
         Core::flush "cache_#{table}.tmp", Shada::Config['CacheDir']
       end
       
