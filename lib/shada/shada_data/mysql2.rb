@@ -335,7 +335,7 @@ module Shada
             values.push instance_variable_get("@#{m}")
           end
         end
-        #puts "#{table} - #{keys} - #{values}"
+        puts "#{table} - #{keys} - #{values}"
         ret = get_connection.insert table, keys, values
         flush_cache table
         @saving = false
