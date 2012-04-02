@@ -78,7 +78,7 @@ Shada::CLI.cli do
     `cd ~/base/site; ruby run_monitor.rb start`
     `cd ~/base/site; ruby run_upload.rb start`
     `cd ~/base/site; ruby run_secure.rb start`
-    `cd ~/base/site; ruby run_gallery.rb start`
+    #`cd ~/base/site; ruby run_gallery.rb start`
   end
   
   task :stop do |args|
@@ -87,7 +87,7 @@ Shada::CLI.cli do
     `cd ~/base/site; ruby run_monitor.rb stop`
     `cd ~/base/site; ruby run_upload.rb stop`
     `cd ~/base/site; ruby run_secure.rb stop`
-    `cd ~/base/site; ruby run_gallery.rb stop`
+    #`cd ~/base/site; ruby run_gallery.rb stop`
   end
   
   task :restart do |args|
@@ -96,7 +96,7 @@ Shada::CLI.cli do
     `cd ~/base/site; ruby run_monitor.rb stop`
     `cd ~/base/site; ruby run_upload.rb stop`
     `cd ~/base/site; ruby run_secure.rb stop`
-    `cd ~/base/site; ruby run_gallery.rb stop`
+    #`cd ~/base/site; ruby run_gallery.rb stop`
     
     puts "Starting Shada"
 	  is_running = `ps aux | grep mongrel2`
@@ -104,7 +104,7 @@ Shada::CLI.cli do
     `cd ~/base/site; ruby run_monitor.rb start`
     `cd ~/base/site; ruby run_upload.rb start`
     `cd ~/base/site; ruby run_secure.rb start`
-    `cd ~/base/site; ruby run_gallery.rb start`
+    #`cd ~/base/site; ruby run_gallery.rb start`
   end
 	
 	task :create_table do |args|
