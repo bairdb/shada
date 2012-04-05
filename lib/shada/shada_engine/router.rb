@@ -2,9 +2,9 @@ module Shada
   module Router
     def route path
       begin
-        path_arr = path.split '/' unless path.nil?
+        unless path.is_a?(Hash)
+          path_arr = path.split '/' unless path.nil?
         
-        unless path_arr[path_arr.count-1] == 'robots.txt'
           @rest_of_path = path_arr.dup || []
           @i = 0
           #puts path
@@ -39,7 +39,7 @@ module Shada
           @controller.rest_of_path = rest
           @controller.route
         else
-          @controller.robots
+          ''
         end
       rescue => e
         msg = "#{e.message} - #{e.backtrace[0]}"
