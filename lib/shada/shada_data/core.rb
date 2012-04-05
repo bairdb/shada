@@ -269,6 +269,7 @@ module Shada
       end
       
       def flush_cache table
+        @@internals[@table][:cache] = nil
         @@internals[@table][:cache] = Shada::Data::Cache.new 10000
         Core::flush "cache_#{table}.tmp", Shada::Config['CacheDir']
       end
