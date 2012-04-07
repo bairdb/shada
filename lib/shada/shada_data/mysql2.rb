@@ -215,7 +215,7 @@ module Shada
         else
           result = cache.pull(k.to_s)[:result]
           result = result.to_a
-          puts @cache.pull(params)[:ids]
+          #puts cache.pull(params)[:ids]
         end
         
         save_cache table, cache
