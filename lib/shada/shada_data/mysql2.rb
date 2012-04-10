@@ -290,7 +290,7 @@ module Shada
               #obj.instance_variable_set("@#{field}", val)
               val = (r[field.to_sym]).class == String ? unescape(r[field.to_sym]) : r[field.to_sym]
               instance_variable_set("@#{field}", val)
-              puts "#{field} - #{instance_variable_get("@#{field}")}"
+              @fields.push field unless @fields.include?(field)
             end
             #instance_variable_set("@#{m}", val)
             #end
