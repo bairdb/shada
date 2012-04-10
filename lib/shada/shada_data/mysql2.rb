@@ -83,6 +83,7 @@ module Shada
       
       def filter_geo coords, distance=10, limit=10
         table = @table
+        limit = limit > 0 ? limit : 10
         
         result = get_connection.filter_geo table, coords, distance, limit
         
@@ -121,6 +122,7 @@ module Shada
         @records = nil
         @records = []
         @update = true
+        @limit = @limit > 0 ? @limit : 0
         
         result = get_connection.search table, fields, keyword, filter, @limit, @offset
         
@@ -155,6 +157,7 @@ module Shada
         @records = nil
         @records = []
         @update = true
+        @limit = @limit > 0 ? @limit : 0
         
         k = "#{table}-#{fields}-#{params.to_s}-#{sort}-#{@limit}-#{@offset}"
         
@@ -204,6 +207,7 @@ module Shada
         @records = nil
         @records = []
         @update = true
+        @limit = @limit > 0 ? @limit : 0
         
         k = "#{table}-#{params.to_s}-#{sort}-#{@limit}-#{@offset}"
         
@@ -257,7 +261,7 @@ module Shada
         @records = nil
         @records = []
         @update = true
-        
+        @limit = @limit > 0 ? @limit : 0
         k = "#{query}-#{params}-#{@limit}-#{@offset}"
         
         if not cache.pull k.to_s
@@ -285,6 +289,7 @@ module Shada
             r.each do |field, val|
               #obj.instance_variable_set("@#{field}", val)
               val = (r[field.to_sym]).class == String ? unescape(r[field.to_sym]) : r[field.to_sym]
+              puts "#{field} - #{val}"
               instance_variable_set("@#{field}", val)
             end
             #instance_variable_set("@#{m}", val)
