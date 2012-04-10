@@ -280,11 +280,15 @@ module Shada
             puts "No results"
           when 1
             r = result.first
-            @fields.each do |m|
-              #puts "#{m} = #{r[m.to_sym]}"
-              val = (r[m.to_sym]).class == String ? unescape(r[m.to_sym]) : r[m.to_sym]
-              instance_variable_set("@#{m}", val)
+            #@fields.each do |m|
+            #puts "#{m} = #{r[m.to_sym]}"
+            r.each do |field, val|
+              #obj.instance_variable_set("@#{field}", val)
+              val = (r[field.to_sym]).class == String ? unescape(r[field.to_sym]) : r[field.to_sym]
+              instance_variable_set("@#{field}", val)
             end
+            #instance_variable_set("@#{m}", val)
+            #end
 
             #find_parent
             @records.push self
