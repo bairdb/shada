@@ -193,7 +193,7 @@ Shada::CLI.cli do
   end
   
   task :update do |args|
-    `git pull`
+    `cd /home/admin/gems/shada && git pull`
     `rake build_gem`
     `sudo install bin/shada /usr/bin/shada`
     `shada restart`
