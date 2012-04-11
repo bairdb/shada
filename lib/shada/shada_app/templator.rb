@@ -74,6 +74,7 @@ module Shada
       parse 2
       #files
       #block
+      cleanup
     end
     
     def gettags
@@ -105,7 +106,7 @@ module Shada
       if hash[:value].is_a?(String)
         @rep_arr.push hash[:value].encode('utf-8')
       else
-        @rep_arr.push hash[:value] 
+        @rep_arr.push hash[:value]
       end
       @html = @html.force_encoding('UTF-8')
       
@@ -235,6 +236,10 @@ module Shada
        
        i + 1
      end
+   end
+   
+   def cleanup
+     @html.gsub! @pattern, ''
    end
    
    def render
