@@ -132,7 +132,7 @@ module Shada
         
         case result.count
         when 0
-          puts "No results"
+          puts "No results Search #{fields} - #{keyword}"
         when 1
           r = result.first
           @fields.each do |m|
@@ -182,7 +182,7 @@ module Shada
         
         case result.count
         when 0
-          puts "No results"
+          puts "No results For #{fields} #{table}"
         when 1
           r = result.first
           @fields.each do |m|
@@ -233,7 +233,7 @@ module Shada
         begin
           case result.count
           when 0
-            puts "No results"
+            puts "No results #{params.to_s} #{table}"
           when 1
             r = result.first
             @fields.each do |m|
@@ -285,7 +285,7 @@ module Shada
         begin
           case result.count
           when 0
-            puts "No results"
+            puts "No results #{query}"
           when 1
             r = result.first
             #@fields.each do |m|

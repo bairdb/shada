@@ -7,7 +7,7 @@ module Shada
         
           @rest_of_path = path_arr.dup || []
           @i = 0
-          #puts path
+          puts path
           reload Shada::Config['ControllerPath']
           reload Shada::Config['ModelPath']
           reload Shada::Config['LibPath']
@@ -26,7 +26,7 @@ module Shada
           end
           
           activity = Shada::Activity.new
-          activity.user = uname.id
+          activity.user = user.id
           activity.page = path.to_s
           activity.save
           
