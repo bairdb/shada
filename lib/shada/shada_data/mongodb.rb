@@ -117,7 +117,7 @@ module Shada
       def update_fields
         data = {}
 
-        @cols.each do |val|
+        @fields.each do |val|
           data[val] = instance_variable_get("@#{val}")
         end
 
@@ -125,7 +125,7 @@ module Shada
       end
 
       def define_meth valid_name, val, klass=self.class
-        @cols.push valid_name
+        @fields.push valid_name
 
         klass.send :define_method, valid_name do
           instance_variable_get("@#{valid_name}")
