@@ -70,7 +70,6 @@ module Shada
       end
 
       def save
-
         if not @update
           insert @table
         else
