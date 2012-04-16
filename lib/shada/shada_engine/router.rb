@@ -23,12 +23,12 @@ module Shada
           unless username.nil?
             user = UsersModel.new
             uname = user.find :username => username
-            
-            activity = Shada::Activity.new
-            activity.user = user.id
-            activity.page = path.to_s
-            activity.save
           end
+          
+          activity = Shada::Activity.new
+          activity.user = uname.id
+          activity.page = path.to_s
+          activity.save
           
           @controller = Object.const_get(controller).new
           #puts "Adding: #{@form.post}"

@@ -85,11 +85,15 @@ module Shada
         table = @table
         limit = limit > 0 ? limit : 10
         
-        result = get_connection.filter_geo table, coords, distance, limit
+        begin
+          result = get_connection.filter_geo table, coords, distance, limit
+        rescue => e
+          result = []
+        end
         
         case result.count
         when 0
-          puts "No results"
+          puts "No results For Geo"
         when 1
           r = result.first
           @fields.each do |m|
