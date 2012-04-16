@@ -61,9 +61,11 @@ module Shada
       end
       
       def insert collection, data, format='JSON'
-        puts data
-        col = load collection
-        col.insert(data)    
+        unless data.empty?
+          puts data
+          col = load collection
+          col.insert(data)  
+        end
       end
 
       def update collection, id, data, format='JSON'
