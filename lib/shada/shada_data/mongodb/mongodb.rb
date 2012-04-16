@@ -25,7 +25,7 @@ module Shada
       end
       
       def get_fields table
-        
+        []
       end
       
       def get_timestamp db, table
