@@ -28,7 +28,7 @@ module Shada
       include Shada::Logger
       
       attr_reader :fields, :added_fields, :records, :parent, :children, :db
-      attr_accessor :limit, :offset, :row_total, :total_pages, :current_page, :record_count, :timestamp
+      attr_accessor :limit, :offset, :row_total, :total_pages, :current_page, :record_count, :timestamp, :records
       
       def initialize
         @update = false
