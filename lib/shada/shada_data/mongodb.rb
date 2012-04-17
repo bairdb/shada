@@ -98,7 +98,7 @@ module Shada
 
       def add_column name, args, block
         val = args[0]
-
+        puts "#{name}=#{val}"
         valid_name = name.to_s.gsub(/=/, "").to_s
         @added_fields.push valid_name
         @fields.push valid_name
@@ -119,17 +119,14 @@ module Shada
       def update_fields
         data = {}
         
-        puts @fields
         @fields.each do |val|
           data[val] = instance_variable_get("@#{val}")
         end
-        puts data
+        
         data
       end
 
       def define_meth valid_name, val, klass=self.class
-        @fields.push valid_name
-
         klass.send :define_method, valid_name do
           instance_variable_get("@#{valid_name}")
         end
