@@ -20,14 +20,15 @@ module Shada
           username = @form.get_cookie(:username)
           uname = nil
           
+          activity = Shada::Activity.new
+          activity.user = username || 'guest'
+          activity.page = path.to_s
+          activity.date_accessed = DateTime.now
+          activity.save
+          
           unless username.nil?
             user = UsersModel.new
             uname = user.find :username => username
-            
-            activity = Shada::Activity.new
-            activity.user = uname.id
-            activity.page = path.to_s
-            activity.save
           end
           
           @controller = Object.const_get(controller).new
