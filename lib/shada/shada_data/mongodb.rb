@@ -118,11 +118,12 @@ module Shada
 
       def update_fields
         data = {}
-
+        
+        puts @fields
         @fields.each do |val|
           data[val] = instance_variable_get("@#{val}")
         end
-
+        puts data
         data
       end
 
