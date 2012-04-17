@@ -7,15 +7,8 @@ module Shada
         
           @rest_of_path = path_arr.dup || []
           @i = 0
+          
           puts path
-          reload Shada::Config['ControllerPath']
-          reload Shada::Config['ModelPath']
-          reload Shada::Config['LibPath']
-
-          default = Shada::Config['DefaultController']
-
-          controller = "#{(path_arr[1] || default).to_s.propercase}Controller"
-          controller = is_class?(controller) ? controller : "#{default.to_s.propercase}Controller"
           
           username = @form.get_cookie(:username)
           uname = nil
@@ -26,6 +19,15 @@ module Shada
           activity.page = path.to_s
           activity.date_accessed = "#{DateTime.now}"
           activity.save
+          
+          reload Shada::Config['ControllerPath']
+          reload Shada::Config['ModelPath']
+          reload Shada::Config['LibPath']
+
+          default = Shada::Config['DefaultController']
+
+          controller = "#{(path_arr[1] || default).to_s.propercase}Controller"
+          controller = is_class?(controller) ? controller : "#{default.to_s.propercase}Controller"
           
           unless username.nil? || username == ''
             user = UsersModel.new
