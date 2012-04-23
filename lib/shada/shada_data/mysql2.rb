@@ -236,6 +236,10 @@ module Shada
             puts "No results #{params.to_s} #{table}"
           when 1
             r = result.first
+            r.each do |k, v|
+              @fields.push k.to_s
+            end
+            
             @fields.each do |m|
               #puts "#{m} = #{r[m.to_sym]}"
               val = (r[m.to_sym]).class == String ? unescape(r[m.to_sym]) : r[m.to_sym]
