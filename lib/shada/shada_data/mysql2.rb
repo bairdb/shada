@@ -238,6 +238,7 @@ module Shada
             r = result.first
             r.each do |k, v|
               @fields.push k.to_s
+              @fields.uniq!
             end
             
             @fields.each do |m|
