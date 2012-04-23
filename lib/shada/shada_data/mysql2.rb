@@ -298,6 +298,7 @@ module Shada
             r.each do |field, val|
               #obj.instance_variable_set("@#{field}", val)
               val = (r[field.to_sym]).class == String ? unescape(r[field.to_sym]) : r[field.to_sym]
+              define_meth field, val
               instance_variable_set("@#{field}", val)
               @fields.push field unless @fields.include?(field)
             end
