@@ -236,12 +236,17 @@ module Shada
             puts "No results #{params.to_s} #{table}"
           when 1
             r = result.first
-            @fields.each do |m|
+            #@fields.each do |m|
               #puts "#{m} = #{r[m.to_sym]}"
-              val = (r[m.to_sym]).class == String ? unescape(r[m.to_sym]) : r[m.to_sym]
-              instance_variable_set("@#{m}", val)
+            #  val = (r[m.to_sym]).class == String ? unescape(r[m.to_sym]) : r[m.to_sym]
+            #  instance_variable_set("@#{m}", val)
+            #end
+            
+            r.map do|valid_name, val|
+              define_meth valid_name, val
+              instance_variable_set("@#{valid_name}", val)
             end
-
+            
             #find_parent
             @records.push self
           else
