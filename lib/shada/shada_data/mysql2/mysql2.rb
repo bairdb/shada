@@ -42,7 +42,7 @@ module Shada
       
       def execute sql, symbolize=true
         begin
-          #puts sql
+          puts sql
           result = @db.query sql, :symbolize_keys => symbolize
           result
         rescue => e
@@ -202,7 +202,7 @@ module Shada
           offset = offset || 0
           slimit = limit > 0 ? "LIMIT #{offset},#{limit}" : '' unless limit.nil?
           sql = "#{query} #{slimit}"
-          puts sql
+          #puts sql
           result = query sql, where_arr
           
           result
