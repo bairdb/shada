@@ -202,7 +202,7 @@ module Shada
           offset = offset || 0
           slimit = limit > 0 ? "LIMIT #{offset},#{limit}" : '' unless limit.nil?
           sql = "#{query} #{slimit}"
-          #puts sql
+          puts sql
           result = query sql, where_arr
           
           result
