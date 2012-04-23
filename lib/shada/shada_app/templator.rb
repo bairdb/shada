@@ -176,7 +176,11 @@ module Shada
      
      unless result
        reg_str = Regexp.quote "{$#{value[0]}->#{function}}"
-       @html.gsub! /#{reg_str}/, res
+       begin
+         @html.gsub! /#{reg_str}/, res
+       rescue => e
+         ''
+       end
      else
        res
      end
