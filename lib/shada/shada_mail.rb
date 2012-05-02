@@ -2,16 +2,6 @@ require 'net/smtp'
 require 'net/pop'
 require 'net/imap'
 
-MESSAGE =  <<MESSAGE_END
-From: %%from_name%% <%%from%%>
-To: %%to_name%% <%%to%%>
-MIME-Version: 1.0
-Content-type: text/html
-Subject: %%subject%%
-
-%%message%%
-MESSAGE_END
-
 module Shada
   class Mail
     @@klass = ""
@@ -73,8 +63,16 @@ module Shada
     end
     
     def build_message
-       tags = {:to => "%%to%%", :to_name => "%%to_name%%", :from => "%%from%%", :from_name => "%%from_name%%", :subject => "%%subject%%", :message => "%%message%%"}
-       @message_body = MESSAGE
+      tags = {:to => "%%to%%", :to_name => "%%to_name%%", :from => "%%from%%", :from_name => "%%from_name%%", :subject => "%%subject%%", :message => "%%message%%"}
+      @message_body =  <<MESSAGE_END
+From: %%from_name%% <%%from%%>
+To: %%to_name%% <%%to%%>
+MIME-Version: 1.0
+Content-type: text/html
+Subject: %%subject%%
+
+%%message%%
+MESSAGE_END
        
       tags.each do |k,v|
         @message_body.gsub!(v, instance_variable_get("@#{k.to_s}"))
