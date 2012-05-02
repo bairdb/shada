@@ -95,6 +95,7 @@ module Shada
         @subject = nil
         @to_name = nil
         @from_name = nil
+        @message = nil
       rescue => e
         puts e
       end
