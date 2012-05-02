@@ -88,6 +88,13 @@ module Shada
           smtp.read_timeout = 480
           smtp.send_message @message_body, @from, @to
         end
+        
+        @message_body = nil
+        @from = nil
+        @to = nil
+        @subject = nil
+        @to_name = nil
+        @from_name = nil
       rescue => e
         puts e
       end
