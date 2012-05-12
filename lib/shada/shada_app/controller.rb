@@ -117,7 +117,7 @@ module Shada
     end
     
     def selected val
-      if @path == val
+      if @path == val || @path =~ /^#{val}/
         'class="selected"'
       else
         ''
