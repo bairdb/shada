@@ -296,7 +296,6 @@ module Shada
               define_meth field, val
               instance_variable_set("@#{field}", val)
               @fields.push field unless @fields.include?(field)
-              puts @fields
             end
             #instance_variable_set("@#{m}", val)
             #end
