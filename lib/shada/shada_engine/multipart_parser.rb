@@ -16,7 +16,8 @@ FILE_TYPES = {
   'video/webm' => 'video',
   'video/x-ms-wmv' => 'video',
   'video/x-m4v' => 'video',
-  'text/calendar' => 'calendar'
+  'text/calendar' => 'calendar',
+  'application/octet-stream' => 'calendar'
 }
 
 module Shada
@@ -60,18 +61,19 @@ module Shada
               if @type == 'form-data'
                 @form_fields[@name] = @tmp
               else
-                #puts FILE_TYPES[@type]
-                ext = @filename.split('.').pop
-                @filename.gsub!(".#{ext}", '')
-                @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}-#{Time.now.to_i}.#{ext.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}"
+                unless @filename.nil?
+                  ext = @filename.split('.').pop
+                  @filename.gsub!(".#{ext}", '')
+                  @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}-#{Time.now.to_i}.#{ext.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}"
                 
-                unless FILE_TYPES[@type].nil? or @tmp.nil?
-                  f = File.open "#{@p}#{@filename}", 'wb'
-                  f.syswrite @tmp
-                  f.close
+                  unless FILE_TYPES[@type].nil? or @tmp.nil?
+                    f = File.open "#{@p}#{@filename}", 'wb'
+                    f.syswrite @tmp
+                    f.close
+                  end
+                
+                  @files[@name] = {:filename => @filename, :type => FILE_TYPES[@type], :path => @p, :file_type => @type}
                 end
-                
-                @files[@name] = {:filename => @filename, :type => FILE_TYPES[@type], :path => @p, :file_type => @type}
                 @filename =  nil
                 @body = []
               end
@@ -85,17 +87,19 @@ module Shada
               if @type == 'form-data'
                 @form_fields[@name] = @tmp
               else
-                ext = @filename.split('.').pop
-                @filename.gsub!(".#{ext}", '')
-                @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}-#{Time.now.to_i}.#{ext.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}"
+                unless @filename.nil?
+                  ext = @filename.split('.').pop
+                  @filename.gsub!(".#{ext}", '')
+                  @filename = "#{@filename.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}-#{Time.now.to_i}.#{ext.gsub(/[\s]+/, '_').gsub(/[\W]+/, '').downcase}"
                 
-                unless FILE_TYPES[@type].nil? or @tmp.nil?
-                  f = File.open "#{@p}#{@filename}", 'wb'
-                  f.syswrite @tmp
-                  f.close
+                  unless FILE_TYPES[@type].nil? or @tmp.nil?
+                    f = File.open "#{@p}#{@filename}", 'wb'
+                    f.syswrite @tmp
+                    f.close
+                  end
+                
+                  @files[@name] = {:filename => @filename, :type => FILE_TYPES[@type], :path => @p, :file_type => @type}
                 end
-                
-                @files[@name] = {:filename => @filename, :type => FILE_TYPES[@type], :path => @p, :file_type => @type}
                 @filename =  nil
                 @body = []
               end
