@@ -8,6 +8,7 @@ module Shada
         File.open("#{@dir}#{file_name}","wb") do |file|
            Marshal::dump(obj,file)
         end
+        FileUtils.chmod 0777, "#{@dir}#{file_name}"
       end
       
       def flush file_name, dir=""
