@@ -218,7 +218,7 @@ module Shada
         @update = true
         @limit = @limit > 0 ? @limit : 0
         
-        updated =  get_lastupdate.to_i > @last_update.to_i ? true : false;
+        updated =  get_lastupdate(table).to_i > @last_update.to_i ? true : false;
         
         k = "#{table}-#{params.to_s}-#{sort}-#{@limit}-#{@offset}"
         
