@@ -93,33 +93,34 @@ module Shada
         end
         
         def connect hash
-          @dont_setup = hash[:dont_setup] || false
-          @@internals[get_table] = {}
-          @@internals[get_table][:config] = hash
-          @@internals[get_table][:db] = hash[:database]
-          adapter = hash[:adapter] || 'mysql'
-          
-          if Shada::Config['MySQLDB'] && adapter == 'mysql'
-            hash[:host] = Shada::Config['MySQLDB']
-          else
-            hash[:host] = hash[:host] || 'localhost'
-          end
-          
-          if Shada::Config['MySQLDB_User'] && adapter == 'mysql'
-            hash[:username] = Shada::Config['MySQLDB_User']
-          else
-            hash[:username] = hash[:username] || 'root'
-          end
-          
-          if Shada::Config['MySQLDB_Password'] && adapter == 'mysql'
-            hash[:password] = Shada::Config['MySQLDB_Password']
-          else
-            hash[:password] = hash[:password] || ''
-          end
-          
-          hash[:table] = get_table
-
-          case adapter
+          unless @@inernals.include?(get_table)
+            @dont_setup = hash[:dont_setup] || false
+            @@internals[get_table] = {}
+            @@internals[get_table][:config] = hash
+            @@internals[get_table][:db] = hash[:database]
+            adapter = hash[:adapter] || 'mysql'
+            
+            if Shada::Config['MySQLDB'] && adapter == 'mysql'
+              hash[:host] = Shada::Config['MySQLDB']
+            else
+              hash[:host] = hash[:host] || 'localhost'
+            end
+            
+            if Shada::Config['MySQLDB_User'] && adapter == 'mysql'
+              hash[:username] = Shada::Config['MySQLDB_User']
+            else
+              hash[:username] = hash[:username] || 'root'
+            end
+            
+            if Shada::Config['MySQLDB_Password'] && adapter == 'mysql'
+              hash[:password] = Shada::Config['MySQLDB_Password']
+            else
+              hash[:password] = hash[:password] || ''
+            end
+            
+            hash[:table] = get_table
+            
+            case adapter
             when nil
               raise "Adapter Not Specified"
             when "mysql"
@@ -133,11 +134,12 @@ module Shada
               conn.connect hash[:database]
             else
               raise "Unknown Error"
+            end
+            
+            @@internals[get_table][:connection] ||= conn
+            
+            setup get_table
           end
-          
-          @@internals[get_table][:connection] = conn
-          
-          setup get_table
         end 
 
         def setup table
