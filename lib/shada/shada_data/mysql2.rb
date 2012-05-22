@@ -218,7 +218,7 @@ module Shada
         @update = true
         @limit = @limit > 0 ? @limit : 0
         
-        updated =  get_lastupdate > @last_update ? true : false;
+        #updated =  get_lastupdate > @last_update ? true : false;
         
         k = "#{table}-#{params.to_s}-#{sort}-#{@limit}-#{@offset}"
         
@@ -226,7 +226,7 @@ module Shada
           result = get_connection.find table, '*', params, sort, @limit, @offset, self
           #kresult = get_connection.find table, 'id', params, sort
           result = result.to_a
-          flush_cache table unless not updated
+          #flush_cache table unless not updated
           cache.store k.to_s, {:result => result.to_a} #, :ids => get_ids(kresult)
         else
           result = cache.pull(k.to_s)[:result]
