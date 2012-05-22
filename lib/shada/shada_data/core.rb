@@ -42,7 +42,7 @@ module Shada
         @table.gsub!("model", "") unless /.*model/i.match(@table).nil?
         select_adapter
         @primary = get_primary @table
-        #@last_update = get_lastupdate @table
+        @last_update = get_lastupdate @table
         @primary_sym = @primary.to_sym
         @fields = get_fields @table
         @added_fields = []
