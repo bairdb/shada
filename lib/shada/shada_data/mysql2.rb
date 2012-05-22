@@ -225,7 +225,7 @@ module Shada
         unless cache.pull k.to_s
           result = get_connection.find table, '*', params, sort, @limit, @offset, self
           result = result.to_a
-          cache.store k.to_s, {:result => result.to_a, :added => DateTime.new}
+          cache.store k.to_s, {:result => result.to_a, :added => DateTime.now}
           save_cache table, cache
         else
           puts "#{last_update.to_i} - #{cache.pull(k.to_s)[:added].to_i}"
@@ -235,7 +235,7 @@ module Shada
           else
             result = get_connection.find table, '*', params, sort, @limit, @offset, self
             result = result.to_a
-            cache.store k.to_s, {:result => result.to_a, :added => DateTime.new}
+            cache.store k.to_s, {:result => result.to_a, :added => DateTime.now}
             save_cache table, cache  
           end
         end

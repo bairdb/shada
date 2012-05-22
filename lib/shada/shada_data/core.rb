@@ -271,7 +271,7 @@ module Shada
       end
       
       def set_last_update time=""
-        time = time.nil? ? DateTime.new : time
+        time = time.nil? ? DateTime.now : time
         @@internals[@table][:last_update] = time
       end
       
