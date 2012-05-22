@@ -32,7 +32,6 @@ module Shada
       
       def get_lastupdate table=""
         result = get_connection.get_lastupdate db, @table
-        puts "Update Time: #{result}"
         result         
       end
       
