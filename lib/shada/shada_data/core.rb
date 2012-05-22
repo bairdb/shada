@@ -265,7 +265,15 @@ module Shada
       def db
         @@internals[@table][:db]
       end
-
+      
+      def last_update
+        @@internals[@table][:last_update]
+      end
+      
+      def set_last_update 
+        @@internals[@table][:last_update] = DateTime.new
+      end
+      
       def save_cache table, cache
         @@internals[@table][:cache] = cache
         Core::persist "cache_#{table}.tmp", cache, Shada::Config['CacheDir']

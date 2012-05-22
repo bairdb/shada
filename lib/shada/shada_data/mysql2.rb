@@ -32,7 +32,7 @@ module Shada
       
       def get_lastupdate table=""
         result = get_connection.get_lastupdate db, @table
-        result         
+        DateTime.parse result         
       end
       
       def get_timestamp table
@@ -222,21 +222,24 @@ module Shada
         
         k = "#{table}-#{params.to_s}-#{sort}-#{@limit}-#{@offset}"
         
-        unless cache.pull k.to_s or updated
+        unless cache.pull k.to_s
           result = get_connection.find table, '*', params, sort, @limit, @offset, self
-          #kresult = get_connection.find table, 'id', params, sort
           result = result.to_a
-          #flush_cache table unless not updated
-          cache.store k.to_s, {:result => result.to_a} #, :ids => get_ids(kresult)
+          cache.store k.to_s, {:result => result.to_a, :added => DateTime.new}
+          save_cache table, cache
         else
-          result = cache.pull(k.to_s)[:result]
-          result = result.to_a
-          #puts cache.pull(params)[:ids]
+          if last_update.to_i < cache.pull(k.to_s)[:added].to_i
+            result = cache.pull(k.to_s)[:result]
+            result = result.to_a
+          else
+            result = get_connection.find table, '*', params, sort, @limit, @offset, self
+            result = result.to_a
+            cache.store k.to_s, {:result => result.to_a, :added => DateTime.new}
+            save_cache table, cache  
+          end
         end
         
-        save_cache table, cache
-        #result = get_connection.find table, '*', params, sort, @limit, @offset, self
-        
+        #result = get_connection.find table, '*', params, sort, @limit, @offset, self        
         
         begin
           case result.count
@@ -360,6 +363,7 @@ module Shada
         puts "#{table} - #{keys} - #{values}"
         ret = get_connection.insert table, keys, values
         flush_cache table
+        set_last_update
         @saving = false
         self
       end
@@ -383,6 +387,7 @@ module Shada
         end
         get_connection.update table, fields, primary_value, @primary
         flush_cache table
+        set_last_update
         @saving = false
         self
       end
@@ -393,6 +398,7 @@ module Shada
         primary_value = instance_variable_get("@#{@primary}")
         get_connection.destroy table, primary_value, @primary
         flush_cache table
+        set_last_update
         self
       end
       
@@ -407,6 +413,7 @@ module Shada
         
         instance_variable_set("@#{valid_name}", val)
         flush_cache table
+        set_last_update
         puts "Creating Column with #{instance_variable_get("@#{valid_name}")}"
         
       end
