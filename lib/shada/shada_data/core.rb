@@ -42,7 +42,7 @@ module Shada
         @table.gsub!("model", "") unless /.*model/i.match(@table).nil?
         select_adapter
         @primary = get_primary @table
-        #@last_update = get_lastupdate @table
+        set_last_update(get_lastupdate(@table))
         @primary_sym = @primary.to_sym
         @fields = get_fields @table
         @added_fields = []
@@ -270,8 +270,9 @@ module Shada
         @@internals[@table][:last_update]
       end
       
-      def set_last_update 
-        @@internals[@table][:last_update] = DateTime.new
+      def set_last_update time=""
+        time = time.nil? ? DateTime.new : time
+        @@internals[@table][:last_update] = time
       end
       
       def save_cache table, cache
