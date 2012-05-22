@@ -20,7 +20,6 @@ module Shada
           
           unless cache.pull k.to_s
             result = get_connection.get_primary db, table
-            result = result.to_a
             cache.store k.to_s, {:result => result, :added => DateTime.now}
             save_cache table, cache
           else
