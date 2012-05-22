@@ -267,7 +267,7 @@ module Shada
       end
       
       def last_update
-        @@internals[@table][:last_update]
+        get_lastupdate(@table)
       end
       
       def set_last_update time=""
