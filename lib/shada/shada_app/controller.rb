@@ -124,6 +124,12 @@ module Shada
       end
     end
     
+    def cachebreak
+      r = Random.new
+      num = r.rand(1...100000)
+      "#{num}"
+    end
+    
     def load_common templator
     end
     
