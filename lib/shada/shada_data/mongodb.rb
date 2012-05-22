@@ -13,7 +13,11 @@ module Shada
       def get_primary table
         get_connection.get_primary
       end
-
+      
+      def get_lastupdate table
+        ""
+      end
+      
       def get_fields table
         get_connection.get_fields(table)
       end

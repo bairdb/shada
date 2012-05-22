@@ -13,7 +13,7 @@ module Shada
       module ClassMethods
 
       end
-
+      
       def get_primary table
         if @primary.nil?
           k = "#{db}-#{table}-primary"
@@ -30,13 +30,18 @@ module Shada
         end
       end
       
+      def get_lastupdate table
+        result = get_connection.get_lastupdate db, table
+        result         
+      end
+      
       def get_timestamp table
         if @timestamp.nil?
           result = get_connection.get_timestamp db, table
           result          
         end
       end
-
+      
       def get_fields table
         k = "#{table}-fields"
           
@@ -213,12 +218,15 @@ module Shada
         @update = true
         @limit = @limit > 0 ? @limit : 0
         
+        updated =  get_lastupdate > @last_update ? true : false;
+        
         k = "#{table}-#{params.to_s}-#{sort}-#{@limit}-#{@offset}"
         
-        if not cache.pull k.to_s
+        if not cache.pull k.to_s or updated
           result = get_connection.find table, '*', params, sort, @limit, @offset, self
           #kresult = get_connection.find table, 'id', params, sort
           result = result.to_a
+          flush_cache table
           cache.store k.to_s, {:result => result.to_a} #, :ids => get_ids(kresult)
         else
           result = cache.pull(k.to_s)[:result]

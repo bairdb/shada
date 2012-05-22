@@ -17,6 +17,10 @@ module Shada
         get_connection.get_primary db, table
       end
 
+      def get_lastupdate table
+        ""
+      end
+      
       def get_fields table
         get_connection.get_fields table
       end

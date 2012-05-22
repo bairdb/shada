@@ -102,6 +102,15 @@ module Shada
         end
       end
       
+      def get_lastupdate db, table
+        result = query("SELECT * FROM `information_schema`.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA=? AND TABLE_NAME=?", [db, table])
+        begin
+          result.first[:UPDATE_TIME]
+        rescue => e
+          ''
+        end
+      end
+      
       def get_timestamp db, table
         result = query("SELECT * FROM `information_schema`.COLUMNS WHERE TABLE_SCHEMA=? AND TABLE_NAME=? AND DATA_TYPE='timestamp'", [db, table])
         begin
