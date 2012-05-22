@@ -93,7 +93,7 @@ module Shada
         end
         
         def connect hash
-          unless @@inernals.include?(get_table)
+          unless @@internals.include?(get_table)
             @dont_setup = hash[:dont_setup] || false
             @@internals[get_table] = {}
             @@internals[get_table][:config] = hash
