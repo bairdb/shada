@@ -32,7 +32,7 @@ module Shada
       
       def get_lastupdate table=""
         result = get_connection.get_lastupdate db, @table
-        DateTime.parse result         
+        result         
       end
       
       def get_timestamp table
