@@ -103,7 +103,7 @@ module Shada
       end
       
       def get_lastupdate db, table
-        result = query("SELECT * FROM `information_schema`.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA=? AND TABLE_NAME=?", [db, table])
+        result = query("SELECT * FROM `information_schema`.TABLES WHERE TABLE_SCHEMA=? AND TABLE_NAME=?", [db, table])
         p result.first
         begin
           result.first[:UPDATE_TIME]
