@@ -228,11 +228,12 @@ module Shada
           cache.store k.to_s, {:result => result.to_a, :added => DateTime.now}
           save_cache table, cache
         else
-          puts "#{last_update.to_i} - #{cache.pull(k.to_s)[:added].to_i}"
           if last_update.to_i < cache.pull(k.to_s)[:added].to_i
+            puts "pulled from cache"
             result = cache.pull(k.to_s)[:result]
             result = result.to_a
           else
+            puts "pulled from db"
             result = get_connection.find table, '*', params, sort, @limit, @offset, self
             result = result.to_a
             cache.store k.to_s, {:result => result.to_a, :added => DateTime.now}
