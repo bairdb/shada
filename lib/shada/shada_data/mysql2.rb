@@ -30,8 +30,8 @@ module Shada
         end
       end
       
-      def get_lastupdate table
-        result = get_connection.get_lastupdate db, table
+      def get_lastupdate table=""
+        result = get_connection.get_lastupdate db, @table
         result         
       end
       
