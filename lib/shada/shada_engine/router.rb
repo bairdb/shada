@@ -65,6 +65,7 @@ module Shada
           
           @controller.error_page
         else
+          log_error msg
           puts msg
           @controller.error_page msg unless @controller.nil?
         end
