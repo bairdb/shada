@@ -41,7 +41,7 @@ module Shada
           #  result = cache.pull(k.to_s)[:result]
           #end
           
-          save_cache table, cache
+          #save_cache table, cache
           result         
         end
       end

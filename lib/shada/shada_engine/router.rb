@@ -3,9 +3,13 @@ module Shada
     def route path
       begin
         unless path.is_a?(Hash)
-          path_arr = path.split '/' unless path.nil?
-        
-          @rest_of_path = path_arr.dup || []
+          begin
+            path_arr = path.split '/'
+            @rest_of_path = path_arr.dup || []
+          rescue => e
+            path_arr = []
+            @rest_of_path = []
+          end
           @i = 0
           
           puts path
