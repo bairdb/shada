@@ -52,7 +52,8 @@ module Shada
           @controller.rest_of_path = rest
           @controller.route
         else
-          route path
+          #route ""
+          ""
         end
       rescue => e
         msg = "#{e.message} - #{e.backtrace[0]}"

@@ -103,7 +103,7 @@ MESSAGE_END
       imap = Net::IMAP.new 'secure.emailsrvr.com', 993, true
       imap.login 'uploads@reelfinatics.com', 'T1meLo4d!'
       imap.select 'INBOX'
-      imap.search(["NOT",  "DELETED"]).each do |message_id|
+      imap.search(["FROM", "mail@reelfinatics.com", "NOT", "DELETED"]).each do |message_id|
         puts message_id
       end
       imap.logout
