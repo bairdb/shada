@@ -24,10 +24,10 @@ module Shada
             save_cache table, cache
           else
             if last_update.to_i < cache.pull(k.to_s)[:added].to_i
-              puts "pulled from cache"
+              #puts "pulled from cache"
               result = cache.pull(k.to_s)[:result]
             else
-              puts "pulled from db"
+              #puts "pulled from db"
               result = get_connection.get_primary db, table
               cache.store k.to_s, {:result => result, :added => DateTime.now}
               save_cache table, cache  
@@ -68,11 +68,11 @@ module Shada
           save_cache table, cache
         else
           if last_update.to_i < cache.pull(k.to_s)[:added].to_i
-            puts "pulled from cache"
+            #puts "pulled from cache"
             result = cache.pull(k.to_s)[:result]
             result = result.to_a
           else
-            puts "pulled from db"
+            #puts "pulled from db"
             result = get_connection.get_fields(table)
             result = result.to_a
             cache.store k.to_s, {:result => result.to_a, :added => DateTime.now}
@@ -135,11 +135,11 @@ module Shada
             save_cache table, cache
           else
             if last_update.to_i < cache.pull(k.to_s)[:added].to_i
-              puts "pulled from cache"
+              #puts "pulled from cache"
               result = cache.pull(k.to_s)[:result]
               result = result.to_a
             else
-              puts "pulled from db"
+              #puts "pulled from db"
               result = get_connection.filter_geo table, coords, distance, limit
               result = result.to_a
               cache.store k.to_s, {:result => result.to_a, :added => DateTime.now}
@@ -197,11 +197,11 @@ module Shada
           save_cache table, cache
         else
           if last_update.to_i < cache.pull(k.to_s)[:added].to_i
-            puts "pulled from cache"
+            #puts "pulled from cache"
             result = cache.pull(k.to_s)[:result]
             result = result.to_a
           else
-            puts "pulled from db"
+            #puts "pulled from db"
             result = get_connection.search table, fields, keyword, filter, @limit, @offset
             result = result.to_a
             cache.store k.to_s, {:result => result.to_a, :added => DateTime.now}
@@ -251,11 +251,11 @@ module Shada
           save_cache table, cache
         else
           if last_update.to_i < cache.pull(k.to_s)[:added].to_i
-            puts "pulled from cache"
+            #puts "pulled from cache"
             result = cache.pull(k.to_s)[:result]
             result = result.to_a
           else
-            puts "pulled from db"
+            #puts "pulled from db"
             result = get_connection.find table, fields, params, sort, @limit, @offset, self
             result = result.to_a
             cache.store k.to_s, {:result => result.to_a, :added => DateTime.now}
@@ -320,11 +320,11 @@ module Shada
           save_cache table, cache
         else
           if last_update.to_i < cache.pull(k.to_s)[:added].to_i
-            puts "pulled from cache"
+            #puts "pulled from cache"
             result = cache.pull(k.to_s)[:result]
             result = result.to_a
           else
-            puts "pulled from db"
+            #puts "pulled from db"
             result = get_connection.find table, '*', params, sort, @limit, @offset, self
             result = result.to_a
             cache.store k.to_s, {:result => result.to_a, :added => DateTime.now}
