@@ -372,24 +372,24 @@ module Shada
         @limit = @limit > 0 ? @limit : 0
         k = "#{query}-#{params}-#{@limit}-#{@offset}"
         
-        unless cache.pull k.to_s
-          result = get_connection.fquery query, params, @limit, @offset, self
-          result = result.to_a
-          cache.store k.to_s, {:result => result.to_a, :added => DateTime.now}
-          save_cache table, cache
-        else
-          if last_update.to_i < cache.pull(k.to_s)[:added].to_i
-            puts "pulled from cache"
-            result = cache.pull(k.to_s)[:result]
-            result = result.to_a
-          else
-            puts "pulled from db"
-            result = get_connection.fquery query, params, @limit, @offset, self
-            result = result.to_a
-            cache.store k.to_s, {:result => result.to_a, :added => DateTime.now}
-            save_cache table, cache  
-          end
-        end
+        #unless cache.pull k.to_s
+        #  result = get_connection.fquery query, params, @limit, @offset, self
+        #  result = result.to_a
+        #  cache.store k.to_s, {:result => result.to_a, :added => DateTime.now}
+        #  save_cache table, cache
+        #else
+        #  if last_update.to_i < cache.pull(k.to_s)[:added].to_i
+        #    puts "pulled from cache"
+        #    result = cache.pull(k.to_s)[:result]
+        #    result = result.to_a
+        #  else
+        #    puts "pulled from db"
+        #    result = get_connection.fquery query, params, @limit, @offset, self
+        #    result = result.to_a
+        #    cache.store k.to_s, {:result => result.to_a, :added => DateTime.now}
+        #    save_cache table, cache  
+        #  end
+        #end
         
 #        if not cache.pull k.to_s
 #          result = get_connection.fquery query, params, @limit, @offset, self
@@ -404,6 +404,8 @@ module Shada
 #        save_cache table, cache
         #result = get_connection.find table, '*', params, sort, @limit, @offset, self
         
+        result = get_connection.fquery query, params, @limit, @offset, self
+        result = result.to_a
         
         begin
           case result.count
