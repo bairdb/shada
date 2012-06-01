@@ -148,7 +148,6 @@ module Shada
             set_header key.chomp.to_sym, val, type
           end 
         rescue => e
-          puts e.message
         end
       end
       
