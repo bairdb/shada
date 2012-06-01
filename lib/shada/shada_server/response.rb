@@ -80,13 +80,14 @@ module Shada
     end
     
     def should_close
-      if @headers['connection'] == 'close'
-        true
-      elsif @headers['VERSION'] == 'HTTP/1.0'
-         true
-      else
-        false
-      end
+      #if @headers['connection'] == 'close'
+      #  true
+      #elsif @headers['VERSION'] == 'HTTP/1.0'
+      #   true
+      #else
+      #  false
+      #end
+      true
     end
     
     private
