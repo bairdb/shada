@@ -70,7 +70,7 @@ module Shada
         @form.parse_headers @headers, @body
         
         if @connection.is_disconnect(@headers)
-          on_disconnect
+          puts "disconnect"
           response = :next
         else
           response = handle @request
