@@ -72,9 +72,9 @@ module Shada
         if @connection.is_disconnect(@headers)
           puts "disconnect"
           response = :next
-        else
-          response = handle @request
-        end       
+        end 
+        
+        response = handle @request
         
         unless response == :next
           @connection.reply_http @request, response, @form.status_code, @form.status, @form.response_headers 
