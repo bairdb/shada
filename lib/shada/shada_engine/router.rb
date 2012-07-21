@@ -12,17 +12,8 @@ module Shada
           end
           @i = 0
           
-          puts path
-          
           username = @form.get_cookie(:username)
           uname = nil
-          
-          activity = nil
-          activity = Shada::Activity.new
-          activity.user = username || 'guest'
-          activity.page = path.to_s
-          activity.date_accessed = "#{DateTime.now}"
-          activity.save
           
           reload Shada::Config['ControllerPath']
           reload Shada::Config['ModelPath']
@@ -39,7 +30,6 @@ module Shada
           end
           
           @controller = Object.const_get(controller).new
-          #puts "Adding: #{@form.post}"
           @controller.form = @form
           @controller.user = uname
           @controller.path = path

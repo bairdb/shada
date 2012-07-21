@@ -313,24 +313,24 @@ module Shada
         
         k = "#{table}-#{params.to_s}-#{sort}-#{@limit}-#{@offset}"
         
-        unless cache.pull k.to_s
-          result = get_connection.find table, '*', params, sort, @limit, @offset, self
-          result = result.to_a
-          cache.store k.to_s, {:result => result.to_a, :added => DateTime.now}
-          save_cache table, cache
-        else
-          if last_update.to_i < cache.pull(k.to_s)[:added].to_i
+        #unless cache.pull k.to_s
+        result = get_connection.find table, '*', params, sort, @limit, @offset, self
+        result = result.to_a
+          #cache.store k.to_s, {:result => result.to_a, :added => DateTime.now}
+          #save_cache table, cache
+        #else
+        #  if last_update.to_i < cache.pull(k.to_s)[:added].to_i
             #puts "pulled from cache"
-            result = cache.pull(k.to_s)[:result]
-            result = result.to_a
-          else
+        #    result = cache.pull(k.to_s)[:result]
+        #    result = result.to_a
+        #  else
             #puts "pulled from db"
-            result = get_connection.find table, '*', params, sort, @limit, @offset, self
-            result = result.to_a
-            cache.store k.to_s, {:result => result.to_a, :added => DateTime.now}
-            save_cache table, cache  
-          end
-        end
+        #    result = get_connection.find table, '*', params, sort, @limit, @offset, self
+        #    result = result.to_a
+        #    cache.store k.to_s, {:result => result.to_a, :added => DateTime.now}
+        #    save_cache table, cache  
+        #  end
+        #end
         
         #result = get_connection.find table, '*', params, sort, @limit, @offset, self        
         
